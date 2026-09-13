@@ -219,6 +219,7 @@ export const HeroBasic = ({
                   alt="Hero image"
                   width={imageWidth}
                   height={imageHeight}
+                  priority={true}
                   className={imageClassName}
                 />
               </div>

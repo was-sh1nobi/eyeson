@@ -70,14 +70,14 @@ const aboutShowcaseSecondRow = [
 
 <div class="relative bg-[#000E17]">
   <HomeBackground />
-  <Hero client:load />
+  <Hero />
   <OrbitSystem
     orbits={orbits}
     content={content}
     width="1000px"
     height="1000px"
     animations={true}
-    client:load
+    client:visible
   />
   <Communication client:visible />
   <ToolsComponent client:visible />

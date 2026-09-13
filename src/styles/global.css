@@ -13,28 +13,6 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.025em;
 }
 
-/* Landing-page font themes — opt-in per page: <html data-font-theme="sora|grotesk|outfit"> */
-html[data-font-theme="sora"] body,
-html[data-font-theme="sora"] h1, html[data-font-theme="sora"] h2,
-html[data-font-theme="sora"] h3, html[data-font-theme="sora"] h4,
-html[data-font-theme="sora"] h5, html[data-font-theme="sora"] h6 {
-  font-family: var(--font-theme-sora);
-}
-
-html[data-font-theme="grotesk"] body,
-html[data-font-theme="grotesk"] h1, html[data-font-theme="grotesk"] h2,
-html[data-font-theme="grotesk"] h3, html[data-font-theme="grotesk"] h4,
-html[data-font-theme="grotesk"] h5, html[data-font-theme="grotesk"] h6 {
-  font-family: var(--font-theme-grotesk);
-}
-
-html[data-font-theme="outfit"] body,
-html[data-font-theme="outfit"] h1, html[data-font-theme="outfit"] h2,
-html[data-font-theme="outfit"] h3, html[data-font-theme="outfit"] h4,
-html[data-font-theme="outfit"] h5, html[data-font-theme="outfit"] h6 {
-  font-family: var(--font-theme-outfit);
-}
-
 /* ============ Micro-interaction primitives (landing pages) ============ */
 /* Scroll reveal: add .reveal-on-scroll (+ optional data-reveal-delay="ms") */
 .reveal-on-scroll {

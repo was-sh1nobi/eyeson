@@ -60,10 +60,10 @@ const orbits: OrbitConfig[] = [
 
 <div class="relative flex flex-col gap-3 items-stretch">
   <HomeBackground/>
-  <HeroHome client:load />
+  <HeroHome client:idle />
   <LogoCaro tagline=""/>
   <CreativeDirections  />
-  <OrbitSystem orbits={orbits} content={content} width="1000px" height="1000px" animations={true} client:load/>
+  <OrbitSystem orbits={orbits} content={content} width="1000px" height="1000px" animations={true} client:visible/>
   <HomeServicesSection client:visible />
   <VideoWorkShowcaseSection client:visible />
   <WhyChooseUs />

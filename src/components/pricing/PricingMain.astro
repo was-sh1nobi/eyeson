@@ -18,9 +18,9 @@ import EndCard from "./components/EndCard.astro";
 
 <div class="relative overflow-x-clip  ">
     <HomeBackground />
-    <PricingHero client:load/>
+    <PricingHero client:idle/>
     <MoneyCards client:idle/>
-    <ConversionScroll client:idle/>
+    <ConversionScroll client:visible/>
     <DesignCard />
 
     <QandASection />

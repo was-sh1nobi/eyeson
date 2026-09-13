@@ -15,8 +15,7 @@ export interface Props {
   datePublished?: string;
   dateModified?: string;
   articleSection?: string;
-  /** Landing-page font identity: "sora" | "grotesk" | "outfit" */
-  fontTheme?: "sora" | "grotesk" | "outfit";
+  heroImage?: string;
 }
 
 const {
@@ -31,7 +30,7 @@ const {
   datePublished,
   dateModified,
   articleSection,
-  fontTheme,
+  heroImage,
 } = Astro.props as Props;
 
 const defaultTitle = () => {
@@ -52,9 +51,14 @@ const deploymentHost = process.env.VERCEL_URL || Astro.url.host;
 const origin = `${Astro.url.protocol}//${deploymentHost}`;
 const absoluteOgImage = ogImage?.startsWith("http") ? ogImage : new URL(ogImage, origin).href;
 const resolvedCanonical = canonicalUrl ?? `${origin}${Astro.url.pathname}`;
+const heroImageType = heroImage?.endsWith(".svg")
+  ? "image/svg+xml"
+  : heroImage?.endsWith(".jpg") || heroImage?.endsWith(".jpeg")
+    ? "image/jpeg"
+    : "image/webp";
 ---
 
-<html lang={lang} data-font-theme={fontTheme}>
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -65,7 +69,7 @@ const resolvedCanonical = canonicalUrl ?? `${origin}${Astro.url.pathname}`;
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/webp" href="/logo.webp" />
 
-    <!-- Fonts: only Plus Jakarta + Inter variable (Sora/Grotesk/Outfit load per-page when needed) -->
+    <!-- Fonts: shared site identity only -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -112,7 +116,7 @@ const resolvedCanonical = canonicalUrl ?? `${origin}${Astro.url.pathname}`;
     </script>
     <link rel="canonical" href={resolvedCanonical} />
     {robots && <meta name="robots" content={robots} />}
-    {Astro.url.pathname === "/" && <link rel="preload" as="image" type="image/webp" href="/home/VideoElements/20/mother.webp" fetchpriority="high" />}
+    {heroImage && <link rel="preload" as="image" type={heroImageType} href={heroImage} fetchpriority="high" />}
 
     <meta property="og:type" content={ogType} />
     <meta property="og:title" content={finalTitle} />

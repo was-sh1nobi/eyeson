@@ -85,7 +85,7 @@ export const MegaMenu = () => {
                                     className="relative h-12 w-12 shrink-0 overflow-hidden rounded-xl border border-white/10 bg-[#04131b]"
                                     style={{ boxShadow: `0 0 0 1px ${card.accent}22` }}
                                 >
-                                    <img src={card.image} alt={card.title} className="h-full w-full object-cover" />
+                                    <img src={card.image} alt={card.title} loading="lazy" decoding="async" width={48} height={48} className="h-full w-full object-cover" />
                                     <div className="absolute inset-0 bg-gradient-to-br from-black/10 via-transparent to-transparent" />
                                 </div>
                                 <div className="min-w-0">

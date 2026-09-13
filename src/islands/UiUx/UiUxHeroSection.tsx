@@ -19,7 +19,7 @@ export default function UiUxHeroSection() {
         {/* ستون راست (تصاویر): در موبایل می‌آید بالا (order-1) */}
         {/* ========================================== */}
         <div className="order-1 lg:order-2 relative w-full sm:w-[85%] md:w-[75%] lg:w-7/13 flex lg:left-10 xl:left-30 justify-center mt-6 lg:mt-0">
-          <img src="/uiux/RightElement/22.webp" alt="" className="scale-[1.2]"/>
+          <img src="/uiux/RightElement/22.webp" alt="" loading="eager" fetchpriority="high" className="scale-[1.2]"/>
         </div>
 
         {/* ========================================== */}

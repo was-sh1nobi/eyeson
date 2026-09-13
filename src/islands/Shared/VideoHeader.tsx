@@ -168,6 +168,7 @@ export const VideoHeader = ({
                   alt="Video Editing Dashboard"
                   width={900}
                   height={700}
+                  priority={true}
                   className={`w-full h-auto object-contain ${imageClassName}`}
                 />
               </div>
