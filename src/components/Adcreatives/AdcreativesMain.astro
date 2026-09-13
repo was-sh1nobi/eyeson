@@ -4,7 +4,7 @@ import ContactUs from "../../islands/ContactUs";
 import UiUxNeed from "../../islands/Shared/UiUxNeed";
 import UiUxServicesSection from "../../islands/UiUx/UiUxServicesSection";
 import ApproachTimelineSection from "../../islands/Video/ApproachTimelineSection";
-import CTA from "../Shared/CTA.astro";
+import FinalCta from "@/islands/Shared/FinalCta";
 import FeaturesSection from "../Shared/FeaturesSection.astro";
 import AdCreativesSection from "./AdCreativesSection.astro";
 import AdAssetsGrid from "./AdAssetsGrid.astro";
@@ -17,7 +17,6 @@ import HomeBackground from "../Home/HomeBackground.astro";
 
 <div class="relative flex flex-col gap-3 justify-center items-between">
   <HomeBackground />
-  <AdcreativesBackground client:load/>
   <AdCreativesHero client:load/>
   <AdCreativesSection />
   <FeaturesSection
@@ -77,5 +76,14 @@ attention into measurable results."
   <ApproachTimelineSection client:visible />
   <CaseStudiesSection client:visible />
   <ContactUs client:visible />
-  <CTA />
+  <FinalCta
+    client:visible
+    kicker="READY TO START?"
+    title="Let Your Story Move People."
+    description="Tell us what you're building — we'll bring it to life with motion."
+    primaryText="Start a Motion Project"
+    primaryHref="/contact"
+    secondaryText="View Our Work"
+    secondaryHref="/portfolio"
+  />
 </div>

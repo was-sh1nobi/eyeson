@@ -1,10 +1,10 @@
 ---
 const items = [
-    "Short-Form Content",
-    "Video Editing",
-    "Monthly Retainers",
-    "Ad Creative",
-    "Content Production",
+    { label: "Short-Form Content", href: "/video" },
+    { label: "Video Editing", href: "/video" },
+    { label: "Monthly Retainers", href: "/retainers" },
+    { label: "Ad Creative", href: "/adcreatives" },
+    { label: "Content Production", href: "/portfolio" },
 ];
 ---
 
@@ -17,10 +17,13 @@ const items = [
     <ul class="flex flex-col gap-3">
 
         {items.map((item) => (
-                <li
-                        class="cursor-pointer text-white text-sm md:text-base hover:text-[#46B6A0] transition-colors duration-300"
-                >
-                    {item}
+                <li>
+                    <a
+                            href={item.href}
+                            class="cursor-pointer text-white text-sm md:text-base hover:text-[#46B6A0] transition-colors duration-300"
+                    >
+                            {item.label}
+                    </a>
                 </li>
         ))}
 

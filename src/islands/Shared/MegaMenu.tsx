@@ -66,7 +66,7 @@ export const MegaMenu = () => {
                                     active === index ? "text-[#22d7de] bg-white/5" : "text-white hover:bg-white/5"
                                 }`}
                             >
-                                <div className="text-[22px] font-semibold leading-tight">{group.title}</div>
+                                <div className="text-[20px] font-semibold leading-tight">{group.title}</div>
                             </button>
                         ))}
                     </div>
@@ -253,7 +253,7 @@ export const Header = () => {
                         <nav className="hidden lg:flex items-center gap-7">
                             <a href={MENU_ITEMS[0].path} className="text-white/90 hover:text-white transition-colors">{MENU_ITEMS[0].title}</a>
                             <div className="group relative">
-                                <a href="/video#services" className="text-white/90 hover:text-white transition-colors inline-flex items-center gap-1 py-4">
+                                <a href="#" className="text-white/90 hover:text-white transition-colors inline-flex items-center gap-1 py-4">
                                     Services <span className="text-xs transition-transform group-hover:rotate-180">▾</span>
                                 </a>
                                 <div className="pointer-events-none absolute left-1/2 top-full z-50 w-[min(1060px,calc(100vw-2rem))] -translate-x-1/2 opacity-0 translate-y-2 transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:pointer-events-auto group-focus-within:opacity-100">

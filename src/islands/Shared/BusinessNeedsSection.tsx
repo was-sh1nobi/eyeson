@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import PrimaryButton from "@/components/Shared/PrimaryButton";
+import SecondaryButton from "@/components/Shared/SecondaryButton";
 
 type InfoCard = {
   id: number;
@@ -147,21 +149,8 @@ export default function BusinessNeedsSection({
               </p>
 
               <div className="mt-7 flex flex-nowrap gap-3 md:flex-wrap md:gap-4">
-                <button className="rounded-full border-4 cursor-pointer border-[#00A9BD] bg-linear-to-r from-[#00A9BD] to-[#1D553A] px-6 py-2 text-[12px] md:text-[17px] font-semibold text-white shadow-[0_0_22px_rgba(14,224,208,0.55)] md:px-7 md:text-sm">
-                  {primaryBtnText}
-                </button>
-                <div className="relative inline-flex rounded-full p-1">
-                  <div
-                    aria-hidden
-                    className="absolute inset-0 rounded-full bg-linear-to-r from-[#056E7C] to-[#46B6A0]"
-                  />
-                  <button
-                    type="button"
-                    className="relative z-10 cursor-pointer rounded-full bg-linear-to-r from-[#00061D] to-[#0B1F2A] px-8  text-[12px] md:text-[17px] font-semibold text-white shadow-[0_0_24px_rgba(34,211,238,0.25)] md:px-10 md:text-base"
-                  >
-                    {secondaryBtnText}
-                  </button>
-                </div>
+                <PrimaryButton text={primaryBtnText} />
+                <SecondaryButton text={secondaryBtnText} />
               </div>
             </div>
 

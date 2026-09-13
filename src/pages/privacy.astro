@@ -1,0 +1,27 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+export const prerender = true;
+---
+
+<BaseLayout
+  title="Privacy Policy — EyesOn Agency"
+  description="How EyesOn Agency collects, uses, and protects your information."
+  canonicalUrl={new URL(Astro.url.pathname, 'https://eyeson.com').href}
+>
+  <section class="mx-auto max-w-3xl px-6 py-20 text-white">
+    <h1 class="text-3xl font-bold sm:text-4xl">Privacy Policy</h1>
+    <p class="mt-6 text-white/80">
+      We collect only the information needed to respond to your inquiries and provide our services.
+      This may include your name, email address, project details, and messages you submit through our forms.
+    </p>
+    <p class="mt-4 text-white/80">
+      We do not sell your personal information. We use trusted service providers only to operate this website,
+      process communications, and measure basic site performance.
+    </p>
+    <p class="mt-4 text-white/80">
+      To request access to, correction of, or deletion of your information, contact
+      <a class="text-[#00A9BD] hover:underline" href="mailto:hello@eyesonstudio.com">hello@eyesonstudio.com</a>.
+    </p>
+  </section>
+</BaseLayout>

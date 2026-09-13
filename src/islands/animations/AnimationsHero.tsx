@@ -25,6 +25,7 @@ storytelling, and a more memorable online presence."
         animationType="slide"
         SmallLabel="2D ANIMATION · 3D ANIMATION · MOTION DESIGN · VISUAL STORYTELLING"
         enableImageHover={true}
+        usePrimarySecondaryButtons={true}
         primaryBtnClassName="text-white"
         primaryBtnText="View Our Work"
 

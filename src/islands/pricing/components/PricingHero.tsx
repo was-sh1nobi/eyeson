@@ -48,7 +48,19 @@ export const PricingHero = () => {
 
   return (
     <>
-      <div className="w-full min-h-dvh flex items-center justify-center flex-col gap-10 sm:gap-20 overflow-x-hidden  pb-20 pt-20 ">
+      <div
+        className="pricing-hero-bg relative w-full min-h-dvh flex items-center justify-center flex-col gap-10 sm:gap-20 overflow-x-hidden pb-20 pt-40"
+        style={{
+          backgroundImage: "url('/aboutus.webp')",
+          backgroundSize: "contain",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          WebkitMaskImage:
+            "linear-gradient(180deg, transparent 0%, black 20%, black 80%, transparent 100%)",
+          maskImage:
+            "linear-gradient(180deg, transparent 0%, black 20%, black 80%, transparent 100%)",
+        }}
+      >
 
         {/* پس‌زمینه محو */}
         <div className="absolute bg-[#003641] w-[372px] h-[262px] top-[97px] -left-[147px] blur-[300px] pointer-events-none z-[-1]" />
@@ -371,6 +383,14 @@ We also offer special pricing and discounts for first-time clients on selected s
 
       {/* استایل برای مخفی کردن اسکرول‌بار در تمامی مرورگرها */}
       <style dangerouslySetInnerHTML={{ __html: `
+        @media (max-width: 767px) {
+          .pricing-hero-bg {
+            background-image: none !important;
+            -webkit-mask-image: none;
+            mask-image: none;
+          }
+        }
+
         .no-scrollbar::-webkit-scrollbar {
           display: none;
         }

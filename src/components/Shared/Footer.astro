@@ -17,22 +17,37 @@ import InstagramIcon from "../icons/InstagramIcon.astro";
 import YoutubeIcon from "../icons/YoutubeIcon.astro";
 
 const contentServices = [
-  "Short-Form Content",
-  "Video Editing",
-  "Monthly Retainers",
-  "Ad Creative",
-  "Content Production",
+  { label: "Short-Form Content", href: "/video" },
+  { label: "Video Editing", href: "/video" },
+  { label: "Monthly Retainers", href: "/retainers" },
+  { label: "Ad Creative", href: "/adcreatives" },
+  { label: "Content Production", href: "/portfolio" },
 ];
 
 const serviceGroups = [
   {
     title: "Design Services",
-    items: ["Motion Graphics", "Brand Identity", "UI/UX Design"],
+    items: [
+      { label: "Motion Graphics", href: "/motiongraphics" },
+      { label: "Brand Identity", href: "/branding" },
+      { label: "UI/UX Design", href: "/uiux" },
+    ],
   },
   {
     title: "Animation Services",
-    items: ["Motion Graphics", "2D/3D Animation", "Motion Design"],
+    items: [
+      { label: "Motion Graphics", href: "/motiongraphics" },
+      { label: "2D/3D Animation", href: "/animation" },
+      { label: "Motion Design", href: "/motiongraphics" },
+    ],
   },
+];
+
+const socialLinks = [
+  { label: "Instagram", href: "https://instagram.com/EyesonStudio" },
+  { label: "YouTube", href: "https://youtube.com/@EyesonStudio" },
+  { label: "Telegram", href: "https://t.me/EyesonStudio" },
+  { label: "WhatsApp", href: "/contact" },
 ];
 ---
 
@@ -114,34 +129,24 @@ const serviceGroups = [
 
         <!-- Socials -->
         <div class="mt-8 flex justify-center gap-4">
-          <a
-            href="#"
-            aria-label="Instagram"
-            class="grid h-12 w-12 place-items-center rounded-full border border-white/10 bg-white/5 text-white transition-colors duration-300 hover:text-[#E1306C]"
-          >
-            <InstagramIcon class="h-[22px] w-[22px]" size={22} />
-          </a>
-          <a
-            href="#"
-            aria-label="YouTube"
-            class="grid h-12 w-12 place-items-center rounded-full border border-white/10 bg-white/5 text-white transition-colors duration-300 hover:text-red-500"
-          >
-            <YoutubeIcon class="h-[22px] w-[22px]" size={22} />
-          </a>
-          <a
-            href="#"
-            aria-label="Telegram"
-            class="grid h-12 w-12 place-items-center rounded-full border border-white/10 bg-white/5 text-white transition-colors duration-300 hover:text-[#0088cc]"
-          >
-            <Send class="h-[22px] w-[22px]" size={22} />
-          </a>
-          <a
-            href="#"
-            aria-label="WhatsApp"
-            class="grid h-12 w-12 place-items-center rounded-full border border-white/10 bg-white/5 text-white transition-colors duration-300 hover:text-[#25D366]"
-          >
-            <MessageCircle class="h-[22px] w-[22px]" size={22} />
-          </a>
+          {socialLinks.map(({ label, href }) => (
+            <a
+              href={href}
+              aria-label={label}
+              {...href.startsWith("http") ? { target: "_blank", rel: "noreferrer" } : {}}
+              class={`grid h-12 w-12 place-items-center rounded-full border border-white/10 bg-white/5 text-white transition-colors duration-300 ${
+                label === "Instagram" ? "hover:text-[#E1306C]"
+                : label === "YouTube" ? "hover:text-red-500"
+                : label === "Telegram" ? "hover:text-[#0088cc]"
+                : "hover:text-[#25D366]"
+              }`}
+            >
+              {label === "Instagram" && <InstagramIcon class="h-[22px] w-[22px]" size={22} />}
+              {label === "YouTube" && <YoutubeIcon class="h-[22px] w-[22px]" size={22} />}
+              {label === "Telegram" && <Send class="h-[22px] w-[22px]" size={22} />}
+              {label === "WhatsApp" && <MessageCircle class="h-[22px] w-[22px]" size={22} />}
+            </a>
+          ))}
         </div>
 
         <!-- Contact -->
@@ -162,7 +167,12 @@ const serviceGroups = [
             <Mail class="h-5 w-5 text-[#46B6A0]" size={20} />
             <span>hello@eyesonstudio.com</span>
           </a>
-          <div class="flex items-start gap-3 text-center">
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Tbilisi%2C%20Georgia"
+            target="_blank"
+            rel="noreferrer"
+            class="flex items-start gap-3 text-center transition-colors duration-300 hover:text-[#46B6A0]"
+          >
             <MapPin
               class="mt-0.5 h-5 w-5 shrink-0 text-[#46B6A0]"
               size={20}
@@ -170,7 +180,7 @@ const serviceGroups = [
             <span class="max-w-[15rem]">
               Tbilisi, Georgia, Remote studio, working with clients worldwide
             </span>
-          </div>
+          </a>
         </div>
 
         <!-- Services accordion -->
@@ -187,10 +197,13 @@ const serviceGroups = [
             </summary>
             <ul class="flex flex-col gap-3 pb-5 text-sm text-white/70">
               {contentServices.map((item) => (
-                <li
-                  class="cursor-pointer transition-colors duration-300 hover:text-[#46B6A0]"
-                >
-                  {item}
+                <li>
+                  <a
+                    href={item.href}
+                    class="cursor-pointer transition-colors duration-300 hover:text-[#46B6A0]"
+                  >
+                    {item.label}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -209,10 +222,13 @@ const serviceGroups = [
               </summary>
               <ul class="flex flex-col gap-3 pb-5 text-sm text-white/70">
                 {group.items.map((item) => (
-                  <li
-                    class="cursor-pointer transition-colors duration-300 hover:text-[#46B6A0]"
-                  >
-                    {item}
+                  <li>
+                    <a
+                      href={item.href}
+                      class="cursor-pointer transition-colors duration-300 hover:text-[#46B6A0]"
+                    >
+                      {item.label}
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -236,7 +252,7 @@ const serviceGroups = [
               Privacy Policy
             </a>
             <a
-              href="#"
+              href="/privacy"
               class="transition-colors duration-300 hover:text-[#46B6A0]"
             >
               Terms of Service
@@ -280,10 +296,10 @@ const serviceGroups = [
         </h3>
 
         <div class="flex gap-6 text-xs md:text-sm text-gray-400">
-          <a href="#" class="hover:text-white transition-colors">
-            Privacy Policy
-          </a>
-          <a href="#" class="hover:text-white transition-colors">
+            <a href="/privacy" class="hover:text-white transition-colors">
+              Privacy Policy
+            </a>
+            <a href="/terms" class="hover:text-white transition-colors">
             Terms of Service
           </a>
         </div>

@@ -171,19 +171,19 @@ export default function AnimationWorkflowSection() {
                   <button
                     type="button"
                     onClick={() => setOpenId(isOpen ? 0 : item.id)}
-                    className="flex w-full items-center gap-5 px-6 py-6 sm:px-10 sm:py-7 text-left group"
+                    className="flex w-full cursor-pointer items-center gap-5 px-6 py-6 text-left transition-colors duration-300 hover:bg-white/[0.03] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#00aabf] group sm:px-10 sm:py-7"
                   >
                     {/* باکس آیکون */}
                     <div className="relative shrink-0">
                       {/* افکت نوری دور آیکون */}
                       <div className="absolute inset-0 bg-[#00aabf] blur-md opacity-20 rounded-xl" />
-                      <div className="relative flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-[#122b2e] to-[#0d1f23] border border-[#1e4444] text-[#00aabf] shadow-[inset_0_1px_12px_rgba(77,226,196,0.1)] transition-transform duration-300 group-hover:scale-105">
+                      <div className="relative flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-[#122b2e] to-[#0d1f23] border border-[#1e4444] text-[#00aabf] shadow-[inset_0_1px_12px_rgba(77,226,196,0.1)] transition-all duration-300 group-hover:scale-105 group-hover:border-[#00aabf]/60 group-hover:text-[#55d2b9] group-hover:shadow-[inset_0_1px_12px_rgba(77,226,196,0.1),0_0_24px_rgba(0,170,191,0.25)]">
                         {item.icon}
                       </div>
                     </div>
 
                     {/* تایتل */}
-                    <h3 className="text-lg sm:text-xl font-bold text-white tracking-wide">
+                    <h3 className="text-lg sm:text-xl font-bold text-white tracking-wide transition-colors duration-300 group-hover:text-[#55d2b9]">
                       {item.title}
                     </h3>
                   </button>

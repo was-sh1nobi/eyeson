@@ -84,7 +84,7 @@ export const ContactBookingSection = () => {
   };
 
   return (
-      <section className="mx-auto w-full max-w-6xl px-4 pb-20 pt-12 sm:px-6 font-sans tracking-tight animate-fade-in">
+      <section className="mx-auto w-full max-w-6xl px-4 pb-20 pt-20 sm:px-6 font-sans tracking-tight animate-fade-in">
         {/* Header Section */}
         <div className="mx-auto max-w-3xl text-center mb-12">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/20 px-4 py-1.5 text-[10px] font-medium uppercase tracking-widest text-white/80">

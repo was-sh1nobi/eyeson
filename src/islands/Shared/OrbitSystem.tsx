@@ -68,7 +68,7 @@ export const content: ContentConfig = {
       variant: "primary",
     },
     {
-      label: "Play showreels",
+      label: "Play showreel",
       onClick: () => console.log("Play showreels clicked"),
       variant: "secondary",
     },

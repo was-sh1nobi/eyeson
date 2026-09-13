@@ -154,7 +154,7 @@ export default function TestimonialsSection() {
           >
             {testimonials.map((item) => (
               <SwiperSlide key={item.id} className="h-auto flex">
-                <div className="w-full h-full transform-gpu transition-transform duration-300 hover:-translate-y-1">
+                <div className="w-full h-full transform-gpu transition-transform duration-300 ">
                   <TestimonialCard item={item} />
                 </div>
               </SwiperSlide>

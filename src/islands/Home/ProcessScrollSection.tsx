@@ -174,7 +174,7 @@ export default function ProcessScrollSection() {
             Our Creative Process
           </p>
           <h2 className="text-h2 text-white mb-4 sm:mb-6 leading-[1.12]">
-            From Idea to Results,
+            <span className="text-[#00E6D7]/90">From Idea to Results</span>,
             How We Bring Your Project to Life
           </h2>
           <p className="text-small text-white/60 lg:text-body leading-relaxed max-w-xl">

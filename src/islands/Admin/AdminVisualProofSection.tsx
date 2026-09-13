@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Edit2, Loader2, X } from "lucide-react";
 import { httpService } from "@/utils/httpService.ts";
-import axios from "axios";
 
 const SECTIONS = ["Lottie Animation Main", "UI Animation Main", "Branded Motion", "UI Animation", "Lottie Animation"];
 
@@ -93,14 +92,9 @@ export default function AdminVisualProofSection({ slug: propSlug }: Props) {
       const section = items[editingIndex].section;
       const formData = new FormData();
       formData.append("picture", file);
-      const token = typeof window !== "undefined" ? localStorage.getItem("accessToken") : "";
-      const res: any = await axios.post(
-        `${import.meta.env.PUBLIC_API_URL}/project/picture/add?slug=${slug}&section=${encodeURIComponent(section)}`,
+      const res: any = await httpService.post(
+        `/project/picture/add?slug=${slug}&section=${encodeURIComponent(section)}`,
         formData,
-        {
-          withCredentials: true,
-          headers: { Authorization: `Bearer ${token}` },
-        }
       );
       console.log("[VisualProof] POST response:", res?.data);
       const newUrl = res?.data?.filepath || res?.data?.imageUrl || res?.data?.url || URL.createObjectURL(file);

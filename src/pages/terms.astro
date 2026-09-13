@@ -1,0 +1,27 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+export const prerender = true;
+---
+
+<BaseLayout
+  title="Terms of Service — EyesOn Agency"
+  description="The terms that apply to using the EyesOn Agency website and engaging our services."
+  canonicalUrl={new URL(Astro.url.pathname, 'https://eyeson.com').href}
+>
+  <section class="mx-auto max-w-3xl px-6 py-20 text-white">
+    <h1 class="text-3xl font-bold sm:text-4xl">Terms of Service</h1>
+    <p class="mt-6 text-white/80">
+      This website is provided to introduce EyesOn Agency's creative services. Content, layouts, animations,
+      case studies, and trademarks belong to EyesOn Agency or their respective owners.
+    </p>
+    <p class="mt-4 text-white/80">
+      Project engagements are governed by the written agreement, scope, timeline, and payment terms agreed
+      with the client. Website information is not a substitute for that agreement.
+    </p>
+    <p class="mt-4 text-white/80">
+      For questions about these terms, contact
+      <a class="text-[#00A9BD] hover:underline" href="mailto:hello@eyesonstudio.com">hello@eyesonstudio.com</a>.
+    </p>
+  </section>
+</BaseLayout>

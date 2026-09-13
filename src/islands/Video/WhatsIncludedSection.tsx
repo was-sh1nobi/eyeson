@@ -56,7 +56,7 @@ export default function WhatsIncludedSection() {
         </div>
 
         <div className="grid gap-5 lg:grid-cols-2">
-          <article className="rounded-2xl bg-[#0B1F2A] p-4">
+          <article className="rounded-2xl bg-[#0B1F2A] p-10">
             <h3 className="text-3xl font-bold bg-linear-to-r from-[#46B6A0] to-[#00A9BD] bg-clip-text text-transparent">
               Hook & Attention Optimization
             </h3>
@@ -116,7 +116,7 @@ export default function WhatsIncludedSection() {
                   <div className="mb-4 inline-flex h-11 w-11 items-center bg-linear-to-br from-[#000E17] shadow-[0_0_10px_#00A9BD80] to-[#143C3E] justify-center rounded-xl border border-[#1ed7d8]/60 text-[#1ed7d8]">
                     <Icon className="h-6 w-6" />
                   </div>
-                  <h3 className="text-3xl font-bold text-white">
+                  <h3 className="text-2xl font-bold text-white">
                     {item.title}
                   </h3>
                   <p className="mt-2 text-sm leading-7 text-[#c4d6df]">

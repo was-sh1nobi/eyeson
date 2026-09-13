@@ -10,7 +10,7 @@ import { WhatIsBranding } from "../islands/branding/WhatIsBranding.tsx";
 import { ServicesSection } from "../islands/branding/ServicesSection.tsx";
 import { AssetsGallerySection } from "../islands/branding/AssetsGallerySection.tsx";
 import { WhyBrandingSection } from "../islands/branding/WhyBrandingSection";
-import CTA from "./Shared/CTA.astro";
+import FinalCta from "@/islands/Shared/FinalCta";
 
 const qas = [
   {
@@ -122,5 +122,14 @@ business growth."
   <WhyBrandingSection client:visible />
   <QandASection questions={qas}/>
   <ContactUs client:visible />
-  <CTA  />
+  <FinalCta
+    client:visible
+    kicker="READY TO START?"
+    title="Let Your Story Move People."
+    description="Tell us what you're building — we'll bring it to life with motion."
+    primaryText="Start a Motion Project"
+    primaryHref="/contact"
+    secondaryText="View Our Work"
+    secondaryHref="/portfolio"
+  />
 </div>

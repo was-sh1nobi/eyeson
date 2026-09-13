@@ -177,7 +177,7 @@ export const VideoShowreelModal = ({ isOpen, onClose, videoList = [], initialVid
           >
             <div className="w-full rounded-[24px] bg-[#0A101D]/80 backdrop-blur-3xl border border-white/15 p-3 sm:p-5 shadow-[0_0_50px_rgba(0,0,0,0.8)]">
               <div className="flex items-center justify-between mb-1 sm:mb-2 px-2">
-                <h3 className="text-white text-sm sm:text-base font-bold tracking-wide">More Showreels</h3>
+                <h3 className="text-white text-sm sm:text-base font-bold tracking-wide">More Videos</h3>
                 <button onClick={() => setShowPlaylist(false)} className="text-white/50 hover:text-[#00A9BD] text-xs sm:text-sm transition-colors uppercase tracking-wider font-semibold">
                   Close
                 </button>

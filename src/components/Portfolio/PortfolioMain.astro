@@ -8,6 +8,7 @@ import { DesignPortfolioShowcase } from "../../islands/Portfolio/DesignPortfolio
 import CustomerStoriesShowcase from "./CustomerStoriesShowcase.astro";
 import PortfolioBackground from "./PortfolioBackground.astro";
 import HomeBackground from "../Home/HomeBackground.astro";
+import ContactUs from "@/islands/ContactUs.tsx";
 ---
 
 
@@ -22,4 +23,5 @@ import HomeBackground from "../Home/HomeBackground.astro";
     <AnimationPortfolioShowcase />
     <DesignPortfolioShowcase client:visible />
     <CustomerStoriesShowcase />
+    <ContactUs client:visible />
 </div>

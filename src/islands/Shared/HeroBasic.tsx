@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import PrimaryButton from "../../components/Shared/PrimaryButton";
+import SecondaryButton from "../../components/Shared/SecondaryButton";
 import { SmartImage } from "../../utils/SmartImage.tsx";
 
 type Props = {
@@ -44,6 +46,8 @@ type Props = {
   backgroundClassName?: string;
 
   reverse?: boolean;
+
+  usePrimarySecondaryButtons?: boolean;
 
   isBranding?: boolean;
   rightComponent?: ReactNode;
@@ -96,6 +100,8 @@ export const HeroBasic = ({
   backgroundClassName = "",
 
   reverse = false,
+
+  usePrimarySecondaryButtons = false,
 
   isBranding = false,
   rightComponent = null,
@@ -152,31 +158,48 @@ export const HeroBasic = ({
             <div
               className="mt-6 flex flex-row flex-wrap justify-center gap-2 md:justify-start"
             >
-              <div
-                className={`group relative inline-flex rounded-full p-[2px] transition-transform duration-200 hover:scale-105 active:scale-95 ${primaryBtnWrapperClassName}`}
-              >
-                <div className="absolute -inset-[2px] rounded-full bg-linear-to-r from-[#45B6A0] to-[#12ACB5] shadow-[0_0_18px_#00A9BD]" />
-                <a
-                  href={primaryBtnUrl}
-                  className={`relative z-10 rounded-full px-4 py-2.5 cursor-pointer bg-linear-to-r from-[#00A9BD] to-[#1D553A] text-sm md:text-lg overflow-hidden ${primaryBtnClassName}`}
-                >
-                  <div className="absolute inset-0 -translate-x-[150%] bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-[150%] skew-x-[-20deg]" />
-                  {primaryBtnText}
-                </a>
-              </div>
+              {usePrimarySecondaryButtons ? (
+                <>
+                  <PrimaryButton
+                    text={primaryBtnText}
+                    href={primaryBtnUrl}
+                    className={primaryBtnWrapperClassName}
+                  />
+                  <SecondaryButton
+                    text={secondaryBtnText}
+                    href={secondaryBtnUrl}
+                    className={secondaryBtnWrapperClassName}
+                  />
+                </>
+              ) : (
+                <>
+                  <div
+                    className={`group relative inline-flex rounded-full p-[2px] transition-transform duration-200 hover:scale-105 active:scale-95 ${primaryBtnWrapperClassName}`}
+                  >
+                    <div className="absolute -inset-[2px] rounded-full bg-linear-to-r from-[#45B6A0] to-[#12ACB5] shadow-[0_0_18px_#00A9BD]" />
+                    <a
+                      href={primaryBtnUrl}
+                      className={`relative z-10 rounded-full px-4 py-2.5 cursor-pointer bg-linear-to-r from-[#00A9BD] to-[#1D553A] text-sm md:text-lg overflow-hidden ${primaryBtnClassName}`}
+                    >
+                      <div className="absolute inset-0 -translate-x-[150%] bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-[150%] skew-x-[-20deg]" />
+                      {primaryBtnText}
+                    </a>
+                  </div>
 
-              <div
-                className={`group relative inline-flex rounded-full p-[2px] transition-transform duration-200 hover:scale-105 active:scale-95 ${secondaryBtnWrapperClassName}`}
-              >
-                <div className="absolute -inset-[2px] rounded-full bg-linear-to-r from-[#056E7C] to-[#46B6A0] shadow-[0_0_18px_#00A9BD]" />
-                <a
-                  href={secondaryBtnUrl}
-                  className={`relative z-10 rounded-full px-4 py-2.5 bg-linear-to-r from-[#00061D] to-[#0B1F2A] cursor-pointer text-sm md:text-lg overflow-hidden ${secondaryBtnClassName}`}
-                >
-                  <div className="absolute inset-0 -translate-x-[150%] bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-[150%] skew-x-[-20deg]" />
-                  {secondaryBtnText}
-                </a>
-              </div>
+                  <div
+                    className={`group relative inline-flex rounded-full p-[2px] transition-transform duration-200 hover:scale-105 active:scale-95 ${secondaryBtnWrapperClassName}`}
+                  >
+                    <div className="absolute -inset-[2px] rounded-full bg-linear-to-r from-[#056E7C] to-[#46B6A0] shadow-[0_0_18px_#00A9BD]" />
+                    <a
+                      href={secondaryBtnUrl}
+                      className={`relative z-10 rounded-full px-4 py-2.5 bg-linear-to-r from-[#00061D] to-[#0B1F2A] cursor-pointer text-sm md:text-lg overflow-hidden ${secondaryBtnClassName}`}
+                    >
+                      <div className="absolute inset-0 -translate-x-[150%] bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-[150%] skew-x-[-20deg]" />
+                      {secondaryBtnText}
+                    </a>
+                  </div>
+                </>
+              )}
             </div>
           </div>
 

@@ -2,11 +2,19 @@
 const sections = [
     {
         title: "Design Services",
-        items: ["Motion Graphics", "Brand Identity", "UI/UX Design"],
+        items: [
+            { label: "Motion Graphics", href: "/motiongraphics" },
+            { label: "Brand Identity", href: "/branding" },
+            { label: "UI/UX Design", href: "/uiux" },
+        ],
     },
     {
         title: "Animation Services",
-        items: ["Motion Graphics", "2D/3D Animation", "Motion Design"],
+        items: [
+            { label: "Motion Graphics", href: "/motiongraphics" },
+            { label: "2D/3D Animation", href: "/animation" },
+            { label: "Motion Design", href: "/motiongraphics" },
+        ],
     },
 ];
 ---
@@ -23,9 +31,11 @@ const sections = [
                 <ul class="flex flex-col gap-2">
 
                     {section.items.map((item) => (
-                            <li class="cursor-pointer text-white text-sm md:text-base hover:text-[#46B6A0] transition-colors duration-300">
-                                {item}
-                            </li>
+                    <li>
+                        <a href={item.href} class="cursor-pointer text-white text-sm md:text-base hover:text-[#46B6A0] transition-colors duration-300">
+                            {item.label}
+                        </a>
+                    </li>
                     ))}
 
                 </ul>
