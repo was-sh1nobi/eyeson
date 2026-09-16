@@ -57,7 +57,7 @@ function CountUpStat({ target, suffix, label }: { target: number; suffix: string
 }
 
 export default function HeroHome() {
-  const [activeTab, setActiveTab] = useState("video-editing");
+  const [activeTab, setActiveTab] = useState("showreel");
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   const handleTimeUpdate = () => {
@@ -70,7 +70,7 @@ export default function HeroHome() {
 
 
       <div className="relative mx-auto max-w-[1550px] px-4 sm:px-6 lg:px-8 xl:px-12 flex flex-col items-center gap-10 lg:gap-8 xl:gap-14 lg:flex-row lg:items-center lg:justify-between">
-        
+
         {/* Right Side / Large Video Player Mockup */}
         <div className="w-full lg:w-[58%] xl:w-[60%] order-1 lg:order-2 flex justify-center">
           <RightSectionHero

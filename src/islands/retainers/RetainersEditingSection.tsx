@@ -23,10 +23,10 @@ export default function RetainersEditingSection() {
             </div>
 
             <div className="relative order-1 flex w-full max-w-full flex-col items-center gap-6 pt-0 text-center md:max-w-none md:text-left lg:order-2 lg:w-1/2 lg:pt-8 animate-slide-up">
-                <h2 className="text-[42px] font-bold leading-[1.15] text-white md:text-5xl md:leading-tight lg:text-6xl text-center">
+                <h2 className="text-[30px] font-bold leading-[1.15] text-white md:text-3xl md:leading-tight lg:text-6xl text-center">
                     Your Brand Needs More Than <span className="text-[#0fe0d2]">One Great Video.</span>
                 </h2>
-                <p className="text-[14px] leading-8 text-gray-200 md:text-xl md:leading-relaxed text-center">
+                <p className="text-lg leading-8 text-gray-200 md:text-xl md:leading-relaxed text-center">
                     One launch video is valuable.
                     But modern brands need content constantly.
                     New campaigns. Product updates. Social posts. Ads. Feature launches. Sales assets.
@@ -39,7 +39,7 @@ export default function RetainersEditingSection() {
                 <PrimaryButton
                     text="Build Your Content System"
                     href="/portfolio"
-                    width="14rem"
+                    width="19rem"
                     height="50px"
                 />
             </div>

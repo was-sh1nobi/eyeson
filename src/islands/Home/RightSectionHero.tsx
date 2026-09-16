@@ -13,7 +13,6 @@ import {
     Box,
 } from "lucide-react";
 import { SmartImage } from "@/utils/SmartImage";
-import ShowreelChooser from "./ShowreelChooser";
 
 const CATEGORIES = [
     {
@@ -54,6 +53,11 @@ const CATEGORIES = [
     },
 ];
 
+const SHOWREEL = {
+    videoUrl: "/home/showreel/showreel.mp4",
+    poster: "/home/showreel/showreel-poster.png",
+};
+
 interface RightSectionHeroProps {
     activeTab: string;
     shouldReduceMotion?: boolean | null;
@@ -68,8 +72,10 @@ export default function RightSectionHero({
     handleTimeUpdate,
     onCategoryChange,
 }: RightSectionHeroProps) {
-    const activeCategory = CATEGORIES.find((c) => c.id === activeTab) || CATEGORIES[0];
-    const activeVideo = activeCategory.videoUrl;
+    const isShowreel = activeTab === "showreel";
+    const activeCategory = CATEGORIES.find((c) => c.id === activeTab) || null;
+    const activeVideo = isShowreel ? SHOWREEL.videoUrl : (activeCategory?.videoUrl ?? SHOWREEL.videoUrl);
+    const activePoster = isShowreel ? SHOWREEL.poster : (activeCategory?.poster ?? SHOWREEL.poster);
     const containerRef = useRef<HTMLDivElement>(null);
     const [canLoadVideo, setCanLoadVideo] = useState(false);
 
@@ -98,24 +104,24 @@ export default function RightSectionHero({
     }, [activeVideo, canLoadVideo, videoRef]);
 
     const goPrev = () => {
+        if (isShowreel) {
+            onCategoryChange(CATEGORIES[CATEGORIES.length - 1].id);
+            return;
+        }
         const idx = CATEGORIES.findIndex((c) => c.id === activeTab);
         const prev = (idx - 1 + CATEGORIES.length) % CATEGORIES.length;
         onCategoryChange(CATEGORIES[prev].id);
     };
     const goNext = () => {
+        if (isShowreel) {
+            onCategoryChange(CATEGORIES[0].id);
+            return;
+        }
         const idx = CATEGORIES.findIndex((c) => c.id === activeTab);
         const next = (idx + 1) % CATEGORIES.length;
         onCategoryChange(CATEGORIES[next].id);
     };
 
-    const [isShowreelOpen, setIsShowreelOpen] = useState(false);
-    const chooserItems = CATEGORIES.map((c) => ({
-        id: c.id,
-        title: c.title,
-        thumbnail: c.poster,
-        src: c.image,
-    }));
-    const openShowreel = () => setIsShowreelOpen(true);
     useEffect(() => {
         // Lazy-load the video once it nears the viewport. If the observer or
         // matchMedia APIs are unavailable, load immediately so the video
@@ -183,7 +189,7 @@ export default function RightSectionHero({
                         key={activeTab}
                         ref={videoRef}
                         src={canLoadVideo ? activeVideo : undefined}
-                        poster={activeCategory.poster}
+                        poster={activePoster}
                         preload="metadata"
                         autoPlay
                         muted
@@ -204,21 +210,18 @@ export default function RightSectionHero({
                 </div>
             </div>
 
-            {/* Showreel button — mobile only, hidden on desktop (category bar replaces it) */}
+            {/* Showreel button — visible on all breakpoints, switches directly to showreel */}
             <button
-                onClick={openShowreel}
-                className="mt-4 inline-flex lg:hidden items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-bold text-[#071B2A] shadow-[0_8px_24px_rgba(0,0,0,0.25)] hover:bg-white/90 transition-colors cursor-pointer"
+                onClick={() => {
+                    if (activeTab !== "showreel") onCategoryChange("showreel");
+                }}
+                disabled={isShowreel}
+                aria-pressed={isShowreel}
+                className={`mt-4 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors ${isShowreel ? "bg-white/60 text-[#071B2A]/60 cursor-default" : "bg-white text-[#071B2A] hover:bg-white/90 cursor-pointer"}`}
             >
                 <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9V3z" /></svg>
                 Showreel
             </button>
-
-            <ShowreelChooser
-                isOpen={isShowreelOpen}
-                onClose={() => setIsShowreelOpen(false)}
-                items={chooserItems}
-                onSelect={(it) => onCategoryChange(String(it.id))}
-            />
 
             {/* Premium Category Bar — Desktop Only (Clean Glass Cards with Neon Accents) */}
             <div className="hidden lg:grid grid-cols-4 gap-3.5 mt-5 w-full relative z-30">
