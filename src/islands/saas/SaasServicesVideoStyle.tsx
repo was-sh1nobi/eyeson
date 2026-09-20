@@ -9,44 +9,50 @@ import { SmartImage } from "../../utils/SmartImage.tsx";
 const serviceCards = [
   {
     id: 1,
-    title: "Product Explainer Videos",
+    title: "SaaS Product Trailers",
+    smallText: "Short. Cinematic. High impact.",
     description:
-      "Turn complex product workflows into clear, engaging stories that users understand in seconds. We build demo content that breaks down barriers and drives adoption.",
+      "Fast-paced product trailers built to make your software feel exciting and premium. Perfect for landing page heroes, launches, paid campaigns, social media, investor presentations, and product announcements.",
     image: "/animation-section/video.webp",
   },
   {
     id: 2,
-    title: "Launch Campaign Creative",
+    title: "Product Explainer Videos",
+    smallText: "Make the value instantly clear.",
     description:
-      "Every launch deserves visuals that cut through. We build campaign assets for ads, landing pages, and social media designed for maximum impact.",
+      "Structured explainer videos that communicate the problem, solution, features, workflow, and benefits of your product in a clear and visually engaging way.",
     image: "/videoEditing.webp",
   },
   {
     id: 3,
-    title: "Feature Demo & Walkthroughs",
+    title: "Product Demo Videos",
+    smallText: "Show the product in action.",
     description:
-      "Showcase new features with polished demo videos that highlight value and drive adoption. Keep your audience engaged with high-quality release content.",
+      "UI-focused videos that walk viewers through real product features and workflows while keeping the experience polished, concise, and easy to follow.",
     image: "/animation-section/short-form.webp",
   },
   {
     id: 4,
-    title: "Paid Social & Ad Creative",
+    title: "Launch Videos",
+    smallText: "Make the release feel bigger.",
     description:
-      "Performance-driven creatives meticulously designed to stop the scroll and convert fleeting attention into action across all digital platforms.",
+      "High-impact launch content designed for new products, major updates, feature releases, rebrands, and announcements that need attention from day one.",
     image: "/animation-section/video.webp",
   },
   {
     id: 5,
-    title: "Brand Story & Positioning",
+    title: "AI Product Videos",
+    smallText: "Explain innovation without complexity.",
     description:
-      "Move beyond features. We craft visual narratives that communicate your mission, market fit, and the core reason why your product matters.",
+      "Product videos designed specifically for AI software, agents, automation platforms, copilots, generative products, and technical tools that need simple and compelling visual communication.",
     image: "/videoEditing.webp",
   },
   {
     id: 6,
-    title: "Ongoing Creative Partnership",
+    title: "UI Motion Showcases",
+    smallText: "Turn interfaces into experiences.",
     description:
-      "A steady pipeline of product content, campaign refreshes, and launch assets — on your cadence. We act as an extension of your marketing team.",
+      "Beautifully animated interfaces focused on interactions, workflows, features, transitions, dashboards, and product moments that make your software feel smooth and intuitive.",
     image: "/animation-section/short-form.webp",
   },
 ];
@@ -62,16 +68,15 @@ export default function SaasServicesVideoStyle() {
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto mb-14 max-w-3xl text-center">
           <p className="text-xs tracking-[0.2em] text-[#c2d3dc]">
-            WHAT WE DO
+            PRODUCT VIDEOS DESIGNED AROUND YOUR SOFTWARE, AUDIENCE, AND GROWTH STAGE
           </p>
           <h2 className="mt-4 text-4xl font-bold text-white md:text-5xl">
-            Creative Services Built for <span className="text-[#17d6d4]">SaaS, Startups, and Product Teams</span>
+            SaaS Videos Built<br />
+            <span className="text-[#17d6d4]">for Every Product Story</span>
           </h2>
           <p className="mt-6 text-sm leading-7 text-[#c6d8e2] md:text-base">
-            Different products need different creative strategies. An explainer video should clarify complex
-            workflows. A social ad needs fast pacing and strong hooks. A product launch
-            needs impact. We shape the creative style around the product, audience, and purpose of the
-            campaign, so every asset feels more natural, engaging, and effective online.
+            Different products need different types of video. We create everything from fast cinematic
+            trailers to detailed product explainers, demos, launch films, and UI-driven experiences.
           </p>
         </div>
 
@@ -113,6 +118,7 @@ export default function SaasServicesVideoStyle() {
                   </div>
                   <div className="flex flex-1 flex-col p-3 pb-4">
                     <h3 className="text-2xl font-bold text-white">{card.title}</h3>
+                    <p className="mt-2 text-sm font-medium text-[#35e4d8]">{card.smallText}</p>
                     <p className="mt-3 flex-1 text-sm leading-7 text-[#c0d3df]">
                       {card.description}
                     </p>
@@ -140,6 +146,7 @@ export default function SaasServicesVideoStyle() {
               </div>
               <div className="p-3 pb-4">
                 <h3 className="text-xl font-bold text-white">{card.title}</h3>
+                <p className="mt-2 text-sm font-medium text-[#35e4d8]">{card.smallText}</p>
                 <p className="mt-3 text-sm leading-7 text-[#c0d3df]">
                   {card.description}
                 </p>

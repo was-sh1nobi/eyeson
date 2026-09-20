@@ -2,37 +2,51 @@
 
 import { useRef, useState } from "react";
 import { ClosedCaption, Palette, AudioWaveformIcon } from "lucide-react";
-import { Scissors } from "lucide-react";
+import { Scissors, MousePointerClick, Flag } from "lucide-react";
 import { SmartImage } from "../../utils/SmartImage.tsx";
 
 const includedCards = [
   {
     id: 1,
-    title: "Clear Messaging & Copy",
+    title: "The Right Hook",
     description:
-      "Most users scan before they read. We design product narratives for readability, quick comprehension, and smoother onboarding across all touchpoints.",
+      "We open with the problem, outcome, insight, or product moment most likely to make your target audience pay attention.",
     icon: ClosedCaption,
   },
   {
     id: 2,
-    title: "Premium Visual Identity",
+    title: "Clear Positioning",
     description:
-      "Brand consistency, polished UI representations, and visual cleanup help your product feel sharper, cleaner, and more professional without making it feel over-designed.",
+      "The viewer should understand what your product is, who it is for, and why it is different without needing to decode complicated messaging.",
     icon: Palette,
   },
   {
     id: 3,
-    title: "Dynamic Motion & UI Animation",
+    title: "Product in Action",
     description:
-      "Strategic motion, UI walkthroughs, and scene pacing help your software feel more dynamic, easier to follow, and visually engaging from start to finish.",
+      "Instead of relying only on abstract graphics, we show the real interface, workflows, interactions, and features that make your software valuable.",
     icon: Scissors,
   },
   {
     id: 4,
-    title: "Optimized User Experience",
+    title: "Strong Visual Hierarchy",
     description:
-      "Bad presentation instantly weakens a product. We clear distractions and shape the narrative experience to make your product's value proposition obvious.",
+      "Typography, UI, motion, graphics, and messaging are carefully structured so viewers always know where to look and what matters.",
     icon: AudioWaveformIcon,
+  },
+  {
+    id: 5,
+    title: "Purposeful Motion",
+    description:
+      "Animation is not added just to make things move. Every transition, zoom, interaction, and visual effect helps explain the product or maintain attention.",
+    icon: MousePointerClick,
+  },
+  {
+    id: 6,
+    title: "Memorable Ending",
+    description:
+      "We close with a clear product takeaway and CTA that reinforces the value of the software and gives the viewer a natural next step.",
+    icon: Flag,
   },
 ];
 
@@ -46,32 +60,26 @@ export default function SaasWhatsIncludedSection() {
       <div className="mx-auto max-w-7xl">
         <div className="mb-10 text-center">
           <p className="mb-3 text-xs tracking-[0.2em] text-[#c2d3dc]">
-            THE DIFFERENCE IS IN THE DETAILS
+            WHAT MAKES A GREAT SAAS VIDEO
           </p>
           <h2 className="text-4xl font-extrabold text-white md:text-5xl">
-            Why Some SaaS Products Feel
+            Designed Around What
             <br />
-            More Premium Than Others
+            Makes Software Sell
           </h2>
         </div>
 
         <div className="grid gap-5 lg:grid-cols-2">
           <article className="rounded-2xl bg-[#0B1F2A] p-4">
             <h3 className="text-3xl font-bold bg-linear-to-r from-[#46B6A0] to-[#00A9BD] bg-clip-text text-transparent">
-              Clarity & Conversion Optimization
+              The Strongest SaaS Videos Balance Product Clarity With Visual Excitement.
             </h3>
             <p className="mt-2 text-sm leading-7 text-[#c4d6df]">
-              The first impression matters most. We improve messaging, visual pacing,
-              structure, and product timing to make your platform feel more immediate,
-              valuable, and harder to ignore.
+              The strongest SaaS videos balance product clarity with visual excitement. Every part of the production is designed around that goal.
             </p>
 
             <p className="mt-4 text-sm leading-7 text-[#c4d6df]/80">
-              Modern SaaS creative is more than just screen recordings. The narrative,
-              motion, pacing, UI presentation, and structure all
-              shape how professional, engaging, and memorable your product feels
-              online. The difference between a product people skip and a product
-              people adopt usually comes down to these details.
+              A clear story helps people understand the product. Purposeful motion keeps them watching. Together, they make the value memorable and the next step obvious.
             </p>
 
             <div className="relative mt-4 h-[360px] overflow-hidden rounded-xl shadow-[0_0_15px_#00A9BDB2]">
@@ -103,7 +111,7 @@ export default function SaasWhatsIncludedSection() {
                 setActiveIndex((prev) => (prev === idx ? prev : idx));
               });
             }}
-            className="flex snap-x snap-mandatory gap-4 overflow-x-auto lg:grid lg:overflow-visible lg:snap-none lg:gap-5 lg:grid-cols-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="flex snap-x snap-mandatory gap-4 overflow-x-auto lg:grid lg:overflow-visible lg:snap-none lg:gap-5 lg:grid-cols-3 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {includedCards.map((item) => {
               const Icon = item.icon;

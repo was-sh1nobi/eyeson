@@ -7,12 +7,15 @@ import SaasEditingSection from "../islands/saas/SaasEditingSection";
 import CostSaas from "./Shared/CostSaas.astro";
 import {SaasNeedsBlock} from "../islands/saas/SaasNeedsBlock.tsx";
 import SaasServicesVideoStyle from "../islands/saas/SaasServicesVideoStyle";
-import VideoWorkShowcaseSection from "../islands/Shared/VideoWorkShowcaseSection";
+import SaasUseCasesSection from "../islands/saas/SaasUseCasesSection";
 import CaseStudiesSection from "../islands/CaseStudiesSection";
-import ApproachTimelineSection from "../islands/Video/ApproachTimelineSection";
+import SaasTransformationSection from "../islands/saas/SaasTransformationSection";
+import SaasProcessSection from "../islands/saas/SaasProcessSection";
+import SaasProductStorySection from "../islands/saas/SaasProductStorySection";
 import SaasPackagesSection from "../islands/saas/SaasPackagesSection";
 import SaasWhatsIncludedSection from "../islands/saas/SaasWhatsIncludedSection";
-import SaasBackground from "./Saas/SaasBackground.astro";
+import FinalCta from "../islands/Shared/FinalCta";
+import SaasFaqSection from "../islands/saas/SaasFaqSection";
 import HomeBackground from "./Home/HomeBackground.astro";
 import { VideoHeader } from "../islands/Shared/VideoHeader";
 ---
@@ -22,7 +25,7 @@ import { VideoHeader } from "../islands/Shared/VideoHeader";
 
 
         <HomeBackground />
-        <SaasBackground/>
+
 
 
 
@@ -36,20 +39,20 @@ import { VideoHeader } from "../islands/Shared/VideoHeader";
 
     <VideoHeader
 
-    BeforeHighlight=""
-    Highlight="SaaS Creative"
-    AfterHighlight={`That Turns
-    Features Into Value`}
-    Description="Professional visual storytelling, product demos, launch campaigns, and ad creatives designed for SaaS companies, startups, and digital products that want to communicate faster, drive adoption, and stand out in the market."
+    topText="SAAS TRAILERS · PRODUCT EXPLAINERS · UI MOTION · PRODUCT DEMOS"
+    BeforeHighlight="Make Your Software"
+    Highlight="Impossible to Ignore."
+    AfterHighlight=""
+    Description="We create premium SaaS trailers and product explainers that turn complex software into clear, engaging stories. From cinematic launch videos to UI-driven explainers, every video is built to communicate value fast, showcase the product beautifully, and move viewers toward action."
 
 
     imageUrl="/saas/right-hero-c2.webp"
     imageDivClassName="hidden md:scale-[1.2] lg:flex"
     imageClassName="scale-[1.2]"
-    primaryBtnText="View Our Work"
-    primaryBtnUrl="/portfolio"
-    secondaryBtnText="Book a Call"
-    secondaryBtnUrl="/contact"
+    primaryBtnText="Start Your Video"
+    primaryBtnUrl="/contact"
+    secondaryBtnText="See Our Work"
+    secondaryBtnUrl="/portfolio"
 
 
     enableImageHover={true}
@@ -79,17 +82,37 @@ import { VideoHeader } from "../islands/Shared/VideoHeader";
     />
     <LogoCaro tagline="Trusted by SaaS teams, startups, and product-led brands worldwide." />
     <SaasEditingSection client:visible/>
-    <FeaturesSection title="Smart SaaS Creative" highlight="Built for Adoption, Clarity, and Growth" description="Modern users move fast. Strong creative is no longer just about looking good, it is
-about pacing, attention, clarity, storytelling, and understanding how people actually
-evaluate software online.
-At EyesOn Studio, we create visual narratives designed for modern platforms, helping
-startups, SaaS brands, and product teams turn complex features into clear, sharp,
-and engaging content that performs better across all channels."/>
+    <FeaturesSection
+      badgeText=""
+      title="Excellence in SaaS"
+      highlight="Trailers & Explainers"
+      description="Every video is designed to do more than look polished. We make your product easier to understand, more exciting to experience, and stronger at converting attention into interest."
+      features={[
+        { id: 1, title: "Clear Product Storytelling", description: "We turn features, workflows, and technical ideas into a simple narrative that helps viewers quickly understand what your product does and why they should care." },
+        { id: 2, title: "Premium UI Animation", description: "Your interface becomes part of the story. We animate dashboards, apps, screens, interactions, and product flows in a polished way that makes the software feel intuitive and high-end." },
+        { id: 3, title: "Conversion Focused Structure", description: "Every scene has a purpose. We structure the video around the problem, product value, key benefits, proof, differentiation, and the action you want viewers to take." },
+        { id: 4, title: "Custom Visual Direction", description: "No generic templates or disconnected animation styles. We build the visual direction around your product, brand identity, audience, positioning, and campaign goals." },
+        { id: 5, title: "Script to Final Video", description: "From the first idea to the finished export, we can handle the entire production process including concept, script, storyboard, UI preparation, animation, voiceover, sound, and final delivery." },
+        { id: 6, title: "Built for Modern SaaS", description: "We create videos for AI products, SaaS platforms, apps, fintech, productivity tools, developer products, B2B software, marketplaces, and the next generation of digital products." },
+      ]}
+    />
     <SaasNeedsBlock client:visible />
     <SaasServicesVideoStyle client:visible/>
+    <SaasUseCasesSection />
     <SaasWhatsIncludedSection client:visible/>
-    <ApproachTimelineSection client:visible title="Our Approach to High-Impact SaaS Creative" description="We don’t just design visuals and hope they work. Every creative asset is built through a clear process focused on product understanding, message clarity, platform behavior, visual impact, and user conversion." />
-    <VideoWorkShowcaseSection client:visible title="Creative That Makes Users" highlight="Care About Features." description="Explore product demos, launch videos, explainers, social content, and animations crafted to capture attention fast, communicate value, and turn your product into something people actually want to use." />
+    <SaasTransformationSection />
+    <SaasProcessSection />
+    <SaasProductStorySection />
+    <FinalCta
+      kicker="YOUR PRODUCT DESERVES MORE THAN SCREEN RECORDINGS"
+      title="Show People Why Your SaaS Matters."
+      description="Whether you are preparing for a launch, improving your landing page, introducing a new feature, running paid campaigns, or simply need a better way to explain your product, we can turn your software into a video people actually want to watch. Let’s create something that makes your product clear, memorable, and impossible to overlook."
+      primaryText="Start Your Project"
+      primaryHref="/contact"
+      secondaryText="View SaaS Projects"
+      secondaryHref="/portfolio"
+    />
+    <SaasFaqSection />
     <SaasPackagesSection client:visible/>
     <CaseStudiesSection client:visible />
     <CostSaas  />

@@ -47,10 +47,9 @@ const computedDescription = description ?? "EyesOn Studio — Motion Design & Cr
 const finalTitle = title ?? computedTitle;
 const finalDescription = description ?? computedDescription;
 
-const deploymentHost = process.env.VERCEL_URL || Astro.url.host;
-const origin = `${Astro.url.protocol}//${deploymentHost}`;
-const absoluteOgImage = ogImage?.startsWith("http") ? ogImage : new URL(ogImage, origin).href;
-const resolvedCanonical = canonicalUrl ?? `${origin}${Astro.url.pathname}`;
+const siteUrl = "https://eyesonstudio.com";
+const absoluteOgImage = ogImage?.startsWith("http") ? ogImage : new URL(ogImage, siteUrl).href;
+const resolvedCanonical = canonicalUrl ?? new URL(Astro.url.pathname, siteUrl).href;
 const heroImageType = heroImage?.endsWith(".svg")
   ? "image/svg+xml"
   : heroImage?.endsWith(".jpg") || heroImage?.endsWith(".jpeg")
@@ -143,8 +142,8 @@ const heroImageType = heroImage?.endsWith(".svg")
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "EyesOn Studio",
-      "url": "https://eyeson.com",
-      "logo": "https://eyeson.com/og/image.jpg",
+      "url": "https://eyesonstudio.com",
+      "logo": "https://eyesonstudio.com/og/image.jpg",
       "description": "Motion Design & Creative Agency",
       "sameAs": [
         "https://twitter.com/eyesonstudio",

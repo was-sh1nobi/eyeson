@@ -3,11 +3,11 @@ export const prerender = true;
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { BlogHero } from "../../islands/Blogs/BlogHero";
 
-const canonicalUrl = new URL(Astro.url.pathname, 'https://eyeson.com').href;
+const canonicalUrl = new URL(Astro.url.pathname, 'https://eyesonstudio.com').href;
 ---
 
 <BaseLayout
-  title="Example Blog Post — EyesOn Agency"
+  title="Example Blog Post — EyesOn Studio"
   description="An example blog post showcasing EyesOn Agency's content format and style."
   canonicalUrl={canonicalUrl}
 >

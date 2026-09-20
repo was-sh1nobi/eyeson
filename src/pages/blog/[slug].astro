@@ -6,7 +6,7 @@ export const prerender = false;
 
 const STRAPI_URL = import.meta.env.PUBLIC_POST_URL || "https://blog.eyesonstudio.com";
 const API_POSTS = `${STRAPI_URL}/api/posts`;
-const SITE_URL = "https://eyeson.com";
+const SITE_URL = "https://eyesonstudio.com";
 
 const { slug } = Astro.params;
 
@@ -42,7 +42,7 @@ try {
 ---
 
 <BaseLayout
-  title={postData?.title ? `${postData.title} — EyesOn Agency` : "Blog Post — EyesOn Agency"}
+  title={postData?.title ? `${postData.title} — EyesOn Studio` : "Blog Post — EyesOn Studio"}
   description={postDescription || postData?.title || "Blog post"}
   ogImage={absoluteCoverUrl}
   canonicalUrl={`${SITE_URL}/blog/${slug}`}
@@ -67,7 +67,7 @@ try {
       },
       "publisher": {
         "@type": "Organization",
-        "name": "EyesOn Agency",
+        "name": "EyesOn Studio",
         "logo": {
           "@type": "ImageObject",
           "url": `${SITE_URL}/og/image.jpg`

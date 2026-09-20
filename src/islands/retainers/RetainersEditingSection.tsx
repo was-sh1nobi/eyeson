@@ -10,11 +10,11 @@ export default function RetainersEditingSection() {
                 CREATIVE PRODUCTION THAT DOESN’T STOP
             </p>
             <div
-                className="relative order-2 w-full max-w-[640px] cursor-pointer overflow-hidden rounded-2xl shadow-lg lg:order-1 lg:w-1/2 transition-transform duration-300 hover:scale-[1.02]"
+                className="relative order-2 w-full max-w-160 cursor-pointer overflow-hidden rounded-2xl  lg:order-1 lg:w-1/2 transition-transform duration-300 hover:scale-[1.3] scale-[1.2]"
                 style={{ aspectRatio: "1250 / 841" }}
             >
                 <SmartImage
-                    src="/video-pieces/under-hero.svg"
+                    src="/retainers/2.webp"
                     alt="Creative retainer"
                     fill
                     className="object-contain"

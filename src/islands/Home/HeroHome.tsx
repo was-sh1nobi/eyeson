@@ -11,7 +11,7 @@ const items = [
   { src: "/home/Hero/clients/4.webp" },
 ];
 
-// شمارش تدریجی عدد وقتی وارد دید میشه
+// social numbers count up
 function useCountUp(target: number, duration = 1600) {
   const [value, setValue] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);

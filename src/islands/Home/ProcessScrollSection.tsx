@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./ProcessScrollSection.css";
-import {SmartImage} from "@/utils/SmartImage.tsx";
 
 const PROCESS_STEPS = [
   {
@@ -77,8 +76,6 @@ export default function ProcessScrollSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const gridContainerRef = useRef<HTMLDivElement>(null);
   const pinRef = useRef<HTMLDivElement>(null);
-  const parallaxImgRef = useRef<HTMLDivElement>(null);
-  const rafRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -104,57 +101,26 @@ export default function ProcessScrollSection() {
     const mm = gsap.matchMedia();
 
     mm.add("(min-width: 1024px)", () => {
-      // Direct scroll listener for Desktop
-      const handleScroll = () => {
-        if (rafRef.current) cancelAnimationFrame(rafRef.current);
-
-        rafRef.current = requestAnimationFrame(() => {
-          if (!sectionRef.current || !parallaxImgRef.current) return;
-
-          const rect = sectionRef.current.getBoundingClientRect();
-          const viewportHeight = window.innerHeight;
-          const sectionTop = rect.top;
-          const sectionBottom = rect.bottom;
-
-          if (sectionBottom < 0 || sectionTop > viewportHeight) return;
-
-          let progress = 0;
-          if (sectionTop < viewportHeight && sectionBottom > 0) {
-            progress = (viewportHeight - sectionTop) / (viewportHeight + rect.height);
-            progress = Math.max(0, Math.min(1, progress));
-          }
-
-          const yOffset = (progress - 0.5) * 24;
-          const scale = 1 + progress * 0.04;
-
-          gsap.set(parallaxImgRef.current, {
-            y: yOffset,
-            scale: scale,
-            overwrite: "auto",
-          });
-        });
-      };
-
-      window.addEventListener("scroll", handleScroll, { passive: true });
-
-      // Pin animation for Desktop
       if (gridContainerRef.current && pinRef.current) {
         ScrollTrigger.create({
           trigger: gridContainerRef.current,
           start: "top top+=128",
-          end: "bottom bottom-=32",
+          end: () =>
+            `+=${Math.max(
+              0,
+              (gridContainerRef.current?.offsetHeight || 0) -
+                (pinRef.current?.offsetHeight || 0)
+            )}`,
           pin: pinRef.current,
           pinSpacing: false,
           anticipatePin: 1,
           fastScrollEnd: true,
+          invalidateOnRefresh: true,
         });
       }
-
-      return () => {
-        window.removeEventListener("scroll", handleScroll);
-        if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      };
     });
+
+    ScrollTrigger.refresh();
 
     return () => {
       observer.disconnect();
@@ -227,7 +193,7 @@ export default function ProcessScrollSection() {
           </div>
 
           {/* ===== Pinned Parallax (Desktop Only) ===== */}
-          <div className="hidden lg:block relative h-full">
+          <div className="hidden lg:block relative h-full self-stretch">
             <div
               ref={pinRef}
               className="w-full h-[750px] flex items-center justify-center will-change-transform"

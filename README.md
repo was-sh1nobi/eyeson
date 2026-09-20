@@ -97,7 +97,7 @@ eyeson/
 │   ├── lib/                      # Shared helpers (orbitIcons, posts data, cn util)
 │   ├── utils/                    # httpService, SmartImage, useAsyncOperation
 │   └── styles/global.css         # Tailwind + shadcn tokens + custom keyframes
-├── astro.config.mjs              # `site: 'https://eyeson.com'`, Vercel adapter, integrations
+├── astro.config.mjs              # `site: 'https://eyesonstudio.com'`, Vercel adapter, integrations
 ├── tailwind.config.ts            # Tailwind 4 config (Geist sans, neutral base, CSS variables)
 ├── components.json               # shadcn/ui config (radix-nova)
 ├── tsconfig.json

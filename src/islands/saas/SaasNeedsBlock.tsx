@@ -4,43 +4,34 @@ import BusinessNeedsSection from "../Shared/BusinessNeedsSection.tsx";
 export const SaasNeedsBlock = () => {
     return(
         <BusinessNeedsSection
-            label="WHY SAAS CREATIVE MATTERS"
-            beforeHighlight="Why Modern Products Need"
-            highlight="Better Creative"
+            label="WHY PRODUCT VIDEO MATTERS"
+            beforeHighlight="Why SaaS Product"
+            highlight="Videos Matter"
             afterHighlight=""
-            body="In today’s content environment, features alone are not enough. Strong creative helps
-brands communicate faster, hold attention longer, and make products feel more
-approachable across websites, ads, and product launches.
-Good creative improves clarity, storytelling, and user experience, helping your product
-work harder instead of getting ignored."
+            body="People rarely spend minutes figuring out your software. Your video can make the value clear in seconds."
 
-            mainTitle="Turn Features Into Value"
-            mainBody="Professional creative helps your audience understand your product faster, trust your brand
-more, and stay engaged longer. Clearer visuals, structure, and storytelling make
-complex workflows feel simple and effective."
-            primaryBtnText="Get a Free Sample"
+            mainTitle="Your Product May Be Powerful. But Can People Understand It Fast?"
+            mainBody="Software often becomes difficult to market because too much information is presented at once. Features, dashboards, workflows, integrations, automation, AI capabilities, and technical advantages can quickly overwhelm a new visitor. A strong SaaS trailer simplifies that complexity. We show the problem, introduce the product, demonstrate what makes it valuable, and guide the viewer through the experience without forcing them to read an entire website. The result is a product that feels easier to understand, easier to trust, and easier to buy."
+            primaryBtnText="Start Your Video"
             secondaryBtnText="See Our Work"
             cards={[
                 {
                     id: 1,
-                    title: "Build a Stronger Brand Identity",
+                    title: "Explain Your Product Faster",
                     description:
-                        "Consistent editing style, motion, pacing, captions, and visuals help your content feel more\n" +
-                        "recognizable, polished, and aligned across every platform.",
+                        "Instead of asking visitors to study pages of copy and screenshots, give them a clear visual overview of your product, workflow, and key advantages within seconds.",
                     image: "/Shared/Features/left.webp",                },
                 {
                     id: 2,
-                    title: "Stand Out in Crowded Feeds",
+                    title: "Make Your SaaS Feel Premium",
                     description:
-                        "Clean structure, stronger hooks, better pacing, and sharper storytelling help your content\n" +
-                        "separate itself from low-quality or forgettable posts online.",
+                        "Strong motion design changes how software is perceived. Clean UI animation, cinematic pacing, sound design, and visual storytelling can make your product feel more established, polished, and valuable.",
                     image: "/Shared/Features/middle.webp",                },
                 {
                     id: 3,
-                    title: "Create Reusable Content Assets",
+                    title: "Increase Product Understanding",
                     description:
-                        "Strong edits can be repurposed across Reels, Shorts, YouTube, ads, landing pages,\n" +
-                        "podcasts, and campaigns, giving your brand more value from every piece of footage.",
+                        "When viewers understand the problem, solution, workflow, and outcome clearly, it becomes easier for them to see how your software fits into their business or life.",
                     image: "/Shared/Features/right.webp",                },
             ]}
 
