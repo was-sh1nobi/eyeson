@@ -71,7 +71,7 @@ export default function SaasProcessSection() {
               <span className="text-sm font-bold text-[#35e4d8]">{item.step}</span>
               <h3 className="mt-3 text-xl font-bold text-white">{item.title}</h3>
               <p className="mt-3 text-sm leading-7 text-[#c0d3df]">{item.description}</p>
-              <div className="mt-5 rounded-2xl bg-white/5 p-3">
+              <div className="mt-5 rounded-xl bg-white/5 p-3">
                 <p className="text-xs font-semibold uppercase text-white">Deliverable</p>
                 <p className="mt-1 text-sm text-[#c4d6df]">{item.deliverable}</p>
               </div>
