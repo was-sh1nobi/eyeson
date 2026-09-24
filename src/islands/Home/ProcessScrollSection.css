@@ -1,7 +1,6 @@
 .process-step {
   opacity: 1;
   transform: none;
-  will-change: transform, opacity;
 }
 
 .process-step.in-view {
@@ -11,7 +10,7 @@
 }
 
 .process-parallax {
-  will-change: transform, opacity;
+  transform: translateZ(0);
 }
 
 .process-focus-badge {

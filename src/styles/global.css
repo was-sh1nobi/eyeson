@@ -90,8 +90,7 @@ html.reduce-motion .animate-float-slow {
 
 /* GPU-off fallback: when GPU accel disabled, backdrop-blur/will-change/filter:blur all run on CPU and cause jank.
    Strip them to solid colors + kill will-change/animations. Class is set by BaseLayout probe (WebGL/swiftshader). */
-html.gpu-off .will-change-transform,
-html.gpu-off [class*="will-change"] {
+html.gpu-off * {
   will-change: auto !important;
 }
 html.gpu-off [class*="backdrop-blur"] {
@@ -109,26 +108,43 @@ html.gpu-off [style*="blur("],
 html.gpu-off [class*="blur-["] {
   filter: none !important;
 }
-/* decorative large blur orbs are purely aesthetic — hide on CPU to avoid huge offscreen paints */
+/* decorative large blur orbs and SVG Gaussian blurs are purely aesthetic — hide on CPU to avoid huge offscreen paints */
 html.gpu-off .pointer-events-none[class*="blur-["],
-html.gpu-off div[class*="blur-["].pointer-events-none {
+html.gpu-off div[class*="blur-["].pointer-events-none,
+html.gpu-off .hb-saas,
+html.gpu-off .bg-svg-layer {
   display: none !important;
 }
-html.gpu-off .animate-fade-in,
-html.gpu-off .animate-slide-up,
-html.gpu-off .animate-scale-up,
-html.gpu-off .animate-float-slow,
-html.gpu-off [class*="animate-"] {
-  animation: none !important;
-  opacity: 1 !important;
-  transform: none !important;
+html.gpu-off svg filter,
+html.gpu-off svg feGaussianBlur {
+  display: none !important;
 }
-html.gpu-off .reveal-on-scroll,
-html.gpu-off .fade-on-scroll {
-  will-change: auto !important;
-  transform: none !important;
-  opacity: 1 !important;
-  transition: none !important;
+html.gpu-off svg g[filter],
+html.gpu-off svg path[filter],
+html.gpu-off svg [filter*="url("],
+html.gpu-off [filter*="url("] {
+  filter: none !important;
+}
+html.gpu-off .app-slide {
+  filter: none !important;
+}
+html.gpu-off .app-slide:not(.swiper-slide-active) {
+  filter: none !important;
+  opacity: 0.65 !important;
+}
+html.gpu-off .app-slide:not(.swiper-slide-active):not(.swiper-slide-next):not(.swiper-slide-prev) {
+  filter: none !important;
+  opacity: 0.25 !important;
+}
+html.gpu-off .center-glow,
+html.gpu-off .folder-glow-bg,
+html.gpu-off .hpa-button-glow {
+  display: none !important;
+}
+html.gpu-off .folder-front {
+  background: rgba(11, 26, 33, 0.85) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 /* No-JS safety net: without the `js` class (or without IntersectionObserver
    support) reveals never hide. */
@@ -144,7 +160,9 @@ html.gpu-off .transform-gpu {
 html.gpu-off [style*="will-change"] {
   will-change: auto !important;
 }
-html.gpu-off .mix-blend-overlay {
+html.gpu-off .mix-blend-overlay,
+html.gpu-off [class*="mix-blend-"] {
+  mix-blend-mode: normal !important;
   display: none !important;
 }
 @media (prefers-reduced-motion: reduce) {

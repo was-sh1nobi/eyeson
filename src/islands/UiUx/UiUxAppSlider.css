@@ -53,11 +53,11 @@
 }
 .fade-left {
   left: 0;
-  background: linear-gradient(to right, #031319 0%,);
+  background: linear-gradient(to right, #031319 0%, transparent 100%);
 }
 .fade-right {
   right: 0;
-  background: linear-gradient(to left, #031319 0%,);
+  background: linear-gradient(to left, #031319 0%, transparent 100%);
 }
 
 .center-glow {
@@ -81,7 +81,7 @@
 
 .app-slide {
   width: 280px;
-  transition: all 0.4s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease, filter 0.4s ease;
 }
 
 .app-slide:not(.swiper-slide-active) {
@@ -92,6 +92,13 @@
 .app-slide:not(.swiper-slide-active):not(.swiper-slide-next):not(.swiper-slide-prev) {
   opacity: 0.3;
   filter: blur(5px) brightness(0.4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-slide {
+    filter: none !important;
+    transition: none !important;
+  }
 }
 
 .mockup-frame {

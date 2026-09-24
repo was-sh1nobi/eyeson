@@ -80,37 +80,38 @@ export default function ProcessScrollSection() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    // Use Intersection Observer for step fade-ins
-    const observerOptions = {
-      threshold: 0.15,
-      rootMargin: "0px 0px -50px 0px",
-    };
+    const prefersReduced =
+      typeof window !== "undefined" &&
+      (window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+        (window as any).__REDUCED_MOTION__ === true);
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("in-view");
-        }
-      });
-    }, observerOptions);
+    const el = sectionRef.current;
+    const steps = el ? el.querySelectorAll(".process-step") : document.querySelectorAll(".process-step");
 
-    const steps = document.querySelectorAll(".process-step");
-    steps.forEach((step) => observer.observe(step));
+    if (prefersReduced || typeof IntersectionObserver === "undefined") {
+      steps.forEach((step) => step.classList.add("in-view"));
+    } else {
+      const observerOptions = {
+        threshold: 0.15,
+        rootMargin: "0px 0px -50px 0px",
+      };
 
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      steps.forEach((step) => observer.observe(step));
+    }
 
     const mm = gsap.matchMedia();
 
     mm.add("(min-width: 1024px)", () => {
-      // No pin when motion is reduced or GPU acceleration is off — the
-      // scrubbed pin runs per-scroll-tick compositing that janks on CPU.
-      try {
-        if (
-          window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
-          document.documentElement.classList.contains("gpu-off") ||
-          document.documentElement.classList.contains("reduce-motion") ||
-          (window as any).__GPU_OFF__ === true
-        ) return;
-      } catch { /* fall through */ }
+      if (prefersReduced) return;
       if (gridContainerRef.current && pinRef.current) {
         ScrollTrigger.create({
           trigger: gridContainerRef.current,
@@ -133,8 +134,7 @@ export default function ProcessScrollSection() {
     ScrollTrigger.refresh();
 
     return () => {
-      observer.disconnect();
-      mm.revert(); // این تمام اسکرول‌ترایگرها و ایونت‌های مربوط به matchMedia رو کلین‌آپ می‌کنه
+      mm.revert();
     };
   }, []);
 

@@ -1,6 +1,6 @@
 const HomeBackground = () => {
   return (
-    <>
+    <div className="bg-svg-layer absolute inset-0 pointer-events-none -z-10 overflow-hidden select-none" aria-hidden="true" style={{ contain: "layout paint", contentVisibility: "auto" }}>
       <svg
         viewBox="0 0 1440 3017"
         fill="none"
@@ -127,7 +127,7 @@ const HomeBackground = () => {
           </linearGradient>
         </defs>
       </svg>
-    </>
+    </div>
   );
 };
 

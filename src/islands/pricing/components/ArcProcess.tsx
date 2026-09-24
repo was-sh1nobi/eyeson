@@ -39,37 +39,67 @@ export const ArcProcess = () => {
     const [progress, setProgress] = useState(0)
 
     useEffect(() => {
+        const element = sectionRef.current
+        if (!element) return
+
         let rafId = 0
+        let isVisible = false
 
         const clamp = (value: number, min: number, max: number) =>
             Math.min(Math.max(value, min), max)
 
+        const isLowPower =
+            typeof window !== "undefined" &&
+            (window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+                document.documentElement.classList.contains("gpu-off") ||
+                (window as any).__GPU_OFF__)
+
         const update = () => {
-            const element = sectionRef.current
-            if (!element) return
+            if (!element || !isVisible) return
 
             const rect = element.getBoundingClientRect()
             const viewportHeight = window.innerHeight
             const start = viewportHeight * 0.2
             const total = rect.height - viewportHeight * 0.4
             const next = clamp((start - rect.top) / total, 0, 1)
-            setProgress(next)
+            setProgress((prev) => (Math.abs(prev - next) > 0.005 ? next : prev))
         }
 
         const onScroll = () => {
-            if (rafId) return
+            if (!isVisible || rafId) return
             rafId = window.requestAnimationFrame(() => {
                 update()
                 rafId = 0
             })
         }
 
-        update()
-        window.addEventListener("scroll", onScroll, { passive: true })
-        window.addEventListener("resize", onScroll)
+        let observer: IntersectionObserver | null = null
+        if (typeof IntersectionObserver !== "undefined") {
+            observer = new IntersectionObserver(
+                (entries) => {
+                    isVisible = entries[0].isIntersecting
+                    if (isVisible) {
+                        update()
+                    }
+                },
+                { rootMargin: "150px" }
+            )
+            observer.observe(element)
+        } else {
+            isVisible = true
+            update()
+        }
+
+        if (!isLowPower) {
+            window.addEventListener("scroll", onScroll, { passive: true })
+            window.addEventListener("resize", onScroll)
+        } else {
+            setProgress(0.5)
+        }
 
         return () => {
             if (rafId) window.cancelAnimationFrame(rafId)
+            if (observer) observer.disconnect()
             window.removeEventListener("scroll", onScroll)
             window.removeEventListener("resize", onScroll)
         }

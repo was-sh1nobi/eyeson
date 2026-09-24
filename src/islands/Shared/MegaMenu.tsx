@@ -231,9 +231,21 @@ export const Header = () => {
     const [scrolled, setScrolled] = useState(false);
 
     useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 20);
+        let rafId = 0;
+        const onScroll = () => {
+            if (rafId) return;
+            rafId = requestAnimationFrame(() => {
+                rafId = 0;
+                const isScrolled = window.scrollY > 20;
+                setScrolled((prev) => (prev !== isScrolled ? isScrolled : prev));
+            });
+        };
+        onScroll();
         window.addEventListener("scroll", onScroll, { passive: true });
-        return () => window.removeEventListener("scroll", onScroll);
+        return () => {
+            if (rafId) cancelAnimationFrame(rafId);
+            window.removeEventListener("scroll", onScroll);
+        };
     }, []);
 
     return (

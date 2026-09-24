@@ -151,18 +151,44 @@ const {
     // تیلت سه‌بعدی تصویر دنبال‌کننده موس
     const wrap = document.querySelector("[data-tilt]");
     const card = wrap?.querySelector(".cd-tilt-card");
-    if (wrap && card && !prefersReducedMotion) {
-      const onMove = (e) => {
-        const rect = wrap.getBoundingClientRect();
-        const px = (e.clientX - rect.left) / rect.width - 0.5;
-        const py = (e.clientY - rect.top) / rect.height - 0.5;
+    if (wrap && card && !prefersReducedMotion && !window.matchMedia("(pointer: coarse)").matches) {
+      let raf = 0;
+      let pendingEvent: PointerEvent | null = null;
+      let rect: DOMRect | null = null;
+
+      const updateTilt = () => {
+        raf = 0;
+        if (!pendingEvent || !rect) return;
+        const px = (pendingEvent.clientX - rect.left) / rect.width - 0.5;
+        const py = (pendingEvent.clientY - rect.top) / rect.height - 0.5;
         card.style.transform = `rotateX(${py * -7}deg) rotateY(${px * 9}deg) scale(1.015)`;
       };
+
+      const onEnter = () => {
+        rect = wrap.getBoundingClientRect();
+      };
+
+      const onMove = (e: Event) => {
+        pendingEvent = e as PointerEvent;
+        if (!rect) rect = wrap.getBoundingClientRect();
+        if (!raf) {
+          raf = requestAnimationFrame(updateTilt);
+        }
+      };
+
       const onLeave = () => {
+        if (raf) {
+          cancelAnimationFrame(raf);
+          raf = 0;
+        }
+        pendingEvent = null;
+        rect = null;
         card.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
       };
-      wrap.addEventListener("pointermove", onMove);
-      wrap.addEventListener("pointerleave", onLeave);
+
+      wrap.addEventListener("pointerenter", onEnter, { passive: true });
+      wrap.addEventListener("pointermove", onMove, { passive: true });
+      wrap.addEventListener("pointerleave", onLeave, { passive: true });
     }
   }
 

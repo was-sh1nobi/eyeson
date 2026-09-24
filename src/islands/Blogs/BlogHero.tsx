@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { BlocksRenderer, type BlocksContent } from "@strapi/blocks-react-renderer";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -143,7 +143,7 @@ export const BlogHero = ({
   const articleSections = exampleSections;
   const [relatedPosts, setRelatedPosts] = useState<RelatedPost[]>([]);
   const [copied, setCopied] = useState(false);
-  const [progress, setProgress] = useState(0);
+  const progressBarRef = useRef<HTMLDivElement>(null);
   const [canNativeShare, setCanNativeShare] = useState(false);
 
   const hasMarkdown = !!markdownPost && markdownPost.content.trim().length > 0;
@@ -215,20 +215,45 @@ export const BlogHero = ({
     setCanNativeShare(typeof navigator !== "undefined" && !!navigator.share);
   }, []);
 
-  // Reading progress bar
+  // Reading progress bar — optimized with direct DOM update and cached measurement
   useEffect(() => {
-    const onScroll = () => {
+    let rafId = 0;
+    let docHeight = 0;
+
+    const measureHeight = () => {
       const doc = document.documentElement;
-      const scrollTop = window.scrollY || doc.scrollTop;
-      const height = doc.scrollHeight - doc.clientHeight;
-      setProgress(height > 0 ? Math.min(100, (scrollTop / height) * 100) : 0);
+      docHeight = doc.scrollHeight - doc.clientHeight;
     };
-    onScroll();
+
+    const updateBar = () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const pct = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
+      if (progressBarRef.current) {
+        progressBarRef.current.style.width = `${pct}%`;
+      }
+    };
+
+    const onScroll = () => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        updateBar();
+        rafId = 0;
+      });
+    };
+
+    const onResize = () => {
+      measureHeight();
+      onScroll();
+    };
+
+    measureHeight();
+    updateBar();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("resize", onResize);
     return () => {
+      if (rafId) cancelAnimationFrame(rafId);
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("resize", onResize);
     };
   }, []);
 
@@ -277,10 +302,11 @@ export const BlogHero = ({
   return (
       <>
         {/* Reading progress */}
-        <div className="fixed inset-x-0 top-0 z-50 h-1 bg-transparent">
+        <div className="fixed inset-x-0 top-0 z-50 h-1 bg-transparent pointer-events-none" aria-hidden="true">
           <div
+              ref={progressBarRef}
               className="h-full bg-gradient-to-r from-[#45B6A0] to-[#25d9e0] shadow-[0_0_12px_rgba(0,169,189,0.7)] transition-[width] duration-75 ease-out"
-              style={{ width: `${progress}%` }}
+              style={{ width: "0%" }}
           />
         </div>
 

@@ -16,28 +16,67 @@ export const ConversionScroll = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
     let rafId = 0;
+    let isVisible = false;
+
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+
+    const isLowPower =
+      typeof window !== "undefined" &&
+      (window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+        document.documentElement.classList.contains("gpu-off") ||
+        (window as any).__GPU_OFF__);
+
     const updateProgress = () => {
-      const el = sectionRef.current;
-      if (!el) return;
+      if (!el || !isVisible) return;
       const rect = el.getBoundingClientRect();
       const vh = window.innerHeight;
       const start = vh * 0.15;
       const total = rect.height - vh * 0.35;
-      setProgress(clamp((start - rect.top) / total, 0, 1));
+      const nextProgress = clamp((start - rect.top) / total, 0, 1);
+      setProgress((prev) => (Math.abs(prev - nextProgress) > 0.005 ? nextProgress : prev));
     };
+
     const onScroll = () => {
-      if (rafId) return;
-      rafId = requestAnimationFrame(() => { updateProgress(); rafId = 0; });
+      if (!isVisible || rafId) return;
+      rafId = requestAnimationFrame(() => {
+        updateProgress();
+        rafId = 0;
+      });
     };
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    updateProgress();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+
+    let observer: IntersectionObserver | null = null;
+    if (typeof IntersectionObserver !== "undefined") {
+      observer = new IntersectionObserver(
+        (entries) => {
+          isVisible = entries[0].isIntersecting;
+          if (isVisible) {
+            updateProgress();
+          }
+        },
+        { rootMargin: "150px" }
+      );
+      observer.observe(el);
+    } else {
+      isVisible = true;
+      updateProgress();
+    }
+
+    if (!isLowPower) {
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll);
+    } else {
+      setProgress(0.5);
+    }
     window.addEventListener("resize", checkMobile);
+
     return () => {
       if (rafId) cancelAnimationFrame(rafId);
+      if (observer) observer.disconnect();
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
       window.removeEventListener("resize", checkMobile);

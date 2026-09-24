@@ -325,61 +325,66 @@ const featureSlides: FeatureItem[][] = features.reduce<FeatureItem[][]>(
 </style>
 
 <script>
-  const sections = document.querySelectorAll("[data-features-section]");
+  function initFeaturesCarousel() {
+    const sections = document.querySelectorAll("[data-features-section]");
 
-  sections.forEach((section) => {
-    const track = section.querySelector("[data-feature-track]");
-    const dotsWrap = section.querySelector("[data-feature-dots]");
-    if (!(track instanceof HTMLElement) || !(dotsWrap instanceof HTMLElement))
-      return;
+    sections.forEach((section) => {
+      const track = section.querySelector("[data-feature-track]");
+      const dotsWrap = section.querySelector("[data-feature-dots]");
+      if (!(track instanceof HTMLElement) || !(dotsWrap instanceof HTMLElement))
+        return;
 
-    if (!window.matchMedia("(max-width: 1023px)").matches) return;
+      if (!window.matchMedia("(max-width: 1023px)").matches) return;
 
-    const slides = Array.from(
-      track.querySelectorAll("[data-feature-slide-index]"),
-    );
-    const dots = Array.from(
-      dotsWrap.querySelectorAll("[data-feature-dot-index]"),
-    );
-    if (slides.length === 0 || dots.length === 0) return;
+      const slides = Array.from(
+        track.querySelectorAll("[data-feature-slide-index]"),
+      );
+      const dots = Array.from(
+        dotsWrap.querySelectorAll("[data-feature-dot-index]"),
+      );
+      if (slides.length === 0 || dots.length === 0) return;
 
-    const setActive = (index: number) => {
-      dots.forEach((dot, i) => {
-        const active = i === index;
-        dot.setAttribute("aria-pressed", active ? "true" : "false");
-        dot.classList.toggle("is-active", active);
-      });
-    };
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          const idx = Number(
-            entry.target.getAttribute("data-feature-slide-index"),
-          );
-          if (!Number.isNaN(idx)) setActive(idx);
+      const setActive = (index: number) => {
+        dots.forEach((dot, i) => {
+          const active = i === index;
+          dot.setAttribute("aria-pressed", active ? "true" : "false");
+          dot.classList.toggle("is-active", active);
         });
-      },
-      { root: track, threshold: 0.6 },
-    );
+      };
 
-    slides.forEach((slide) => observer.observe(slide));
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const idx = Number(
+              entry.target.getAttribute("data-feature-slide-index"),
+            );
+            if (!Number.isNaN(idx)) setActive(idx);
+          });
+        },
+        { root: track, threshold: 0.6 },
+      );
 
-    dots.forEach((dot) => {
-      dot.addEventListener("click", () => {
-        const idx = Number(dot.getAttribute("data-feature-dot-index"));
-        if (Number.isNaN(idx)) return;
-        const slide = track.querySelector(
-          `[data-feature-slide-index="${idx}"]`,
-        );
-        if (!(slide instanceof HTMLElement)) return;
-        slide.scrollIntoView({
-          behavior: "smooth",
-          inline: "center",
-          block: "nearest",
+      slides.forEach((slide) => observer.observe(slide));
+
+      dots.forEach((dot) => {
+        dot.addEventListener("click", () => {
+          const idx = Number(dot.getAttribute("data-feature-dot-index"));
+          if (Number.isNaN(idx)) return;
+          const slide = track.querySelector(
+            `[data-feature-slide-index="${idx}"]`,
+          );
+          if (!(slide instanceof HTMLElement)) return;
+          slide.scrollIntoView({
+            behavior: "smooth",
+            inline: "center",
+            block: "nearest",
+          });
         });
       });
     });
-  });
+  }
+
+  document.addEventListener("DOMContentLoaded", initFeaturesCarousel);
+  document.addEventListener("astro:page-load", initFeaturesCarousel);
 </script>

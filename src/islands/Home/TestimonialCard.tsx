@@ -1,17 +1,44 @@
 "use client";
 
+import React, { useRef } from "react";
+
 export default function TestimonialCard({ item }: { item: any }) {
-  // اسپات‌لایت دنبال‌کننده موس (همون الگوی WorkflowSection)
+  const rafRef = useRef<number | null>(null);
+  const rectRef = useRef<DOMRect | null>(null);
+
+  const handlePointerEnter = (e: React.PointerEvent<HTMLDivElement>) => {
+    rectRef.current = e.currentTarget.getBoundingClientRect();
+  };
+
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    e.currentTarget.style.setProperty("--mx", `${e.clientX - rect.left}px`);
-    e.currentTarget.style.setProperty("--my", `${e.clientY - rect.top}px`);
+    if (typeof window !== "undefined" && (window as any).__REDUCED_MOTION__) return;
+    const currentTarget = e.currentTarget;
+    const clientX = e.clientX;
+    const clientY = e.clientY;
+    if (rafRef.current) return;
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = null;
+      if (!currentTarget) return;
+      if (!rectRef.current) rectRef.current = currentTarget.getBoundingClientRect();
+      currentTarget.style.setProperty("--mx", `${clientX - rectRef.current.left}px`);
+      currentTarget.style.setProperty("--my", `${clientY - rectRef.current.top}px`);
+    });
+  };
+
+  const handlePointerLeave = () => {
+    rectRef.current = null;
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
   };
 
   return (
     <div className="relative group h-full">
       <div
+        onPointerEnter={handlePointerEnter}
         onPointerMove={handlePointerMove}
+        onPointerLeave={handlePointerLeave}
         className="relative h-full flex flex-col justify-between bg-gradient-to-b from-[#08222c]/95 to-[#04141c]/95 rounded-[28px] overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.4)] backdrop-blur-xl p-7 md:p-8 transition-all duration-300 hover:border-[#00E6D7]/40 hover:shadow-[0_25px_60px_rgba(0,169,189,0.2)]"
       >
 

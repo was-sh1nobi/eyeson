@@ -98,12 +98,21 @@ const heroImageType = heroImage?.endsWith(".svg")
           try {
             var c = document.createElement('canvas');
             var gl = c.getContext('webgl') || c.getContext('experimental-webgl');
-            if (!gl) gpuOff = true;
-            else {
+            if (!gl) {
+              gpuOff = true;
+            } else {
+              var renderer = '';
+              var vendor = '';
               var dbg = gl.getExtension('WEBGL_debug_renderer_info');
               if (dbg) {
-                var r = gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) || '';
-                if (/swiftshader|software|llvmpipe|basic render/i.test(r)) gpuOff = true;
+                renderer = (gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) || '') + ' ';
+                vendor = (gl.getParameter(dbg.UNMASKED_VENDOR_WEBGL) || '') + ' ';
+              }
+              renderer += (gl.getParameter(gl.RENDERER) || '') + ' ';
+              vendor += (gl.getParameter(gl.VENDOR) || '');
+              var info = (renderer + ' ' + vendor).toLowerCase();
+              if (/swiftshader|software|llvmpipe|basic render|software rasterizer|rasterizer|mesa|angle.*software|microsoft basic/i.test(info)) {
+                gpuOff = true;
               }
             }
           } catch(e) { gpuOff = true; }

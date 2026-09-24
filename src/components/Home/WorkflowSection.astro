@@ -184,14 +184,43 @@ const {
       cards.forEach((c) => observer.observe(c));
     }
 
-    // اسپات‌لایت دنبال‌کننده موس
-    const moveSpotlight = (e: Event) => {
-      const card = (e.currentTarget as HTMLElement);
-      const rect = card.getBoundingClientRect();
-      card.style.setProperty("--mx", `${e.clientX - rect.left}px`);
-      card.style.setProperty("--my", `${e.clientY - rect.top}px`);
-    };
-    cards.forEach((c) => c.addEventListener("pointermove", moveSpotlight));
+    // اسپات‌لایت دنبال‌کننده موس با بهینه‌سازی
+    if (!reduced && !window.matchMedia("(pointer: coarse)").matches) {
+      cards.forEach((card) => {
+        let raf = 0;
+        let pending: { x: number; y: number } | null = null;
+        let rect: DOMRect | null = null;
+
+        const onEnter = () => {
+          rect = card.getBoundingClientRect();
+        };
+
+        const onMove = (e: PointerEvent) => {
+          pending = { x: e.clientX, y: e.clientY };
+          if (!rect) rect = card.getBoundingClientRect();
+          if (raf) return;
+          raf = requestAnimationFrame(() => {
+            raf = 0;
+            if (!pending || !rect) return;
+            card.style.setProperty("--mx", `${pending.x - rect.left}px`);
+            card.style.setProperty("--my", `${pending.y - rect.top}px`);
+          });
+        };
+
+        const onLeave = () => {
+          if (raf) {
+            cancelAnimationFrame(raf);
+            raf = 0;
+          }
+          pending = null;
+          rect = null;
+        };
+
+        card.addEventListener("pointerenter", onEnter, { passive: true });
+        card.addEventListener("pointermove", onMove as EventListener, { passive: true });
+        card.addEventListener("pointerleave", onLeave, { passive: true });
+      });
+    }
   }
 
   document.addEventListener("DOMContentLoaded", initWorkflowMicroInteractions);

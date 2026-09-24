@@ -156,22 +156,31 @@ export default function RightSectionHero({
     };
 
     useEffect(() => {
-        // Lazy-load the video once it nears the viewport. If the observer or
-        // matchMedia APIs are unavailable, load immediately so the video
-        // never stays blank. Reduced-motion still loads the poster frame —
-        // it just doesn't autoplay (handled by the play effect above via
-        // the autoplay policy; poster remains visible).
+        // Lazy-load and viewport-aware playback: play when in view, pause when scrolled away
         const el = containerRef.current;
         if (!el || typeof IntersectionObserver === "undefined") {
             setCanLoadVideo(true);
             return;
         }
         const io = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting) { setCanLoadVideo(true); io.disconnect(); }
-        }, { rootMargin: "200px", threshold: 0 });
+            const entry = entries[0];
+            if (entry.isIntersecting) {
+                setCanLoadVideo(true);
+                const video = videoRef.current;
+                if (video && !liteVideo && (!liteVideo || userRequestedVideo)) {
+                    video.muted = true;
+                    video.play().catch(() => {});
+                }
+            } else {
+                const video = videoRef.current;
+                if (video && !video.paused) {
+                    video.pause();
+                }
+            }
+        }, { rootMargin: "150px", threshold: 0 });
         io.observe(el);
         return () => io.disconnect();
-    }, []);
+    }, [liteVideo, userRequestedVideo, videoRef]);
 
     return (
         <div className="relative w-full max-w-[850px] xl:max-w-[950px] mx-auto animate-fade-in flex flex-col items-center">
