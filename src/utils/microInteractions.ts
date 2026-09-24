@@ -5,13 +5,22 @@
 // Styles live in global.css. Idempotent — safe with astro:page-load re-runs.
 
 function initMicroInteractions() {
-  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const reduced =
+    document.documentElement.classList.contains("reduce-motion") ||
+    (window as any).__REDUCED_MOTION__ ||
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const gpuOff = document.documentElement.classList.contains("gpu-off") || (window as any).__GPU_OFF__;
 
   // ---- Scroll reveal ----
   const revealEls = document.querySelectorAll<HTMLElement>(".reveal-on-scroll:not(.mi-bound)");
-  if (reduced || gpuOff) {
-    revealEls.forEach((el) => el.classList.add("is-visible"));
+  // Never hide content: reduced motion shows instantly (no transform offset);
+  // gpu-off / missing observer support also reveals immediately so sections
+  // can't get stuck at opacity:0.
+  if (reduced || gpuOff || typeof IntersectionObserver === "undefined") {
+    revealEls.forEach((el) => {
+      el.classList.add("mi-bound", "is-visible");
+      el.style.transitionDelay = "";
+    });
   } else {
     const observer = new IntersectionObserver(
       (entries, obs) => {
@@ -19,7 +28,15 @@ function initMicroInteractions() {
           if (entry.isIntersecting) {
             const el = entry.target as HTMLElement;
             const delay = el.dataset.revealDelay;
-            if (delay) el.style.transitionDelay = `${delay}ms`;
+            // Stagger delay applies to the reveal only — clear it afterwards
+            // so hover transitions on the same element aren't delayed.
+            if (delay) {
+              el.style.transitionDelay = `${delay}ms`;
+              const ms = Number(delay) + 750;
+              setTimeout(() => {
+                el.style.transitionDelay = "";
+              }, Number.isFinite(ms) ? ms : 750);
+            }
             el.classList.add("is-visible");
             obs.unobserve(el);
           }

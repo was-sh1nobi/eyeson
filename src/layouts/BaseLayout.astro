@@ -92,6 +92,7 @@ const heroImageType = heroImage?.endsWith(".svg")
     <script is:inline>
       (function(){
         try {
+          document.documentElement.classList.add('js');
           var gpuOff = false;
           // WebGL probe — fails when GPU acceleration off or swiftshader disabled
           try {
@@ -102,14 +103,31 @@ const heroImageType = heroImage?.endsWith(".svg")
               var dbg = gl.getExtension('WEBGL_debug_renderer_info');
               if (dbg) {
                 var r = gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) || '';
-                if (/swiftshader|software|llvmpipe/i.test(r)) gpuOff = true;
+                if (/swiftshader|software|llvmpipe|basic render/i.test(r)) gpuOff = true;
               }
             }
           } catch(e) { gpuOff = true; }
-          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) gpuOff = true;
+          // Low-power fallback: save-data, few cores, tiny device memory, or
+          // coarse-pointer small screens all run blurs/GSAP on CPU → jank.
+          try {
+            var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+            if (conn && (conn.saveData === true || /^(slow-2g|2g)$/.test(conn.effectiveType || ''))) gpuOff = true;
+            if (typeof navigator.hardwareConcurrency === 'number' && navigator.hardwareConcurrency <= 4) {
+              var dm = navigator.deviceMemory;
+              if (typeof dm !== 'number' || dm <= 4) {
+                if (window.matchMedia('(pointer: coarse)').matches && Math.min(screen.width, screen.height) < 820) gpuOff = true;
+              }
+            }
+          } catch(e) {}
           if (gpuOff) document.documentElement.classList.add('gpu-off');
-          // expose for Lenis gate
+          // Reduced motion is separate from GPU-off: it disables motion but
+          // must NOT hide scroll reveals (see microInteractions + global.css).
+          var reduced = false;
+          try { reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e) {}
+          if (reduced) document.documentElement.classList.add('reduce-motion');
+          // expose for Lenis / island gates
           window.__GPU_OFF__ = gpuOff;
+          window.__REDUCED_MOTION__ = reduced;
         } catch(e){}
       })();
     </script>

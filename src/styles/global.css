@@ -15,16 +15,21 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ============ Micro-interaction primitives (landing pages) ============ */
 /* Scroll reveal: add .reveal-on-scroll (+ optional data-reveal-delay="ms") */
+/* Default (no-JS / pre-hydration) is VISIBLE so sections never disappear.
+   JS adds `html.js` (BaseLayout) and only then do reveals start hidden. */
 .reveal-on-scroll {
+  opacity: 1;
+  transform: none;
+}
+html.js .reveal-on-scroll {
   opacity: 0;
   transform: translateY(28px);
   transition:
     opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
     transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: opacity, transform;
 }
 
-.reveal-on-scroll.is-visible {
+html.js .reveal-on-scroll.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -50,7 +55,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal-on-scroll {
+  html.js .reveal-on-scroll {
     opacity: 1;
     transform: none;
     transition: none;
@@ -58,6 +63,29 @@ h1, h2, h3, h4, h5, h6 {
   .spotlight-card::before {
     display: none;
   }
+}
+/* Class-driven twin of the media query (set by BaseLayout probe). Reduced
+   motion disables *motion* — reveals stay visible, no transform offset. */
+html.reduce-motion .reveal-on-scroll {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+html.reduce-motion .spotlight-card::before {
+  display: none !important;
+}
+/* Reduced motion: no transitions anywhere (reveals are forced visible above) */
+html.reduce-motion *,
+html.reduce-motion *::before,
+html.reduce-motion *::after {
+  transition: none !important;
+}
+html.reduce-motion [class*="animate-"],
+html.reduce-motion .animate-fade-in,
+html.reduce-motion .animate-slide-up,
+html.reduce-motion .animate-scale-up,
+html.reduce-motion .animate-float-slow {
+  animation: none !important;
 }
 
 /* GPU-off fallback: when GPU accel disabled, backdrop-blur/will-change/filter:blur all run on CPU and cause jank.
@@ -100,6 +128,14 @@ html.gpu-off .fade-on-scroll {
   will-change: auto !important;
   transform: none !important;
   opacity: 1 !important;
+  transition: none !important;
+}
+/* No-JS safety net: without the `js` class (or without IntersectionObserver
+   support) reveals never hide. */
+html:not(.js) .reveal-on-scroll,
+html:not(.js) .fade-on-scroll {
+  opacity: 1 !important;
+  transform: none !important;
 }
 /* extra heavy compositing helpers */
 html.gpu-off .transform-gpu {
@@ -189,15 +225,18 @@ html.gpu-off .mix-blend-overlay {
 }
 
 .fade-on-scroll {
+  opacity: 1;
+  transform: none;
+}
+html.js .fade-on-scroll {
   opacity: 0;
   transform: translateY(10px);
   transition:
     opacity 0.8s ease-out,
     transform 0.8s ease-out;
-  will-change: opacity, transform;
 }
 
-.fade-on-scroll.is-visible {
+html.js .fade-on-scroll.is-visible {
   opacity: 1;
   transform: translateY(0);
 }

@@ -246,9 +246,9 @@ const questions: QAItem[] = questionOverrides.map((override) => {
 
 <style>
   /* ================= انیمیشن‌های اسکرول ================= */
-  .reveal-on-scroll {
+  /* Hidden state only when JS is active — no-JS / no-observer stays visible */
+  html.js .reveal-on-scroll {
     opacity: 0;
-    will-change: opacity, transform;
   }
 
   
@@ -407,9 +407,10 @@ const questions: QAItem[] = questionOverrides.map((override) => {
   function initQA() {
     // 1. منطق انیمیشن اسکرول
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const gpuOff = document.documentElement.classList.contains('gpu-off') || window.__GPU_OFF__;
     const revealElements = document.querySelectorAll('.reveal-on-scroll');
-    
-    if (prefersReducedMotion) {
+
+    if (prefersReducedMotion || gpuOff || typeof IntersectionObserver === 'undefined') {
       revealElements.forEach(el => el.classList.add('is-visible'));
     } else {
       const observer = new IntersectionObserver((entries, obs) => {

@@ -97,6 +97,25 @@ export const OrbitSystem = memo(function OrbitSystem({
 
   const isMobileView = useMediaQuery({ maxWidth: 700 });
   const [isInView, setIsInView] = useState(false);
+  // Low-power gate: reduced motion, GPU-off probe, or save-data → static
+  // render (no ScrollTrigger/MotionPath scrub, no icon duplication).
+  const [lowPower, setLowPower] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const check = () => {
+      setLowPower(
+        mq.matches ||
+          document.documentElement.classList.contains("gpu-off") ||
+          document.documentElement.classList.contains("reduce-motion") ||
+          (window as any).__GPU_OFF__ === true ||
+          (window as any).__REDUCED_MOTION__ === true,
+      );
+    };
+    check();
+    mq.addEventListener?.("change", check);
+    return () => mq.removeEventListener?.("change", check);
+  }, []);
+  const isStatic = isMobileView || lowPower || !animations;
   // Hydration-safe unique id (useId is deterministic server↔client)
   const rawId = useId();
   const instanceId = rawId.replace(/:/g, "") || "orbit";
@@ -116,19 +135,68 @@ export const OrbitSystem = memo(function OrbitSystem({
   }, []);
 
   /* ===== GSAP (lazy) ===== */
+  // displayOrbits must be declared before the effect that uses it.
+  // Static mode (mobile / reduced / gpu-off): no icon duplication — half the DOM.
+  const displayOrbits = isStatic
+    ? orbits
+    : orbits.map((orbit) => {
+        const n = orbit.icons.length;
+        if (n === 0) return orbit;
+        const expanded: IconConfig[] = [];
+        const copies = 2;
+        for (let c = 0; c < copies; c++) {
+          const offset = c / copies; // 0, 0.5
+          for (const ic of orbit.icons) {
+            const suffix = c === 0 ? "" : `-c${c}`;
+            expanded.push({
+              ...ic,
+              name: `${ic.name}${suffix}`,
+              start: ic.start - offset,
+              end: ic.end - offset,
+            });
+          }
+        }
+        return { ...orbit, icons: expanded };
+      });
+
   useLayoutEffect(() => {
-    if (
-      !sceneRef.current ||
-      !animations ||
-      animationInitializedRef.current ||
-      !isInView
-    ) {
+    if (!sceneRef.current || animationInitializedRef.current || !isInView) {
       return;
     }
 
     animationInitializedRef.current = true;
     iconTweensRef.current.forEach((tween) => tween.kill());
     iconTweensRef.current = [];
+
+    // Static fallback: place each icon once at its path midpoint — no
+    // ScrollTrigger, no scrub, no per-scroll work.
+    if (isStatic) {
+      const ctx = gsap.context(() => {
+        displayOrbits.forEach((orbit, orbitIndex) => {
+          const pathEl = orbitPathsRef.current[orbitIndex];
+          if (!pathEl) return;
+          orbit.icons.forEach((icon) => {
+            const key = `${orbitIndex}-${icon.name}`;
+            const iconEl = iconRefs.current[key];
+            if (!iconEl) return;
+            const mid = (icon.start + icon.end) / 2;
+            gsap.set(iconEl, {
+              motionPath: {
+                path: pathEl,
+                align: pathEl,
+                alignOrigin: [0.5, 0.5],
+                start: mid,
+                end: mid,
+              },
+            });
+          });
+        });
+      }, sceneRef);
+      return () => {
+        animationInitializedRef.current = false;
+        ctx.revert();
+      };
+    }
 
     const ctx = gsap.context(() => {
       displayOrbits.forEach((orbit, orbitIndex) => {
@@ -176,39 +244,17 @@ export const OrbitSystem = memo(function OrbitSystem({
       ScrollTrigger.refresh();
     }, sceneRef);
 
-    return () => {
+      return () => {
       animationInitializedRef.current = false;
       iconTweensRef.current.forEach((tween) => tween.kill());
       iconTweensRef.current = [];
       ctx.revert();
     };
-  }, [animations, isInView, orbits]);
+  }, [animations, isStatic, isInView, orbits]);
 
   const orbitIconSize = OrbitCircles.width ?? 64;
   const orbitIconRadius = orbitIconSize / 2;
   const defaultInnerIconSize = orbitIconSize * 0.8;
-
-  // Multiply each orbit's icons 2x around the circle for denser look
-  // Reverse placement: duplicates are offset backwards (-0.5) so at peak scroll (top 85%) they sit on the visible top arc instead of the faded bottom
-  const displayOrbits = orbits.map((orbit) => {
-    const n = orbit.icons.length;
-    if (n === 0) return orbit;
-    const expanded: IconConfig[] = [];
-    const copies = 2;
-    for (let c = 0; c < copies; c++) {
-      const offset = c / copies; // 0, 0.5
-      for (const ic of orbit.icons) {
-        const suffix = c === 0 ? "" : `-c${c}`;
-        expanded.push({
-          ...ic,
-          name: `${ic.name}${suffix}`,
-          start: ic.start - offset,
-          end: ic.end - offset,
-        });
-      }
-    }
-    return { ...orbit, icons: expanded };
-  });
 
   return (
     <div
@@ -218,20 +264,19 @@ export const OrbitSystem = memo(function OrbitSystem({
       <div className="pointer-events-none absolute inset-0" />
       <div
         ref={sceneRef}
-        className="absolute inset-0 pointer-events-none overflow-visible will-change-transform"
+        className={`absolute inset-0 pointer-events-none overflow-visible${isStatic ? "" : " will-change-transform"}`}
       >
         <div className="relative w-full h-full">
           <svg
             viewBox="0 0 1000 1000"
             preserveAspectRatio="xMidYMid meet"
-            className="absolute inset-0 w-full h-full mx-auto will-change-transform overflow-visible"
+            className={`absolute inset-0 w-full h-full mx-auto overflow-visible${isStatic ? "" : " will-change-transform"}`}
             style={{
               maskImage:
                 "linear-gradient(to bottom, black 65%, transparent 100%)",
               WebkitMaskImage:
                 "linear-gradient(to bottom, black 65%, transparent 100%)",
               contain: "layout style paint",
-              willChange: "transform",
               overflow: "visible",
             }}
           >

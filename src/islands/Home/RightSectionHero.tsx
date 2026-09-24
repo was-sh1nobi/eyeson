@@ -78,12 +78,45 @@ export default function RightSectionHero({
     const activePoster = isShowreel ? SHOWREEL.poster : (activeCategory?.poster ?? SHOWREEL.poster);
     const containerRef = useRef<HTMLDivElement>(null);
     const [canLoadVideo, setCanLoadVideo] = useState(false);
+    // Poster-first on constrained devices: mobile, reduced motion, GPU-off,
+    // or save-data never autoplay the ~24MB showreel — show the poster and
+    // let the user tap to load instead.
+    const [liteVideo, setLiteVideo] = useState(false);
+    const [userRequestedVideo, setUserRequestedVideo] = useState(false);
+
+    useEffect(() => {
+        const mq = window.matchMedia("(max-width: 1023px)");
+        const rm = window.matchMedia("(prefers-reduced-motion: reduce)");
+        const check = () => {
+            const conn = (navigator as any).connection;
+            setLiteVideo(
+                mq.matches ||
+                    rm.matches ||
+                    document.documentElement.classList.contains("gpu-off") ||
+                    document.documentElement.classList.contains("reduce-motion") ||
+                    (window as any).__GPU_OFF__ === true ||
+                    (window as any).__REDUCED_MOTION__ === true ||
+                    conn?.saveData === true,
+            );
+        };
+        check();
+        mq.addEventListener?.("change", check);
+        rm.addEventListener?.("change", check);
+        return () => {
+            mq.removeEventListener?.("change", check);
+            rm.removeEventListener?.("change", check);
+        };
+    }, []);
+
+    // On lite devices the video src is only attached after an explicit tap.
+    const shouldAttachSrc = canLoadVideo && (!liteVideo || userRequestedVideo);
 
     // React does not reliably set the `muted` *property* from JSX, so browsers
     // treat the video as unmuted and block autoplay. Force it via ref and
     // explicitly call .play() whenever the source becomes available or changes.
     useEffect(() => {
         if (!canLoadVideo) return;
+        if (liteVideo && !userRequestedVideo) return;
         const video = videoRef.current;
         if (!video) return;
         video.muted = true;
@@ -101,7 +134,7 @@ export default function RightSectionHero({
             video.addEventListener("canplay", tryPlay, { once: true });
             return () => video.removeEventListener("canplay", tryPlay);
         }
-    }, [activeVideo, canLoadVideo, videoRef]);
+    }, [activeVideo, canLoadVideo, liteVideo, userRequestedVideo, videoRef]);
 
     const goPrev = () => {
         if (isShowreel) {
@@ -188,16 +221,17 @@ export default function RightSectionHero({
                     <video
                         key={activeTab}
                         ref={videoRef}
-                        src={canLoadVideo ? activeVideo : undefined}
+                        src={shouldAttachSrc ? activeVideo : undefined}
                         poster={activePoster}
-                        preload="metadata"
-                        autoPlay
+                        preload="none"
+                        autoPlay={!liteVideo}
                         muted
                         loop
                         playsInline
                         disablePictureInPicture={false}
                         onTimeUpdate={handleTimeUpdate}
                         onCanPlay={() => {
+                            if (liteVideo && !userRequestedVideo) return;
                             const video = videoRef.current;
                             if (video) {
                                 video.muted = true;
@@ -206,6 +240,18 @@ export default function RightSectionHero({
                         }}
                         className="absolute inset-0 h-full w-full object-cover rounded-[inherit] transition-opacity duration-300"
                     />
+                    {liteVideo && !userRequestedVideo && (
+                        <button
+                            type="button"
+                            onClick={() => setUserRequestedVideo(true)}
+                            aria-label="Play video"
+                            className="absolute inset-0 z-10 flex items-center justify-center cursor-pointer"
+                        >
+                            <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/90 text-[#071B2A] shadow-xl transition-transform hover:scale-105">
+                                <svg className="h-6 w-6 translate-x-[2px]" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9V3z" /></svg>
+                            </span>
+                        </button>
+                    )}
                     <div className="absolute inset-0 bg-[#051118]/10 mix-blend-overlay pointer-events-none rounded-[inherit]" aria-hidden="true" />
                 </div>
             </div>
@@ -234,7 +280,7 @@ export default function RightSectionHero({
                             key={cat.id}
                             onClick={() => onCategoryChange(cat.id)}
                             aria-pressed={isActive}
-                            className={`group relative flex items-center gap-3 p-3 rounded-2xl border transition-all duration-300 text-left cursor-pointer overflow-hidden backdrop-blur-xl ${
+                            className={`group relative flex items-center gap-3 p-3 rounded-2xl border transition-[transform,border-color,background-color,box-shadow] duration-300 text-left cursor-pointer overflow-hidden backdrop-blur-xl ${
                                 isActive
                                     ? "bg-gradient-to-r from-[#042833]/90 to-[#063342]/90 border-[#00E6D7] shadow-[0_0_30px_rgba(0,230,215,0.25)] scale-[1.02]"
                                     : "bg-[#05141e]/80 border-white/[0.08] hover:border-white/25 hover:bg-[#071f2d]/90 hover:scale-[1.01]"
@@ -246,7 +292,7 @@ export default function RightSectionHero({
                             )}
 
                             {/* Icon Box */}
-                            <div className={`p-2.5 rounded-xl border transition-all duration-300 shrink-0 ${
+                            <div className={`p-2.5 rounded-xl border transition-[background-color,border-color,box-shadow,color] duration-300 shrink-0 ${
                                 isActive 
                                     ? "bg-[#00E6D7]/20 border-[#00E6D7]/60 text-[#00E6D7] shadow-[0_0_15px_rgba(0,230,215,0.3)]" 
                                     : "bg-white/5 border-white/10 text-white/50 group-hover:text-white group-hover:border-white/20 group-hover:bg-white/10"

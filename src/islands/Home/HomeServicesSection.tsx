@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 import { SmartImage } from "@/utils/SmartImage.tsx";
+import { useAutoplayAllowed } from "@/utils/useAutoplayAllowed";
 
 // Import Swiper styles
 import "swiper/css";
@@ -10,6 +11,7 @@ import "./ProcessScrollSection.css";
 
 export default function HomeServicesSection() {
   const [activeTab, setActiveTab] = useState("animation");
+  const autoplayAllowed = useAutoplayAllowed();
 
   const animationServices = [
     {
@@ -177,7 +179,7 @@ export default function HomeServicesSection() {
             slidesPerView={1.2}
             centeredSlides={true}
             pagination={{ clickable: true, dynamicBullets: true }}
-            autoplay={{ delay: 3000, disableOnInteraction: false }}
+            autoplay={autoplayAllowed ? { delay: 3000, disableOnInteraction: false, pauseOnMouseEnter: true } : false}
             breakpoints={{
               768: {
                 slidesPerView: 2,
@@ -195,7 +197,7 @@ export default function HomeServicesSection() {
                 <div className="group relative h-full py-4 w-full">
                   <div className="absolute inset-0 rounded-[var(--radius-2xl)] border border-[var(--color-border-teal)] bg-[var(--card-bg)] opacity-0 lg:group-hover:opacity-100 transition-opacity duration-[var(--duration-slow)]" aria-hidden="true" />
 
-                  <div className="relative h-full bg-[#0f172a]/70 backdrop-blur-md rounded-[var(--radius-2xl)] border border-[var(--card-border)] overflow-hidden z-10 shadow-[var(--card-shadow)] transition-all duration-[var(--duration-slow)] ease-[var(--ease-default)] lg:group-hover:-translate-y-1.5 lg:group-hover:shadow-[var(--card-shadow-hover)] flex flex-col">
+                    <div className="relative h-full bg-[#0f172a]/70 backdrop-blur-md rounded-[var(--radius-2xl)] border border-[var(--card-border)] overflow-hidden z-10 shadow-[var(--card-shadow)] transition-[transform,box-shadow,border-color] duration-[var(--duration-slow)] ease-[var(--ease-default)] lg:group-hover:-translate-y-1.5 lg:group-hover:shadow-[var(--card-shadow-hover)] flex flex-col">
                     <div className="relative h-40 lg:h-48 bg-[#020915] overflow-hidden m-2 rounded-[var(--radius-lg)] shrink-0 border border-white/[0.04]">
                       <SmartImage
                         src={service.image}

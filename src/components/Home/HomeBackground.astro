@@ -53,8 +53,8 @@
   <!-- Full-page aqua tint so gaps stay lit -->
   <div class="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(8,145,178,0.14)_0%,transparent_20%,transparent_80%,rgba(8,145,178,0.12)_100%)]"></div>
 
-  <!-- ===== Merged from SaasBackground — absolute, reserved size to prevent CLS ===== -->
-  <div class="absolute inset-0 -z-1 pointer-events-none select-none overflow-hidden" aria-hidden="true" style="contain: layout paint; content-visibility: auto;">
+  <!-- ===== Merged from SaasBackground — desktop only (feGaussianBlur x6 is CPU-heavy on mobile) ===== -->
+  <div class="hb-saas absolute inset-0 -z-1 pointer-events-none select-none overflow-hidden hidden lg:block" aria-hidden="true" style="contain: layout paint; content-visibility: auto;">
   <svg width="1094" height="1220" viewBox="0 0 1094 1220" fill="none" xmlns="http://www.w3.org/2000/svg" class="absolute top-[1400px] left-1/2 -translate-x-1/2 w-[1094px] max-w-none h-auto aspect-[1094/1220] -z-1 pointer-events-none" style="contain: layout paint;">
       <g filter="url(#hb_saas_f0)">
           <path d="M346.667 432.809C386.57 417.78 428.796 338.007 444.921 300H256.434C243.902 300 188.508 356.359 141.387 364.969C94.2651 373.58 129.105 455.77 119.33 490.472C109.554 525.174 126.097 591.448 129.105 604.494C132.113 617.54 140.133 686.684 141.387 724.257C142.64 761.829 178.984 758.698 188.508 796.271C198.033 833.843 256.434 829.408 320.349 839.584C384.263 849.76 397.799 829.408 492.042 839.584C586.285 849.76 777.958 938.257 791.744 916.6C805.529 894.944 753.279 844.356 712.925 806.783C672.57 769.211 539.164 708.341 429.631 701.035C320.098 693.729 294.031 614.409 256.434 575.532C218.837 536.655 296.788 451.595 346.667 432.809Z" fill="url(#hb_saas_g0)"/>
@@ -114,10 +114,13 @@
     to { opacity: 0.95; }
   }
   .hb {
-    will-change: transform, opacity;
     transform: translateZ(0);
     backface-visibility: hidden;
     contain: strict;
+  }
+  /* will-change only while animating on capable desktops — never on touch */
+  @media (hover: hover) and (min-width: 1024px) {
+    .hb { will-change: transform, opacity; }
   }
   .hb-1 { animation: hb-drift-a 11s ease-in-out -2s infinite alternate, hb-fade-a 8s ease-in-out -1s infinite alternate; }
   .hb-2 { animation: hb-drift-b 13s ease-in-out -5s infinite alternate, hb-fade-b 10s ease-in-out -4s infinite alternate; }
@@ -129,4 +132,15 @@
   @media (prefers-reduced-motion: reduce) {
     .hb { animation: none; }
   }
+
+  /* Mobile-lite: keep only the first 2 orbs as static glows (no drift
+     animation, no blur filter — radial gradient alone is cheap). The rest
+     plus the feGaussianBlur SaaS SVGs (already hidden < lg) stay off. */
+  @media (max-width: 1023.5px) {
+    .hb { animation: none !important; filter: none !important; }
+    .hb:nth-of-type(n+3) { display: none !important; }
+  }
+  html.gpu-off .hb,
+  html.reduce-motion .hb { animation: none !important; }
+  html.gpu-off .hb-saas { display: none !important; }
 </style>

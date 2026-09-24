@@ -242,7 +242,7 @@ export const Header = () => {
                 <div className={`relative px-4 sm:px-6 lg:px-10 transition-[padding] duration-300 ease-out ${scrolled ? "py-2 lg:py-3" : "py-3 lg:py-6"}`}>
 
                     {/* Scroll background */}
-                    <div className={`pointer-events-none absolute inset-x-0 top-0 h-full transition-all duration-300 ease-out ${scrolled ? "bg-[#000E17]/90 backdrop-blur-md shadow-md" : "bg-transparent opacity-0"}`} />
+                    <div className={`pointer-events-none absolute inset-x-0 top-0 h-full transition-[background-color,box-shadow,opacity] duration-300 ease-out ${scrolled ? "bg-[#000E17]/90 backdrop-blur-md shadow-md" : "bg-transparent opacity-0"}`} />
 
                     {/* Desktop Header */}
                     <div className="relative mx-auto max-w-[1200px] hidden lg:flex items-center justify-between gap-3">
@@ -256,7 +256,7 @@ export const Header = () => {
                                 <a href="#" className="text-white/90 hover:text-white transition-colors inline-flex items-center gap-1 py-4">
                                     Services <span className="text-xs transition-transform group-hover:rotate-180">▾</span>
                                 </a>
-                                <div className="pointer-events-none absolute left-1/2 top-full z-50 w-[min(1060px,calc(100vw-2rem))] -translate-x-1/2 opacity-0 translate-y-2 transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:pointer-events-auto group-focus-within:opacity-100">
+                                <div className="pointer-events-none absolute left-1/2 top-full z-50 w-[min(1060px,calc(100vw-2rem))] -translate-x-1/2 opacity-0 translate-y-2 transition-[opacity,transform] duration-200 group-hover:pointer-events-auto group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:pointer-events-auto group-focus-within:opacity-100">
                                     <div className="h-4 w-full" aria-hidden="true" />
                                     <MegaMenu />
                                 </div>

@@ -2,6 +2,7 @@
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow, Autoplay } from "swiper/modules";
+import { useAutoplayAllowed } from "@/utils/useAutoplayAllowed";
 
 import "swiper/css";
 import "swiper/css/effect-coverflow";
@@ -24,6 +25,7 @@ const appScreens = [
 ];
 
 export default function UiUxAppSlider() {
+  const autoplayAllowed = useAutoplayAllowed();
   return (
     <section className="app-slider-section">
       <div className="app-slider-header">
@@ -50,10 +52,11 @@ export default function UiUxAppSlider() {
           loop={true}
           loopAdditionalSlides={3}
           speed={600}
-          autoplay={{
+          autoplay={autoplayAllowed ? {
             delay: 3000,
             disableOnInteraction: false,
-          }}
+            pauseOnMouseEnter: true,
+          } : false}
           coverflowEffect={{
             rotate: 0,
             stretch: -40,

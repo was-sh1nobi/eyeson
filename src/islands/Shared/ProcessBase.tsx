@@ -16,6 +16,19 @@ export default function ProcessScrollSection() {
 
     useLayoutEffect(() => {
         if (!sectionRef.current || !svgRef.current) return;
+        // Pinned scrub timelines are desktop-only: on mobile / reduced motion /
+        // GPU-off they cause jank and layout jumps — render the final static
+        // frame instead.
+        try {
+            const coarseMobile = window.matchMedia("(max-width: 1023px)").matches;
+            const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            const gpuOff =
+                document.documentElement.classList.contains("gpu-off") ||
+                document.documentElement.classList.contains("reduce-motion") ||
+                (window as any).__GPU_OFF__ === true ||
+                (window as any).__REDUCED_MOTION__ === true;
+            if (coarseMobile || reduced || gpuOff) return;
+        } catch { /* fall through to animated path */ }
 
         const ctx = gsap.context(() => {
             const tl = gsap.timeline({

@@ -101,6 +101,16 @@ export default function ProcessScrollSection() {
     const mm = gsap.matchMedia();
 
     mm.add("(min-width: 1024px)", () => {
+      // No pin when motion is reduced or GPU acceleration is off — the
+      // scrubbed pin runs per-scroll-tick compositing that janks on CPU.
+      try {
+        if (
+          window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+          document.documentElement.classList.contains("gpu-off") ||
+          document.documentElement.classList.contains("reduce-motion") ||
+          (window as any).__GPU_OFF__ === true
+        ) return;
+      } catch { /* fall through */ }
       if (gridContainerRef.current && pinRef.current) {
         ScrollTrigger.create({
           trigger: gridContainerRef.current,

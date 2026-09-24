@@ -121,7 +121,11 @@ const {
 
     const elements = document.querySelectorAll(".reveal-on-scroll");
 
-    if (prefersReducedMotion) {
+    if (
+      prefersReducedMotion ||
+      document.documentElement.classList.contains("gpu-off") ||
+      typeof IntersectionObserver === "undefined"
+    ) {
       // اگر کاربر انیمیشن نمی‌خواد، همون اول همه رو نشون بده
       elements.forEach((el) => el.classList.add("is-visible"));
     } else {

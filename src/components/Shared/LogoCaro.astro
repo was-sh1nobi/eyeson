@@ -34,8 +34,9 @@ const {
   ],
 } = Astro.props as Props;
 
-// Quadruple logos for ultra-smooth, continuous tight loop
-const loopLogos = [...logos, ...logos, ...logos, ...logos];
+// Duplicate 2x for a seamless -50%→0 loop. (4x doubled the <img> count
+// to 56 with no visual gain.)
+const loopLogos = [...logos, ...logos];
 ---
 
 <section class="relative flex flex-col items-center gap-6 overflow-hidden pt-6 pb-2">
@@ -76,12 +77,17 @@ const loopLogos = [...logos, ...logos, ...logos, ...logos];
   .logo-img {
     opacity: 0.9;
     transition: opacity 0.3s ease, transform 0.3s ease;
-    will-change: opacity, transform;
   }
 
   .logo-item:hover .logo-img {
     opacity: 1;
     transform: scale(1.08);
+  }
+
+  @media (hover: none) {
+    .logo-item:hover .logo-img {
+      transform: none;
+    }
   }
 
   /* ================= MARQUEE & MASK ================= */
@@ -107,8 +113,25 @@ const loopLogos = [...logos, ...logos, ...logos, ...logos];
 
   .logo-scroll {
     animation: logo-scroll-right 35s linear infinite;
-    will-change: transform;
     gap: 0.75rem;
+  }
+
+  /* will-change only on devices that can composite it cheaply */
+  @media (hover: hover) and (min-width: 1024px) {
+    .logo-scroll {
+      will-change: transform;
+    }
+  }
+
+  /* Static strip when motion is off or GPU is off — no animation, no scroll */
+  @media (prefers-reduced-motion: reduce) {
+    .logo-scroll {
+      animation: none;
+    }
+  }
+  html.gpu-off .logo-scroll,
+  html.reduce-motion .logo-scroll {
+    animation: none !important;
   }
 
   /* keep running on hover — do not pause */

@@ -9,6 +9,7 @@ import {
   Pagination,
 } from "swiper/modules";
 import { dashboardService } from "@/services/dashboardService.ts";
+import { useAutoplayAllowed } from "@/utils/useAutoplayAllowed";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -38,6 +39,7 @@ const STATIC_CONTENT = {
 export default function CaseStudiesSection() {
   const [projects, setProjects] = useState<ProjectItem[] | null>(null);
   const [mounted, setMounted] = useState(false);
+  const autoplayAllowed = useAutoplayAllowed();
 
   const data = async () => {
     try {
@@ -143,7 +145,7 @@ export default function CaseStudiesSection() {
               bulletClass: "swiper-custom-bullet",
               bulletActiveClass: "swiper-custom-bullet-active",
             }}
-            autoplay={{ delay: 6000, disableOnInteraction: false }}
+            autoplay={autoplayAllowed ? { delay: 6000, disableOnInteraction: false, pauseOnMouseEnter: true } : false}
             className="rounded-[24px] md:rounded-[32px] border border-[#1a5660]/50 bg-[#071922]/80 backdrop-blur-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
           >
             {projects.map((project) => {

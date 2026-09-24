@@ -3,10 +3,12 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import { useEffect, useState } from "react";
+import { useAutoplayAllowed } from "@/utils/useAutoplayAllowed";
 
 import TestimonialCard from "./TestimonialCard";
 
 export default function TestimonialsSection() {
+  const autoplayAllowed = useAutoplayAllowed();
   const [stars, setStars] = useState<
     Array<{ top: string; left: string; size: number; delay: number }>
   >([]);
@@ -141,10 +143,11 @@ export default function TestimonialsSection() {
               nextEl: ".swiper-button-next-custom",
               prevEl: ".swiper-button-prev-custom",
             }}
-            autoplay={{
+            autoplay={autoplayAllowed ? {
               delay: 4500,
               disableOnInteraction: false,
-            }}
+              pauseOnMouseEnter: true,
+            } : false}
             breakpoints={{
               640: { slidesPerView: 1 },
               768: { slidesPerView: 2, spaceBetween: 24 },
@@ -164,7 +167,7 @@ export default function TestimonialsSection() {
           {/* Navigation Arrows */}
           <button
             aria-label="Previous testimonials"
-            className="swiper-button-prev-custom absolute top-1/2 -left-3 lg:-left-6 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-[#07212b] border border-white/15 flex items-center justify-center text-white hover:text-[#00E6D7] hover:scale-110 active:scale-95 hover:border-[#00E6D7] hover:shadow-[0_0_20px_rgba(0,230,215,0.4)] transition-all duration-200 shadow-2xl cursor-pointer"
+            className="swiper-button-prev-custom absolute top-1/2 -left-3 lg:-left-6 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-[#07212b] border border-white/15 flex items-center justify-center text-white hover:text-[#00E6D7] hover:scale-110 active:scale-95 hover:border-[#00E6D7] hover:shadow-[0_0_20px_rgba(0,230,215,0.4)] transition-[transform,color,border-color,box-shadow] duration-200 shadow-2xl cursor-pointer"
           >
             <svg
               className="w-5 h-5"
@@ -180,7 +183,7 @@ export default function TestimonialsSection() {
 
           <button
             aria-label="Next testimonials"
-            className="swiper-button-next-custom absolute top-1/2 -right-3 lg:-right-6 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-[#07212b] border border-white/15 flex items-center justify-center text-white hover:text-[#00E6D7] hover:scale-110 active:scale-95 hover:border-[#00E6D7] hover:shadow-[0_0_20px_rgba(0,230,215,0.4)] transition-all duration-200 shadow-2xl cursor-pointer"
+            className="swiper-button-next-custom absolute top-1/2 -right-3 lg:-right-6 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-[#07212b] border border-white/15 flex items-center justify-center text-white hover:text-[#00E6D7] hover:scale-110 active:scale-95 hover:border-[#00E6D7] hover:shadow-[0_0_20px_rgba(0,230,215,0.4)] transition-[transform,color,border-color,box-shadow] duration-200 shadow-2xl cursor-pointer"
           >
             <svg
               className="w-5 h-5"

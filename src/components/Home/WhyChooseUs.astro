@@ -112,9 +112,8 @@ const {
     50% { opacity: 0.22; transform: scale(1.55); }
   }
 
-  .reveal-on-scroll {
+  html.js .reveal-on-scroll {
     opacity: 0;
-    will-change: opacity, transform;
   }
 
   
@@ -151,7 +150,11 @@ const {
     ).matches;
     const elements = document.querySelectorAll(".reveal-on-scroll");
 
-    if (prefersReducedMotion) {
+    if (
+      prefersReducedMotion ||
+      document.documentElement.classList.contains("gpu-off") ||
+      typeof IntersectionObserver === "undefined"
+    ) {
       elements.forEach((el) => el.classList.add("is-visible"));
       return;
     }
