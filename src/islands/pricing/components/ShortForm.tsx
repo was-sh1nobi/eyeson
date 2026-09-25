@@ -162,7 +162,7 @@ export const ShortForm = ({
                 <div className="flex flex-col items-center gap-4 sm:flex-row">
                     <button
                         onClick={handleEstimate}
-                        className="h-11 w-full rounded-lg bg-linear-to-r from-[#1AD1BC] to-[#0989A5] px-6 text-sm font-semibold text-white shadow-[0_10px_25px_-12px_rgba(26,209,188,0.8)] transition hover:brightness-110 sm:w-auto"
+                        className="h-11 w-full cursor-pointer rounded-lg bg-linear-to-r from-[#1AD1BC] to-[#0989A5] px-6 text-sm font-semibold text-white select-none shadow-[0_10px_25px_-12px_rgba(26,209,188,0.8)] transition duration-200 hover:-translate-y-px hover:brightness-125 hover:shadow-[0_10px_30px_-10px_rgba(26,209,188,0.9)] active:translate-y-0 active:brightness-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1AD1BC]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0C232B] sm:w-auto"
                     >
                         {hasPrices ? "Estimate Your Project" : "Get Started"}
                     </button>

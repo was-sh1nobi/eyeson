@@ -164,7 +164,7 @@ export default function AnimationWorkflowSection() {
               return (
                 <article
                   key={item.id}
-                  className={`w-full transition-all duration-300 ${
+                  className={`w-full transition-colors duration-300 ${
                     !isLast ? "border-b border-white/5" : ""
                   }`}
                 >
@@ -177,7 +177,7 @@ export default function AnimationWorkflowSection() {
                     <div className="relative shrink-0">
                       {/* افکت نوری دور آیکون */}
                       <div className="absolute inset-0 bg-[#00aabf] blur-md opacity-20 rounded-xl" />
-                      <div className="relative flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-[#122b2e] to-[#0d1f23] border border-[#1e4444] text-[#00aabf] shadow-[inset_0_1px_12px_rgba(77,226,196,0.1)] transition-all duration-300 group-hover:scale-105 group-hover:border-[#00aabf]/60 group-hover:text-[#55d2b9] group-hover:shadow-[inset_0_1px_12px_rgba(77,226,196,0.1),0_0_24px_rgba(0,170,191,0.25)]">
+                      <div className="relative flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-[#122b2e] to-[#0d1f23] border border-[#1e4444] text-[#00aabf] shadow-[inset_0_1px_12px_rgba(77,226,196,0.1)] transition-[transform,border-color,color,box-shadow] duration-300 group-hover:scale-105 group-hover:border-[#00aabf]/60 group-hover:text-[#55d2b9] group-hover:shadow-[inset_0_1px_12px_rgba(77,226,196,0.1),0_0_24px_rgba(0,170,191,0.25)]">
                         {item.icon}
                       </div>
                     </div>
@@ -190,7 +190,7 @@ export default function AnimationWorkflowSection() {
 
                   {/* محتوای توضیحات آکاردئون */}
                   <div
-                    className={`grid transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                    className={`grid transition-[grid-template-rows,opacity] duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                       isOpen
                         ? "grid-rows-[1fr] opacity-100 pb-8"
                         : "grid-rows-[0fr] opacity-0 pb-0"

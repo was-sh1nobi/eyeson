@@ -66,7 +66,7 @@ export default function UiUxServicesSection() {
           {services.map((service) => (
             <div key={service.id} className="group flex flex-col">
               {/* کادر عکس */}
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[24px] border border-white/5 bg-[#0a1820] shadow-lg transition-all duration-300 group-hover:-translate-y-1.5 group-hover:border-cyan-500/20 group-hover:shadow-[0_15px_40px_rgba(17,169,157,0.15)]">
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[24px] border border-white/5 bg-[#0a1820] shadow-lg transition-[transform,border-color,box-shadow] duration-300 group-hover:-translate-y-1.5 group-hover:border-cyan-500/20 group-hover:shadow-[0_15px_40px_rgba(17,169,157,0.15)]">
                 <img
                   src={service.imageUrl}
                   alt={service.title}

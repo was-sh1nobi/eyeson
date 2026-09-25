@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import SecondaryButton from "@/components/Shared/SecondaryButton";
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
@@ -149,10 +150,12 @@ const MobileServiceGroup = ({ group, onClose }: MobileServiceGroupProps) => {
 interface MobileMenuProps {
     open: boolean;
     onClose: () => void;
+    currentPath?: string;
 }
 
-export const MobileMenu = ({ open, onClose }: MobileMenuProps) => {
+export const MobileMenu = ({ open, onClose, currentPath = "/" }: MobileMenuProps) => {
     const [servicesOpen, setServicesOpen] = useState(false);
+    const active = (path: string) => normalizePath(path) === normalizePath(currentPath);
 
     useEffect(() => {
         document.body.style.overflow = open ? "hidden" : "";
@@ -180,7 +183,7 @@ export const MobileMenu = ({ open, onClose }: MobileMenuProps) => {
 
                     {/* Nav */}
                     <div className="space-y-2">
-                        <a href={MENU_ITEMS[0].path} onClick={onClose} className="block rounded-2xl px-4 py-3 text-[15px] font-semibold text-white/75 transition-colors hover:bg-white/[0.04]">
+                        <a href={MENU_ITEMS[0].path} onClick={onClose} aria-current={active(MENU_ITEMS[0].path) ? "page" : undefined} className={`block rounded-2xl px-4 py-3 text-[15px] font-semibold transition-colors hover:bg-white/[0.04] hover:text-white active:bg-white/[0.08] active:text-white ${active(MENU_ITEMS[0].path) ? "bg-[#0a2330] text-white shadow-[inset_0_0_0_1px_rgba(43,214,222,0.35)]" : "text-white/75"}`}>
                             {MENU_ITEMS[0].title}
                         </a>
 
@@ -207,7 +210,7 @@ export const MobileMenu = ({ open, onClose }: MobileMenuProps) => {
                         <div className="h-px bg-white/[0.06] mx-1 my-2" />
 
                         {MENU_ITEMS.slice(1).map((item) => (
-                            <a key={item.id} href={item.path} onClick={onClose} className="block rounded-2xl px-4 py-3 text-[15px] font-semibold text-white/75 transition-colors hover:bg-white/[0.04]">
+                            <a key={item.id} href={item.path} onClick={onClose} aria-current={active(item.path) ? "page" : undefined} className={`block rounded-2xl px-4 py-3 text-[15px] font-semibold transition-colors hover:bg-white/[0.04] hover:text-white active:bg-white/[0.08] active:text-white ${active(item.path) ? "bg-[#0a2330] text-white shadow-[inset_0_0_0_1px_rgba(43,214,222,0.35)]" : "text-white/75"}`}>
                                 {item.title}
                             </a>
                         ))}
@@ -226,9 +229,18 @@ export const MobileMenu = ({ open, onClose }: MobileMenuProps) => {
 
 // ─── Full Header ──────────────────────────────────────────────────────────────
 
+// Service pages that keep the "Services" trigger highlighted.
+const SERVICE_PATHS = ["/saas", "/video", "/adcreatives", "/animation", "/retainers", "/branding", "/uiux", "/motiongraphics"];
+
+const normalizePath = (p: string) => (p.length > 1 ? p.replace(/\/+$/, "") : p);
+
+const NAV_LINK_CLASS =
+    "nav-link relative inline-flex items-center gap-1 py-4 leading-6 text-white/70 transition-[color,text-shadow] duration-200 hover:text-white focus-visible:text-white focus-visible:outline-none";
+
 export const Header = () => {
     const [mobileOpen, setMobileOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const [currentPath, setCurrentPath] = useState("/");
 
     useEffect(() => {
         let rafId = 0;
@@ -248,8 +260,55 @@ export const Header = () => {
         };
     }, []);
 
+    // Track current route for active-link styling (incl. Astro view transitions).
+    useEffect(() => {
+        const update = () => setCurrentPath(normalizePath(window.location.pathname));
+        update();
+        document.addEventListener("astro:page-load", update);
+        window.addEventListener("popstate", update);
+        return () => {
+            document.removeEventListener("astro:page-load", update);
+            window.removeEventListener("popstate", update);
+        };
+    }, []);
+
+    const isActive = (path: string) => normalizePath(path) === currentPath;
+    const servicesActive = SERVICE_PATHS.some((p) => normalizePath(p) === currentPath);
+
     return (
         <>
+            <style>{`
+                .nav-link::after {
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    bottom: 10px;
+                    height: 2px;
+                    border-radius: 9999px;
+                    background: linear-gradient(90deg, #2bd6de, #46b6a0);
+                    box-shadow: 0 0 12px rgba(43, 214, 222, 0.6);
+                    transform: scaleX(0);
+                    transform-origin: left;
+                    transition: transform 250ms ease;
+                }
+                .nav-link:hover::after,
+                .nav-link:focus-visible::after,
+                .nav-link.is-active::after {
+                    transform: scaleX(1);
+                }
+                .nav-link:hover,
+                .nav-link:focus-visible {
+                    text-shadow: 0 0 16px rgba(43, 214, 222, 0.45);
+                }
+                .nav-link.is-active {
+                    color: #fff;
+                    text-shadow: 0 0 16px rgba(43, 214, 222, 0.55);
+                }
+                @media (prefers-reduced-motion: reduce) {
+                    .nav-link::after { transition: none; }
+                }
+            `}</style>
             <header className="fixed z-50 w-full top-0">
                 <div className={`relative px-4 sm:px-6 lg:px-10 transition-[padding] duration-300 ease-out ${scrolled ? "py-2 lg:py-3" : "py-3 lg:py-6"}`}>
 
@@ -263,9 +322,19 @@ export const Header = () => {
                         </a>
 
                         <nav className="hidden lg:flex items-center gap-7">
-                            <a href={MENU_ITEMS[0].path} className="text-white/90 hover:text-white transition-colors">{MENU_ITEMS[0].title}</a>
+                            <a
+                                href={MENU_ITEMS[0].path}
+                                className={`${NAV_LINK_CLASS}${isActive(MENU_ITEMS[0].path) ? " is-active" : ""}`}
+                                aria-current={isActive(MENU_ITEMS[0].path) ? "page" : undefined}
+                            >
+                                {MENU_ITEMS[0].title}
+                            </a>
                             <div className="group relative">
-                                <a href="#" className="text-white/90 hover:text-white transition-colors inline-flex items-center gap-1 py-4">
+                                <a
+                                    href="#"
+                                    className={`${NAV_LINK_CLASS}${servicesActive ? " is-active" : ""}`}
+                                    aria-current={servicesActive ? "page" : undefined}
+                                >
                                     Services <span className="text-xs transition-transform group-hover:rotate-180">▾</span>
                                 </a>
                                 <div className="pointer-events-none absolute left-1/2 top-full z-50 w-[min(1060px,calc(100vw-2rem))] -translate-x-1/2 opacity-0 translate-y-2 transition-[opacity,transform] duration-200 group-hover:pointer-events-auto group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:pointer-events-auto group-focus-within:opacity-100">
@@ -274,13 +343,18 @@ export const Header = () => {
                                 </div>
                             </div>
                             {MENU_ITEMS.slice(1).map((item) => (
-                                <a key={item.id} href={item.path} className="text-white/90 hover:text-white transition-colors">{item.title}</a>
+                                <a
+                                    key={item.id}
+                                    href={item.path}
+                                    className={`${NAV_LINK_CLASS}${isActive(item.path) ? " is-active" : ""}`}
+                                    aria-current={isActive(item.path) ? "page" : undefined}
+                                >
+                                    {item.title}
+                                </a>
                             ))}
                         </nav>
 
-                        <a href="/contact" className="hidden lg:block px-8 py-2.5 rounded-full text-white font-semibold bg-[#0B1F2A] border border-cyan-300/70 shadow-[0_0_30px_rgba(45,220,255,0.2)] hover:bg-[#0f2c3d] transition-colors text-center">
-                            Book a Call
-                        </a>
+                        <SecondaryButton text="Book a call" href="/contact" className="hidden lg:inline-flex" />
                     </div>
 
                     {/* Mobile / Compact Header */}
@@ -300,7 +374,7 @@ export const Header = () => {
                 </div>
             </header>
 
-            <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} />
+            <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} currentPath={currentPath} />
         </>
     );
 };

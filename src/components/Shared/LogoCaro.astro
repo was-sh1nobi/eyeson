@@ -116,6 +116,12 @@ const loopLogos = [...logos, ...logos];
     gap: 0.75rem;
   }
 
+  /* Offscreen pause (JS toggles .is-paused) — animation kept, just not
+     composited while out of view. */
+  .logo-scroll.is-paused {
+    animation-play-state: paused;
+  }
+
   /* will-change only on devices that can composite it cheaply */
   @media (hover: hover) and (min-width: 1024px) {
     .logo-scroll {
@@ -123,15 +129,18 @@ const loopLogos = [...logos, ...logos];
     }
   }
 
-  /* Static strip when motion is off or GPU is off — no animation, no scroll */
+  /* OS reduced-motion only: marquee keeps scrolling on weak-GPU/mobile.
+     gpu-off lite = slower scroll (decrease, never disable). */
   @media (prefers-reduced-motion: reduce) {
     .logo-scroll {
       animation: none;
     }
   }
-  html.gpu-off .logo-scroll,
   html.reduce-motion .logo-scroll {
     animation: none !important;
+  }
+  html.gpu-off .logo-scroll {
+    animation-duration: 70s !important;
   }
 
   /* keep running on hover — do not pause */
@@ -168,3 +177,24 @@ const loopLogos = [...logos, ...logos];
     }
   }
 </style>
+
+<script>
+  // Pause each marquee while offscreen — saves battery/CPU, animation resumes on return.
+  (function () {
+    if (typeof IntersectionObserver === "undefined") return;
+    var masks = document.querySelectorAll(".logo-mask:not([data-marquee-bound])");
+    masks.forEach(function (root) {
+      root.setAttribute("data-marquee-bound", "1");
+      var scroller = root.querySelector(".logo-scroll");
+      if (!(scroller instanceof HTMLElement)) return;
+      var el: HTMLElement = scroller;
+      var io = new IntersectionObserver(
+        function (entries) {
+          el.classList.toggle("is-paused", !entries[0].isIntersecting);
+        },
+        { rootMargin: "100px", threshold: 0 }
+      );
+      io.observe(root);
+    });
+  })();
+</script>

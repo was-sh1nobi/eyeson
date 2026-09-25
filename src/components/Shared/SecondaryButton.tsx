@@ -21,7 +21,7 @@ export default function SecondaryButton({
       style={{ width, height }}
     >
       <div
-        className="absolute inset-0 rounded-[var(--radius-full)] opacity-75 shadow-[var(--button-shadow)] transition-all duration-[var(--duration-normal)] ease-[var(--ease-default)] group-hover:opacity-100 group-hover:shadow-[var(--button-shadow-hover)] group-active:shadow-[0_0_6px_rgba(0,169,189,0.4)]"
+        className="absolute inset-0 rounded-[var(--radius-full)] opacity-75 shadow-[var(--button-shadow)] transition-[opacity,box-shadow] duration-[var(--duration-normal)] ease-[var(--ease-default)] group-hover:opacity-100 group-hover:shadow-[var(--button-shadow-hover)] group-active:shadow-[0_0_6px_rgba(0,169,189,0.4)]"
         style={{ backgroundImage: "var(--button-primary-border-gradient)" }}
       />
 

@@ -89,7 +89,7 @@ export default function CaseStudyHero({ slug }: Props) {
               {tools?.map((tool, i) => (
                 <div
                   key={i}
-                  className="group flex h-11 min-w-11 items-center justify-center rounded-xl transition-all duration-200 hover:-translate-y-0.5"
+                  className="group flex h-11 min-w-11 items-center justify-center rounded-xl transition-transform duration-200 hover:-translate-y-0.5"
                 >
                   {tool.iconUrl ? (
                     <img

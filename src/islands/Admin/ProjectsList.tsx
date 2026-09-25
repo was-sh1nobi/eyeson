@@ -164,19 +164,19 @@ export default function ProjectsList() {
             placeholder="Search projects..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 focus:border-[#00E6D7]/30 transition-all"
+            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 focus:border-[#00E6D7]/30 transition-[border-color,box-shadow]"
           />
         </div>
         <div className="flex gap-2">
           <button
             onClick={() => setViewMode("grid")}
-            className={`p-2.5 rounded-xl border transition-all cursor-pointer ${viewMode === "grid" ? "bg-[#00E6D7]/15 border-[#00E6D7]/30 text-[#00E6D7]" : "bg-white/5 border-white/10 text-white/40 hover:text-white/60"}`}
+            className={`p-2.5 rounded-xl border transition-colors cursor-pointer ${viewMode === "grid" ? "bg-[#00E6D7]/15 border-[#00E6D7]/30 text-[#00E6D7]" : "bg-white/5 border-white/10 text-white/40 hover:text-white/60"}`}
           >
             <Grid3X3 size={16} />
           </button>
           <button
             onClick={() => setViewMode("list")}
-            className={`p-2.5 rounded-xl border transition-all cursor-pointer ${viewMode === "list" ? "bg-[#00E6D7]/15 border-[#00E6D7]/30 text-[#00E6D7]" : "bg-white/5 border-white/10 text-white/40 hover:text-white/60"}`}
+            className={`p-2.5 rounded-xl border transition-colors cursor-pointer ${viewMode === "list" ? "bg-[#00E6D7]/15 border-[#00E6D7]/30 text-[#00E6D7]" : "bg-white/5 border-white/10 text-white/40 hover:text-white/60"}`}
           >
             <List size={16} />
           </button>
@@ -190,7 +190,7 @@ export default function ProjectsList() {
             {filteredProjects.map((p, i) => (
               <div
                 key={p.slug}
-                className="group rounded-2xl border border-white/5 bg-white/[0.03] backdrop-blur-xl p-5 hover:border-white/10 transition-all"
+                className="group rounded-2xl border border-white/5 bg-white/[0.03] backdrop-blur-xl p-5 hover:border-white/10 transition-colors"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00E6D7]/20 to-[#12ACB5]/10 flex items-center justify-center shrink-0 overflow-hidden">
@@ -334,7 +334,7 @@ export default function ProjectsList() {
                     onChange={(e) => setProjectname(e.target.value)}
                     required
                     placeholder="Enter project name"
-                    className="w-full px-3 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 focus:border-[#00E6D7]/30 transition-all"
+                    className="w-full px-3 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 focus:border-[#00E6D7]/30 transition-[border-color,box-shadow]"
                   />
                 </div>
 
@@ -343,7 +343,7 @@ export default function ProjectsList() {
                   <select
                     value={projectcategory}
                     onChange={(e) => setProjectcategory(e.target.value)}
-                    className="w-full px-3 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 focus:border-[#00E6D7]/30 transition-all appearance-none cursor-pointer"
+                    className="w-full px-3 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 focus:border-[#00E6D7]/30 transition-[border-color,box-shadow] appearance-none cursor-pointer"
                   >
                     {categories.map((c) => (
                       <option key={c} value={c} className="bg-[#021617]">{c}</option>
@@ -358,7 +358,7 @@ export default function ProjectsList() {
                     onChange={(e) => setDescription(e.target.value)}
                     placeholder="Brief description..."
                     rows={3}
-                    className="w-full px-3 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 focus:border-[#00E6D7]/30 transition-all resize-none cursor-text"
+                    className="w-full px-3 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 focus:border-[#00E6D7]/30 transition-[border-color,box-shadow] resize-none cursor-text"
                   />
                 </div>
 

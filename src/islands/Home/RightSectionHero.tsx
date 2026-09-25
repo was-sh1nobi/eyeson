@@ -114,6 +114,9 @@ export default function RightSectionHero({
     // React does not reliably set the `muted` *property* from JSX, so browsers
     // treat the video as unmuted and block autoplay. Force it via ref and
     // explicitly call .play() whenever the source becomes available or changes.
+    // NOTE: play() must be called unconditionally — with preload="none" nothing
+    // fetches until play(), so waiting for `canplay` alone deadlocks (poster
+    // stuck forever). play() both initiates the fetch and starts playback.
     useEffect(() => {
         if (!canLoadVideo) return;
         if (liteVideo && !userRequestedVideo) return;
@@ -123,14 +126,16 @@ export default function RightSectionHero({
         video.defaultMuted = true;
         const tryPlay = () => {
             video.muted = true;
-            video.play().catch(() => {
-                // Autoplay blocked (e.g. data-saver) — user can tap to start.
-            });
+            const p = video.play();
+            if (p) {
+                p.catch(() => {
+                    // Autoplay blocked (e.g. data-saver) — user can tap to start.
+                });
+            }
         };
-        // If metadata already loaded, play immediately; otherwise wait for canplay.
-        if (video.readyState >= 2) {
-            tryPlay();
-        } else {
+        tryPlay();
+        // Backup: if data wasn't ready, retry once it can play.
+        if (video.readyState < 2) {
             video.addEventListener("canplay", tryPlay, { once: true });
             return () => video.removeEventListener("canplay", tryPlay);
         }
@@ -189,7 +194,8 @@ export default function RightSectionHero({
                 <img
                     src="/home/RightElements/el/20.svg"
                     alt=""
-                    loading="lazy"
+                    loading="eager"
+                    fetchPriority="high"
                     decoding="async"
                     className="h-full w-full object-contain scale-[1.2] opacity-70"
                 />
@@ -226,13 +232,13 @@ export default function RightSectionHero({
 
                 {/* Inner Video Container */}
                 <div className="relative w-full h-[calc(100%-2.2rem)] sm:h-[calc(100%-2.8rem)] md:h-[calc(100%-3.1rem)] mt-6 sm:mt-7 md:mt-8 rounded-[18px] sm:rounded-[24px] md:rounded-[28px] overflow-hidden border border-white/[0.08]">
-                    <SmartImage src="/home/VideoElements/20/child.webp" alt="" fill className="rounded-[inherit] object-cover" />
+                    <SmartImage src="/home/VideoElements/20/child.webp" alt="" fill priority className="rounded-[inherit] object-cover" />
                     <video
                         key={activeTab}
                         ref={videoRef}
                         src={shouldAttachSrc ? activeVideo : undefined}
                         poster={activePoster}
-                        preload="none"
+                        preload={shouldAttachSrc ? "auto" : "none"}
                         autoPlay={!liteVideo}
                         muted
                         loop

@@ -210,7 +210,7 @@ export const ContactBookingSection = () => {
                     <button
                         key={range}
                         onClick={() => setSelectedBudget(range)}
-                        className={`h-11 rounded-xl border transition-all text-xs font-medium ${
+                        className={`h-11 rounded-xl border transition-colors text-xs font-medium ${
                             selectedBudget === range
                                 ? "border-[#1DAFD3] bg-[#0d3644] text-white"
                                 : "border-white/5 bg-white/5 text-white/40 hover:bg-white/10"
@@ -265,7 +265,7 @@ understand your project."
                     <button
                         key={duration}
                         onClick={() => setSelectedDuration(duration)}
-                        className={`h-11 flex-1 rounded-full text-sm font-medium transition-all ${
+                        className={`h-11 flex-1 rounded-full text-sm font-medium transition-[background-color,color,box-shadow] ${
                             selectedDuration === duration
                                 ? "bg-[#0d3644] text-white ring-1 ring-[#1DAFD3]/50"
                                 : "text-white/50 hover:text-white"
@@ -284,7 +284,7 @@ understand your project."
                     <button
                         key={time}
                         onClick={() => setSelectedTime(time)}
-                        className={`h-14 w-full rounded-full border transition-all text-base font-medium ${
+                        className={`h-14 w-full rounded-full border transition-colors text-base font-medium ${
                             selectedTime === time
                                 ? "border-[#1DAFD3] bg-gradient-to-r from-[#0d3644] to-[#071d26] text-white"
                                 : "border-white/10 bg-transparent text-white/70 hover:border-white/20"
@@ -302,7 +302,7 @@ understand your project."
           <button
               onClick={handleConfirmBooking}
               disabled={isSubmitting}
-              className="h-14 w-full max-w-xl flex items-center justify-center rounded-2xl bg-gradient-to-r from-[#4BCDBB] to-[#1DAFD3] text-base font-bold text-white shadow-xl transition-all hover:brightness-110 hover:scale-[1.02] active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
+              className="h-14 w-full max-w-xl flex items-center justify-center rounded-2xl bg-gradient-to-r from-[#4BCDBB] to-[#1DAFD3] text-base font-bold text-white shadow-xl transition-[transform,filter,opacity] hover:brightness-110 hover:scale-[1.02] active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
           >
             {isSubmitting ? (
                <>

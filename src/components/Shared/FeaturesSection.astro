@@ -222,7 +222,7 @@ const featureSlides: FeatureItem[][] = features.reduce<FeatureItem[][]>(
         featureSlides.map((_slide, index) => (
           <button
             type="button"
-            class={`feature-dot h-2 w-2 rounded-full transition-all duration-300 ${index === 0 ? "is-active" : ""}`}
+            class={`feature-dot h-2 w-2 rounded-full transition-[width,background-color] duration-300 ${index === 0 ? "is-active" : ""}`}
             aria-label={`Go to slide ${index + 1}`}
             aria-pressed={index === 0 ? "true" : "false"}
             data-feature-dot-index={index}

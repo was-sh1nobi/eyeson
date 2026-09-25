@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./ProcessScrollSection.css";
@@ -76,6 +76,16 @@ export default function ProcessScrollSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const gridContainerRef = useRef<HTMLDivElement>(null);
   const pinRef = useRef<HTMLDivElement>(null);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  // Track lg breakpoint so the pinned visual is never mounted / fetched on mobile.
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const update = () => setIsDesktop(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -88,6 +98,7 @@ export default function ProcessScrollSection() {
     const el = sectionRef.current;
     const steps = el ? el.querySelectorAll(".process-step") : document.querySelectorAll(".process-step");
 
+    let observer: IntersectionObserver | null = null;
     if (prefersReduced || typeof IntersectionObserver === "undefined") {
       steps.forEach((step) => step.classList.add("in-view"));
     } else {
@@ -96,16 +107,16 @@ export default function ProcessScrollSection() {
         rootMargin: "0px 0px -50px 0px",
       };
 
-      const observer = new IntersectionObserver((entries) => {
+      observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("in-view");
-            observer.unobserve(entry.target);
+            observer?.unobserve(entry.target);
           }
         });
       }, observerOptions);
 
-      steps.forEach((step) => observer.observe(step));
+      steps.forEach((step) => observer?.observe(step));
     }
 
     const mm = gsap.matchMedia();
@@ -128,15 +139,15 @@ export default function ProcessScrollSection() {
           fastScrollEnd: true,
           invalidateOnRefresh: true,
         });
+        ScrollTrigger.refresh();
       }
     });
 
-    ScrollTrigger.refresh();
-
     return () => {
+      observer?.disconnect();
       mm.revert();
     };
-  }, []);
+  }, [isDesktop]);
 
   return (
     <section
@@ -164,10 +175,10 @@ export default function ProcessScrollSection() {
           ref={gridContainerRef}
           className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-10 lg:gap-16 relative items-start"
         >
-          <div className="space-y-10 sm:space-y-12 lg:space-y-20 lg:pb-24">
+          <div className="space-y-10 sm:space-y-12 lg:space-y-20 lg:pb-24 min-w-0">
             {PROCESS_STEPS.map((step) => (
               <div key={step.id} className="process-step will-change-transform">
-                <div className="relative p-6 sm:p-8 rounded-[var(--radius-xl)] sm:rounded-[var(--radius-xl)] bg-[var(--card-bg)] border border-[var(--card-border)] backdrop-blur-md hover:border-[var(--card-border-hover)] hover:shadow-[var(--card-shadow-hover)] transition-all duration-[var(--duration-normal)] ease-[var(--ease-default)] group shadow-[var(--elevation-1)]">
+                <div className="relative p-6 sm:p-8 rounded-[var(--radius-xl)] sm:rounded-[var(--radius-xl)] bg-[var(--card-bg)] border border-[var(--card-border)] backdrop-blur-md hover:border-[var(--card-border-hover)] hover:shadow-[var(--card-shadow-hover)] transition-[border-color,box-shadow] duration-[var(--duration-normal)] ease-[var(--ease-default)] group shadow-[var(--elevation-1)]">
                   
                   <div className="absolute step-bg top-5 right-5 sm:top-8 sm:right-8 text-[10px] sm:text-xs font-bold px-3 py-1 sm:py-1.5 rounded-full border border-[var(--color-border)] bg-white/[0.04] text-white/70">
                     {step.step}
@@ -202,18 +213,26 @@ export default function ProcessScrollSection() {
             ))}
           </div>
 
-          {/* ===== Pinned Parallax (Desktop Only) ===== */}
-          <div className="hidden lg:block relative h-full self-stretch">
-            <div
-              ref={pinRef}
-              className="w-full h-[750px] flex items-center justify-center will-change-transform"
-            >
-              <div className="relative w-full h-full">
-                <img src="/svg-parts/home/single-webp/full.webp" alt="" className="absolute inset-0 w-full h-full object-contain z-8"  />
-
+          {/* ===== Pinned Parallax (Desktop Only — not mounted on mobile, so no blank space / no image fetch) ===== */}
+          {isDesktop && (
+            <div className="hidden lg:block relative self-start">
+              <div
+                ref={pinRef}
+                className="w-full h-[750px] flex items-center justify-center will-change-transform"
+              >
+                <div className="relative w-full h-full">
+                  <img
+                    src="/svg-parts/home/single-webp/full.webp"
+                    alt=""
+                    aria-hidden="true"
+                    loading="eager"
+                    decoding="async"
+                    className="absolute inset-0 w-full h-full object-contain"
+                  />
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </section>

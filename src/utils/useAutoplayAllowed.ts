@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 
-/** False when autoplay would cause jank or violate motion preferences. */
+/** False only when the OS requests reduced motion. Weak-GPU / mobile
+ * devices keep autoplay (lite-degraded elsewhere), per keep-animations policy. */
 export function useAutoplayAllowed(): boolean {
   const [allowed, setAllowed] = useState(true);
   useEffect(() => {
@@ -10,9 +11,7 @@ export function useAutoplayAllowed(): boolean {
     const check = () => {
       setAllowed(
         !mq.matches &&
-          !document.documentElement.classList.contains("gpu-off") &&
           !document.documentElement.classList.contains("reduce-motion") &&
-          (window as any).__GPU_OFF__ !== true &&
           (window as any).__REDUCED_MOTION__ !== true,
       );
     };

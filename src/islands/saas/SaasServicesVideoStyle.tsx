@@ -133,7 +133,7 @@ export default function SaasServicesVideoStyle() {
           {serviceCards.map((card) => (
             <article
               key={card.id}
-              className="group rounded-3xl border border-[#13a8b8]/60 bg-[linear-gradient(160deg,#071c2e,#0a2433)] p-3 shadow-[0_10px_30px_rgba(0,0,0,0.45)] transition-all duration-300 hover:-translate-y-1 hover:border-[#23d8dc]"
+              className="group rounded-3xl border border-[#13a8b8]/60 bg-[linear-gradient(160deg,#071c2e,#0a2433)] p-3 shadow-[0_10px_30px_rgba(0,0,0,0.45)] transition-[transform,border-color] duration-300 hover:-translate-y-1 hover:border-[#23d8dc]"
             >
               <div className="relative h-56 overflow-hidden rounded-2xl">
                 <SmartImage

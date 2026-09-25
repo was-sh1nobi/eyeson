@@ -368,7 +368,7 @@ export default function EmailsManager() {
       <div className="flex gap-1 p-1 rounded-xl bg-white/5 border border-white/5 w-fit">
         <button
           onClick={() => { console.log(`${LOG_PREFIX} [UI] Tab clicked: "compose" (was "${activeTab}")`); setActiveTab("compose"); }}
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${
+          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
             activeTab === "compose"
               ? "bg-gradient-to-r from-[#00E6D7]/15 to-[#12ACB5]/10 text-[#00E6D7] border border-[#00E6D7]/20"
               : "text-white/50 hover:text-white/70"
@@ -379,7 +379,7 @@ export default function EmailsManager() {
         </button>
         <button
           onClick={() => { console.log(`${LOG_PREFIX} [UI] Tab clicked: "history" (was "${activeTab}")`); setActiveTab("history"); }}
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${
+          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
             activeTab === "history"
               ? "bg-gradient-to-r from-[#00E6D7]/15 to-[#12ACB5]/10 text-[#00E6D7] border border-[#00E6D7]/20"
               : "text-white/50 hover:text-white/70"
@@ -423,31 +423,31 @@ export default function EmailsManager() {
             <div className="flex gap-2">
               <button
                 onClick={() => { console.log(`${LOG_PREFIX} [UI] 'Select All' button clicked`); selectAll(); }}
-                className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-medium text-white/60 hover:text-white/80 transition-all cursor-pointer"
+                className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-medium text-white/60 hover:text-white/80 transition-colors cursor-pointer"
               >Select All</button>
               <button
                 onClick={() => { console.log(`${LOG_PREFIX} [UI] 'Select Filtered' button clicked`); selectFiltered(); }}
-                className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-medium text-white/60 hover:text-white/80 transition-all cursor-pointer"
+                className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-medium text-white/60 hover:text-white/80 transition-colors cursor-pointer"
               >Select Filtered</button>
               {selectedIds.size > 0 && (
                 <button
                   onClick={() => { console.log(`${LOG_PREFIX} [UI] 'Clear' button clicked`); clearSelection(); }}
-                  className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-medium text-red-400/70 hover:text-red-400 transition-all cursor-pointer"
+                  className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-medium text-red-400/70 hover:text-red-400 transition-colors cursor-pointer"
                 >Clear</button>
               )}
             </div>
             <div className="flex items-center gap-1 p-1 rounded-lg bg-white/5 border border-white/10">
               <button
                 onClick={() => { console.log(`${LOG_PREFIX} [UI] View mode changed to "list"`); setViewMode("list"); }}
-                className={`p-1.5 rounded-md transition-all cursor-pointer ${viewMode === "list" ? "bg-[#00E6D7]/15 text-[#00E6D7]" : "text-white/30 hover:text-white/60"}`} title="List view"
+                className={`p-1.5 rounded-md transition-colors cursor-pointer ${viewMode === "list" ? "bg-[#00E6D7]/15 text-[#00E6D7]" : "text-white/30 hover:text-white/60"}`} title="List view"
               ><List size={16} /></button>
               <button
                 onClick={() => { console.log(`${LOG_PREFIX} [UI] View mode changed to "grid"`); setViewMode("grid"); }}
-                className={`p-1.5 rounded-md transition-all cursor-pointer ${viewMode === "grid" ? "bg-[#00E6D7]/15 text-[#00E6D7]" : "text-white/30 hover:text-white/60"}`} title="Grid view"
+                className={`p-1.5 rounded-md transition-colors cursor-pointer ${viewMode === "grid" ? "bg-[#00E6D7]/15 text-[#00E6D7]" : "text-white/30 hover:text-white/60"}`} title="Grid view"
               ><Grid3X3 size={16} /></button>
               <button
                 onClick={() => { console.log(`${LOG_PREFIX} [UI] View mode changed to "compact"`); setViewMode("compact"); }}
-                className={`p-1.5 rounded-md transition-all cursor-pointer ${viewMode === "compact" ? "bg-[#00E6D7]/15 text-[#00E6D7]" : "text-white/30 hover:text-white/60"}`} title="Compact table view"
+                className={`p-1.5 rounded-md transition-colors cursor-pointer ${viewMode === "compact" ? "bg-[#00E6D7]/15 text-[#00E6D7]" : "text-white/30 hover:text-white/60"}`} title="Compact table view"
               ><Table2 size={16} /></button>
             </div>
             {selectedIds.size > 0 && (

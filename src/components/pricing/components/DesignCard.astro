@@ -11,7 +11,7 @@ const data = [
 ---
 
 <div class="px-3">
-  <div class="w-full flex items-center justify-center px-4 py-10 scale-110 ">
+  <div class="w-full flex items-center justify-center px-4 py-10 md:scale-110">
     <div
         class="reveal-on-scroll spotlight-card relative w-full  max-w-6xl overflow-hidden rounded-[24px] border border-cyan-500/20 px-6 py-10 shadow-[0_0_80px_rgba(0,0,0,0.35)] transition-transform duration-300 hover:scale-[1.005] md:px-10 lg:px-12"
     >
@@ -66,27 +66,31 @@ const data = [
         </div>
 
         <div class="flex items-center justify-center lg:justify-end">
-          <div class="relative w-full aspect-[1200/900] lg:aspect-[1200/800]">
+          {/* Mobile: panoramic crop into the card strip (~1.5x zoom).
+              Cards span x 93–1196 / y 227–697 of the 1289x860 canvas,
+              so 11/5 centered keeps all four cards while cutting the
+              empty margins. Desktop keeps the full composition. */}
+          <div class="relative w-full aspect-[11/5] overflow-hidden lg:aspect-[1200/800]">
             <div class="absolute inset-0 z-1 animate-felash-entry [animation-delay:1000ms]">
-              <SmartImage src="/pricing/svg/Felash-1.svg"/>
+              <SmartImage src="/pricing/svg/Felash-1.svg" className="h-full w-full" />
             </div>
             <div class="absolute inset-0 z-1 animate-felash-entry [animation-delay:1100ms]">
-              <SmartImage src="/pricing/svg/Felash-2.svg"/>
+              <SmartImage src="/pricing/svg/Felash-2.svg" className="h-full w-full" />
             </div>
             <div class="absolute inset-0 z-1 animate-felash-entry [animation-delay:1200ms]">
-              <SmartImage src="/pricing/svg/Felash-3.svg"/>
+              <SmartImage src="/pricing/svg/Felash-3.svg" className="h-full w-full" />
             </div>
             <div class="absolute inset-0 z-2 animate-design-entry [animation-delay:1400ms]">
-              <SmartImage src="/pricing/svg/1.svg"/>
+              <SmartImage src="/pricing/svg/1.svg" className="h-full w-full" />
             </div>
             <div class="absolute inset-0 z-3 animate-design-entry [animation-delay:1500ms]">
-              <SmartImage src="/pricing/svg/2.svg"/>
+              <SmartImage src="/pricing/svg/2.svg" className="h-full w-full" />
             </div>
             <div class="absolute inset-0 z-4 animate-design-entry [animation-delay:1600ms]">
-              <SmartImage src="/pricing/svg/3.svg"/>
+              <SmartImage src="/pricing/svg/3.svg" className="h-full w-full" />
             </div>
             <div class="absolute inset-0 z-5 animate-design-entry [animation-delay:1700ms]">
-              <SmartImage src="/pricing/svg/4.svg"/>
+              <SmartImage src="/pricing/svg/4.svg" className="h-full w-full" />
             </div>
           </div>
         </div>

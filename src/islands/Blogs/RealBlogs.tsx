@@ -201,7 +201,7 @@ export const RealBlogs = () => {
                 {categories.map((category ) => (
                     <div
                         onClick={() => handleCategorySelect(category.name)}
-                        key={category.id} className={` cursor-pointer shrink-0 rounded-[30px]  transition-all  px-5 py-2 text-xs sm:text-sm text-white ${selectedCategory.trim() === category.name.trim() ? "shadow-[0_0_35px_#056E7C80]  bg-linear-to-r from-[#00A9BD] to-[#1D553A] border-[3px] border-[#00A9BD]" : "shadow-[0_0_35px_#056E7C3D] bg-[#03001357] border-[3px] border-transparent "}`}>
+                        key={category.id} className={` cursor-pointer shrink-0 rounded-[30px]  transition-[background-color,border-color,box-shadow]  px-5 py-2 text-xs sm:text-sm text-white ${selectedCategory.trim() === category.name.trim() ? "shadow-[0_0_35px_#056E7C80]  bg-linear-to-r from-[#00A9BD] to-[#1D553A] border-[3px] border-[#00A9BD]" : "shadow-[0_0_35px_#056E7C3D] bg-[#03001357] border-[3px] border-transparent "}`}>
                         {category.name}
                     </div>
 

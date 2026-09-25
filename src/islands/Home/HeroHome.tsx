@@ -121,7 +121,7 @@ export default function HeroHome() {
                 <div
                   key={index}
                   style={{ zIndex: items.length - index }}
-                  className={`h-10 w-10 sm:h-11 sm:w-11 rounded-full overflow-hidden border-2 cursor-pointer shadow-md transition-all duration-200 hover:scale-110 hover:-translate-y-1
+                  className={`h-10 w-10 sm:h-11 sm:w-11 rounded-full overflow-hidden border-2 cursor-pointer shadow-md transition-transform duration-200 hover:scale-110 hover:-translate-y-1
                     ${index === 3 ? "border-white/20" : "border-[var(--color-border)]"} bg-zinc-700`}
                 >
                   <SmartImage src={item.src} />

@@ -100,7 +100,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <a
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 cursor-pointer ${
+                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-[color,background-color,border-color,box-shadow] duration-200 cursor-pointer ${
                   active
                     ? "bg-gradient-to-r from-[#00E6D7]/15 to-[#12ACB5]/10 text-[#00E6D7] border border-[#00E6D7]/20 shadow-lg shadow-[#00E6D7]/5"
                     : "text-white/60 hover:text-white hover:bg-white/5 border border-transparent"

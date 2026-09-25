@@ -81,7 +81,7 @@ export default function ContactUs() {
                       key={budget}
                       type="button"
                       onClick={() => setSelectedBudget(budget)}
-                      className={`px-3 py-2 text-[11px] font-medium rounded-full border transition-all duration-200 ease-out hover:scale-105 active:scale-95
+                      className={`px-3 py-2 text-[11px] font-medium rounded-full border transition-[transform,background-color,border-color,color,box-shadow] duration-200 ease-out hover:scale-105 active:scale-95
                       sm:px-4 sm:py-2.5 sm:text-sm flex-1 sm:flex-none whitespace-nowrap cursor-pointer
                       ${
                         selectedBudget === budget
@@ -106,7 +106,7 @@ export default function ContactUs() {
                 placeholder="What do you want to create, what is your goal, and do you have any references, deadline, or style in mind?"
                 className="bg-[#040e14]/50 border border-white/10 rounded-xl px-4 py-3 text-sm
                             focus:outline-none focus:border-cyan-400/50 focus:bg-white/5 focus:shadow-[0_0_20px_rgba(34,211,238,0.15)]
-                           transition-all duration-300 resize-none w-full"
+                           transition-[background-color,border-color,box-shadow] duration-300 resize-none w-full"
               />
             </div>
 
@@ -116,7 +116,7 @@ export default function ContactUs() {
                 type="submit"
                 className="w-full bg-gradient-to-r from-cyan-400 to-teal-400 text-black font-bold rounded-xl
                            py-3.5 text-[15px] cursor-pointer
-                           sm:py-4 sm:text-base shadow-[0_0_20px_rgba(34,211,238,0.2)] transition-all duration-200 ease-out hover:scale-[1.01] hover:shadow-[0_0_30px_rgba(34,211,238,0.4)] active:scale-[0.98]"
+                           sm:py-4 sm:text-base shadow-[0_0_20px_rgba(34,211,238,0.2)] transition-[transform,box-shadow] duration-200 ease-out hover:scale-[1.01] hover:shadow-[0_0_30px_rgba(34,211,238,0.4)] active:scale-[0.98]"
               >
                 Send Project Request
               </button>
@@ -140,7 +140,7 @@ function Select({ label, options }: { label: string; options: string[] }) {
         className="bg-[#040e14]/50 border border-white/10 rounded-xl
                    px-4 py-3 text-sm sm:text-base w-full
                    focus:outline-none focus:border-cyan-400/50 focus:bg-white/5
-                   transition-all duration-300 text-white"
+                   transition-colors duration-300 text-white"
       >
         <option value="" disabled className="text-gray-400">
           Select {label}
@@ -166,7 +166,7 @@ function Input({ label, type = "text" }: { label: string; type?: string }) {
         className="bg-[#040e14]/50 border border-white/10 rounded-xl
                    px-4 py-3 text-sm sm:text-base w-full
                    focus:outline-none focus:border-cyan-400/50 focus:bg-white/5 focus:shadow-[0_0_20px_rgba(34,211,238,0.15)]
-                   transition-all duration-300"
+                   transition-[background-color,border-color,box-shadow] duration-300"
       />
     </div>
   );

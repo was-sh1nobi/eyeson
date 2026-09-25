@@ -42,7 +42,7 @@ export default function FilterBar({
               console.log(`${LOG_PREFIX} [UI] Search query changed: "${e.target.value}"`);
               onSearchChange(e.target.value);
             }}
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 focus:border-[#00E6D7]/30 transition-all"
+            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 focus:border-[#00E6D7]/30 transition-[border-color,box-shadow]"
           />
         </div>
 
@@ -54,7 +54,7 @@ export default function FilterBar({
               console.log(`${LOG_PREFIX} [UI] Budget filter changed: "${e.target.value}"`);
               onBudgetChange(e.target.value);
             }}
-            className="pl-10 pr-8 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 focus:border-[#00E6D7]/30 transition-all appearance-none cursor-pointer min-w-[140px]"
+            className="pl-10 pr-8 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 focus:border-[#00E6D7]/30 transition-[border-color,box-shadow] appearance-none cursor-pointer min-w-[140px]"
           >
             <option value="All" className="bg-[#021617]">All Budgets</option>
             {budgets.map((b) => (
@@ -71,7 +71,7 @@ export default function FilterBar({
               console.log(`${LOG_PREFIX} [UI] Sort order changed: "${e.target.value}"`);
               onSortOrderChange(e.target.value as SortOrder);
             }}
-            className="pl-10 pr-8 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 focus:border-[#00E6D7]/30 transition-all appearance-none cursor-pointer min-w-[130px]"
+            className="pl-10 pr-8 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 focus:border-[#00E6D7]/30 transition-[border-color,box-shadow] appearance-none cursor-pointer min-w-[130px]"
           >
             <option value="newest" className="bg-[#021617]">Newest First</option>
             <option value="oldest" className="bg-[#021617]">Oldest First</option>
@@ -88,7 +88,7 @@ export default function FilterBar({
               console.log(`${LOG_PREFIX} [UI] Status filter changed: "${s}" (was "${filterStatus}")`);
               onStatusChange(s);
             }}
-            className={`px-2.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all cursor-pointer ${
+            className={`px-2.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors cursor-pointer ${
               filterStatus === s
                 ? "bg-[#00E6D7]/15 text-[#00E6D7] border border-[#00E6D7]/30"
                 : "bg-white/5 text-white/50 border border-white/10 hover:text-white/70"
@@ -106,7 +106,7 @@ export default function FilterBar({
               console.log(`${LOG_PREFIX} [UI] Priority filter changed: "${p}" (was "${filterPriority}")`);
               onPriorityChange(p);
             }}
-            className={`px-2.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all cursor-pointer ${
+            className={`px-2.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors cursor-pointer ${
               filterPriority === p
                 ? "bg-[#00E6D7]/15 text-[#00E6D7] border border-[#00E6D7]/30"
                 : "bg-white/5 text-white/50 border border-white/10 hover:text-white/70"

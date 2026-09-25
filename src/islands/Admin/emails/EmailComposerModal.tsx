@@ -136,7 +136,7 @@ export default function EmailComposerModal({
                       console.log(`${LOG_PREFIX} [UI] Template variable "${v.value}" clicked - inserting into ${body.length > 0 ? 'end of body' : 'body'}`);
                       onBodyChange(body + v.value);
                     }}
-                    className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-white/5 border border-white/10 text-[11px] text-white/50 hover:text-white/80 hover:border-white/20 transition-all cursor-pointer"
+                    className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-white/5 border border-white/10 text-[11px] text-white/50 hover:text-white/80 hover:border-white/20 transition-colors cursor-pointer"
                     title={v.value}
                   >
                     <Variable size={10} />
@@ -152,7 +152,7 @@ export default function EmailComposerModal({
                 value={subject}
                 onChange={(e) => onSubjectChange(e.target.value)}
                 placeholder="Enter email subject... (e.g., Re: Your {{projectType}} inquiry)"
-                className="w-full px-3 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 focus:border-[#00E6D7]/30 transition-all"
+                className="w-full px-3 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 focus:border-[#00E6D7]/30 transition-[border-color,box-shadow]"
               />
             </div>
 
@@ -168,7 +168,7 @@ export default function EmailComposerModal({
 
 Tip: Use template variables like {{firstName}} to personalize."
                 rows={8}
-                className="w-full px-3 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 focus:border-[#00E6D7]/30 transition-all resize-none"
+                className="w-full px-3 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 focus:border-[#00E6D7]/30 transition-[border-color,box-shadow] resize-none"
               />
             </div>
 

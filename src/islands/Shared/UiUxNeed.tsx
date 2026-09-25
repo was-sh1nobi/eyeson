@@ -177,7 +177,7 @@ export default function UiUxNeed({
                 />
 
                 <div
-                  className="relative z-10 h-full overflow-hidden rounded-3xl border border-white/10 bg-linear-to-br from-[#0B1F2A] to-[#064B57] p-3 transition-all duration-500 ease-out md:group-hover:border-[#1cdfe2]/60 md:group-focus-visible:border-[#1cdfe2]/60 md:group-hover:-translate-y-1 md:group-hover:translate-x-1 md:group-hover:rotate-[3deg] md:group-focus-visible:-translate-y-1 md:group-focus-visible:translate-x-1 md:group-focus-visible:rotate-[3deg] md:group-hover:shadow-[0_18px_40px_rgba(18,213,220,0.35)] md:group-focus-visible:shadow-[0_18px_40px_rgba(18,213,220,0.35)]"
+                  className="relative z-10 h-full overflow-hidden rounded-3xl border border-white/10 bg-linear-to-br from-[#0B1F2A] to-[#064B57] p-3 transition-[transform,border-color,box-shadow] duration-500 ease-out md:group-hover:border-[#1cdfe2]/60 md:group-focus-visible:border-[#1cdfe2]/60 md:group-hover:-translate-y-1 md:group-hover:translate-x-1 md:group-hover:rotate-[3deg] md:group-focus-visible:-translate-y-1 md:group-focus-visible:translate-x-1 md:group-focus-visible:rotate-[3deg] md:group-hover:shadow-[0_18px_40px_rgba(18,213,220,0.35)] md:group-focus-visible:shadow-[0_18px_40px_rgba(18,213,220,0.35)]"
                   style={{ transformStyle: "preserve-3d" }}
                 >
                   <div className="relative h-40 overflow-hidden rounded-2xl bg-[#061321]">

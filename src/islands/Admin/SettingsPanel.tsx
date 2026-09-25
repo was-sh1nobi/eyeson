@@ -67,7 +67,7 @@ export default function SettingsPanel() {
             value={apiInterval.value}
             min={5}
             onChange={(e) => setApiInterval((prev) => ({ ...prev, value: Number(e.target.value) }))}
-            className="w-20 px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-white text-sm text-center focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 transition-all cursor-pointer"
+            className="w-20 px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-white text-sm text-center focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 transition-[border-color,box-shadow] cursor-pointer"
           />
           <Toggle checked={apiInterval.enabled} onChange={(v) => setApiInterval((prev) => ({ ...prev, enabled: v }))} />
         </div>
@@ -108,7 +108,7 @@ export default function SettingsPanel() {
         </div>
         <button
           onClick={handleSave}
-          className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all cursor-pointer ${
+          className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-[color,background-color,border-color,opacity] cursor-pointer ${
             saved
               ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30"
               : "bg-gradient-to-r from-[#00E6D7] to-[#12ACB5] text-black hover:opacity-90"
@@ -147,7 +147,7 @@ export default function SettingsPanel() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm text-white/60 mb-1.5">Theme</label>
-            <select className="w-full px-3 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 transition-all appearance-none cursor-pointer">
+            <select className="w-full px-3 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 transition-[border-color,box-shadow] appearance-none cursor-pointer">
               <option className="bg-[#021617]">Dark (Default)</option>
               <option className="bg-[#021617]">Light</option>
               <option className="bg-[#021617]">System</option>
@@ -155,7 +155,7 @@ export default function SettingsPanel() {
           </div>
           <div>
             <label className="block text-sm text-white/60 mb-1.5">Language</label>
-            <select className="w-full px-3 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 transition-all appearance-none cursor-pointer">
+            <select className="w-full px-3 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 transition-[border-color,box-shadow] appearance-none cursor-pointer">
               <option className="bg-[#021617]">English</option>
               <option className="bg-[#021617]">فارسی</option>
               <option className="bg-[#021617]">العربية</option>

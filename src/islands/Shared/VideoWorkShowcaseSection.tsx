@@ -238,10 +238,16 @@ export default function VideoWorkShowcaseSection({
         @media (prefers-reduced-motion: reduce) {
           .track-left, .track-right { animation: none; }
         }
-        html.gpu-off .track-left,
-        html.gpu-off .track-right {
+        html.reduce-motion .track-left,
+        html.reduce-motion .track-right {
           animation: none !important;
-          transform: none !important;
+        }
+        /* gpu-off lite = slower scroll (decrease, never disable) */
+        html.gpu-off .track-left {
+          animation-duration: 70s !important;
+        }
+        html.gpu-off .track-right {
+          animation-duration: 76s !important;
         }
       `}</style>
 

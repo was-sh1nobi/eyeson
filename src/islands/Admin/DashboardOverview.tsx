@@ -248,7 +248,7 @@ export default function DashboardOverview() {
                 </div>
                 <div className="w-full bg-white/5 rounded-full h-1.5">
                   <div
-                    className="bg-gradient-to-r from-[#00E6D7] to-[#12ACB5] h-1.5 rounded-full transition-all duration-500"
+                    className="bg-gradient-to-r from-[#00E6D7] to-[#12ACB5] h-1.5 rounded-full transition-[width] duration-500"
                     style={{ width: `${cpu}%` }}
                   />
                 </div>
@@ -263,7 +263,7 @@ export default function DashboardOverview() {
                 </div>
                 <div className="w-full bg-white/5 rounded-full h-1.5">
                   <div
-                    className="bg-gradient-to-r from-[#00E6D7] to-[#12ACB5] h-1.5 rounded-full transition-all duration-500"
+                    className="bg-gradient-to-r from-[#00E6D7] to-[#12ACB5] h-1.5 rounded-full transition-[width] duration-500"
                     style={{ width: `${(dbConnections / 20) * 100}%` }}
                   />
                 </div>

@@ -74,8 +74,10 @@ html.reduce-motion .reveal-on-scroll {
 html.reduce-motion .spotlight-card::before {
   display: none !important;
 }
-/* Reduced motion: no transitions anywhere (reveals are forced visible above) */
-html.reduce-motion *,
+/* Reduced motion: transitions off everywhere EXCEPT interactive hover
+   feedback — buttons/links keep their hover feel (keep-animations policy).
+   Reveals are forced visible above; continuous animations killed below. */
+html.reduce-motion *:not(button):not(a):not([role="button"]):not(input):not(select):not(textarea):not(label),
 html.reduce-motion *::before,
 html.reduce-motion *::after {
   transition: none !important;
@@ -149,9 +151,12 @@ html.gpu-off .folder-front {
 /* No-JS safety net: without the `js` class (or without IntersectionObserver
    support) reveals never hide. */
 html:not(.js) .reveal-on-scroll,
-html:not(.js) .fade-on-scroll {
+html:not(.js) .fade-on-scroll,
+html.gpu-off .reveal-on-scroll,
+html.gpu-off .fade-on-scroll {
   opacity: 1 !important;
   transform: none !important;
+  transition: none !important;
 }
 /* extra heavy compositing helpers */
 html.gpu-off .transform-gpu {

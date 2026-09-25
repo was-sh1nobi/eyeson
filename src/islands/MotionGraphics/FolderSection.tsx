@@ -202,7 +202,7 @@ const MotionSection: React.FC = () => {
           </p>
 
           <button
-            className="group relative px-8 py-4 bg-teal-500/10 border border-teal-500/50 rounded-full overflow-hidden transition-all duration-300 hover:border-teal-400 hover:shadow-[0_0_20px_rgba(20,184,166,0.4)] active:scale-95 mx-auto lg:mx-0 cursor-pointer"
+            className="group relative px-8 py-4 bg-teal-500/10 border border-teal-500/50 rounded-full overflow-hidden transition-[transform,border-color,box-shadow] duration-300 hover:border-teal-400 hover:shadow-[0_0_20px_rgba(20,184,166,0.4)] active:scale-95 mx-auto lg:mx-0 cursor-pointer"
           >
             <span className="relative z-10 text-teal-400 font-semibold group-hover:text-white transition-colors">
               Start a Motion Project

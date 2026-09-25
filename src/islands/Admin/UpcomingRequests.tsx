@@ -91,7 +91,7 @@ export default function UpcomingRequests() {
           if (!open) fetchUpcoming(1, false);
           setOpen(!open);
         }}
-        className="relative p-2 rounded-xl text-white/50 hover:text-red-400 hover:bg-red-500/10 transition-all cursor-pointer"
+        className="relative p-2 rounded-xl text-white/50 hover:text-red-400 hover:bg-red-500/10 transition-colors cursor-pointer"
         title="Upcoming Requests"
       >
         <AlertTriangle size={20} />

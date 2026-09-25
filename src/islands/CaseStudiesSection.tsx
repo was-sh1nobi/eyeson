@@ -205,7 +205,7 @@ export default function CaseStudiesSection() {
                       <div className="mt-2">
                         <a
                           href={`/case/${project.slug}`}
-                          className="group relative inline-flex w-full sm:w-auto overflow-hidden rounded-full bg-gradient-to-r from-cyan-500 to-teal-400 px-8 py-3.5 text-sm font-bold text-white shadow-[0_0_20px_rgba(34,211,238,0.3)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(34,211,238,0.5)] active:scale-[0.98]"
+                          className="group relative inline-flex w-full sm:w-auto overflow-hidden rounded-full bg-gradient-to-r from-cyan-500 to-teal-400 px-8 py-3.5 text-sm font-bold text-white shadow-[0_0_20px_rgba(34,211,238,0.3)] transition-[transform,box-shadow] duration-300 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(34,211,238,0.5)] active:scale-[0.98]"
                         >
                           <span className="relative z-10">
                             See Full Case Study
@@ -239,7 +239,7 @@ export default function CaseStudiesSection() {
 
           {mounted && (<>
           {/* دکمه‌های اسلایدر */}
-          <button className="swiper-button-prev-case group absolute -left-5 top-1/2 z-20 hidden lg:flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-[#071922]/90 text-white shadow-lg backdrop-blur-md transition-all hover:border-cyan-400/50 hover:bg-[#0a262e] hover:text-cyan-400 active:scale-95">
+          <button className="swiper-button-prev-case group absolute -left-5 top-1/2 z-20 hidden lg:flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-[#071922]/90 text-white shadow-lg backdrop-blur-md transition-[transform,background-color,border-color,color] hover:border-cyan-400/50 hover:bg-[#0a262e] hover:text-cyan-400 active:scale-95">
             <svg
               className="h-5 w-5 transition-transform group-hover:-translate-x-0.5"
               viewBox="0 0 24 24"
@@ -255,7 +255,7 @@ export default function CaseStudiesSection() {
             </svg>
           </button>
 
-          <button className="swiper-button-next-case group absolute -right-5 top-1/2 z-20 hidden lg:flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-[#071922]/90 text-white shadow-lg backdrop-blur-md transition-all hover:border-cyan-400/50 hover:bg-[#0a262e] hover:text-cyan-400 active:scale-95">
+          <button className="swiper-button-next-case group absolute -right-5 top-1/2 z-20 hidden lg:flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-[#071922]/90 text-white shadow-lg backdrop-blur-md transition-[transform,background-color,border-color,color] hover:border-cyan-400/50 hover:bg-[#0a262e] hover:text-cyan-400 active:scale-95">
             <svg
               className="h-5 w-5 transition-transform group-hover:translate-x-0.5"
               viewBox="0 0 24 24"

@@ -222,7 +222,7 @@ export default function AdminVisualProofSection({ slug: propSlug }: Props) {
                 <button
                   onClick={() => handleImageEdit(index)}
                   disabled={saving !== null}
-                  className="absolute top-3 right-3 z-10 flex h-8 w-8 items-center justify-center rounded-lg bg-black/50 text-white/60 opacity-0 backdrop-blur-sm transition-all hover:bg-cyan-400/20 hover:text-cyan-300 group-hover:opacity-100 disabled:opacity-50 cursor-pointer"
+                  className="absolute top-3 right-3 z-10 flex h-8 w-8 items-center justify-center rounded-lg bg-black/50 text-white/60 opacity-0 backdrop-blur-sm transition-[color,background-color,opacity] hover:bg-cyan-400/20 hover:text-cyan-300 group-hover:opacity-100 disabled:opacity-50 cursor-pointer"
                   aria-label="Edit image"
                 >
                   {saving === index ? (

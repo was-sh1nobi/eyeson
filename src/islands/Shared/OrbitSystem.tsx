@@ -10,7 +10,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import OrbitCircles from "./Orbit-Circles.svg";
-import { useMediaQuery } from "react-responsive";
 import SecondaryButton from "@/components/Shared/SecondaryButton";
 import PrimaryButton from "@/components/Shared/PrimaryButton";
 type AssetWithSrc = {
@@ -95,27 +94,10 @@ export const OrbitSystem = memo(function OrbitSystem({
   const animationInitializedRef = useRef(false);
   const iconTweensRef = useRef<gsap.core.Tween[]>([]);
 
-  const isMobileView = useMediaQuery({ maxWidth: 700 });
   const [isInView, setIsInView] = useState(false);
-  // Low-power gate: reduced motion, GPU-off probe, or save-data → static
-  // render (no ScrollTrigger/MotionPath scrub, no icon duplication).
-  const [lowPower, setLowPower] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const check = () => {
-      setLowPower(
-        mq.matches ||
-          document.documentElement.classList.contains("gpu-off") ||
-          document.documentElement.classList.contains("reduce-motion") ||
-          (window as any).__GPU_OFF__ === true ||
-          (window as any).__REDUCED_MOTION__ === true,
-      );
-    };
-    check();
-    mq.addEventListener?.("change", check);
-    return () => mq.removeEventListener?.("change", check);
-  }, []);
-  const isStatic = isMobileView || lowPower || !animations;
+  // Keep-animations policy: icons orbit on ALL devices regardless of gpu-off,
+  // save-data, or viewport width. Only explicit `animations={false}` or the
+  // OS reduced-motion preference stops the scrub.
   // Hydration-safe unique id (useId is deterministic server↔client)
   const rawId = useId();
   const instanceId = rawId.replace(/:/g, "") || "orbit";
@@ -135,68 +117,19 @@ export const OrbitSystem = memo(function OrbitSystem({
   }, []);
 
   /* ===== GSAP (lazy) ===== */
-  // displayOrbits must be declared before the effect that uses it.
-  // Static mode (mobile / reduced / gpu-off): no icon duplication — half the DOM.
-  const displayOrbits = isStatic
-    ? orbits
-    : orbits.map((orbit) => {
-        const n = orbit.icons.length;
-        if (n === 0) return orbit;
-        const expanded: IconConfig[] = [];
-        const copies = 2;
-        for (let c = 0; c < copies; c++) {
-          const offset = c / copies; // 0, 0.5
-          for (const ic of orbit.icons) {
-            const suffix = c === 0 ? "" : `-c${c}`;
-            expanded.push({
-              ...ic,
-              name: `${ic.name}${suffix}`,
-              start: ic.start - offset,
-              end: ic.end - offset,
-            });
-          }
-        }
-        return { ...orbit, icons: expanded };
-      });
+  // Render each icon exactly once — no clones. (Previously icons were
+  // duplicated 2x with a `-c1` suffix for a "dense look", which showed
+  // the same avatar twice on one orbit.)
+  const displayOrbits = orbits;
 
   useLayoutEffect(() => {
-    if (!sceneRef.current || animationInitializedRef.current || !isInView) {
+    if (!sceneRef.current || !animations || animationInitializedRef.current || !isInView) {
       return;
     }
 
     animationInitializedRef.current = true;
     iconTweensRef.current.forEach((tween) => tween.kill());
     iconTweensRef.current = [];
-
-    // Static fallback: place each icon once at its path midpoint — no
-    // ScrollTrigger, no scrub, no per-scroll work.
-    if (isStatic) {
-      const ctx = gsap.context(() => {
-        displayOrbits.forEach((orbit, orbitIndex) => {
-          const pathEl = orbitPathsRef.current[orbitIndex];
-          if (!pathEl) return;
-          orbit.icons.forEach((icon) => {
-            const key = `${orbitIndex}-${icon.name}`;
-            const iconEl = iconRefs.current[key];
-            if (!iconEl) return;
-            const mid = (icon.start + icon.end) / 2;
-            gsap.set(iconEl, {
-              motionPath: {
-                path: pathEl,
-                align: pathEl,
-                alignOrigin: [0.5, 0.5],
-                start: mid,
-                end: mid,
-              },
-            });
-          });
-        });
-      }, sceneRef);
-      return () => {
-        animationInitializedRef.current = false;
-        ctx.revert();
-      };
-    }
 
     const ctx = gsap.context(() => {
       displayOrbits.forEach((orbit, orbitIndex) => {
@@ -244,13 +177,13 @@ export const OrbitSystem = memo(function OrbitSystem({
       ScrollTrigger.refresh();
     }, sceneRef);
 
-      return () => {
+    return () => {
       animationInitializedRef.current = false;
       iconTweensRef.current.forEach((tween) => tween.kill());
       iconTweensRef.current = [];
       ctx.revert();
     };
-  }, [animations, isStatic, isInView, orbits]);
+  }, [animations, isInView, orbits]);
 
   const orbitIconSize = OrbitCircles.width ?? 64;
   const orbitIconRadius = orbitIconSize / 2;
@@ -264,13 +197,13 @@ export const OrbitSystem = memo(function OrbitSystem({
       <div className="pointer-events-none absolute inset-0" />
       <div
         ref={sceneRef}
-        className={`absolute inset-0 pointer-events-none overflow-visible${isStatic ? "" : " will-change-transform"}`}
+        className="absolute inset-0 pointer-events-none overflow-visible will-change-transform"
       >
         <div className="relative w-full h-full">
           <svg
             viewBox="0 0 1000 1000"
             preserveAspectRatio="xMidYMid meet"
-            className={`absolute inset-0 w-full h-full mx-auto overflow-visible${isStatic ? "" : " will-change-transform"}`}
+            className="absolute inset-0 w-full h-full mx-auto overflow-visible will-change-transform"
             style={{
               maskImage:
                 "linear-gradient(to bottom, black 65%, transparent 100%)",

@@ -36,7 +36,7 @@ export default function ShowreelChooser({
             <button
               key={it.id}
               onClick={() => { onSelect(it); onClose(); }}
-              className="group relative aspect-[16/10] overflow-hidden rounded-2xl border border-white/10 bg-black text-left hover:border-[#00A9BD]/60 hover:scale-[1.02] transition-all"
+              className="group relative aspect-[16/10] overflow-hidden rounded-2xl border border-white/10 bg-black text-left hover:border-[#00A9BD]/60 hover:scale-[1.02] transition-[transform,border-color]"
             >
               <img src={it.thumbnail || it.src} alt={it.title} className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />

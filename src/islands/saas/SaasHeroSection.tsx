@@ -29,11 +29,11 @@ export const SaasHeroSection = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-5">
-              <a href="/contact" className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#00A9BD] to-[#008A9B] px-8 py-4 text-sm font-semibold text-white shadow-[0_0_30px_-5px_rgba(0,169,189,0.5)] transition-all hover:scale-105 hover:shadow-[0_0_40px_-5px_rgba(0,169,189,0.7)] focus:outline-none focus:ring-2 focus:ring-[#42D1D1] focus:ring-offset-2 focus:ring-offset-[#030B14]">
+              <a href="/contact" className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#00A9BD] to-[#008A9B] px-8 py-4 text-sm font-semibold text-white shadow-[0_0_30px_-5px_rgba(0,169,189,0.5)] transition-[transform,box-shadow] hover:scale-105 hover:shadow-[0_0_40px_-5px_rgba(0,169,189,0.7)] focus:outline-none focus:ring-2 focus:ring-[#42D1D1] focus:ring-offset-2 focus:ring-offset-[#030B14]">
                 Start a Project
                 <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
               </a>
-              <a href="#work" className="w-full sm:w-auto inline-flex items-center justify-center rounded-xl bg-white/5 border border-white/10 px-8 py-4 text-sm font-semibold text-white transition-all hover:bg-white/10 backdrop-blur-md hover:border-white/20">
+              <a href="#work" className="w-full sm:w-auto inline-flex items-center justify-center rounded-xl bg-white/5 border border-white/10 px-8 py-4 text-sm font-semibold text-white transition-colors hover:bg-white/10 backdrop-blur-md hover:border-white/20">
                 View Our Work
               </a>
             </div>

@@ -49,7 +49,7 @@ export default function ApproachTimelineSection({
           {/* Cards with circles */}
           <div className="space-y-4 md:space-y-6">
             {steps.map((step) => (
-              <div key={step} className="flex items-center gap-6 md:gap-12 transition-all duration-300 hover:scale-[1.01]">
+              <div key={step} className="flex items-center gap-6 md:gap-12 transition-transform duration-300 hover:scale-[1.01]">
                 {/* Numbered circle on the line (desktop/tablet only) */}
                 <div className="relative hidden md:flex w-10 shrink-0 items-start justify-center pt-1 md:w-20 md:pt-2">
                   <div className="relative flex h-12 w-12 items-center justify-center md:h-14 md:w-14">

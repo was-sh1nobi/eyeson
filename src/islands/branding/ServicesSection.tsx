@@ -26,7 +26,7 @@ export const ServicesSection = () => {
       >
         {/* ===== کارت بزرگ چپ ===== */}
         <div
-          className={`lg:col-span-5 rounded-3xl ${cardBg} ${cardBorder} p-6 sm:p-8 flex flex-col justify-between shadow-xl transition-all duration-200 hover:border-[#42D1D1]/40`}
+          className={`lg:col-span-5 rounded-3xl ${cardBg} ${cardBorder} p-6 sm:p-8 flex flex-col justify-between shadow-xl transition-colors duration-200 hover:border-[#42D1D1]/40`}
         >
           <div>
             <h3 className="text-xl font-bold text-white mb-3 sm:text-2xl sm:mb-4">
@@ -67,7 +67,7 @@ className="object-cover"
 <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5 lg:gap-6">
 {/* کارت ۱ */}
 <div
-className={`rounded-3xl ${cardBg} ${cardBorder} p-5 sm:p-6 shadow-lg transition-all duration-200 hover:border-[#42D1D1]/40`}
+className={`rounded-3xl ${cardBg} ${cardBorder} p-5 sm:p-6 shadow-lg transition-colors duration-200 hover:border-[#42D1D1]/40`}
 >
 <div className="flex items-center gap-3 mb-3 sm:gap-4 sm:mb-4">
 <div className="w-10 h-10 shrink-0 rounded-xl bg-gradient-to-b from-[#14343B] to-transparent border border-[#234F58] flex items-center justify-center shadow-inner sm:w-12 sm:h-12">
@@ -106,7 +106,7 @@ className={`px-2.5 py-0.5 rounded-full text-xs text-gray-300 ${tagBg}`}
 
 {/* کارت ۲ */}
 <div
-className={`rounded-3xl ${cardBg} ${cardBorder} p-5 sm:p-6 shadow-lg transition-all duration-200 hover:border-[#42D1D1]/40`}
+className={`rounded-3xl ${cardBg} ${cardBorder} p-5 sm:p-6 shadow-lg transition-colors duration-200 hover:border-[#42D1D1]/40`}
 >
 <div className="flex items-center gap-3 mb-3 sm:gap-4 sm:mb-4">
 <div className="w-10 h-10 shrink-0 rounded-xl bg-gradient-to-b from-[#14343B] to-transparent border border-[#234F58] flex items-center justify-center shadow-inner sm:w-12 sm:h-12">
@@ -147,7 +147,7 @@ className={`px-2.5 py-0.5 rounded-full text-xs text-gray-300 ${tagBg}`}
 
 {/* کارت ۳ */}
 <div
-className={`rounded-3xl ${cardBg} ${cardBorder} p-5 sm:p-6 shadow-lg transition-all duration-200 hover:border-[#42D1D1]/40`}
+className={`rounded-3xl ${cardBg} ${cardBorder} p-5 sm:p-6 shadow-lg transition-colors duration-200 hover:border-[#42D1D1]/40`}
 >
 <div className="flex items-center gap-3 mb-3 sm:gap-4 sm:mb-4">
 <div className="w-10 h-10 shrink-0 rounded-xl bg-gradient-to-b from-[#14343B] to-transparent border border-[#234F58] flex items-center justify-center shadow-inner sm:w-12 sm:h-12">
@@ -190,7 +190,7 @@ className={`px-2.5 py-0.5 rounded-full text-xs text-gray-300 ${tagBg}`}
 
 {/* کارت ۴ */}
 <div
-className={`rounded-3xl ${cardBg} ${cardBorder} p-5 sm:p-6 shadow-lg transition-all duration-200 hover:border-[#42D1D1]/40`}
+className={`rounded-3xl ${cardBg} ${cardBorder} p-5 sm:p-6 shadow-lg transition-colors duration-200 hover:border-[#42D1D1]/40`}
 >
 <div className="flex items-center gap-3 mb-3 sm:gap-4 sm:mb-4">
 <div className="w-10 h-10 shrink-0 rounded-xl bg-gradient-to-b from-[#14343B] to-transparent border border-[#234F58] flex items-center justify-center shadow-inner sm:w-12 sm:h-12">

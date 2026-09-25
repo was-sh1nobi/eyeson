@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ShortForm } from "./ShortForm";
 import { SummaryPanel } from "./SummaryPanel";
 import { PackageCards } from "./PackageCards";
@@ -19,6 +19,8 @@ const options = [
 
 export const PricingHero = () => {
   const [selected, SetSelected] = useState<string>(options[0].name);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
   const [estimatedSummary, setEstimatedSummary] = useState<{
     packageName: string
     lines: { title: string; value: string; price: number }[]
@@ -44,7 +46,27 @@ export const PricingHero = () => {
   const handleTabChange = (name: string) => {
     SetSelected(name);
     setEstimatedSummary(null);
+    setMenuOpen(false);
   };
+
+  // Close the mobile menu on outside tap / Escape.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onPointerDown = (e: PointerEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setMenuOpen(false);
+      }
+    };
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenuOpen(false);
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [menuOpen]);
 
   return (
     <>
@@ -94,13 +116,94 @@ We also offer special pricing and discounts for first-time clients on selected s
 
 
 
-          <div className="w-full px-4 sm:px-6">
-            <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory py-2 md:flex-wrap md:overflow-visible md:justify-center md:snap-none no-scrollbar">
+          {/* ===== Service selector: structured dropdown on mobile, pill list on desktop ===== */}
+          <div ref={menuRef} className="w-full px-4 sm:px-6 md:hidden">
+            <p className="mb-2 px-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/40">
+              Select a service
+            </p>
+            <button
+              type="button"
+              aria-haspopup="listbox"
+              aria-expanded={menuOpen}
+              onClick={() => setMenuOpen((o) => !o)}
+              className={`flex w-full items-center justify-between gap-3 rounded-2xl border px-5 py-4 text-left transition-colors ${
+                menuOpen
+                  ? "border-[#00A9BD] bg-linear-to-r from-[#065A69] via-[#093A47] to-[#0B1F2A] shadow-[0_0_15px_rgba(0,169,189,0.3)]"
+                  : "border-[#00A9BD3D] bg-[#0B1F2A] hover:border-[#00A9BD80]"
+              }`}
+            >
+              <span className="min-w-0 flex-1 truncate text-[15px] font-bold text-white">
+                {options.find((o) => o.name === selected)?.label ?? selected}
+              </span>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+                className={`shrink-0 text-[#2bd6de] transition-transform duration-300 ${menuOpen ? "rotate-180" : ""}`}
+              >
+                <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+
+            <div
+              className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out ${
+                menuOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+              }`}
+            >
+              <div className="overflow-hidden">
+                <ul
+                  role="listbox"
+                  aria-label="Services"
+                  className="mt-2 space-y-1 rounded-2xl border border-[#00A9BD3D] bg-[#071e2b] p-2"
+                >
+                  {options.map((option) => {
+                    const isActive = option.name === selected;
+                    return (
+                      <li key={option.id}>
+                        <button
+                          type="button"
+                          role="option"
+                          aria-selected={isActive}
+                          onClick={() => handleTabChange(option.name)}
+                          className={`flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold transition-colors ${
+                            isActive
+                              ? "bg-linear-to-r from-[#065A69] via-[#093A47] to-[#0B1F2A] text-white shadow-[0_0_15px_rgba(0,169,189,0.25)]"
+                              : "text-white/70 hover:bg-white/[0.05] hover:text-white active:bg-white/[0.08]"
+                          }`}
+                        >
+                          <span
+                            className={`w-7 shrink-0 text-xs font-extrabold tabular-nums ${
+                              isActive ? "text-[#2bd6de]" : "text-white/30"
+                            }`}
+                          >
+                            {String(option.id).padStart(2, "0")}
+                          </span>
+                          <span className="min-w-0 flex-1 leading-snug">{option.label}</span>
+                          {isActive && (
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="shrink-0 text-[#2bd6de]">
+                              <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                          )}
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div className="hidden w-full px-4 sm:px-6 md:block">
+            <div className="flex flex-wrap justify-center gap-3 py-2">
               {options.map((option) => (
-                <div
+                <button
                   key={option.id}
+                  type="button"
+                  aria-pressed={option.name === selected}
                   onClick={() => handleTabChange(option.name)}
-                  className={`snap-start text-white font-bold border cursor-pointer transition-all rounded-full py-2 px-5 sm:px-6 h-12 text-sm sm:text-base text-center flex items-center justify-center shrink-0 whitespace-nowrap
+                  className={`text-white font-bold border cursor-pointer transition-colors rounded-full py-2 px-5 sm:px-6 h-12 text-sm sm:text-base text-center flex items-center justify-center shrink-0 whitespace-nowrap
                     ${
                       option.name === selected
                         ? "bg-linear-to-r from-[#065A69] via-[#093A47] to-[#0B1F2A] border-[#00A9BD] shadow-[0_0_15px_rgba(0,169,189,0.3)]"
@@ -108,14 +211,14 @@ We also offer special pricing and discounts for first-time clients on selected s
                     }`}
                 >
                   {option.label}
-                </div>
+                </button>
               ))}
             </div>
           </div>
        
 
         {/* خط جداکننده (فقط در موبایل) */}
-        <div className="w-full -mt-6 sm:-mt-10 h-[1px] relative bg-linear-to-r from-[#00222600] via-[#00A9BD50] to-[#00222600] block sm:hidden" />
+        <div className="w-full -mt-6 sm:-mt-10 h-[1px] relative bg-linear-to-r from-[#00222600] via-[#00A9BD50] to-[#00222600] md:hidden" />
 
         {/* محتوای انتخابی */}
         <div className="z-10 w-full px-4 sm:px-6 max-w-6xl mx-auto flex justify-center -mt-2 sm:-mt-8">
@@ -381,7 +484,7 @@ We also offer special pricing and discounts for first-time clients on selected s
         </div>
       </div>
 
-      {/* استایل برای مخفی کردن اسکرول‌بار در تمامی مرورگرها */}
+      {/* استایل برای موبایل */}
       <style dangerouslySetInnerHTML={{ __html: `
         @media (max-width: 767px) {
           .pricing-hero-bg {
@@ -389,14 +492,6 @@ We also offer special pricing and discounts for first-time clients on selected s
             -webkit-mask-image: none;
             mask-image: none;
           }
-        }
-
-        .no-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        .no-scrollbar {
-          -ms-overflow-style: none;  /* IE and Edge */
-          scrollbar-width: none;  /* Firefox */
         }
       `}} />
     </>

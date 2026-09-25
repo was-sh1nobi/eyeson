@@ -146,7 +146,7 @@ export default function HomeServicesSection() {
           <div className="inline-flex items-center p-1 rounded-full bg-white/[0.04] border border-[var(--color-border)] backdrop-blur-sm">
             <button
               onClick={() => setActiveTab("animation")}
-              className={`px-5 py-2 lg:px-8 lg:py-3 rounded-full cursor-pointer font-medium text-xs lg:text-sm transition-all duration-[var(--duration-normal)] ease-[var(--ease-default)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)] ${
+              className={`px-5 py-2 lg:px-8 lg:py-3 rounded-full cursor-pointer font-medium text-xs lg:text-sm transition-[color,box-shadow] duration-[var(--duration-normal)] ease-[var(--ease-default)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)] ${
                 activeTab === "animation"
                   ? "text-white shadow-[var(--elevation-glow)]"
                   : "text-white/60 hover:text-white"
@@ -158,7 +158,7 @@ export default function HomeServicesSection() {
             </button>
             <button
               onClick={() => setActiveTab("design")}
-              className={`px-5 py-2 lg:px-8 lg:py-3 rounded-full cursor-pointer font-medium text-xs lg:text-sm transition-all duration-[var(--duration-normal)] ease-[var(--ease-default)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)] ${
+              className={`px-5 py-2 lg:px-8 lg:py-3 rounded-full cursor-pointer font-medium text-xs lg:text-sm transition-[color,box-shadow] duration-[var(--duration-normal)] ease-[var(--ease-default)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)] ${
                 activeTab === "design"
                   ? "text-white shadow-[var(--elevation-glow)]"
                   : "text-white/60 hover:text-white"

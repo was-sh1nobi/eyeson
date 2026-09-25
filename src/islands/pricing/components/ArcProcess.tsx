@@ -144,7 +144,7 @@ export const ArcProcess = () => {
                         return (
                             <div key={step.id} className="grid grid-cols-1 items-center gap-5 lg:grid-cols-[1fr_90px_1fr]">
                                 <article
-                                    className={`rounded-2xl border bg-[#0A1C29]/85 p-6 backdrop-blur-sm transition-all duration-500 ${
+                                    className={`rounded-2xl border bg-[#0A1C29]/85 p-6 backdrop-blur-sm transition-[transform,opacity,border-color,box-shadow] duration-500 ${
                                         isActive
                                             ? "border-[#1FC5C8] shadow-[0_0_30px_rgba(31,197,200,0.18)]"
                                             : "border-[#14384B]"

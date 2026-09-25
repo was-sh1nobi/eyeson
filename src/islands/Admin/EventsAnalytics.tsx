@@ -207,7 +207,7 @@ export default function EventsAnalytics() {
           <div className="flex bg-white/5 border border-white/10 rounded-xl p-1">
             <button
               onClick={() => { setTimeRange("24h"); setCurrentPage(1); }}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                 timeRange === "24h"
                   ? "bg-gradient-to-r from-[#00E6D7]/20 to-[#12ACB5]/20 text-[#00E6D7] border border-[#00E6D7]/20 shadow-md"
                   : "text-white/60 hover:text-white"
@@ -217,7 +217,7 @@ export default function EventsAnalytics() {
             </button>
             <button
               onClick={() => { setTimeRange("7d"); setCurrentPage(1); }}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                 timeRange === "7d"
                   ? "bg-gradient-to-r from-[#00E6D7]/20 to-[#12ACB5]/20 text-[#00E6D7] border border-[#00E6D7]/20 shadow-md"
                   : "text-white/60 hover:text-white"
@@ -227,7 +227,7 @@ export default function EventsAnalytics() {
             </button>
             <button
               onClick={() => { setTimeRange("30d"); setCurrentPage(1); }}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                 timeRange === "30d"
                   ? "bg-gradient-to-r from-[#00E6D7]/20 to-[#12ACB5]/20 text-[#00E6D7] border border-[#00E6D7]/20 shadow-md"
                   : "text-white/60 hover:text-white"
@@ -249,7 +249,7 @@ export default function EventsAnalytics() {
         <div className="flex gap-2 w-full sm:w-auto">
           <button
             onClick={handleExportCsv}
-            className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-sm hover:bg-white/10 text-white/80 hover:text-white transition-all"
+            className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-sm hover:bg-white/10 text-white/80 hover:text-white transition-colors"
           >
             <Download size={14} />
             <span>Export CSV</span>
@@ -547,7 +547,7 @@ export default function EventsAnalytics() {
           <div className="space-y-4 max-h-[400px] overflow-y-auto pr-1">
             {topPages.length > 0 ? (
               topPages.map((page) => (
-                <div key={page.path} className="group flex items-center justify-between p-3 rounded-xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] transition-all">
+                <div key={page.path} className="group flex items-center justify-between p-3 rounded-xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] transition-colors">
                   <div className="min-w-0 pr-2">
                     <div className="text-xs font-semibold text-[#00E6D7] truncate">{page.path}</div>
                     <div className="text-[10px] text-white/40 mt-1">Unique: {page.unique.toLocaleString()}</div>
@@ -643,7 +643,7 @@ export default function EventsAnalytics() {
                         <td className="py-3 px-3 text-right">
                           <button
                             onClick={() => setSelectedEvent(log)}
-                            className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 text-[10px] text-[#00E6D7] transition-all cursor-pointer"
+                            className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 text-[10px] text-[#00E6D7] transition-colors cursor-pointer"
                           >
                             Inspect
                           </button>
@@ -671,14 +671,14 @@ export default function EventsAnalytics() {
                 <button
                   onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
                   disabled={currentPage === 1}
-                  className="p-1.5 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 disabled:opacity-40 disabled:hover:bg-white/5 transition-all text-white/80 cursor-pointer"
+                  className="p-1.5 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 disabled:opacity-40 disabled:hover:bg-white/5 transition-colors text-white/80 cursor-pointer"
                 >
                   <ChevronLeft size={14} />
                 </button>
                 <button
                   onClick={() => setCurrentPage((p) => Math.min(p + 1, totalEventPages))}
                   disabled={currentPage === totalEventPages}
-                  className="p-1.5 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 disabled:opacity-40 disabled:hover:bg-white/5 transition-all text-white/80 cursor-pointer"
+                  className="p-1.5 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 disabled:opacity-40 disabled:hover:bg-white/5 transition-colors text-white/80 cursor-pointer"
                 >
                   <ChevronRight size={14} />
                 </button>
@@ -710,7 +710,7 @@ export default function EventsAnalytics() {
                   </div>
                   <button
                     onClick={() => setSelectedEvent(null)}
-                    className="p-1.5 rounded-xl border border-white/10 hover:bg-white/10 text-white/70 hover:text-white transition-all cursor-pointer"
+                    className="p-1.5 rounded-xl border border-white/10 hover:bg-white/10 text-white/70 hover:text-white transition-colors cursor-pointer"
                   >
                     ✕
                   </button>

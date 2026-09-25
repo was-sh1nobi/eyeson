@@ -166,7 +166,7 @@ export default function AdminCaseStudyHero({ slug: propSlug }: Props) {
   const EditBtn = ({ onClick, className = "" }: { onClick: () => void; className?: string }) => (
     <button
       onClick={onClick}
-      className={`inline-flex items-center justify-center w-7 h-7 rounded-md text-white/40 hover:text-cyan-300 hover:bg-white/10 transition-all ml-2 shrink-0 ${className}`}
+      className={`inline-flex items-center justify-center w-7 h-7 rounded-md text-white/40 hover:text-cyan-300 hover:bg-white/10 transition-colors ml-2 shrink-0 ${className}`}
       aria-label="Edit"
     >
       <Edit2 className="h-3.5 w-3.5" />
@@ -287,7 +287,7 @@ export default function AdminCaseStudyHero({ slug: propSlug }: Props) {
                   <p className="text-sm font-semibold text-white/80 mb-4">Tools:</p>
                   <div className="flex flex-wrap items-center gap-3">
                     {(data!.tools || []).map((tool, idx) => (
-                      <div key={idx} className="group flex h-11 min-w-11 items-center justify-center rounded-xl transition-all duration-200 hover:-translate-y-0.5">
+                      <div key={idx} className="group flex h-11 min-w-11 items-center justify-center rounded-xl transition-transform duration-200 hover:-translate-y-0.5">
                         {tool.iconUrl ? (
                           <img src={fixImageUrl(tool.iconUrl)} alt={tool.name} width="28" height="28" className="h-7 w-7 object-contain" loading="lazy" />
                         ) : (
@@ -332,7 +332,7 @@ export default function AdminCaseStudyHero({ slug: propSlug }: Props) {
                       onClick={() => {
                         setEditValue(cat);
                       }}
-                      className={`px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-pointer ${
+                      className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors cursor-pointer ${
                         editValue === cat
                           ? "bg-cyan-400/20 text-cyan-300 border border-cyan-400/30"
                           : "bg-white/5 text-white/50 border border-white/10 hover:text-white/70"
@@ -350,13 +350,13 @@ export default function AdminCaseStudyHero({ slug: propSlug }: Props) {
                 </div>
               ) : (
                 <div className="flex gap-2 mt-3">
-                  <button onClick={() => startEdit("projectType", data!.projectType || "")} className="inline-flex items-center justify-center w-7 h-7 rounded-md text-white/40 hover:text-cyan-300 hover:bg-white/10 transition-all" aria-label="Edit project type">
+                  <button onClick={() => startEdit("projectType", data!.projectType || "")} className="inline-flex items-center justify-center w-7 h-7 rounded-md text-white/40 hover:text-cyan-300 hover:bg-white/10 transition-colors" aria-label="Edit project type">
                     <Edit2 className="h-3.5 w-3.5" />
                   </button>
-                  <button onClick={() => startEdit("projectTimeline", data!.projectTimeline || "")} className="inline-flex items-center justify-center w-7 h-7 rounded-md text-white/40 hover:text-cyan-300 hover:bg-white/10 transition-all" aria-label="Edit project timeline">
+                  <button onClick={() => startEdit("projectTimeline", data!.projectTimeline || "")} className="inline-flex items-center justify-center w-7 h-7 rounded-md text-white/40 hover:text-cyan-300 hover:bg-white/10 transition-colors" aria-label="Edit project timeline">
                     <Edit2 className="h-3.5 w-3.5" />
                   </button>
-                  <button onClick={() => startEdit("projectcategory", data!.projectcategory || "")} className="inline-flex items-center justify-center w-7 h-7 rounded-md text-white/40 hover:text-cyan-300 hover:bg-white/10 transition-all" aria-label="Edit category">
+                  <button onClick={() => startEdit("projectcategory", data!.projectcategory || "")} className="inline-flex items-center justify-center w-7 h-7 rounded-md text-white/40 hover:text-cyan-300 hover:bg-white/10 transition-colors" aria-label="Edit category">
                     <Edit2 className="h-3.5 w-3.5" />
                   </button>
                 </div>

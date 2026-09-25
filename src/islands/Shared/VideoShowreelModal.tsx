@@ -130,7 +130,7 @@ export const VideoShowreelModal = ({ isOpen, onClose, videoList = [], initialVid
         {controlsVisible && (
           <button
             onClick={handleClose}
-            className="absolute right-3 top-3 sm:right-6 sm:top-6 z-50 rounded-full bg-black/30 p-2 sm:p-3 text-white/70 backdrop-blur-xl border border-white/10 transition-all hover:bg-white/20 hover:text-white hover:scale-110 shadow-lg"
+            className="absolute right-3 top-3 sm:right-6 sm:top-6 z-50 rounded-full bg-black/30 p-2 sm:p-3 text-white/70 backdrop-blur-xl border border-white/10 transition-[transform,background-color,color] hover:bg-white/20 hover:text-white hover:scale-110 shadow-lg"
           >
             <svg className="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -190,7 +190,7 @@ export const VideoShowreelModal = ({ isOpen, onClose, videoList = [], initialVid
                     <button
                       key={video.id}
                       onClick={() => { setActiveVideo(video); setShowPlaylist(false); }}
-                      className={`group relative h-[70px] w-[120px] sm:h-[100px] sm:w-[170px] md:h-[120px] md:w-[210px] shrink-0 snap-center overflow-hidden rounded-[16px] transition-all duration-300 ease-out ${
+                      className={`group relative h-[70px] w-[120px] sm:h-[100px] sm:w-[170px] md:h-[120px] md:w-[210px] shrink-0 snap-center overflow-hidden rounded-[16px] transition-[transform,opacity,box-shadow] duration-300 ease-out ${
                         isActive
                           ? "ring-2 ring-[#00A9BD] ring-offset-2 ring-offset-[#0A101D] scale-105 opacity-100 shadow-[0_0_25px_rgba(0,169,189,0.5)] z-10"
                           : "scale-95 opacity-60 hover:opacity-100 hover:scale-100 ring-1 ring-white/10 hover:ring-white/30 z-0"
@@ -228,11 +228,11 @@ export const VideoShowreelModal = ({ isOpen, onClose, videoList = [], initialVid
             {/* Progress Bar */}
             <div 
               ref={progressRef}
-              className="group relative h-1 sm:h-1.5 w-full cursor-pointer rounded-full bg-white/20 overflow-visible transition-all hover:h-2 sm:hover:h-2.5"
+              className="group relative h-1 sm:h-1.5 w-full cursor-pointer rounded-full bg-white/20 overflow-visible transition-[height,background-color] hover:h-2 sm:hover:h-2.5"
               onClick={handleSeek}
             >
               <div 
-                className="absolute left-0 top-0 h-full rounded-full bg-[#00A9BD] shadow-[0_0_15px_#00A9BD] transition-all duration-100 ease-linear"
+                className="absolute left-0 top-0 h-full rounded-full bg-[#00A9BD] shadow-[0_0_15px_#00A9BD] transition-[width] duration-100 ease-linear"
                 style={{ width: `${progress}%` }}
               >
                 <div className="absolute right-0 top-1/2 h-3 w-3 sm:h-4 sm:w-4 -translate-y-1/2 translate-x-1/2 scale-0 rounded-full bg-white transition-transform group-hover:scale-100 shadow-[0_0_10px_white]" />
@@ -243,7 +243,7 @@ export const VideoShowreelModal = ({ isOpen, onClose, videoList = [], initialVid
             <div className="flex items-center justify-between text-white">
               <div className="flex items-center gap-3 sm:gap-6">
                 {/* Play/Pause */}
-                <button onClick={togglePlay} className="text-white hover:text-[#00A9BD] transition-all hover:scale-110">
+                <button onClick={togglePlay} className="text-white hover:text-[#00A9BD] transition-[transform,color] hover:scale-110">
                   {isPlaying ? (
                     <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="2" /><rect x="14" y="4" width="4" height="16" rx="2" /></svg>
                   ) : (
@@ -259,7 +259,7 @@ export const VideoShowreelModal = ({ isOpen, onClose, videoList = [], initialVid
                       setIsMuted(!isMuted);
                     }
                   }} 
-                  className="text-white/80 hover:text-white transition-all hover:scale-110"
+                  className="text-white/80 hover:text-white transition-[transform,color] hover:scale-110"
                 >
                   {isMuted ? (
                     <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="1" y1="1" x2="23" y2="23" /><path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6" /><path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23" /><line x1="12" y1="19" x2="12" y2="23" /><line x1="8" y1="23" x2="16" y2="23" /></svg>
@@ -283,7 +283,7 @@ export const VideoShowreelModal = ({ isOpen, onClose, videoList = [], initialVid
                 {videoList.length > 1 && (
                   <button 
                     onClick={() => setShowPlaylist(!showPlaylist)}
-                    className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold backdrop-blur-md transition-all ${
+                    className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold backdrop-blur-md transition-colors ${
                       showPlaylist ? "bg-[#00A9BD] text-white" : "bg-white/20 text-white hover:bg-white/30"
                     }`}
                   >

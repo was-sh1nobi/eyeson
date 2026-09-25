@@ -130,7 +130,7 @@ export default function HistoryList({ items, loading, page, totalPages, onPageCh
                 console.log(`${LOG_PREFIX} [UI] History pagination: page ${p} clicked (current: ${page})`);
                 onPageChange(p);
               }}
-              className={`w-8 h-8 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+              className={`w-8 h-8 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
                 p === page
                   ? "bg-[#00E6D7]/15 text-[#00E6D7] border border-[#00E6D7]/30"
                   : "bg-white/5 text-white/40 border border-white/10 hover:text-white/70"

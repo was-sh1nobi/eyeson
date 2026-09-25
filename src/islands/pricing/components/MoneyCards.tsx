@@ -113,7 +113,7 @@ export const MoneyCards = () => {
 function PlanCard({ plan, mobile = false }: { plan: Plan; mobile?: boolean }) {
   return (
     <article
-      className={`relative rounded-2xl sm:rounded-3xl border p-6 sm:p-8 shadow-[0_10px_30px_rgba(0,0,0,0.25)] backdrop-blur-sm transition-all duration-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.35)] ${
+      className={`relative rounded-2xl sm:rounded-3xl border p-6 sm:p-8 shadow-[0_10px_30px_rgba(0,0,0,0.25)] backdrop-blur-sm transition-shadow duration-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.35)] ${
         plan.highlighted
           ? "border-[#44B39F] bg-linear-to-b from-[#09232E] via-[#083440] to-[#073E4A] scale-[1.02]"
           : "border-[#1A4648] bg-[#0B1F2A]"
@@ -158,7 +158,7 @@ function PlanCard({ plan, mobile = false }: { plan: Plan; mobile?: boolean }) {
       {/* دکمه */}
       <button
         type="button"
-        className={`w-full cursor-pointer rounded-xl sm:rounded-[20px] border py-3 sm:py-2.5 text-base sm:text-lg font-bold text-white transition-all duration-300 hover:scale-[1.02] ${
+        className={`w-full cursor-pointer rounded-xl sm:rounded-[20px] border py-3 sm:py-2.5 text-base sm:text-lg font-bold text-white transition-[transform,border-color,box-shadow] duration-300 hover:scale-[1.02] ${
           plan.highlighted
             ? "border-none bg-linear-to-r from-[#46B6A0] to-[#056E7C] shadow-[0_0_25px_rgba(70,182,160,0.4)] hover:shadow-[0_0_35px_rgba(70,182,160,0.6)]"
             : "border-2 border-[#07505E] bg-linear-to-r from-[#0B1F2A] to-[#093B48] hover:border-[#1CB8B5]"

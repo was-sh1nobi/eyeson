@@ -162,7 +162,7 @@ export default function AdminCaseStudyTabsSection({ slug: propSlug }: Props) {
   const EditBtn = ({ onClick }: { onClick: () => void }) => (
     <button
       onClick={onClick}
-      className="inline-flex items-center justify-center w-7 h-7 rounded-md text-white/40 hover:text-cyan-300 hover:bg-white/10 transition-all shrink-0"
+      className="inline-flex items-center justify-center w-7 h-7 rounded-md text-white/40 hover:text-cyan-300 hover:bg-white/10 transition-colors shrink-0"
       aria-label="Edit"
     >
       <Edit2 className="h-3.5 w-3.5" />
@@ -272,7 +272,7 @@ export default function AdminCaseStudyTabsSection({ slug: propSlug }: Props) {
               <button
                 onClick={() => setIsAdding(true)}
                 className={[
-                  "relative shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all text-sm font-medium border whitespace-nowrap",
+                  "relative shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-[color,background-color,border-color,box-shadow] text-sm font-medium border whitespace-nowrap",
                   isAdding 
                     ? "bg-cyan-400 text-black border-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.4)]" 
                     : "bg-cyan-400/10 text-cyan-300 border-cyan-400/20 hover:bg-cyan-400/20"

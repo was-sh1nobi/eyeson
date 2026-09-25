@@ -226,7 +226,7 @@ export default function PortfoliosManager() {
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 focus:border-[#00E6D7]/30 transition-all appearance-none cursor-pointer"
+                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 focus:border-[#00E6D7]/30 transition-[border-color,box-shadow] appearance-none cursor-pointer"
               >
                 <option value="" disabled className="bg-[#021617] text-white/50">Select a category</option>
                 {CATEGORIES.map((c) => (
@@ -242,7 +242,7 @@ export default function PortfoliosManager() {
             {/* Cover Input */}
             <div>
               <label className="block text-sm font-medium text-white/70 mb-2">Cover Image</label>
-              <label className="group relative flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-white/10 rounded-xl hover:border-[#00E6D7]/50 hover:bg-[#00E6D7]/5 transition-all cursor-pointer overflow-hidden">
+              <label className="group relative flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-white/10 rounded-xl hover:border-[#00E6D7]/50 hover:bg-[#00E6D7]/5 transition-colors cursor-pointer overflow-hidden">
                 <input
                   id="cover-upload"
                   type="file"
@@ -269,7 +269,7 @@ export default function PortfoliosManager() {
             {/* File Input */}
             <div>
               <label className="block text-sm font-medium text-white/70 mb-2">Media File</label>
-              <label className="group relative flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-white/10 rounded-xl hover:border-[#00E6D7]/50 hover:bg-[#00E6D7]/5 transition-all cursor-pointer overflow-hidden">
+              <label className="group relative flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-white/10 rounded-xl hover:border-[#00E6D7]/50 hover:bg-[#00E6D7]/5 transition-colors cursor-pointer overflow-hidden">
                 <input
                   id="file-upload"
                   type="file"
@@ -338,7 +338,7 @@ export default function PortfoliosManager() {
                   setFilterCategory(cat);
                   setPage(1);
                 }}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors cursor-pointer whitespace-nowrap ${
                   filterCategory === cat
                     ? "bg-[#00E6D7]/20 border border-[#00E6D7]/40 text-[#00E6D7]"
                     : "bg-white/5 border border-white/10 text-white/60 hover:text-white hover:bg-white/10"
@@ -381,7 +381,7 @@ export default function PortfoliosManager() {
               return (
                 <div
                   key={itemId}
-                  className="group relative rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-xl overflow-hidden hover:border-[#00E6D7]/30 transition-all flex flex-col justify-between"
+                  className="group relative rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-xl overflow-hidden hover:border-[#00E6D7]/30 transition-colors flex flex-col justify-between"
                 >
                   {/* Preview Container */}
                   <div className="relative w-full h-44 bg-black/40 overflow-hidden">
@@ -480,7 +480,7 @@ export default function PortfoliosManager() {
                   <select
                     value={editCategory}
                     onChange={(e) => setEditCategory(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 focus:border-[#00E6D7]/30 transition-all appearance-none cursor-pointer"
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 focus:border-[#00E6D7]/30 transition-[border-color,box-shadow] appearance-none cursor-pointer"
                   >
                     {CATEGORIES.map((c) => (
                       <option key={c} value={c} className="bg-[#021617] text-white">
@@ -495,7 +495,7 @@ export default function PortfoliosManager() {
                   <label className="block text-sm font-medium text-white/70 mb-2">
                     Video <span className="text-white/40 font-normal">(optional — replace)</span>
                   </label>
-                  <label className="group relative flex flex-col items-center justify-center w-full h-28 border-2 border-dashed border-white/10 rounded-xl hover:border-[#00E6D7]/50 hover:bg-[#00E6D7]/5 transition-all cursor-pointer overflow-hidden">
+                  <label className="group relative flex flex-col items-center justify-center w-full h-28 border-2 border-dashed border-white/10 rounded-xl hover:border-[#00E6D7]/50 hover:bg-[#00E6D7]/5 transition-colors cursor-pointer overflow-hidden">
                     <input
                       type="file"
                       accept="video/*"
@@ -521,7 +521,7 @@ export default function PortfoliosManager() {
                   <label className="block text-sm font-medium text-white/70 mb-2">
                     Cover Image <span className="text-white/40 font-normal">(optional — replace)</span>
                   </label>
-                  <label className="group relative flex flex-col items-center justify-center w-full h-28 border-2 border-dashed border-white/10 rounded-xl hover:border-[#00E6D7]/50 hover:bg-[#00E6D7]/5 transition-all cursor-pointer overflow-hidden">
+                  <label className="group relative flex flex-col items-center justify-center w-full h-28 border-2 border-dashed border-white/10 rounded-xl hover:border-[#00E6D7]/50 hover:bg-[#00E6D7]/5 transition-colors cursor-pointer overflow-hidden">
                     <input
                       type="file"
                       accept="image/*"

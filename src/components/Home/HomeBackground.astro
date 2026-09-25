@@ -142,4 +142,8 @@
   }
   html.reduce-motion .hb { animation: none !important; }
   html.gpu-off .hb-saas { display: none !important; }
+  /* gpu-off lite: orbs keep drifting (decrease, never disable) — only the
+     expensive blur filter is dropped; the feGaussianBlur SaaS SVGs stay
+     hidden (see .hb-saas rule above). */
+  html.gpu-off .hb { filter: none !important; }
 </style>

@@ -150,7 +150,7 @@ export default function RetainerCardsGrid({
             return (
               <article
                 key={card.id}
-                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-[#FFFFFF14] bg-[#0A1D29]/70 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#1ed7d8]/50 hover:shadow-[0_0_25px_rgba(0,168,182,0.15)]"
+                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-[#FFFFFF14] bg-[#0A1D29]/70 p-6 transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-[#1ed7d8]/50 hover:shadow-[0_0_25px_rgba(0,168,182,0.15)]"
               >
                 <div>
                   <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-[#1ed7d8]/30 bg-[#1ed7d8]/10 text-[#35e4d8] transition-colors duration-300 group-hover:border-[#1ed7d8] group-hover:bg-[#1ed7d8] group-hover:text-black">

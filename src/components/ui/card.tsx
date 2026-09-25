@@ -13,7 +13,7 @@ const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElemen
       ref={ref}
       className={cn(
         // base: radius-lg, border subtle, elevation-1, token padding
-        "rounded-[var(--card-radius)] border border-[var(--card-border)] bg-[var(--card-bg)] p-[var(--card-padding)] shadow-[var(--card-shadow)] backdrop-blur-xl transition-all duration-[var(--duration-normal)] ease-[var(--ease-default)] hover:border-[var(--card-border-hover)] hover:shadow-[var(--card-shadow-hover)]",
+        "rounded-[var(--card-radius)] border border-[var(--card-border)] bg-[var(--card-bg)] p-[var(--card-padding)] shadow-[var(--card-shadow)] backdrop-blur-xl transition-[border-color,box-shadow] duration-[var(--duration-normal)] ease-[var(--ease-default)] hover:border-[var(--card-border-hover)] hover:shadow-[var(--card-shadow-hover)]",
         className
       )}
       {...props}

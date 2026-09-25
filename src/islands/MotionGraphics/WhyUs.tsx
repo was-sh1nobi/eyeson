@@ -90,7 +90,7 @@ const useMediaQuery = (query: string): boolean => {
 
 // --- Sub-component ---
 const CardContent: FC<{ card: Card }> = ({ card }) => (
-  <div className="flex h-full flex-col rounded-[2rem] border border-slate-700/50 bg-linear-to-br from-[#0B1F2A] to-[#094350] p-6 sm:p-8 transition-all duration-300 hover:border-cyan-500/30 group">
+  <div className="flex h-full flex-col rounded-[2rem] border border-slate-700/50 bg-linear-to-br from-[#0B1F2A] to-[#094350] p-6 sm:p-8 transition-colors duration-300 hover:border-cyan-500/30 group">
     <div className="flex flex-1 flex-col">
       <h3 className="text-2xl font-bold text-white group-hover:text-cyan-400 transition-colors">
         {card.title}

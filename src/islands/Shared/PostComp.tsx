@@ -37,7 +37,7 @@ function PlaySvgButton() {
       viewBox="0 0 69 78"
       fill="white"
       xmlns="http://www.w3.org/2000/svg"
-      className="cursor-pointer transition-all duration-300 ease-out group-hover:-translate-y-1 group-hover:scale-110 group-hover:drop-shadow-[0_0_16px_rgba(72,235,214,0.45)]"
+      className="cursor-pointer transition-[transform,filter] duration-300 ease-out group-hover:-translate-y-1 group-hover:scale-110 group-hover:drop-shadow-[0_0_16px_rgba(72,235,214,0.45)]"
       aria-hidden
     >
       <path

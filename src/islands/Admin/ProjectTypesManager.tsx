@@ -92,7 +92,7 @@ export default function ProjectTypesManager() {
         <button
           onClick={handleSave}
           disabled={saving}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-[#00E6D7] to-[#12ACB5] text-[#021617] font-medium text-sm hover:shadow-lg hover:shadow-[#00E6D7]/20 transition-all disabled:opacity-50"
+          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-[#00E6D7] to-[#12ACB5] text-[#021617] font-medium text-sm hover:shadow-lg hover:shadow-[#00E6D7]/20 transition-shadow disabled:opacity-50"
         >
           {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
           {saving ? "Saving..." : "Save Changes"}
@@ -122,7 +122,7 @@ export default function ProjectTypesManager() {
             onChange={(e) => setNewType(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleAdd()}
             placeholder="Add new project type..."
-            className="flex-1 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 focus:border-[#00E6D7]/30 transition-all"
+            className="flex-1 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 focus:border-[#00E6D7]/30 transition-[border-color,box-shadow]"
           />
           <button
             onClick={handleAdd}
@@ -146,7 +146,7 @@ export default function ProjectTypesManager() {
             {types.map((type, index) => (
               <div
                 key={`${index}-${type}`}
-                className="flex items-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 group hover:border-[#00E6D7]/20 transition-all"
+                className="flex items-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 group hover:border-[#00E6D7]/20 transition-colors"
               >
                 <Tag className="h-4 w-4 text-[#00E6D7]/50 shrink-0" />
 
@@ -163,13 +163,13 @@ export default function ProjectTypesManager() {
                     <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                       <button
                         onClick={() => startEdit(index)}
-                        className="p-1.5 rounded-lg hover:bg-white/10 text-white/40 hover:text-white/70 transition-all"
+                        className="p-1.5 rounded-lg hover:bg-white/10 text-white/40 hover:text-white/70 transition-colors"
                       >
                         <Pencil className="h-3.5 w-3.5" />
                       </button>
                       <button
                         onClick={() => handleRemove(index)}
-                        className="p-1.5 rounded-lg hover:bg-red-500/20 text-white/40 hover:text-red-400 transition-all"
+                        className="p-1.5 rounded-lg hover:bg-red-500/20 text-white/40 hover:text-red-400 transition-colors"
                       >
                         <X className="h-3.5 w-3.5" />
                       </button>
@@ -210,13 +210,13 @@ const EditInput = React.forwardRef<HTMLInputElement, EditInputProps>(
         />
         <button
           onClick={() => onConfirm(value)}
-          className="p-1 rounded-lg bg-[#00E6D7]/20 text-[#00E6D7] hover:bg-[#00E6D7]/30 transition-all"
+          className="p-1 rounded-lg bg-[#00E6D7]/20 text-[#00E6D7] hover:bg-[#00E6D7]/30 transition-colors"
         >
           <Check className="h-4 w-4" />
         </button>
         <button
           onClick={onCancel}
-          className="p-1 rounded-lg bg-white/10 text-white/50 hover:bg-white/20 transition-all"
+          className="p-1 rounded-lg bg-white/10 text-white/50 hover:bg-white/20 transition-colors"
         >
           <X className="h-4 w-4" />
         </button>

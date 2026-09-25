@@ -35,7 +35,7 @@ export const SaasServicesSection = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 auto-rows-[minmax(320px,auto)]">
             {/* Big Bento Card */}
-            <div className="md:col-span-2 group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-8 lg:p-10 transition-all hover:bg-white/[0.07] hover:border-white/20 backdrop-blur-md shadow-lg">
+            <div className="md:col-span-2 group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-8 lg:p-10 transition-colors hover:bg-white/[0.07] hover:border-white/20 backdrop-blur-md shadow-lg">
               <div className="absolute inset-0 bg-gradient-to-br from-[#00A9BD]/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
               <div className="relative z-10 flex flex-col h-full">
                 <div className="mb-auto">
@@ -44,13 +44,13 @@ export const SaasServicesSection = () => {
                   <p className="text-slate-400 max-w-lg leading-relaxed text-sm lg:text-base">Turn complex workflows into clear, engaging stories that users understand in seconds. We build demo content that breaks down barriers and drives adoption.</p>
                 </div>
                 <div className="relative h-56 lg:h-64 mt-10 rounded-2xl overflow-hidden border border-white/10 bg-[#0B1724]">
-                  <div className="absolute inset-0 bg-[url('/pricing/svg/sto.svg')] bg-cover bg-center bg-no-repeat opacity-50 mix-blend-luminosity group-hover:mix-blend-normal transition-all duration-700 group-hover:scale-105 group-hover:opacity-80"></div>
+                  <div className="absolute inset-0 bg-[url('/pricing/svg/sto.svg')] bg-cover bg-center bg-no-repeat opacity-50 mix-blend-luminosity group-hover:mix-blend-normal transition-[transform,opacity,filter] duration-700 group-hover:scale-105 group-hover:opacity-80"></div>
                 </div>
               </div>
             </div>
 
             {/* Small Bento Card 1 */}
-            <div className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-8 lg:p-10 transition-all hover:bg-white/[0.07] hover:border-white/20 backdrop-blur-md shadow-lg flex flex-col">
+            <div className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-8 lg:p-10 transition-colors hover:bg-white/[0.07] hover:border-white/20 backdrop-blur-md shadow-lg flex flex-col">
               <div className="relative z-10 flex flex-col h-full">
                 <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-[#00A9BD]/20 to-[#42D1D1]/10 flex items-center justify-center text-[#42D1D1] mb-8 border border-white/5 group-hover:scale-110 transition-transform duration-500">
                   <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>
@@ -58,13 +58,13 @@ export const SaasServicesSection = () => {
                 <h3 className="text-xl lg:text-2xl font-bold text-white mb-4">Launch Campaigns</h3>
                 <p className="text-slate-400 text-sm leading-relaxed mb-auto">Every launch deserves visuals that cut through. We build campaign assets for ads, landing pages, and social media.</p>
                 <div className="mt-8 pt-6 border-t border-white/10">
-                  <span className="text-[#42D1D1] text-sm font-semibold flex items-center gap-2 group-hover:gap-3 transition-all">Learn more <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></span>
+                  <span className="text-[#42D1D1] text-sm font-semibold flex items-center gap-2 group-hover:gap-3 transition-[gap,color]">Learn more <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></span>
                 </div>
               </div>
             </div>
 
             {/* Small Bento Card 2 */}
-            <div className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-8 lg:p-10 transition-all hover:bg-white/[0.07] hover:border-white/20 backdrop-blur-md shadow-lg flex flex-col">
+            <div className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-8 lg:p-10 transition-colors hover:bg-white/[0.07] hover:border-white/20 backdrop-blur-md shadow-lg flex flex-col">
                <div className="relative z-10 flex flex-col h-full">
                 <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-[#00A9BD]/20 to-[#42D1D1]/10 flex items-center justify-center text-[#42D1D1] mb-8 border border-white/5 group-hover:scale-110 transition-transform duration-500">
                   <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
@@ -72,18 +72,18 @@ export const SaasServicesSection = () => {
                 <h3 className="text-xl lg:text-2xl font-bold text-white mb-4">Paid Social & Ads</h3>
                 <p className="text-slate-400 text-sm leading-relaxed mb-auto">Performance-driven creatives meticulously designed to stop the scroll and convert fleeting attention into action.</p>
                 <div className="mt-8 pt-6 border-t border-white/10">
-                  <span className="text-[#42D1D1] text-sm font-semibold flex items-center gap-2 group-hover:gap-3 transition-all">Learn more <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></span>
+                  <span className="text-[#42D1D1] text-sm font-semibold flex items-center gap-2 group-hover:gap-3 transition-[gap,color]">Learn more <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></span>
                 </div>
               </div>
             </div>
 
             {/* Medium Bento Card */}
-            <div className="md:col-span-2 group relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/5 via-[#00A9BD]/5 to-[#00A9BD]/20 p-8 lg:p-10 transition-all hover:border-[#00A9BD]/40 backdrop-blur-md shadow-lg">
+            <div className="md:col-span-2 group relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/5 via-[#00A9BD]/5 to-[#00A9BD]/20 p-8 lg:p-10 transition-colors hover:border-[#00A9BD]/40 backdrop-blur-md shadow-lg">
               <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between h-full gap-10">
                 <div className="flex-1 text-center sm:text-left">
                   <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4">Feature Announcements</h3>
                   <p className="text-slate-400 leading-relaxed max-w-lg mb-8">Keep your audience engaged with high-quality release content. We help you communicate new value fast and effectively across all channels.</p>
-                  <a href="/contact" className="inline-flex items-center justify-center gap-2 rounded-xl bg-white/10 border border-white/20 px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-white/20">
+                  <a href="/contact" className="inline-flex items-center justify-center gap-2 rounded-xl bg-white/10 border border-white/20 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/20">
                     Explore capabilities
                   </a>
                 </div>

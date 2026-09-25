@@ -63,7 +63,7 @@ const {
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch">
       {cards.map((card, idx) => (
         <article
-          class="workflow-card group relative flex flex-col overflow-hidden rounded-[28px] border border-white/10 bg-gradient-to-b from-[#061e27]/90 to-[#020d13]/95 p-5 sm:p-6 shadow-2xl backdrop-blur-xl transition-[transform,border-color,box-shadow] duration-300 hover:border-[#00E6D7]/40 hover:-translate-y-1.5 hover:shadow-[0_20px_50px_rgba(0,169,189,0.18)] reveal-on-scroll"
+          class="workflow-card group relative flex flex-col overflow-hidden rounded-[28px] border border-white/10 bg-gradient-to-b from-[#061e27]/90 to-[#020d13]/95 p-5 sm:p-6 shadow-2xl backdrop-blur-xl transition-[transform,border-color,box-shadow] duration-300 hover:border-[#00E6D7]/40 hover:-translate-y-1.5 hover:shadow-[0_20px_50px_rgba(0,169,189,0.18)] "
           data-reveal-delay={(idx % 3) * 120}
         >
           {/* Subtle Top Glow */}
@@ -101,7 +101,7 @@ const {
             <div class="mt-6 pt-4 border-t border-white/5">
               <a
                 href="/contact"
-                class="inline-flex items-center justify-center rounded-xl bg-white/5 border border-white/10 px-5 py-2.5 text-xs sm:text-sm font-semibold text-white/90 transition-all duration-200 hover:bg-[#00E6D7] hover:text-black hover:border-transparent hover:shadow-[0_0_20px_rgba(0,230,215,0.4)] active:scale-95 w-full text-center"
+                class="inline-flex items-center justify-center rounded-xl bg-white/5 border border-white/10 px-5 py-2.5 text-xs sm:text-sm font-semibold text-white/90 transition-[transform,box-shadow,border-color,background-color,color] duration-200 hover:bg-[#00E6D7] hover:text-black hover:border-transparent hover:shadow-[0_0_20px_rgba(0,230,215,0.4)] active:scale-95 w-full text-center"
               >
                 {card.buttonText}
               </a>
