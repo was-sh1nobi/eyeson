@@ -154,8 +154,13 @@ interface MobileMenuProps {
 }
 
 export const MobileMenu = ({ open, onClose, currentPath = "/" }: MobileMenuProps) => {
-    const [servicesOpen, setServicesOpen] = useState(false);
+    // Services starts expanded every time the hamburger menu opens.
+    const [servicesOpen, setServicesOpen] = useState(true);
     const active = (path: string) => normalizePath(path) === normalizePath(currentPath);
+
+    useEffect(() => {
+        if (open) setServicesOpen(true);
+    }, [open ]);
 
     useEffect(() => {
         document.body.style.overflow = open ? "hidden" : "";
@@ -167,8 +172,10 @@ export const MobileMenu = ({ open, onClose, currentPath = "/" }: MobileMenuProps
             {/* Backdrop */}
             <div className="absolute inset-0 bg-[#000E17]/80" onClick={onClose} />
 
-            {/* Slide-in Panel (transform-gpu for 60fps) */}
-            <div className={`absolute right-0 top-0 h-screen w-[92%] max-w-[380px] border-l border-[#3AAFC8]/25 bg-[#020915] transform-gpu transition-transform duration-300 ease-out flex flex-col ${open ? "translate-x-0" : "translate-x-full"}`}>
+            {/* Slide-in Panel (transform-gpu for 60fps).
+                dvh tracks the *visible* viewport so the panel + CTA bar don't
+                slide under mobile browser chrome. */}
+            <div className={`absolute right-0 top-0 h-screen supports-[height:100dvh]:h-[100dvh] w-[92%] max-w-[380px] border-l border-[#3AAFC8]/25 bg-[#020915] transform-gpu transition-transform duration-300 ease-out flex flex-col ${open ? "translate-x-0" : "translate-x-full"}`}>
                 
                 <div className="flex-1 px-4 pb-5 pt-6 overflow-y-auto overscroll-contain">
                     {/* Header */}
@@ -187,22 +194,29 @@ export const MobileMenu = ({ open, onClose, currentPath = "/" }: MobileMenuProps
                             {MENU_ITEMS[0].title}
                         </a>
 
-                        <button onClick={() => setServicesOpen((p) => !p)} className={`flex w-full items-center justify-between rounded-2xl border px-4 py-4 text-left transition-colors ${servicesOpen ? "border-[#2bd6de]/35 bg-[#0a2330] text-white" : "border-white/[0.08] bg-white/[0.04] text-white"}`}>
-                            <span className="flex items-center gap-3">
-                                <span className="h-2 w-2 rounded-full bg-[#2bd6de]" />
-                                <span className="text-[15px] font-semibold">Services</span>
-                            </span>
-                            <span className={`text-xs text-[#86f5ff] transition-transform duration-300 ${servicesOpen ? "rotate-180" : ""}`}>▾</span>
-                        </button>
+                        {/* Services — one connected group: the toggle is the header
+                            of the same card, so it never reads as two separate items. */}
+                        <div className={`rounded-2xl border transition-colors ${servicesOpen ? "border-[#2bd6de]/35 bg-[#0a2330]" : "border-white/[0.08] bg-white/[0.04]"}`}>
+                            <button onClick={() => setServicesOpen((p) => !p)} aria-expanded={servicesOpen} className="flex w-full items-center justify-between px-4 py-4 text-left text-white">
+                                <span className="flex items-center gap-3">
+                                    <span className="h-2 w-2 rounded-full bg-[#2bd6de]" />
+                                    <span className="text-[15px] font-semibold">Services</span>
+                                </span>
+                                <span className={`text-xs text-[#86f5ff] transition-transform duration-300 ${servicesOpen ? "rotate-180" : ""}`}>▾</span>
+                            </button>
 
-                        {/* Services List */}
-                        <div className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out ${servicesOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
-                            <div className="overflow-hidden">
-                                <div className="rounded-3xl border border-[#2bb7c2]/20 bg-[#06141d] p-2.5 mt-2 space-y-2">
-                                    <p className="px-2 pt-1 pb-1.5 text-[10px] uppercase tracking-[0.25em] text-white/30">Our Services</p>
-                                    {SERVICE_GROUPS.map((group) => (
-                                        <MobileServiceGroup key={group.title} group={group} onClose={onClose} />
-                                    ))}
+                            {/* Services List — flows directly from the header, no gap or inner box */}
+                            <div className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out ${servicesOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
+                                <div className="overflow-hidden">
+                                    <div className="px-2.5 pb-2.5">
+                                        <div className="mx-1.5 mb-2 h-px bg-[#2bb7c2]/15" aria-hidden="true" />
+                                        <p className="px-2 pb-1.5 text-[10px] uppercase tracking-[0.25em] text-white/30">Our Services</p>
+                                        <div className="space-y-2">
+                                            {SERVICE_GROUPS.map((group) => (
+                                                <MobileServiceGroup key={group.title} group={group} onClose={onClose} />
+                                            ))}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -217,8 +231,9 @@ export const MobileMenu = ({ open, onClose, currentPath = "/" }: MobileMenuProps
                     </div>
                 </div>
 
-                {/* CTA Buttons Sticky at Bottom */}
-                <div className="mt-auto grid grid-cols-2 gap-3 p-4 border-t border-white/5 bg-[#020915]">
+                {/* CTA Buttons Sticky at Bottom — lifted off the edge and clear
+                    of the iPhone home indicator / Android gesture bar. */}
+                <div className="mt-auto grid grid-cols-2 gap-3 border-t border-white/5 bg-[#020915] px-4 pt-4 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
                     <button onClick={() => window.location.href = "/contact"} className="rounded-full border border-[#3AAFC8]/45 bg-[#041827] px-3 py-3 text-sm font-semibold text-white cursor-pointer">Book a call</button>
                     <button className="rounded-full bg-gradient-to-r from-[#00A9BD] to-[#1D553A] px-3 py-3 text-sm font-semibold text-white">Free sample</button>
                 </div>

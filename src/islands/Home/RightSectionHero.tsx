@@ -209,9 +209,10 @@ export default function RightSectionHero({
                 className="absolute -top-60 -right-10 scale-[1.3] z-10 h-300 w-300 object-contain pointer-events-none hidden lg:block "
             />
 
-            {/* Giant Mockup Player Container */}
-            <div ref={containerRef} className="relative aspect-16/10 w-full rounded-[24px] sm:rounded-[32px] md:rounded-[36px] flex justify-center items-end border border-white/10 shadow-[0_30px_80px_-20px_rgba(0,169,189,0.35)] overflow-hidden bg-[#02070f]">
-                <SmartImage src="/home/VideoElements/20/mother.webp" alt="" fill priority className="rounded-[inherit] object-cover" />
+            {/* Giant Mockup Player Container — slightly taller aspect on phones
+                (≈ +10px at 360px wide) so the frame image doesn't look cut short */}
+            <div ref={containerRef} className="relative aspect-16/10 max-sm:aspect-[16/10.5] w-full rounded-[24px] sm:rounded-[32px] md:rounded-[36px] flex justify-center items-end border border-white/10 shadow-[0_30px_80px_-20px_rgba(0,169,189,0.35)] overflow-hidden bg-[#02070f]">
+                <SmartImage src="/home/VideoElements/20/mother.webp" alt="" fill priority className="rounded-[inherit] object-cover " />
 
                 {/* Top header bar inside Mockup */}
                 <div className="absolute top-0 left-0 z-10 flex items-center justify-between w-full px-3 py-2 sm:px-5 sm:py-3 md:px-6 md:py-3.5 text-white/70">
@@ -224,14 +225,14 @@ export default function RightSectionHero({
                         </button>
                     </div>
 
-                    <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-black/40 border border-white/10 text-[10px] sm:text-xs text-white/80 font-mono backdrop-blur-md">
+                    <div className="flex items-center gap-2 px-3 py-1 rounded-full   text-[10px] sm:text-xs text-white/80 font-mono ">
                         <span className="h-2 w-2 rounded-full bg-[#00E6D7] shadow-[0_0_8px_#00E6D7] animate-pulse" />
                         <span>LIVE PREVIEW</span>
                     </div>
                 </div>
 
                 {/* Inner Video Container */}
-                <div className="relative w-full h-[calc(100%-2.2rem)] sm:h-[calc(100%-2.8rem)] md:h-[calc(100%-3.1rem)] mt-6 sm:mt-7 md:mt-8 rounded-[18px] sm:rounded-[24px] md:rounded-[28px] overflow-hidden border border-white/[0.08]">
+                <div className="relative w-full h-[calc(100%-2.2rem)] sm:h-[calc(100%-2.8rem)] md:h-[calc(100%-3.1rem)] mt-6 sm:mt-7 md:mt-8 rounded-[18px] sm:rounded-[24px] md:rounded-[28px] overflow-hidden ">
                     <SmartImage src="/home/VideoElements/20/child.webp" alt="" fill priority className="rounded-[inherit] object-cover" />
                     <video
                         key={activeTab}

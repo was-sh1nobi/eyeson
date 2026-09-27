@@ -123,16 +123,16 @@ export const ContactBookingSection = () => {
           <div className="reveal-on-scroll spotlight-card relative rounded-[32px] border border-white/10 bg-[#05151d]/80 p-6 sm:p-10 shadow-2xl">
             <div className="grid gap-6 sm:grid-cols-2">
               <div className="space-y-2">
-                <label className="text-sm font-medium text-white/90">First Name</label>
+                <label className="text-sm p-2 font-medium text-white/90">First Name</label>
                 <input
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
-                    className="h-12 w-full rounded-xl border border-white/10 bg-[#0a232e]/50 px-4 text-sm text-white outline-none focus:border-[#1DAFD3]/50"
+                    className="h-12  w-full rounded-xl border border-white/10 bg-[#0a232e]/50 px-4 text-sm text-white outline-none focus:border-[#1DAFD3]/50"
                     placeholder="John"
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-white/90">Last Name</label>
+                <label className="text-sm p-2 font-medium text-white/90">Last Name</label>
                 <input
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
@@ -141,7 +141,7 @@ export const ContactBookingSection = () => {
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-white/90">Email</label>
+                <label className="text-sm p-2 font-medium text-white/90">Email</label>
                 <input
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -150,7 +150,7 @@ export const ContactBookingSection = () => {
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-white/90">Phone (Optional)</label>
+                <label className="text-sm  p-2 font-medium text-white/90">Phone (Optional)</label>
                 <input
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
@@ -161,7 +161,7 @@ export const ContactBookingSection = () => {
             </div>
 
             <div className="mt-6 space-y-2">
-              <label className="text-sm font-medium text-white/90">Company / Brand Name</label>
+              <label className="text-sm p-2 font-medium text-white/90">Company / Brand Name</label>
               <input
                   value={companyName}
                   onChange={(e) => setCompanyName(e.target.value)}
@@ -171,7 +171,7 @@ export const ContactBookingSection = () => {
             </div>
 
             <div className="mt-6 space-y-2">
-              <label className="text-sm font-medium text-white/90">Project Type</label>
+              <label className="text-sm p-2 font-medium text-white/90">Project Type</label>
               <div className="relative">
                 <div
                     onClick={() => setShowProjectTypes(!showProjectTypes)}
@@ -204,7 +204,7 @@ export const ContactBookingSection = () => {
             </div>
 
             <div className="mt-6 space-y-2">
-              <label className="text-sm font-medium text-white/90">Budget Range</label>
+              <label className="text-sm p-2 font-medium text-white/90">Budget Range</label>
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
                 {budgetRanges.map((range) => (
                     <button
@@ -223,7 +223,7 @@ export const ContactBookingSection = () => {
             </div>
 
             <div className="mt-6 space-y-2">
-              <label className="text-sm font-medium text-white/90">Project Details</label>
+              <label className="text-sm p-2 font-medium text-white/90">Project Details</label>
               <textarea
                   value={projectDetails}
                   onChange={(e) => setProjectDetails(e.target.value)}
