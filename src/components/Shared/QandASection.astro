@@ -284,11 +284,14 @@ const questions: QAItem[] = questionOverrides.map((override) => {
 
   /* ================= ترنزیشن نرم کارت ================= */
   /* NOTE: no permanent will-change here — it forces a GPU layer per card
-     (15 layers) and makes mobile open/close laggy. */
+     (15 layers) and makes mobile open/close laggy.
+     NOTE 2: box-shadow is intentionally NOT transitioned — animating shadows
+     repaints the whole card every frame. It swaps instantly instead. */
   .qa-item {
-    transition:
-        border-color 200ms ease,
-        box-shadow 200ms ease;
+    transition: border-color 200ms ease;
+    /* Scope text reflow during open/close to the card itself so the browser
+       doesn't recalc layout for siblings on every animation frame. */
+    contain: layout style;
   }
 
   /* ================= حاشیه گرادیانی ================= */
@@ -398,6 +401,37 @@ const questions: QAItem[] = questionOverrides.map((override) => {
 
   .qa-trigger {
     -webkit-tap-highlight-color: transparent;
+  }
+
+  /* ================= موبایل: حذف لایه‌های گرافیکی سنگین ================= */
+  /* On touch devices the open/close animation runs ONLY grid-rows + opacity.
+     - ::before (masked gradient border) is the most expensive layer on mobile
+       GPUs: mask-composite re-rasterizes every frame while it fades. The open
+       state is still signaled by border-color + accent bar.
+     - ::after background swaps instantly instead of fading (one repaint).
+     - Shorter panel duration = fewer frames of text reflow.
+     - Smaller open shadow = cheaper paint. */
+  @media (pointer: coarse) {
+    .qa-item::before {
+      display: none;
+    }
+    .qa-item::after {
+      transition: none;
+    }
+    .qa-panel {
+      transition:
+          grid-template-rows 200ms ease-out,
+          opacity 150ms ease;
+    }
+    .qa-accent {
+      transition-duration: 250ms;
+    }
+    .qa-item.is-open {
+      box-shadow: 0 10px 24px -18px rgba(0, 0, 0, 0.6);
+    }
+    .qa-item.is-open .qa-icon-wrap {
+      box-shadow: none;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
