@@ -69,20 +69,19 @@ export default function SaasWhatsIncludedSection() {
           </h2>
         </div>
 
-        <div className="grid gap-5 lg:grid-cols-2">
-          <article className="rounded-2xl bg-[#0B1F2A] p-4">
-            <h3 className="text-3xl font-bold bg-linear-to-r from-[#46B6A0] to-[#00A9BD] bg-clip-text text-transparent">
-              The Strongest SaaS Videos Balance Product Clarity With Visual Excitement.
-            </h3>
-            <p className="mt-2 text-sm leading-7 text-[#c4d6df]">
-              The strongest SaaS videos balance product clarity with visual excitement. Every part of the production is designed around that goal.
-            </p>
+        <div className="grid gap-4 sm:gap-5 lg:grid-cols-12 lg:items-stretch">
+          {/* Left Featured Card */}
+          <article className="lg:col-span-4 flex flex-col justify-between rounded-2xl bg-[#0B1F2A] border border-white/5 p-5 sm:p-6 shadow-xl">
+            <div>
+              <h3 className="text-xl sm:text-2xl font-bold bg-linear-to-r from-[#46B6A0] via-[#23d8dc] to-[#00A9BD] bg-clip-text text-transparent leading-snug">
+                The Strongest SaaS Videos Balance Product Clarity With Visual Excitement.
+              </h3>
+              <p className="mt-2.5 text-xs sm:text-sm leading-relaxed text-[#c4d6df]/90">
+                A clear story helps people understand the product, while purposeful motion keeps them watching. Together, they make the value memorable and the next step obvious.
+              </p>
+            </div>
 
-            <p className="mt-4 text-sm leading-7 text-[#c4d6df]/80">
-              A clear story helps people understand the product. Purposeful motion keeps them watching. Together, they make the value memorable and the next step obvious.
-            </p>
-
-            <div className="relative mt-4 h-[360px] overflow-hidden rounded-xl shadow-[0_0_15px_#00A9BDB2]">
+            <div className="relative mt-4 w-full flex-1 min-h-[160px] sm:min-h-[180px] overflow-hidden rounded-xl border border-white/10 shadow-[0_0_15px_#00A9BDB2]">
               <SmartImage
                 src="/animation-section/video.webp"
                 alt="Hook optimization sample"
@@ -92,6 +91,7 @@ export default function SaasWhatsIncludedSection() {
             </div>
           </article>
 
+          {/* Right Grid of 6 Square Cards */}
           <div
             ref={sliderRef}
             onScroll={() => {
@@ -111,7 +111,7 @@ export default function SaasWhatsIncludedSection() {
                 setActiveIndex((prev) => (prev === idx ? prev : idx));
               });
             }}
-            className="flex snap-x snap-mandatory gap-4 overflow-x-auto lg:grid lg:overflow-visible lg:snap-none lg:gap-5 lg:grid-cols-3 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="lg:col-span-8 flex snap-x snap-mandatory gap-3 sm:gap-4 overflow-x-auto lg:grid lg:overflow-visible lg:snap-none lg:grid-cols-3 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {includedCards.map((item) => {
               const Icon = item.icon;
@@ -119,31 +119,33 @@ export default function SaasWhatsIncludedSection() {
               return (
                 <article
                   key={item.id}
-                  className="w-full min-w-full snap-center rounded-2xl bg-linear-to-br from-[#0B1F2A] to-[#093C49] p-5 lg:min-w-0"
+                  className="w-full min-w-full sm:min-w-0 snap-center rounded-2xl bg-linear-to-br from-[#0B1F2A] to-[#093C49] p-4 sm:p-5 border border-white/5 flex flex-col justify-between aspect-square transition-all duration-300 hover:border-[#1ed7d8]/40 hover:scale-[1.02]"
                 >
-                  <div className="mb-4 inline-flex h-11 w-11 items-center bg-linear-to-br from-[#000E17] shadow-[0_0_10px_#00A9BD80] to-[#143C3E] justify-center rounded-xl border border-[#1ed7d8]/60 text-[#1ed7d8]">
-                    <Icon className="h-6 w-6" />
+                  <div>
+                    <div className="mb-2.5 inline-flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-linear-to-br from-[#000E17] to-[#143C3E] border border-[#1ed7d8]/60 text-[#1ed7d8] shadow-[0_0_8px_#00A9BD60]">
+                      <Icon className="h-4.5 w-4.5 sm:h-5 sm:w-5" />
+                    </div>
+                    <h3 className="text-sm sm:text-base font-bold text-white leading-snug">
+                      {item.title}
+                    </h3>
                   </div>
-                  <h3 className="text-3xl font-bold text-white">
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-7 text-[#c4d6df]">
+                  <p className="mt-1.5 text-xs leading-relaxed text-[#c4d6df]/85 line-clamp-3">
                     {item.description}
                   </p>
                 </article>
               );
             })}
           </div>
-          <div className="mt-4 flex items-center justify-center gap-2 lg:hidden">
-            {includedCards.map((item, index) => (
-              <span
-                key={item.id}
-                className={`h-2.5 w-2.5 rounded-full ${
-                  index === activeIndex ? "bg-[#23d8dc]" : "bg-white/15"
-                }`}
-              />
-            ))}
-          </div>
+        </div>
+        <div className="mt-6 flex items-center justify-center gap-2 lg:hidden">
+          {includedCards.map((item, index) => (
+            <span
+              key={item.id}
+              className={`h-2.5 w-2.5 rounded-full ${
+                index === activeIndex ? "bg-[#23d8dc]" : "bg-white/15"
+              }`}
+            />
+          ))}
         </div>
       </div>
     </section>

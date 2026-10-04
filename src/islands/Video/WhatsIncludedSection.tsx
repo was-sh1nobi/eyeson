@@ -55,26 +55,24 @@ export default function WhatsIncludedSection() {
           </h2>
         </div>
 
-        <div className="grid gap-5 lg:grid-cols-2">
-          <article className="rounded-2xl bg-[#0B1F2A] p-10">
-            <h3 className="text-3xl font-bold bg-linear-to-r from-[#46B6A0] to-[#00A9BD] bg-clip-text text-transparent">
-              Hook & Attention Optimization
-            </h3>
-            <p className="mt-2 text-sm leading-7 text-[#c4d6df]">
-              The first seconds matter the most. We improve hooks, pacing, cuts,
-              structure, and visual timing to make content feel more immediate,
-              engaging, and harder to scroll past.
-            </p>
+        <div className="grid gap-5 lg:grid-cols-2 lg:items-stretch">
+          <article className="flex flex-col justify-between rounded-2xl bg-[#0B1F2A] border border-white/5 p-6 sm:p-8 shadow-xl">
+            <div>
+              <h3 className="text-2xl sm:text-3xl font-bold bg-linear-to-r from-[#46B6A0] to-[#00A9BD] bg-clip-text text-transparent leading-snug">
+                Hook & Attention Optimization
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-[#c4d6df]">
+                The first seconds matter the most. We improve hooks, pacing, cuts,
+                structure, and visual timing to make content feel more immediate,
+                engaging, and harder to scroll past.
+              </p>
 
-            <p className="mt-4 text-sm leading-7 text-[#c4d6df]/80">
-              Modern editing is more than cutting clips together. The pacing,
-              hook, captions, motion, sound, visual rhythm, and structure all
-              shape how professional, engaging, and memorable the content feels
-              online. The difference between content people skip and content
-              people stay for usually comes down to these details.
-            </p>
+              <p className="mt-3 text-xs sm:text-sm leading-relaxed text-[#c4d6df]/80">
+                Pacing, captions, motion, sound, and visual rhythm all shape how professional and memorable content feels online.
+              </p>
+            </div>
 
-            <div className="relative mt-4 h-[360px] overflow-hidden rounded-xl shadow-[0_0_15px_#00A9BDB2]">
+            <div className="relative mt-5 w-full flex-1 min-h-[220px] overflow-hidden rounded-xl border border-white/10 shadow-[0_0_15px_#00A9BDB2]">
               <SmartImage
                 src="/animation-section/video.webp"
                 alt="Hook optimization sample"
@@ -103,7 +101,7 @@ export default function WhatsIncludedSection() {
                 setActiveIndex((prev) => (prev === idx ? prev : idx));
               });
             }}
-            className="flex snap-x snap-mandatory gap-4 overflow-x-auto lg:grid lg:overflow-visible lg:snap-none lg:gap-5 lg:grid-cols-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="flex snap-x snap-mandatory gap-4 overflow-x-auto lg:grid lg:overflow-visible lg:snap-none lg:gap-4 lg:grid-cols-2 lg:grid-rows-2 lg:auto-rows-fr [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {includedCards.map((item) => {
               const Icon = item.icon;
@@ -111,15 +109,17 @@ export default function WhatsIncludedSection() {
               return (
                 <article
                   key={item.id}
-                  className="w-full min-w-full snap-center rounded-2xl bg-linear-to-br from-[#0B1F2A] to-[#093C49] p-5 lg:min-w-0"
+                  className="w-full min-w-full sm:min-w-0 snap-center rounded-2xl bg-linear-to-br from-[#0B1F2A] to-[#093C49] p-5 border border-white/5 flex flex-col justify-between h-full transition-all duration-300 hover:border-[#1ed7d8]/40 hover:scale-[1.02]"
                 >
-                  <div className="mb-4 inline-flex h-11 w-11 items-center bg-linear-to-br from-[#000E17] shadow-[0_0_10px_#00A9BD80] to-[#143C3E] justify-center rounded-xl border border-[#1ed7d8]/60 text-[#1ed7d8]">
-                    <Icon className="h-6 w-6" />
+                  <div>
+                    <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br from-[#000E17] to-[#143C3E] border border-[#1ed7d8]/60 text-[#1ed7d8] shadow-[0_0_10px_#00A9BD80]">
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <h3 className="text-base sm:text-lg font-bold text-white leading-snug">
+                      {item.title}
+                    </h3>
                   </div>
-                  <h3 className="text-2xl font-bold text-white">
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-7 text-[#c4d6df]">
+                  <p className="mt-2 text-xs sm:text-sm leading-relaxed text-[#c4d6df]/85 line-clamp-4">
                     {item.description}
                   </p>
                 </article>
