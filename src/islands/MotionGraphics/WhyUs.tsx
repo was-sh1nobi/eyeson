@@ -187,11 +187,11 @@ export const MotionGraphicsSection: FC = () => {
               slidesPerView={1.1}
               centeredSlides={false}
               pagination={{ clickable: true }}
-              className="pb-12 !overflow-visible"
+              className="pb-12 overflow-visible!"
               autoHeight={false}
             >
               {cardData.map((card) => (
-                <SwiperSlide key={card.id} className="!h-auto flex">
+                <SwiperSlide key={card.id} className="h-auto! flex">
                   <CardContent card={card} />
                 </SwiperSlide>
               ))}

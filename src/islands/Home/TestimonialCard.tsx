@@ -39,11 +39,11 @@ export default function TestimonialCard({ item }: { item: any }) {
         onPointerEnter={handlePointerEnter}
         onPointerMove={handlePointerMove}
         onPointerLeave={handlePointerLeave}
-        className="relative h-full flex flex-col justify-between bg-gradient-to-b from-[#08222c]/95 to-[#04141c]/95 rounded-[28px] overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.4)] backdrop-blur-xl p-7 md:p-8 transition-[border-color,box-shadow] duration-300 hover:border-[#00E6D7]/40 hover:shadow-[0_25px_60px_rgba(0,169,189,0.2)]"
+        className="relative h-full flex flex-col justify-between bg-linear-to-b from-[#08222c]/95 to-[#04141c]/95 rounded-[28px] overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.4)] backdrop-blur-xl p-7 md:p-8 transition-[border-color,box-shadow] duration-300 hover:border-[#00E6D7]/40 hover:shadow-[0_25px_60px_rgba(0,169,189,0.2)]"
       >
 
         {/* Top Glow Accent */}
-        <div className="pointer-events-none absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-[#00E6D7]/12 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="pointer-events-none absolute top-0 inset-x-0 h-24 bg-linear-to-b from-[#00E6D7]/12 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
         {/* Cursor Spotlight */}
         <div

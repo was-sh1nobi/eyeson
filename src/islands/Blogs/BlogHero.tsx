@@ -380,7 +380,7 @@ export const BlogHero = ({
               <div className="relative order-1 lg:order-2">
                 <div className="absolute -inset-6 rounded-[2.5rem] bg-[#00A9BD]/25 blur-3xl sm:-inset-8" />
                 <div className="relative overflow-hidden rounded-[1.5rem] border border-[#62e8f1]/20 bg-[#102530]/75 shadow-[0_0_70px_rgba(0,169,189,0.32)] backdrop-blur-md sm:rounded-[2rem]">
-                  <div className="relative aspect-[4/3] w-full sm:aspect-[1.02/1]">
+                  <div className="relative aspect-4/3 w-full sm:aspect-[1.02/1]">
                     {coverImage ? (
                         <img
                             src={coverImage}
@@ -450,7 +450,7 @@ export const BlogHero = ({
                           <div className="absolute inset-x-[15%] top-0 h-px bg-linear-to-r from-transparent via-[#00A9BD]/45 to-transparent" />
                           <div className="absolute inset-x-[15%] bottom-0 h-px bg-linear-to-r from-transparent via-[#00A9BD]/45 to-transparent" />
                           <div className="absolute left-[15%] top-0 h-full w-px bg-linear-to-b from-transparent via-[#00A9BD]/25 to-transparent" />
-                          <div className="absolute right-[15%] top-0 h-full w-px bg-gradient-to-b from-transparent via-[#00A9BD]/25 to-transparent" />
+                          <div className="absolute right-[15%] top-0 h-full w-px bg-linear-to-b from-transparent via-[#00A9BD]/25 to-transparent" />
                           <div className="absolute top-0 h-0.5 w-1/3 bg-linear-to-r from-transparent via-[#00A9BD]/60 to-transparent blur-sm" style={{ animation: "sweep 2s ease-in-out infinite", willChange: "transform" }} />
                         </div>
                     )}
@@ -641,7 +641,7 @@ export const BlogHero = ({
               {/* Desktop sticky share rail */}
               <aside className="hidden lg:block">
                 <div className="sticky top-6 space-y-4">
-                  <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-4">
+                  <div className="rounded-2xl border border-white/10 bg-white/2 p-4">
                     <p className="mb-3 text-xs uppercase tracking-wider text-white/40">Share this article</p>
                     <div className="space-y-2">
                       <button onClick={handleCopy} className={railBtn + " w-full"}>
@@ -666,7 +666,7 @@ export const BlogHero = ({
                   </div>
 
                   {(date || readTime) && (
-                      <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-4 text-sm text-white/60">
+                      <div className="rounded-2xl border border-white/10 bg-white/2 p-4 text-sm text-white/60">
                         {date && (
                             <p className="flex items-center gap-2">
                               <IconCalendar className="h-4 w-4 text-[#25d9e0]/70" />
@@ -702,7 +702,7 @@ export const BlogHero = ({
                               className="group flex flex-col overflow-hidden rounded-2xl border border-[#00A9BD]/30 bg-[#0B1F2A] transition hover:-translate-y-1 hover:border-[#00A9BD]/60"
                           >
                             {coverSrc ? (
-                                <div className="aspect-[16/9] overflow-hidden">
+                                <div className="aspect-video overflow-hidden">
                                   <img
                                       src={coverSrc}
                                       alt={post.title}
@@ -711,7 +711,7 @@ export const BlogHero = ({
                                   />
                                 </div>
                             ) : (
-                                <div className="flex aspect-[16/9] items-center justify-center bg-[#02131C]">
+                                <div className="flex aspect-video items-center justify-center bg-[#02131C]">
                                   <span className="text-4xl text-white/20">✦</span>
                                 </div>
                             )}

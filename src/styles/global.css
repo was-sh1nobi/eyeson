@@ -257,7 +257,7 @@ html.js .fade-on-scroll.is-visible {
   transform: translateY(0);
 }
 astro-island {
-  display: block;
+  display: block !important;
 }
 
 @theme inline {

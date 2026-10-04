@@ -23,10 +23,10 @@ const {
 } = Astro.props;
 ---
 
-<section class="relative w-full overflow-hidden py-[var(--space-lg)] sm:py-[var(--space-xl)]">
-  <div class="relative z-10 mx-auto max-w-[var(--container-max)] px-[var(--space-gutter)] sm:px-[var(--space-gutter-md)] lg:px-[var(--space-gutter-lg)]">
+<section class="relative w-full overflow-hidden py-(--space-lg) sm:py-(--space-xl)">
+  <div class="relative z-10 mx-auto max-w-(--container-max) px-(--space-gutter) sm:px-(--space-gutter-md) lg:px-(--space-gutter-lg)">
     <div
-      class="flex flex-col lg:flex-row items-center gap-[var(--space-md)] lg:gap-[var(--space-lg)] xl:gap-[var(--space-xl)]"
+      class="flex flex-col lg:flex-row items-center gap-(--space-md) lg:gap-(--space-lg) xl:gap-(--space-xl)"
     >
       {/* ========================================== */}
       {/* Image Section (با کلاس‌های انیمیشن اسکرول) */}
@@ -36,14 +36,14 @@ const {
       >
         <div class="cd-tilt-wrap relative w-full group" data-tilt>
           <div
-            class="cd-tilt-card relative z-10 w-full transform-gpu transition-transform duration-[var(--duration-emphasis)] ease-[var(--ease-default)] flex items-center justify-center mx-auto rounded-[var(--radius-xl)]   overflow-hidden  "
+            class="cd-tilt-card relative z-10 w-full transform-gpu transition-transform duration-(--duration-emphasis) ease-(--ease-default) flex items-center justify-center mx-auto rounded-xl overflow-hidden"
             style="aspect-ratio: 1300 / 1040"
           >
             <SmartImage
               src={imageUrl}
               alt="Creative Directions Concept"
               fill={true}
-              className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)] transition-transform duration-[var(--duration-emphasis)] ease-[var(--ease-default)]"
+              className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)] transition-transform duration-(--duration-emphasis) ease-(--ease-default)"
               loading="lazy"
             />
           </div>
@@ -61,7 +61,7 @@ const {
         >
           <span class="block text-white mb-1">{titleLine1}</span>
           <span
-            class="block bg-gradient-to-r from-[var(--primitive-teal-400)] to-[var(--primitive-teal-700)] bg-clip-text text-transparent"
+            class="block bg-linear-to-r from-(--primitive-teal-400) to-(--primitive-teal-700) bg-clip-text text-transparent"
           >
             {titleLine2}
           </span>
@@ -75,13 +75,13 @@ const {
 
         <div class="relative group/btn w-full sm:w-auto">
           <div
-            class="absolute -inset-1 rounded-full bg-gradient-to-r from-[var(--primitive-teal-400)] to-[var(--primitive-teal-700)] opacity-0 blur-lg transition-opacity duration-[var(--duration-slow)] group-hover/btn:opacity-30"
+            class="absolute -inset-1 rounded-full bg-linear-to-r from-(--primitive-teal-400) to-(--primitive-teal-700) opacity-0 blur-lg transition-opacity duration-(--duration-slow) group-hover/btn:opacity-30"
             aria-hidden="true"
           >
           </div>
 
           <div
-            class="relative transform-gpu transition-transform duration-[var(--duration-normal)] ease-[var(--ease-default)] group-hover/btn:scale-[1.02] group-active/btn:scale-[0.98]"
+            class="relative transform-gpu transition-transform duration-(--duration-normal) ease-(--ease-default) group-hover/btn:scale-[1.02] group-active/btn:scale-[0.98]"
           >
             <PrimaryButton text={buttonText} width="14rem" />
           </div>
@@ -149,8 +149,8 @@ const {
     }
 
     // تیلت سه‌بعدی تصویر دنبال‌کننده موس
-    const wrap = document.querySelector("[data-tilt]");
-    const card = wrap?.querySelector(".cd-tilt-card");
+    const wrap = document.querySelector<HTMLElement>("[data-tilt]");
+    const card = wrap?.querySelector<HTMLElement>(".cd-tilt-card");
     if (wrap && card && !prefersReducedMotion && !window.matchMedia("(pointer: coarse)").matches) {
       let raf = 0;
       let pendingEvent: PointerEvent | null = null;

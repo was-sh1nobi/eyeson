@@ -114,11 +114,11 @@ export default function ProcessScrollSection() {
             </div>
 
             <div className="relative mx-auto flex h-full max-w-7xl items-center justify-center px-6">
-                <div className="relative h-[560px] w-full max-w-[1124px]">
+                <div className="relative h-140 w-full max-w-281">
                     <svg
                         ref={svgRef}
                         viewBox="0 0 1124 905"
-                        className="absolute left-1/2 top-1/2 h-[905px] w-[1124px] -translate-x-1/2 -translate-y-1/2 overflow-visible"
+                        className="absolute left-1/2 top-1/2 h-226.25 w-281 -translate-x-1/2 -translate-y-1/2 overflow-visible"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                     >

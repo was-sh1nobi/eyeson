@@ -164,7 +164,7 @@ export default function BusinessNeedsSection({
 
         <div
           ref={mobileTrackRef}
-          className="mt-7 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-2 md:grid md:grid-cols-3 md:overflow-visible md:pb-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="mt-7 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-2 md:grid md:grid-cols-3 md:overflow-visible md:pb-0 [-ms-overflow-style:none] scrollbar-none [&::-webkit-scrollbar]:hidden"
         >
           {cards.map((card, index) => {
             return (
@@ -176,7 +176,7 @@ export default function BusinessNeedsSection({
                 tabIndex={0}
               >
                 <div
-                  className="absolute inset-0 rounded-3xl opacity-25 transition-opacity duration-500 ease-out md:opacity-0 md:group-hover:opacity-100 md:group-focus-visible:opacity-100 md:backdrop-blur-[12px]"
+                  className="absolute inset-0 rounded-3xl opacity-25 transition-opacity duration-500 ease-out md:opacity-0 md:group-hover:opacity-100 md:group-focus-visible:opacity-100 md:backdrop-blur-md"
                   style={{
                     transform: "rotate(-5deg) scale(0.95)",
                     zIndex: 0,
@@ -189,7 +189,7 @@ export default function BusinessNeedsSection({
                 />
 
                 <div
-                  className="relative z-10 h-full overflow-hidden rounded-3xl border border-white/10 bg-linear-to-br from-[#0B1F2A] to-[#064B57] p-3 transition-[transform,border-color,box-shadow] duration-500 ease-out md:group-hover:border-[#1cdfe2]/60 md:group-focus-visible:border-[#1cdfe2]/60 md:group-hover:-translate-y-1 md:group-hover:translate-x-1 md:group-hover:rotate-[3deg] md:group-focus-visible:-translate-y-1 md:group-focus-visible:translate-x-1 md:group-focus-visible:rotate-[3deg] md:group-hover:shadow-[0_18px_40px_rgba(18,213,220,0.35)] md:group-focus-visible:shadow-[0_18px_40px_rgba(18,213,220,0.35)]"
+                  className="relative z-10 h-full overflow-hidden rounded-3xl border border-white/10 bg-linear-to-br from-[#0B1F2A] to-[#064B57] p-3 transition-[transform,border-color,box-shadow] duration-500 ease-out md:group-hover:border-[#1cdfe2]/60 md:group-focus-visible:border-[#1cdfe2]/60 md:group-hover:-translate-y-1 md:group-hover:translate-x-1 md:group-hover:rotate-3 md:group-focus-visible:-translate-y-1 md:group-focus-visible:translate-x-1 md:group-focus-visible:rotate-3 md:group-hover:shadow-[0_18px_40px_rgba(18,213,220,0.35)] md:group-focus-visible:shadow-[0_18px_40px_rgba(18,213,220,0.35)]"
                   style={{ transformStyle: "preserve-3d" }}
                 >
                   <div className="relative h-40 overflow-hidden rounded-2xl bg-[#061321]">

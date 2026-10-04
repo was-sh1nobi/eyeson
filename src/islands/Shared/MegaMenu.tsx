@@ -57,7 +57,7 @@ export const MegaMenu = () => {
         <div className="w-[min(1060px,calc(100vw-2rem))] rounded-[34px] border border-[#2bb7c2]/35 bg-[#081721] p-3 shadow-[0_0_40px_rgba(25,189,202,0.24)] backdrop-blur-xl">
             <div className="grid gap-4 lg:grid-cols-[290px_minmax(0,1fr)]">
                 {/* LEFT — Service Groups */}
-                <aside className="rounded-[28px] bg-gradient-to-r from-[#0B1F2A] to-[#09252F] p-5">
+                <aside className="rounded-[28px] bg-linear-to-r from-[#0B1F2A] to-[#09252F] p-5">
                     <p className="text-sm text-white/45">Our Services</p>
                     <div className="mt-6 space-y-2">
                         {SERVICE_GROUPS.map((group, index) => (
@@ -81,14 +81,14 @@ export const MegaMenu = () => {
                             <a
                                 key={card.title}
                                 href={card.href}
-                                className="group flex items-start gap-3 rounded-2xl border border-white/5 bg-[#FFFFFF05] p-3 transition-colors hover:border-white/10 hover:bg-gradient-to-r hover:from-[#00A9BD]/20 hover:to-[#46B6A0]/20"
+                                className="group flex items-start gap-3 rounded-2xl border border-white/5 bg-[#FFFFFF05] p-3 transition-colors hover:border-white/10 hover:bg-linear-to-r hover:from-[#00A9BD]/20 hover:to-[#46B6A0]/20"
                             >
                                 <div
                                     className="relative h-12 w-12 shrink-0 overflow-hidden rounded-xl border border-white/10 bg-[#04131b]"
                                     style={{ boxShadow: `0 0 0 1px ${card.accent}22` }}
                                 >
                                     <img src={card.image} alt={card.title} loading="lazy" decoding="async" width={48} height={48} className="h-full w-full object-cover" />
-                                    <div className="absolute inset-0 bg-gradient-to-br from-black/10 via-transparent to-transparent" />
+                                    <div className="absolute inset-0 bg-linear-to-br from-black/10 via-transparent to-transparent" />
                                 </div>
                                 <div className="min-w-0">
                                     <h3 className="text-base font-semibold text-white transition-colors group-hover:text-[#e9ffff]">{card.title}</h3>
@@ -114,7 +114,7 @@ const MobileServiceGroup = ({ group, onClose }: MobileServiceGroupProps) => {
     const [open, setOpen] = useState(false);
 
     return (
-        <div className={`rounded-2xl border transition-colors duration-200 ${open ? "border-[#2bd6de]/25 bg-[#071e2b]" : "border-white/[0.07] bg-white/[0.03]"}`}>
+        <div className={`rounded-2xl border transition-colors duration-200 ${open ? "border-[#2bd6de]/25 bg-[#071e2b]" : "border-white/[0.07] bg-white/3"}`}>
             <button onClick={() => setOpen((p) => !p)} className="flex w-full items-center justify-between px-4 py-3.5 text-left">
                 <div className="flex items-center gap-3">
                     <span className="h-2 w-2 rounded-full shrink-0" style={{ background: group.items[0].accent, boxShadow: `0 0 8px ${group.items[0].accent}` }} />
@@ -131,7 +131,7 @@ const MobileServiceGroup = ({ group, onClose }: MobileServiceGroupProps) => {
                     <div className="px-3 pb-3">
                         <div className="grid grid-cols-3 gap-2">
                             {group.items.map((card) => (
-                                <a key={card.title} href={card.href} onClick={onClose} className="group flex flex-col items-center gap-1.5 rounded-xl border border-white/[0.06] bg-[#04131b] p-2 text-center transition-colors hover:border-[#2bd6de]/30 hover:bg-[#071f2b]">
+                                <a key={card.title} href={card.href} onClick={onClose} className="group flex flex-col items-center gap-1.5 rounded-xl border border-white/6 bg-[#04131b] p-2 text-center transition-colors hover:border-[#2bd6de]/30 hover:bg-[#071f2b]">
                                     <div className="h-10 w-10 rounded-xl overflow-hidden border border-white/10 shrink-0" style={{ boxShadow: `0 0 0 1px ${card.accent}33` }}>
                                         <img src={card.image} alt={card.title} className="h-full w-full object-cover" loading="lazy" />
                                     </div>
@@ -169,14 +169,14 @@ export const MobileMenu = ({ open, onClose, currentPath = "/" }: MobileMenuProps
     }, [open]);
 
     return (
-        <div className={`fixed inset-0 z-[60] transition-opacity duration-300 ${open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
+        <div className={`fixed inset-0 z-60 transition-opacity duration-300 ${open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
             {/* Backdrop */}
             <div className="absolute inset-0 bg-[#000E17]/80" onClick={onClose} />
 
             {/* Slide-in Panel (transform-gpu for 60fps).
                 dvh tracks the *visible* viewport so the panel + CTA bar don't
                 slide under mobile browser chrome. */}
-            <div className={`absolute right-0 top-0 h-screen supports-[height:100dvh]:h-[100dvh] w-[92%] max-w-[380px] border-l border-[#3AAFC8]/25 bg-[#020915] transform-gpu transition-transform duration-300 ease-out flex flex-col ${open ? "translate-x-0" : "translate-x-full"}`}>
+            <div className={`absolute right-0 top-0 h-screen supports-[height:100dvh]:h-dvh w-[92%] max-w-95 border-l border-[#3AAFC8]/25 bg-[#020915] transform-gpu transition-transform duration-300 ease-out flex flex-col ${open ? "translate-x-0" : "translate-x-full"}`}>
                 
                 <div className="flex-1 px-4 pb-5 pt-6 overflow-y-auto overscroll-contain">
                     {/* Header */}
@@ -191,13 +191,13 @@ export const MobileMenu = ({ open, onClose, currentPath = "/" }: MobileMenuProps
 
                     {/* Nav */}
                     <div className="space-y-2">
-                        <a href={MENU_ITEMS[0].path} onClick={onClose} aria-current={active(MENU_ITEMS[0].path) ? "page" : undefined} className={`block rounded-2xl px-4 py-3 text-[15px] font-semibold transition-colors hover:bg-white/[0.04] hover:text-white active:bg-white/[0.08] active:text-white ${active(MENU_ITEMS[0].path) ? "bg-[#0a2330] text-white shadow-[inset_0_0_0_1px_rgba(43,214,222,0.35)]" : "text-white/75"}`}>
+                        <a href={MENU_ITEMS[0].path} onClick={onClose} aria-current={active(MENU_ITEMS[0].path) ? "page" : undefined} className={`block rounded-2xl px-4 py-3 text-[15px] font-semibold transition-colors hover:bg-white/4 hover:text-white active:bg-white/8 active:text-white ${active(MENU_ITEMS[0].path) ? "bg-[#0a2330] text-white shadow-[inset_0_0_0_1px_rgba(43,214,222,0.35)]" : "text-white/75"}`}>
                             {MENU_ITEMS[0].title}
                         </a>
 
                         {/* Services — one connected group: the toggle is the header
                             of the same card, so it never reads as two separate items. */}
-                        <div className={`rounded-2xl border transition-colors ${servicesOpen ? "border-[#2bd6de]/35 bg-[#0a2330]" : "border-white/[0.08] bg-white/[0.04]"}`}>
+                        <div className={`rounded-2xl border transition-colors ${servicesOpen ? "border-[#2bd6de]/35 bg-[#0a2330]" : "border-white/8 bg-white/4"}`}>
                             <button onClick={() => setServicesOpen((p) => !p)} aria-expanded={servicesOpen} className="flex w-full items-center justify-between px-4 py-4 text-left text-white">
                                 <span className="flex items-center gap-3">
                                     <span className="h-2 w-2 rounded-full bg-[#2bd6de]" />
@@ -222,10 +222,10 @@ export const MobileMenu = ({ open, onClose, currentPath = "/" }: MobileMenuProps
                             </div>
                         </div>
 
-                        <div className="h-px bg-white/[0.06] mx-1 my-2" />
+                        <div className="h-px bg-white/6 mx-1 my-2" />
 
                         {MENU_ITEMS.slice(1).map((item) => (
-                            <a key={item.id} href={item.path} onClick={onClose} aria-current={active(item.path) ? "page" : undefined} className={`block rounded-2xl px-4 py-3 text-[15px] font-semibold transition-colors hover:bg-white/[0.04] hover:text-white active:bg-white/[0.08] active:text-white ${active(item.path) ? "bg-[#0a2330] text-white shadow-[inset_0_0_0_1px_rgba(43,214,222,0.35)]" : "text-white/75"}`}>
+                            <a key={item.id} href={item.path} onClick={onClose} aria-current={active(item.path) ? "page" : undefined} className={`block rounded-2xl px-4 py-3 text-[15px] font-semibold transition-colors hover:bg-white/4 hover:text-white active:bg-white/8 active:text-white ${active(item.path) ? "bg-[#0a2330] text-white shadow-[inset_0_0_0_1px_rgba(43,214,222,0.35)]" : "text-white/75"}`}>
                                 {item.title}
                             </a>
                         ))}
@@ -236,7 +236,7 @@ export const MobileMenu = ({ open, onClose, currentPath = "/" }: MobileMenuProps
                     of the iPhone home indicator / Android gesture bar. */}
                 <div className="mt-auto grid grid-cols-2 gap-3 border-t border-white/5 bg-[#020915] px-4 pt-4 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
                     <button onClick={() => window.location.href = "/contact"} className="rounded-full border border-[#3AAFC8]/45 bg-[#041827] px-3 py-3 text-sm font-semibold text-white cursor-pointer">Book a call</button>
-                    <button className="rounded-full bg-gradient-to-r from-[#00A9BD] to-[#1D553A] px-3 py-3 text-sm font-semibold text-white">Free sample</button>
+                    <button className="rounded-full bg-linear-to-r from-[#00A9BD] to-[#1D553A] px-3 py-3 text-sm font-semibold text-white">Free sample</button>
                 </div>
             </div>
         </div>
@@ -332,7 +332,7 @@ export const Header = () => {
                     <div className={`pointer-events-none absolute inset-x-0 top-0 h-full transition-[background-color,box-shadow,opacity] duration-300 ease-out hidden lg:block ${scrolled ? "bg-[#000E17]/90 backdrop-blur-md shadow-md" : "bg-transparent opacity-0"}`} />
 
                     {/* Desktop Header */}
-                    <div className="relative mx-auto max-w-[1200px] hidden lg:flex items-center justify-between gap-3">
+                    <div className="relative mx-auto max-w-300 hidden lg:flex items-center justify-between gap-3">
                         <a href="/" className="relative z-50">
                             <img src="/logo.webp" className={`object-contain transition-[height] duration-300 ${scrolled ? "h-10" : "h-14"}`} alt="EyesOn logo" />
                         </a>
@@ -374,17 +374,17 @@ export const Header = () => {
                     </div>
 
                     {/* Mobile / Compact Header */}
-                    <div className="relative mx-auto max-w-[1200px] flex lg:hidden items-center justify-between rounded-full border border-[#3AAFC8]/35 bg-[#000E17]/90 px-4 py-2 shadow-lg backdrop-blur-md sm:px-6">
+                    <div className="relative mx-auto max-w-300 flex lg:hidden items-center justify-between rounded-full border border-[#3AAFC8]/35 bg-[#000E17]/90 px-4 py-2 shadow-lg backdrop-blur-md sm:px-6">
                         <a href="/" className="relative z-50">
                             <img src="/logo.webp" className="h-9 object-contain" alt="EyesOn logo" />
                         </a>
-                        <button className="rounded-full px-5 py-2 text-[13px] font-semibold text-white bg-gradient-to-r from-[#00A9BD] to-[#1D553A]">
+                        <button className="rounded-full px-5 py-2 text-[13px] font-semibold text-white bg-linear-to-r from-[#00A9BD] to-[#1D553A]">
                             Free sample
                         </button>
-                        <button onClick={() => setMobileOpen(true)} className="h-10 w-10 rounded-full border border-[#3AAFC8]/40 bg-[#07202B] flex flex-col justify-center items-center gap-[4px]">
-                            <span className="w-5 h-[2px] bg-[#45D4E8] rounded-full" />
-                            <span className="w-4 h-[2px] bg-[#45D4E8] rounded-full" />
-                            <span className="w-5 h-[2px] bg-[#45D4E8] rounded-full" />
+                        <button onClick={() => setMobileOpen(true)} className="h-10 w-10 rounded-full border border-[#3AAFC8]/40 bg-[#07202B] flex flex-col justify-center items-center gap-1">
+                            <span className="w-5 h-0.5 bg-[#45D4E8] rounded-full" />
+                            <span className="w-4 h-0.5 bg-[#45D4E8] rounded-full" />
+                            <span className="w-5 h-0.5 bg-[#45D4E8] rounded-full" />
                         </button>
                     </div>
                 </div>

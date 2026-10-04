@@ -164,7 +164,7 @@ function RightSectionHeroComponent({
     }, [videoRef]);
 
     return (
-        <div className="relative w-full max-w-[850px] xl:max-w-[950px] mx-auto animate-fade-in flex flex-col items-center">
+        <div className="relative w-full max-w-212.5 xl:max-w-237.5 mx-auto animate-fade-in flex flex-col items-center">
 
 
 
@@ -178,7 +178,7 @@ function RightSectionHeroComponent({
 
             {/* Giant Mockup Player Container — slightly taller aspect on phones
                 (≈ +10px at 360px wide) so the frame image doesn't look cut short */}
-            <div ref={containerRef} className="relative aspect-16/10 max-sm:aspect-[16/10.5] w-full rounded-[24px] sm:rounded-[32px] md:rounded-[36px] flex justify-center items-end border border-white/10 shadow-[0_30px_80px_-20px_rgba(0,169,189,0.35)] overflow-hidden bg-[#02070f]">
+            <div ref={containerRef} className="relative aspect-16/10 max-sm:aspect-16/10.5 w-full rounded-[24px] sm:rounded-[32px] md:rounded-[36px] flex justify-center items-end border border-white/10 shadow-[0_30px_80px_-20px_rgba(0,169,189,0.35)] overflow-hidden bg-[#02070f]">
                 <SmartImage src="/home/VideoElements/20/mother.webp" alt="" fill priority className="rounded-[inherit] object-cover " />
 
                 {/* Top header bar inside Mockup */}
@@ -236,7 +236,7 @@ function RightSectionHeroComponent({
                 disabled={isShowreel}
                 aria-pressed={isShowreel}
                 style={{ backgroundImage: "var(--button-primary-bg)" }}
-                className={`mt-4 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold text-white shadow-[var(--button-shadow)] transition-all hover:shadow-[var(--button-shadow-hover)] ${isShowreel ? "opacity-60 cursor-default" : "hover:scale-105 cursor-pointer"}`}
+                className={`mt-4 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold text-white shadow-(--button-shadow) transition-all hover:shadow-(--button-shadow-hover) ${isShowreel ? "opacity-60 cursor-default" : "hover:scale-105 cursor-pointer"}`}
             >
                 <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9V3z" /></svg>
                 Showreel
@@ -255,13 +255,13 @@ function RightSectionHeroComponent({
                             aria-pressed={isActive}
                             className={`group relative flex items-center gap-3 p-3 rounded-2xl border transition-[transform,border-color,background-color,box-shadow] duration-300 text-left cursor-pointer overflow-hidden backdrop-blur-xl ${
                                 isActive
-                                    ? "bg-gradient-to-r from-[#042833]/90 to-[#063342]/90 border-[#00E6D7] shadow-[0_0_30px_rgba(0,230,215,0.25)] scale-[1.02]"
-                                    : "bg-[#05141e]/80 border-white/[0.08] hover:border-white/25 hover:bg-[#071f2d]/90 hover:scale-[1.01]"
+                                    ? "bg-linear-to-r from-[#042833]/90 to-[#063342]/90 border-[#00E6D7] shadow-[0_0_30px_rgba(0,230,215,0.25)] scale-[1.02]"
+                                    : "bg-[#05141e]/80 border-white/8 hover:border-white/25 hover:bg-[#071f2d]/90 hover:scale-[1.01]"
                             }`}
                         >
                             {/* Active Top Glow Line */}
                             {isActive && (
-                                <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#00E6D7] to-transparent shadow-[0_0_10px_#00E6D7]" />
+                                <div className="absolute top-0 inset-x-0 h-0.5 bg-linear-to-r from-transparent via-[#00E6D7] to-transparent shadow-[0_0_10px_#00E6D7]" />
                             )}
 
                             {/* Icon Box */}

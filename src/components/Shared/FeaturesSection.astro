@@ -147,7 +147,7 @@ const featureSlides: FeatureItem[][] = features.reduce<FeatureItem[][]>(
         alt={bgImageAlt}
         width={bgImageWidth}
         height={bgImageHeight}
-        className="pointer-events-none absolute -top-20 left-1/2 h-auto w-[290px] -translate-x-1/2 -z-1 md:-top-50 md:left-auto md:right-[21%] md:w-[750px] md:translate-x-0 [mask-image:linear-gradient(to_bottom,transparent_0%,black_50%,transparent_100%),linear-gradient(to_right,transparent_0%,black_50%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,black_50%,transparent_100%),linear-gradient(to_right,transparent_0%,black_50%,transparent_100%)] [mask-composite:intersect] [-webkit-mask-composite:source-in]"
+        className="pointer-events-none absolute -top-20 left-1/2 h-auto w-72.5 -translate-x-1/2 -z-1 md:-top-50 md:left-auto md:right-[21%] md:w-187.5 md:translate-x-0 mask-[linear-gradient(to_bottom,transparent_0%,black_50%,transparent_100%),linear-gradient(to_right,transparent_0%,black_50%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,black_50%,transparent_100%),linear-gradient(to_right,transparent_0%,black_50%,transparent_100%)] mask-intersect [-webkit-mask-composite:source-in]"
       />
 
       <h2
@@ -186,7 +186,7 @@ const featureSlides: FeatureItem[][] = features.reduce<FeatureItem[][]>(
                   <img
                     src={`/Shared/Features/${feature.id}.svg`}
                     alt=""
-                    class={`absolute scale-[1] sm:scale-[1.2] md:scale-[1.4] lg:scale-[1] ${feature.id % 2 == 0 ? "right-1 translate-x-1/2" : "left-1 -translate-x-1/2 "} -top-[9%] sm:-top-[10%] md:top-[10%] z-20 h-60 w-fit transition-transform duration-300 group-hover:scale-105 lg:left-1/2 lg:right-auto lg:-top-[5.75rem] lg:h-auto lg:w-[15rem] lg:scale-100 lg:z-30 lg:-translate-x-1/2`}
+                    class={`absolute scale-[1] sm:scale-[1.2] md:scale-[1.4] lg:scale-[1] ${feature.id % 2 == 0 ? "right-1 translate-x-1/2" : "left-1 -translate-x-1/2 "} top-[-9%] sm:top-[-10%] md:top-[10%] z-20 h-60 w-fit transition-transform duration-300 group-hover:scale-105 lg:left-1/2 lg:right-auto lg:-top-23 lg:h-auto lg:w-60 lg:scale-100 lg:z-30 lg:-translate-x-1/2`}
                     aria-hidden="true"
                   />
                   <div class="flex justify-start items-start flex-col w-[80%]">

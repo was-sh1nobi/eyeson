@@ -110,13 +110,13 @@ const features = [
   />
   <LogoCaro />
 
-  <section class="relative w-full overflow-hidden py-[var(--space-lg)] sm:py-[var(--space-xl)]">
-    <div class="relative z-10 mx-auto max-w-[var(--container-max)] px-[var(--space-gutter)] sm:px-[var(--space-gutter-md)] lg:px-[var(--space-gutter-lg)]">
-      <div class="flex flex-col lg:flex-row items-center gap-[var(--space-md)] lg:gap-[var(--space-lg)] xl:gap-[var(--space-xl)]">
+  <section class="relative w-full overflow-hidden py-(--space-lg) sm:py-(--space-xl)">
+    <div class="relative z-10 mx-auto max-w-(--container-max) px-(--space-gutter) sm:px-(--space-gutter-md) lg:px-(--space-gutter-lg)">
+      <div class="flex flex-col lg:flex-row items-center gap-(--space-md) lg:gap-(--space-lg) xl:gap-(--space-xl)">
         {/* Spline Animation Section */}
         <div class="w-full lg:w-[55%] flex justify-center lg:justify-start order-1 lg:order-1 mx-auto">
           <div class="relative w-full group">
-            <div class="relative z-10 w-full flex items-center justify-center mx-auto rounded-[var(--radius-xl)] overflow-hidden h-87.5 sm:h-112.5 lg:h-137.5">
+            <div class="relative z-10 w-full flex items-center justify-center mx-auto rounded-xl overflow-hidden h-87.5 sm:h-112.5 lg:h-137.5">
               <SplineScene
                 scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
                 className="w-full h-full object-contain"
@@ -130,7 +130,7 @@ const features = [
         <div class="w-full lg:w-[42%] flex flex-col items-center text-center lg:items-start lg:text-left order-2 lg:order-2">
           <h2 class="text-h2 mb-4 sm:mb-6">
             <span class="block text-white mb-1">What is</span>
-            <span class="block bg-gradient-to-r from-[var(--primitive-teal-400)] to-[var(--primitive-teal-700)] bg-clip-text text-transparent">
+            <span class="block bg-linear-to-r from-(--primitive-teal-400) to-(--primitive-teal-700) bg-clip-text text-transparent">
               UI/UX design?
             </span>
           </h2>
@@ -146,11 +146,11 @@ const features = [
 
           <div class="relative group/btn w-full sm:w-auto">
             <div
-              class="absolute -inset-1 rounded-full bg-gradient-to-r from-[var(--primitive-teal-400)] to-[var(--primitive-teal-700)] opacity-0 blur-lg transition-opacity duration-[var(--duration-slow)] group-hover/btn:opacity-30"
+              class="absolute -inset-1 rounded-full bg-linear-to-r from-(--primitive-teal-400) to-(--primitive-teal-700) opacity-0 blur-lg transition-opacity duration-(--duration-slow) group-hover/btn:opacity-30"
               aria-hidden="true"
             >
             </div>
-            <div class="relative transform-gpu transition-transform duration-[var(--duration-normal)] ease-[var(--ease-default)] group-hover/btn:scale-[1.02] group-active/btn:scale-[0.98]">
+            <div class="relative transform-gpu transition-transform duration-(--duration-normal) ease-(--ease-default) group-hover/btn:scale-[1.02] group-active/btn:scale-[0.98]">
               <PrimaryButton text="See our Work" width="14rem" href="/portfolio" />
             </div>
           </div>

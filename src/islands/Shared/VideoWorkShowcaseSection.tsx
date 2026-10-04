@@ -50,7 +50,7 @@ function PlaySvgButton() {
       viewBox="0 0 69 78"
       fill="white"
       xmlns="http://www.w3.org/2000/svg"
-      className="h-7 w-6 sm:h-10 sm:w-9 lg:h-[54px] lg:w-[48px]"
+      className="h-7 w-6 sm:h-10 sm:w-9 lg:h-13.5 lg:w-12"
       aria-hidden
     >
       <path
@@ -112,7 +112,7 @@ const WorkCard = memo(function WorkCard({
 function GhostCard() {
   return (
     <div
-      className="relative shrink-0 overflow-hidden rounded-xl border border-[#188e9f]/25 bg-gradient-to-br from-[#0B2534] to-[#071824] sm:rounded-2xl"
+      className="relative shrink-0 overflow-hidden rounded-xl border border-[#188e9f]/25 bg-linear-to-br from-[#0B2534] to-[#071824] sm:rounded-2xl"
       style={{ ...CARD_STYLE }}
     >
       <div className="absolute left-3 top-3 flex h-8 w-8 items-center justify-center rounded-full border border-[#9de9e5]/30 bg-[#08263a]/50 sm:left-4 sm:top-4 sm:h-9 sm:w-9">

@@ -109,16 +109,16 @@ export const ArcProcess = () => {
         Math.min(Math.max(value, min), max)
 
     return (
-        <section ref={sectionRef} className="relative z-10 mx-auto mt-10 w-full max-w-[980px] px-4 pb-24">
+        <section ref={sectionRef} className="relative z-10 mx-auto mt-10 w-full max-w-245 px-4 pb-24">
             <h2 className="text-center text-white text-2xl md:text-3xl font-bold mb-12">
                 Our <span className="text-[#1FC5C8]">Process</span>
             </h2>
 
             <div className="relative">
                 <div className="pointer-events-none absolute left-1/2 top-0 hidden h-full -translate-x-1/2 lg:block">
-                    <div className="relative h-full w-[4px] rounded-full bg-[#0D3444]">
+                    <div className="relative h-full w-1 rounded-full bg-[#0D3444]">
                         <div
-                            className="absolute left-0 top-0 w-full rounded-full bg-gradient-to-b from-[#24D6D2] to-[#0FA8C4] transition-[height] duration-200"
+                            className="absolute left-0 top-0 w-full rounded-full bg-linear-to-b from-[#24D6D2] to-[#0FA8C4] transition-[height] duration-200"
                             style={{ height: `${progress * 100}%` }}
                         />
                         <div

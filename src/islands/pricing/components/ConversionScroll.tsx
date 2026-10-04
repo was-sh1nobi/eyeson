@@ -136,7 +136,7 @@ export const ConversionScroll = () => {
         conversion
       </h2>
 
-      <div className="relative mx-auto w-full max-w-[420px] md:max-w-[2600px]">
+      <div className="relative mx-auto w-full max-w-105 md:max-w-[2600px]">
         <div
           ref={parallaxRef}
           className="relative w-full overflow-hidden md:overflow-visible will-change-transform"
@@ -152,7 +152,7 @@ export const ConversionScroll = () => {
               height: `${CARD_AREA_HEIGHT}%`,
             }}
           >
-            <div className="relative h-full w-[3px] md:w-1 rounded-full bg-[#0D3444]">
+            <div className="relative h-full w-0.75 md:w-1 rounded-full bg-[#0D3444]">
               <div
                 ref={fillRef}
                 className="conv-fill absolute left-0 top-0 h-full w-full rounded-full bg-linear-to-b from-[#0E6578] to-[#08DCF0]"

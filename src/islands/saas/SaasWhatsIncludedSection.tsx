@@ -81,7 +81,7 @@ export default function SaasWhatsIncludedSection() {
               </p>
             </div>
 
-            <div className="relative mt-4 w-full flex-1 min-h-[160px] sm:min-h-[180px] overflow-hidden rounded-xl border border-white/10 shadow-[0_0_15px_#00A9BDB2]">
+            <div className="relative mt-4 w-full flex-1 min-h-40 sm:min-h-45 overflow-hidden rounded-xl border border-white/10 shadow-[0_0_15px_#00A9BDB2]">
               <SmartImage
                 src="/animation-section/video.webp"
                 alt="Hook optimization sample"
@@ -111,7 +111,7 @@ export default function SaasWhatsIncludedSection() {
                 setActiveIndex((prev) => (prev === idx ? prev : idx));
               });
             }}
-            className="lg:col-span-8 flex snap-x snap-mandatory gap-3 sm:gap-4 overflow-x-auto lg:grid lg:overflow-visible lg:snap-none lg:grid-cols-3 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="lg:col-span-8 flex snap-x snap-mandatory gap-3 sm:gap-4 overflow-x-auto lg:grid lg:overflow-visible lg:snap-none lg:grid-cols-3 [-ms-overflow-style:none] scrollbar-none [&::-webkit-scrollbar]:hidden"
           >
             {includedCards.map((item) => {
               const Icon = item.icon;

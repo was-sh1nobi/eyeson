@@ -152,9 +152,9 @@ export default function ProcessScrollSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-[var(--space-2xl)] sm:py-[var(--space-3xl)] lg:py-[var(--space-3xl)] overflow-hidden"
+      className="relative py-(--space-2xl) sm:py-(--space-3xl) lg:py-(--space-3xl) overflow-hidden"
     >
-      <div className="mx-auto max-w-[var(--container-max)] px-[var(--space-gutter)] sm:px-[var(--space-gutter-md)] lg:px-[var(--space-gutter-lg)]">
+      <div className="mx-auto max-w-(--container-max) px-(--space-gutter) sm:px-(--space-gutter-md) lg:px-(--space-gutter-lg)">
         
         <div className="mb-12 sm:mb-16 lg:mb-16 max-w-3xl flex flex-col items-center text-center lg:items-start lg:text-left mx-auto lg:mx-0">
           <p className="text-caption text-white/50 mb-3 sm:mb-4 tracking-[0.18em]">
@@ -178,13 +178,13 @@ export default function ProcessScrollSection() {
           <div className="space-y-10 sm:space-y-12 lg:space-y-20 lg:pb-24 min-w-0">
             {PROCESS_STEPS.map((step) => (
               <div key={step.id} className="process-step will-change-transform">
-                <div className="relative p-6 sm:p-8 rounded-[var(--radius-xl)] sm:rounded-[var(--radius-xl)] bg-gradient-to-br from-[#0b1f2a] to-[#020915] border border-white/[0.08] backdrop-blur-md hover:border-[#00A9BD]/50 hover:shadow-[0_0_30px_rgba(0,169,189,0.25)] transition-[border-color,box-shadow] duration-[var(--duration-normal)] ease-[var(--ease-default)] group shadow-[var(--elevation-1)]">
+                <div className="relative p-6 sm:p-8 rounded-xl bg-linear-to-br from-[#0b1f2a] to-[#020915] border border-white/8 backdrop-blur-md hover:border-[#00A9BD]/50 hover:shadow-[0_0_30px_rgba(0,169,189,0.25)] transition-[border-color,box-shadow] duration-(--duration-normal) ease-(--ease-default) group shadow-subtle">
                   
                   <div className="absolute top-5 right-5 sm:top-8 sm:right-8 text-[10px] sm:text-xs font-bold px-3 py-1 sm:py-1.5 rounded-full border border-[#00A9BD]/40 bg-[#00A9BD]/10 text-[#7eece4]">
                     {step.step}
                   </div>
 
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-[var(--radius-lg)] flex items-center justify-center mb-5 sm:mb-6 group-hover:scale-[1.04] transition-transform duration-[var(--duration-normal)] ease-[var(--ease-default)] border border-[#00A9BD]/40 bg-[#00A9BD]/15 text-[#00E6D7] shadow-[0_0_16px_rgba(0,169,189,0.35)]">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-lg flex items-center justify-center mb-5 sm:mb-6 group-hover:scale-[1.04] transition-transform duration-(--duration-normal) ease-(--ease-default) border border-[#00A9BD]/40 bg-[#00A9BD]/15 text-[#00E6D7] shadow-[0_0_16px_rgba(0,169,189,0.35)]">
                     {step.icon}
                   </div>
 
@@ -200,14 +200,14 @@ export default function ProcessScrollSection() {
                     {step.tags.map((tag, idx) => (
                       <span
                         key={idx}
-                        className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-[var(--color-surface)] text-white/70 text-[11px] sm:text-sm border border-[var(--color-border)] hover:border-[var(--color-border-teal)] hover:text-white transition-colors duration-[var(--duration-normal)] cursor-default"
+                        className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-(--color-surface) text-white/70 text-[11px] sm:text-sm border border-(--color-border) hover:border-(--color-border-teal) hover:text-white transition-colors duration-(--duration-normal) cursor-default"
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
 
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] via-white/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-[var(--duration-normal)] rounded-[var(--radius-xl)] pointer-events-none" />
+                  <div className="absolute inset-0 bg-linear-to-br from-white/2 via-white/3 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-(--duration-normal) rounded-xl pointer-events-none" />
                 </div>
               </div>
             ))}
@@ -218,7 +218,7 @@ export default function ProcessScrollSection() {
             <div className="hidden lg:block relative self-start">
               <div
                 ref={pinRef}
-                className="w-full h-[750px] flex items-center justify-center will-change-transform"
+                className="w-full h-187.5 flex items-center justify-center will-change-transform"
               >
                 <div className="relative w-full h-full">
                   <img

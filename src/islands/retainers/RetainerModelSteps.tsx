@@ -149,9 +149,9 @@ export default function RetainerModelSteps() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-[var(--space-2xl)] sm:py-[var(--space-3xl)] overflow-hidden"
+      className="relative py-(--space-2xl) sm:py-(--space-3xl) overflow-hidden"
     >
-      <div className="mx-auto max-w-[var(--container-max)] px-[var(--space-gutter)] sm:px-[var(--space-gutter-md)] lg:px-[var(--space-gutter-lg)]">
+      <div className="mx-auto max-w-(--container-max) px-(--space-gutter) sm:px-(--space-gutter-md) lg:px-(--space-gutter-lg)">
         {/* Header */}
         <div className="mb-12 sm:mb-16 max-w-3xl flex flex-col items-center text-center mx-auto">
           <p className="text-caption text-white/50 mb-3 sm:mb-4 tracking-[0.18em]">
@@ -173,7 +173,7 @@ export default function RetainerModelSteps() {
         <div className="relative mx-auto max-w-3xl">
           {/* Background track */}
           <div
-            className="absolute left-5 sm:left-7 top-0 bottom-0 w-px bg-white/[0.06]"
+            className="absolute left-5 sm:left-7 top-0 bottom-0 w-px bg-white/6"
             aria-hidden="true"
           />
           {/* Animated progress line */}
@@ -198,10 +198,10 @@ export default function RetainerModelSteps() {
                 </div>
 
                 {/* Card */}
-                <div className="flex-1 relative p-5 sm:p-6 rounded-[var(--radius-xl)] bg-gradient-to-br from-[#0b1f2a] to-[#020915] border border-white/[0.08] hover:border-[#00A9BD]/40 hover:shadow-[0_0_24px_rgba(0,169,189,0.2)] transition-[border-color,box-shadow] duration-[var(--duration-normal)] ease-[var(--ease-default)] group shadow-[var(--elevation-1)]">
+                <div className="flex-1 relative p-5 sm:p-6 rounded-xl bg-linear-to-br from-[#0b1f2a] to-[#020915] border border-white/8 hover:border-[#00A9BD]/40 hover:shadow-[0_0_24px_rgba(0,169,189,0.2)] transition-[border-color,box-shadow] duration-(--duration-normal) ease-(--ease-default) group shadow-subtle">
                   {/* Icon + title row */}
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-[var(--radius-lg)] border border-[#00A9BD]/30 bg-[#00A9BD]/10 text-[#00E6D7] group-hover:scale-[1.04] transition-transform duration-[var(--duration-normal)] ease-[var(--ease-default)]">
+                    <div className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-lg border border-[#00A9BD]/30 bg-[#00A9BD]/10 text-[#00E6D7] group-hover:scale-[1.04] transition-transform duration-(--duration-normal) ease-(--ease-default)">
                       {step.icon}
                     </div>
                     <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight">
@@ -214,7 +214,7 @@ export default function RetainerModelSteps() {
                   </p>
 
                   {/* Hover shimmer */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] via-white/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-[var(--duration-normal)] rounded-[var(--radius-xl)] pointer-events-none" />
+                  <div className="absolute inset-0 bg-linear-to-br from-white/2 via-white/3 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-(--duration-normal) rounded-xl pointer-events-none" />
                 </div>
               </div>
             ))}

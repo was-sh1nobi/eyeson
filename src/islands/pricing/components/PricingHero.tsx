@@ -90,7 +90,7 @@ export const PricingHero = () => {
         />
 
         {/* پس‌زمینه محو */}
-        <div className="absolute bg-[#003641] w-[372px] h-[262px] top-[97px] -left-[147px] blur-[300px] pointer-events-none z-[-1]" />
+        <div className="absolute bg-[#003641] w-93 h-65.5 top-24.25 -left-36.75 blur-[300px] pointer-events-none z-[-1]" />
 
         {/* عنوان */}
         <div className="px-4 text-center ">
@@ -152,7 +152,7 @@ We also offer special pricing and discounts for first-time clients on selected s
           {menuOpen &&
             typeof document !== "undefined" &&
             createPortal(
-              <div className="fixed inset-0 z-[100] md:hidden" role="dialog" aria-modal="true" aria-label="Select a service">
+              <div className="fixed inset-0 z-100 md:hidden" role="dialog" aria-modal="true" aria-label="Select a service">
                 {/* Backdrop — plain color only (no backdrop-blur: expensive on mobile GPUs) */}
                 <button
                   type="button"
@@ -197,7 +197,7 @@ We also offer special pricing and discounts for first-time clients on selected s
                             className={`flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold ${
                               isActive
                                 ? "bg-linear-to-r from-[#065A69] via-[#093A47] to-[#0B1F2A] text-white"
-                                : "text-white/70 hover:bg-white/[0.05] hover:text-white active:bg-white/[0.08]"
+                                : "text-white/70 hover:bg-white/5 hover:text-white active:bg-white/8"
                             }`}
                           >
                             <span
@@ -246,7 +246,7 @@ We also offer special pricing and discounts for first-time clients on selected s
        
 
         {/* خط جداکننده (فقط در موبایل) */}
-        <div className="w-full -mt-6 sm:-mt-10 h-[1px] relative bg-linear-to-r from-[#00222600] via-[#00A9BD50] to-[#00222600] md:hidden" />
+        <div className="w-full -mt-6 sm:-mt-10 h-px relative bg-linear-to-r from-[#00222600] via-[#00A9BD50] to-[#00222600] md:hidden" />
 
         {/* محتوای انتخابی */}
         <div className="z-10 w-full px-4 sm:px-6 max-w-6xl mx-auto flex justify-center -mt-2 sm:-mt-8">
