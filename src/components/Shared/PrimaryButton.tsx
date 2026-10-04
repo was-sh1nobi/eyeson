@@ -6,6 +6,7 @@ type PrimaryButtonProps = {
   width?: string;
   height?: string;
   className?: string;
+  textClassName? : string;
 };
 
 export default function PrimaryButton({
@@ -14,6 +15,7 @@ export default function PrimaryButton({
   width = "auto",
   height = "auto",
   className = "",
+    textClassName= "",
 }: PrimaryButtonProps) {
   return (
     <div
@@ -27,7 +29,7 @@ export default function PrimaryButton({
 
       <a
         href={href}
-        className="relative z-10 flex h-full w-full items-center justify-center overflow-hidden rounded-[var(--radius-full)] px-6 py-2.5 text-sm md:text-lg text-white font-medium shadow-inner"
+        className={`relative z-10 flex h-full w-full items-center justify-center overflow-hidden rounded-(--radius-full) px-6 py-2.5 text-lg md:text-lg text-white font-medium shadow-inner ${textClassName}`}
         style={{ backgroundImage: "var(--button-primary-bg)" }}
       >
         <div

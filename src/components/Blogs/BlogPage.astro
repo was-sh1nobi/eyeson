@@ -1,7 +1,15 @@
 ---
+import HomeBackground from "../Home/HomeBackground.astro";
+import StarBackground from "../../islands/StarBackground";
+import LogoCaro from "../Shared/LogoCaro.astro";
+import ContactUs from "../../islands/ContactUs";
 import { MainBlogs } from "../../islands/Blogs/MainBlogs";
-
-
+import VideoWorkShowcaseSection from "@/islands/Shared/VideoWorkShowcaseSection";
 ---
 
-<MainBlogs client:idle/>
+<main class="relative w-full min-h-screen overflow-hidden bg-[#000E17]">
+  <HomeBackground />
+  <MainBlogs client:load />
+  <VideoWorkShowcaseSection client:visible />
+  <ContactUs client:visible />
+</main>

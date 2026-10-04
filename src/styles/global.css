@@ -110,22 +110,15 @@ html.gpu-off [style*="blur("],
 html.gpu-off [class*="blur-["] {
   filter: none !important;
 }
+.bg-svg-layer,
+.hb-saas {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
 /* decorative large blur orbs and SVG Gaussian blurs are purely aesthetic — hide on CPU to avoid huge offscreen paints */
 html.gpu-off .pointer-events-none[class*="blur-["],
-html.gpu-off div[class*="blur-["].pointer-events-none,
-html.gpu-off .hb-saas,
-html.gpu-off .bg-svg-layer {
+html.gpu-off div[class*="blur-["].pointer-events-none {
   display: none !important;
-}
-html.gpu-off svg filter,
-html.gpu-off svg feGaussianBlur {
-  display: none !important;
-}
-html.gpu-off svg g[filter],
-html.gpu-off svg path[filter],
-html.gpu-off svg [filter*="url("],
-html.gpu-off [filter*="url("] {
-  filter: none !important;
 }
 html.gpu-off .app-slide {
   filter: none !important;

@@ -6,6 +6,7 @@ type SecondaryButtonProps = {
   width?: string;
   height?: string;
   className?: string;
+  textClassName? : string;
 };
 
 export default function SecondaryButton({
@@ -14,6 +15,7 @@ export default function SecondaryButton({
   width = "auto",
   height = "auto",
   className = "",
+    textClassName = "",
 }: SecondaryButtonProps) {
   return (
     <div
@@ -27,14 +29,14 @@ export default function SecondaryButton({
 
       <a
         href={href}
-        className="relative z-10 flex h-full w-full items-center justify-center overflow-hidden rounded-[var(--radius-full)] px-6 py-2.5 text-sm md:text-lg text-white/90 font-medium transition-colors duration-[var(--duration-normal)] ease-[var(--ease-default)] group-hover:text-white"
+        className={`relative z-10 flex h-full w-full items-center justify-center overflow-hidden rounded-(--radius-full) px-6 py-2.5 text-lg md:text-lg text-white/90 font-medium transition-colors duration-(--duration-normal) ease-(--ease-default) group-hover:text-white ${textClassName}`}
         style={{ backgroundImage: "var(--button-secondary-bg)" }}
       >
         <div
-          className="absolute inset-0 -translate-x-[150%] bg-gradient-to-r from-transparent via-cyan-300/10 to-transparent skew-x-[-25deg] transition-transform duration-[var(--duration-emphasis)] ease-[var(--ease-default)] group-hover:translate-x-[150%]"
+          className="absolute inset-0 translate-x-[-150%] bg-linear-to-r from-transparent via-cyan-300/10 to-transparent skew-x-[-25deg] transition-transform duration-(--duration-emphasis) ease-(--ease-default) group-hover:translate-x-[150%]"
         />
 
-        <span className="relative z-20 transition-transform duration-[var(--duration-normal)] ease-[var(--ease-default)] group-hover:scale-[1.02]">
+        <span className="relative z-20 transition-transform duration-(--duration-normal) ease-(--ease-default) group-hover:scale-[1.02]">
           {text}
         </span>
       </a>

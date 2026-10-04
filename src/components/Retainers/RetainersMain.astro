@@ -2,301 +2,51 @@
 import ContactUs from "@/islands/ContactUs";
 import FeaturesSection from "../Shared/FeaturesSection.astro";
 import LogoCaro from "../Shared/LogoCaro.astro";
-import StarBackground from "@/islands/StarBackground";
+import CostVideo from "../Shared/CostVideo.astro";
 import QandASection from "../Shared/QandASection.astro";
-
-import RetainersBackground from "./RetainersBackground.astro";
+import StarBackground from "@/islands/StarBackground";
 import HomeBackground from "../Home/HomeBackground.astro";
+import RetainersBackground from "./RetainersBackground.astro";
 import { VideoHeader } from "@/islands/Shared/VideoHeader";
-import RetainerCardsGrid from "@/islands/retainers/RetainerCardsGrid";
-import RetainerModelSteps from "@/islands/retainers/RetainerModelSteps";
-import RetainerContentSystem from "@/islands/retainers/RetainerContentSystem";
-import RetainerHowItWorks from "@/islands/retainers/RetainerHowItWorks";
-import RetainerPackagesSection from "@/islands/retainers/RetainerPackagesSection";
-import RetainerFlexibility from "@/islands/retainers/RetainerFlexibility";
-import RetainerFinalCta from "@/islands/retainers/RetainerFinalCta";
 import RetainersEditingSection from "@/islands/retainers/RetainersEditingSection";
+import { RetainerNeedsBlock } from "@/islands/retainers/RetainerNeedsBlock";
+import RetainerServicesSection from "@/islands/retainers/RetainerServicesSection";
+import RetainerWhatsIncluded from "@/islands/retainers/RetainerWhatsIncluded";
+import ApproachTimelineSection from "@/islands/Video/ApproachTimelineSection";
+import VideoWorkShowcaseSection from "@/islands/Shared/VideoWorkShowcaseSection";
+import RetainerPackagesSection from "@/islands/retainers/RetainerPackagesSection";
+import CaseStudiesSection from "@/islands/CaseStudiesSection";
 
 const features = [
     {
         id : 1,
         title : "Video Production",
-        description : "From polished brand videos and product content to short-form social videos, promotional\n" +
-            "pieces, and campaign creatives.",
+        description : "From polished brand videos and product content to short-form social videos, promotional pieces, and campaign creatives.",
     },
     {
         id : 2,
         title : "Motion Design",
-        description : "Animated typography, UI motion, product sequences, branded graphics, transitions, visual\n" +
-            "explainers, and custom motion assets.",
+        description : "Animated typography, UI motion, product sequences, branded graphics, transitions, visual explainers, and custom motion assets.",
     },
     {
         id : 3,
         title : "Ad Creatives",
-        description : "Performance-focused creative for paid campaigns across Meta, LinkedIn, TikTok, YouTube,\n" +
-            "X, and other acquisition channels.",
+        description : "Performance-focused creative for paid campaigns across Meta, LinkedIn, TikTok, YouTube, X, and other acquisition channels.",
     },
     {
         id : 4,
         title : "Social Content",
-        description : "Consistent short-form content designed for the platforms where your audience spends its\n" +
-            "time.",
+        description : "Consistent short-form content designed for the platforms where your audience spends its time.",
     },
     {
         id : 5,
         title : "Product Content",
-        description : "Feature announcements, product updates, demos, walkthroughs, UI showcases, and\n" +
-            "launch assets.",
+        description : "Feature announcements, product updates, demos, walkthroughs, UI showcases, and launch assets.",
     },
     {
         id : 6,
         title : "Creative Adaptations",
-        description : "Turn existing campaigns into new formats, durations, aspect ratios, hooks, variations, and\n" +
-            "platform-specific versions.",
-    },
-]
-
-const contentPossibilities = [
-    {
-        id : 1,
-        title : "Short-Form Videos",
-        description : "Reels, TikToks, Shorts, LinkedIn videos, X content, and social-first edits.",
-    },
-    {
-        id : 2,
-        title : "Product Videos",
-        description : "Feature showcases, UI animations, mini demos, updates, and product-focused content.",
-    },
-    {
-        id : 3,
-        title : "Ad Creatives",
-        description : "New concepts, hooks, variations, cutdowns, and campaign assets designed for testing.",
-    },
-    {
-        id : 4,
-        title : "Brand Content",
-        description : "Visual storytelling that strengthens your positioning, identity, and perception.",
-    },
-    {
-        id : 5,
-        title : "Launch Content",
-        description : "Creative assets for product launches, new features, announcements, partnerships, and\n" +
-            "campaigns.",
-    },
-    {
-        id : 6,
-        title : "Motion Graphics",
-        description : "Custom animations, typography, visual explainers, branded sequences, and graphic\n" +
-            "systems.",
-    },
-    {
-        id : 7,
-        title : "Content Repurposing",
-        description : "Transform existing videos, footage, webinars, podcasts, demos, or campaigns into\n" +
-            "additional content.",
-    },
-    {
-        id : 8,
-        title : "Static Creatives",
-        description : "Campaign graphics, social assets, promotional visuals, thumbnails, and supporting\n" +
-            "designs when required.",
-    },
-]
-
-const whyMonthly = [
-    {
-        id : 1,
-        title : "Faster Production",
-        description : "We already understand your brand, product, audience, references, and preferences—so\n" +
-            "less time is wasted onboarding every project.",
-    },
-    {
-        id : 2,
-        title : "Consistent Quality",
-        description : "Your content maintains the same visual language and production standard across\n" +
-            "campaigns and platforms.",
-    },
-    {
-        id : 3,
-        title : "Predictable Output",
-        description : "You know there is a creative team available every month instead of searching for\n" +
-            "freelancers whenever something comes up.",
-    },
-    {
-        id : 4,
-        title : "Better Over Time",
-        description : "Every project teaches us more about your brand, audience, and what performs—making\n" +
-            "future production more efficient.",
-    },
-    {
-        id : 5,
-        title : "More Creative Testing",
-        description : "Produce more hooks, concepts, formats, and variations instead of betting everything on\n" +
-            "one creative.",
-    },
-    {
-        id : 6,
-        title : "Less Management",
-        description : "One creative partner can replace the complexity of coordinating multiple editors,\n" +
-            "animators, designers, and freelancers.",
-    },
-]
-
-const whatWeHandle = [
-    {
-        id : 1,
-        title : "Strategy & Concepts",
-        description : "Content ideas, campaign directions, creative concepts, hooks, references, and visual\n" +
-            "approaches.",
-    },
-    {
-        id : 2,
-        title : "Scriptwriting",
-        description : "Short-form scripts, product messaging, ad copy, voiceover scripts, and narrative\n" +
-            "structures.",
-    },
-    {
-        id : 3,
-        title : "Storyboarding",
-        description : "Clear visual planning before complex productions begin.",
-    },
-    {
-        id : 4,
-        title : "Editing",
-        description : "Professional editing, pacing, transitions, typography, footage integration, and finishing.",
-    },
-    {
-        id : 5,
-        title : "Motion Design",
-        description : "2D motion, interface animation, graphic sequences, visual effects, and branded animation.",
-    },
-    {
-        id : 6,
-        title : "UI Animation",
-        description : "Animated product screens, dashboards, applications, websites, workflows, and\n" +
-            "interactions.",
-    },
-    {
-        id : 7,
-        title : "Sound Design",
-        description : "Music, sound effects, transitions, mixing, and voiceover integration.",
-    },
-    {
-        id : 8,
-        title : "Creative Variations",
-        description : "Different hooks, openings, CTAs, durations, formats, and campaign versions.",
-    },
-    {
-        id : 9,
-        title : "Final Delivery",
-        description : "Production-ready assets optimized for the channels where they will be published.",
-    },
-]
-
-const differentTeams = [
-    {
-        id : 1,
-        title : "SaaS & AI Companies",
-        description : "Keep product marketing moving with demos, feature content, launch videos, ads, and\n" +
-            "social creative.",
-    },
-    {
-        id : 2,
-        title : "Startups",
-        description : "Get consistent creative output without building a complete internal production\n" +
-            "department.",
-    },
-    {
-        id : 3,
-        title : "Marketing Teams",
-        description : "Add reliable production capacity when your internal team has more ideas than time.",
-    },
-    {
-        id : 4,
-        title : "Agencies",
-        description : "Use EyesOn as a white-label or extended production partner for ongoing client work.",
-    },
-    {
-        id : 5,
-        title : "Ecommerce & Consumer Brands",
-        description : "Continuously produce campaign creatives, product content, ads, social videos, and\n" +
-            "promotional assets.",
-    },
-    {
-        id : 6,
-        title : "Established Brands",
-        description : "Maintain a consistent production pipeline across campaigns, platforms, products, and\n" +
-            "departments.",
-    },
-]
-
-const funnelContent = [
-    {
-        id : 1,
-        title : "Attention",
-        description : "Short-form videos, hooks, social content, brand pieces, and high-impact creative.",
-    },
-    {
-        id : 2,
-        title : "Acquisition",
-        description : "Paid ads, campaign variations, promotional content, and conversion-focused creatives.",
-    },
-    {
-        id : 3,
-        title : "Education",
-        description : "Explainers, product videos, tutorials, demos, and feature content.",
-    },
-    {
-        id : 4,
-        title : "Conversion",
-        description : "Testimonials, product proof, use cases, comparison content, and sales assets.",
-    },
-    {
-        id : 5,
-        title : "Retention",
-        description : "Product updates, feature announcements, educational content, and community assets.",
-    },
-    {
-        id : 6,
-        title : "Launch",
-        description : "Trailers, teasers, announcements, countdown content, product showcases, and campaign\n" +
-            "adaptations.",
-    },
-]
-
-const whyEyeson = [
-    {
-        id : 1,
-        title : "Dedicated Creative Direction",
-        description : "Your content follows a consistent creative direction instead of changing style with every\n" +
-            "project.",
-    },
-    {
-        id : 2,
-        title : "Multi-Disciplinary Production",
-        description : "Editing, motion, UI animation, design, storytelling, and sound can live under one\n" +
-            "production relationship.",
-    },
-    {
-        id : 3,
-        title : "Brand Familiarity",
-        description : "The longer we work together, the less time you spend explaining what looks and feels right.",
-    },
-    {
-        id : 4,
-        title : "Flexible Production",
-        description : "Shift priorities as campaigns, launches, and business needs change.",
-    },
-    {
-        id : 5,
-        title : "Consistent Communication",
-        description : "A structured workflow keeps projects, feedback, revisions, and upcoming work organized.",
-    },
-    {
-        id : 6,
-        title : "Built to Scale",
-        description : "Increase production as your marketing operation grows instead of rebuilding your creative\n" +
-            "pipeline.",
+        description : "Turn existing campaigns into new formats, durations, aspect ratios, hooks, variations, and platform-specific versions.",
     },
 ]
 
@@ -304,110 +54,72 @@ const faqQuestions = [
     {
         id : 1,
         q : "What is an EyesOn monthly retainer?",
-        a : "A monthly retainer is an ongoing creative partnership rather than a single project. You\n" +
-            "reserve production capacity with our team each month, which can be used for agreed\n" +
-            "types of content such as videos, ads, motion design, product content, social creatives, and\n" +
-            "campaign assets.",
+        a : "A monthly retainer is an ongoing creative partnership rather than a single project. You reserve production capacity with our team each month, which can be used for agreed types of content such as videos, ads, motion design, product content, social creatives, and campaign assets.",
     },
     {
         id : 2,
         q : "Is the retainer only for video content?",
-        a : "No. While video and motion are at the core of EyesOn, retainers can combine different\n" +
-            "creative needs depending on your plan. This can include editing, motion graphics, UI\n" +
-            "animation, product videos, short-form content, ad creatives, campaign adaptations, and\n" +
-            "supporting visual assets.",
+        a : "No. While video and motion are at the core of EyesOn, retainers can combine different creative needs depending on your plan. This can include editing, motion graphics, UI animation, product videos, short-form content, ad creatives, campaign adaptations, and supporting visual assets.",
     },
     {
         id : 3,
         q : "How many pieces of content do I receive each month?",
-        a : "It depends on your retainer level and the complexity of the work. Ten straightforward\n" +
-            "social edits require very different production capacity from ten advanced motion-design\n" +
-            "videos. Instead of promising an unrealistic fixed number of deliverables, we define the\n" +
-            "expected production capacity and content mix before the retainer begins.",
+        a : "It depends on your retainer level and the complexity of the work. Ten straightforward social edits require very different production capacity from ten advanced motion-design videos. Instead of promising an unrealistic fixed number of deliverables, we define the expected production capacity and content mix before the retainer begins.",
     },
     {
         id : 4,
         q : "Can our content mix change every month?",
-        a : "Yes. That flexibility is one of the main advantages of the retainer. For example, one month\n" +
-            "might focus on short-form social content while another prioritizes ads, a feature launch,\n" +
-            "and product videos. As long as the workload fits within your monthly production capacity,\n" +
-            "priorities can be adjusted.",
+        a : "Yes. That flexibility is one of the main advantages of the retainer. For example, one month might focus on short-form social content while another prioritizes ads, a feature launch, and product videos. As long as the workload fits within your monthly production capacity, priorities can be adjusted.",
     },
     {
         id : 5,
         q : "Can you help us decide what content to create?",
-        a : "Yes. Depending on your retainer, we can help with concepts, hooks, scripts, references,\n" +
-            "campaign ideas, content directions, and determining how larger pieces of content can be\n" +
-            "repurposed across different platforms.",
+        a : "Yes. Depending on your retainer, we can help with concepts, hooks, scripts, references, campaign ideas, content directions, and determining how larger pieces of content can be repurposed across different platforms.",
     },
     {
         id : 6,
         q : "How quickly can you deliver content?",
-        a : "Turnaround depends on complexity. Simple edits and adaptations can move significantly\n" +
-            "faster than advanced motion design, product trailers, or complex UI animation. At the\n" +
-            "beginning of each production cycle, we prioritize requests and establish realistic delivery\n" +
-            "expectations.",
+        a : "Turnaround depends on complexity. Simple edits and adaptations can move significantly faster than advanced motion design, product trailers, or complex UI animation. At the beginning of each production cycle, we prioritize requests and establish realistic delivery expectations.",
     },
     {
         id : 7,
         q : "How do revisions work?",
-        a : "Feedback and revisions are built into the production workflow according to the scope of\n" +
-            "your retainer. We use structured review stages so your team can comment on messaging,\n" +
-            "pacing, visuals, animation, branding, and other relevant details without creating\n" +
-            "unnecessary production delays.",
+        a : "Feedback and revisions are built into the production workflow according to the scope of your retainer. We use structured review stages so your team can comment on messaging, pacing, visuals, animation, branding, and other relevant details without creating unnecessary production delays.",
     },
     {
         id : 8,
         q : "Can you follow our existing brand guidelines?",
-        a : "Absolutely. We can work within your existing visual identity, typography, colors, motion\n" +
-            "language, tone, and brand guidelines. Over time, we also build familiarity with your\n" +
-            "preferences so new content requires less explanation and becomes increasingly\n" +
-            "consistent.",
+        a : "Absolutely. We can work within your existing visual identity, typography, colors, motion language, tone, and brand guidelines. Over time, we also build familiarity with your preferences so new content requires less explanation and becomes increasingly consistent.",
     },
     {
         id : 9,
         q : "Can you create content for multiple platforms?",
-        a : "Yes. We can produce and adapt content for Instagram, TikTok, LinkedIn, X, YouTube, Meta\n" +
-            "Ads, websites, presentations, sales channels, and other digital platforms. Where needed,\n" +
-            "one master creative can also be adapted into multiple aspect ratios, durations, hooks, or\n" +
-            "versions.",
+        a : "Yes. We can produce and adapt content for Instagram, TikTok, LinkedIn, X, YouTube, Meta Ads, websites, presentations, sales channels, and other digital platforms. Where needed, one master creative can also be adapted into multiple aspect ratios, durations, hooks, or versions.",
     },
     {
         id : 10,
         q : "Can we use the retainer for product launches?",
-        a : "Yes. Retainers work particularly well for launches because one campaign often requires\n" +
-            "multiple connected assets—such as a hero video, teaser content, social clips, feature\n" +
-            "showcases, ads, and shorter campaign variations.",
+        a : "Yes. Retainers work particularly well for launches because one campaign often requires multiple connected assets—such as a hero video, teaser content, social clips, feature showcases, ads, and shorter campaign variations.",
     },
     {
         id : 11,
         q : "What happens if we need something outside our normal scope?",
-        a : "Tell us what you need. If it fits within the team's capabilities and available monthly\n" +
-            "capacity, we can often incorporate it into production. For significantly larger or\n" +
-            "specialized projects, we'll scope it separately or recommend adjusting the monthly plan.",
+        a : "Tell us what you need. If it fits within the team's capabilities and available monthly capacity, we can often incorporate it into production. For significantly larger or specialized projects, we'll scope it separately or recommend adjusting the monthly plan.",
     },
     {
         id : 12,
         q : "Is a monthly retainer better than hiring freelancers?",
-        a : "It depends on your needs. For occasional isolated projects, a freelancer may be enough.\n" +
-            "But when you need consistent content across multiple formats, managing several\n" +
-            "independent freelancers creates coordination overhead and inconsistent output. A retainer\n" +
-            "is designed for companies that value continuity, speed, consistency, and reliable\n" +
-            "production capacity.",
+        a : "It depends on your needs. For occasional isolated projects, a freelancer may be enough. But when you need consistent content across multiple formats, managing several independent freelancers creates coordination overhead and inconsistent output. A retainer is designed for companies that value continuity, speed, consistency, and reliable production capacity.",
     },
     {
         id : 13,
         q : "Is there a long-term contract?",
-        a : "Retainer terms depend on the package and production requirements. We'll clearly define the\n" +
-            "commitment, monthly capacity, scope, payment terms, and cancellation conditions before\n" +
-            "the partnership begins—so both sides know exactly how the relationship works.",
+        a : "Retainer terms depend on the package and production requirements. We'll clearly define the commitment, monthly capacity, scope, payment terms, and cancellation conditions before the partnership begins—so both sides know exactly how the relationship works.",
     },
     {
         id : 14,
         q : "How do we get started?",
-        a : "Tell us about your company, the type of content you currently produce, your channels,\n" +
-            "expected monthly volume, and what you want to improve. We'll recommend the most\n" +
-            "appropriate production setup and create a monthly plan around your needs.",
+        a : "Tell us about your company, the type of content you currently produce, your channels, expected monthly volume, and what you want to improve. We'll recommend the most appropriate production setup and create a monthly plan around your needs.",
     },
 ]
 ---
@@ -415,11 +127,11 @@ const faqQuestions = [
 
 <main class="relative w-full min-h-screen overflow-hidden">
 
-
     <HomeBackground />
+    <RetainersBackground />
+    <StarBackground />
 
-
-
+    <!-- 1. Hero -->
     <VideoHeader
 
             BeforeHighlight=""
@@ -428,10 +140,7 @@ const faqQuestions = [
             Description="Stop rebuilding your creative team for every new campaign.
 EyesOn Studio works as your ongoing content production partner—creating a consistent
 stream of premium videos, motion design, product content, ads, social creatives, and
-branded visuals every month.
-From one-off ideas to complete monthly campaigns, your team gets reliable creative
-production without hiring and managing an entire in-house team."
-
+branded visuals every month."
 
             imageUrl="/retainers/1.webp"
             topText="MONTHLY CONTENT · CREATIVE RETAINERS · ONGOING PRODUCTION"
@@ -441,18 +150,15 @@ production without hiring and managing an entire in-house team."
             secondaryBtnText="Explore Our Work"
             secondaryBtnUrl="/portfolio"
 
-
             showBackground={true}
             backgroundClassName="
     bg-[linear-gradient(to_bottom,#010e17_0%,#01343a_35%,#34776c_65%,rgba(52,119,108,0.6)_80%,rgba(52,119,108,0.25)_90%,transparent_100%)]
     "
 
-
             headingClassName="text-3xl sm:text-3xl lg:text-4xl font-extrabold"
             highlightClassName="text-[#39d0c3]"
 
             textContainerClassName="space-y-5"
-
 
             primaryBtnWrapperClassName="bg-gradient-to-r from-[#0fe0d2] to-[#08717e] p-[2px] rounded-full"
             primaryBtnClassName="bg-gradient-to-r from-[#00A9BD] to-[#1D553A] text-white px-6 py-3"
@@ -460,77 +166,53 @@ production without hiring and managing an entire in-house team."
             secondaryBtnWrapperClassName="bg-gradient-to-r from-[#08717e] to-[#40ae90] p-[2px] rounded-full"
             secondaryBtnClassName="bg-gradient-to-r from-[#00061D] to-[#0B1F2A] text-white px-6 py-3"
 
-
             imageWrapperClassName="rounded-3xl overflow-hidden w-100 md:w-120 scale-[1.2] lg:scale-[2.3]"
             client:idle
             />
 
+    <!-- 2. Logo Carousel -->
     <LogoCaro tagline="Trusted by startups, SaaS teams, agencies, and product-led brands that produce content month after month." />
 
+    <!-- 3. Under-hero split section -->
     <RetainersEditingSection client:visible/>
 
-    <FeaturesSection features={features} badgeText="MORE THAN A VIDEO SUBSCRIPTION" title="Your External" highlight="Creative Production Team" description="Every retainer is built around what your company actually needs—not a fixed library of
-generic deliverables."/>
+    <!-- 4. Features Grid (shared) -->
+    <FeaturesSection features={features} badgeText="MORE THAN A VIDEO SUBSCRIPTION" title="Your External" highlight="Creative Production Team" description="Every retainer is built around what your company actually needs—not a fixed library of generic deliverables."/>
 
-    <RetainerCardsGrid
-        beforeTitle="One Retainer."
-        highlight="Different Types of Content."
-        intro="Your content needs change throughout the month. Your creative partner should be able to
-change with them. Depending on your plan and priorities, your monthly production can
-include:"
-        cards={contentPossibilities}
-    client:visible/>
+    <!-- 5. Business Needs / Value Prop (replaces RetainerContentSystem) -->
+    <RetainerNeedsBlock client:visible />
 
-    <RetainerCardsGrid
-        eyebrow="BUILT FOR CONSISTENCY"
-        beforeTitle="Great Content Shouldn't Be"
-        highlight="a One-Time Event."
-        intro="The biggest advantage of a retainer isn't simply producing more content. It's building
-momentum."
-        cards={whyMonthly}
-    client:visible/>
+    <!-- 6. Services/Content Types (replaces contentPossibilities RetainerCardsGrid) -->
+    <RetainerServicesSection client:visible/>
 
-    <RetainerModelSteps client:visible/>
+    <!-- 7. What's Included / Pipeline (replaces whatWeHandle RetainerCardsGrid) -->
+    <RetainerWhatsIncluded client:visible/>
 
-    <RetainerCardsGrid
-        beforeTitle="From One Request"
-        highlight="to an Entire Content Pipeline."
-        cards={whatWeHandle}
-    client:visible/>
+    <!-- 8. Process Timeline (replaces RetainerHowItWorks + RetainerModelSteps) -->
+    <ApproachTimelineSection
+        eyebrow="A SIMPLE MONTHLY WORKFLOW"
+        title="From Monthly Priorities to Finished Content."
+        description="Every month follows the same structured process: you share priorities, we develop creative direction, produce the content, collect feedback, refine, and deliver. Then we move straight into the next cycle."
+        client:visible />
 
-    <RetainerCardsGrid
-        eyebrow="ONE MODEL. DIFFERENT NEEDS."
-        beforeTitle="Creative Support That"
-        highlight="Scales With Your Business."
-        cards={differentTeams}
-    client:visible/>
+    <!-- 9. Work Showcase -->
+    <VideoWorkShowcaseSection
+        eyebrow="SEE THE WORK"
+        title="Content We Produce"
+        highlight="Every Month"
+        description="A sample of the ongoing creative work produced for our retainer clients across video, motion, product content, and ads."
+        client:visible />
 
-    <RetainerContentSystem client:visible/>
-
-    <RetainerHowItWorks client:visible/>
-
-    <RetainerCardsGrid
-        beforeTitle="Not Just More Content."
-        highlight="The Right Content."
-        intro="A strong monthly content strategy shouldn't produce twenty versions of the same thing.
-Different stages of growth need different creative."
-        cards={funnelContent}
-    client:visible/>
-
-    <RetainerCardsGrid
-        eyebrow="YOUR TEAM, EXTENDED"
-        beforeTitle="More Than Outsourcing."
-        intro="The goal isn't to feel like you're sending tasks to an external freelancer. We want to
-understand your brand well enough that creating together becomes easier every month."
-        cards={whyEyeson}
-    client:visible/>
-
+    <!-- 10. Pricing -->
     <RetainerPackagesSection client:visible/>
 
-    <RetainerFlexibility client:visible/>
+    <!-- 11. Case Studies -->
+    <CaseStudiesSection client:visible />
 
-    <RetainerFinalCta client:visible/>
+    <!-- 12. Cost Calculator CTA -->
+    <CostVideo />
 
+    <!-- 13. FAQ -->
     <QandASection
         questions={faqQuestions}
         title1="Everything You Need to Know"
@@ -538,6 +220,7 @@ understand your brand well enough that creating together becomes easier every mo
         description="From deliverables and turnaround times to revisions, content types, and changing priorities, here's how an ongoing EyesOn partnership works."
     />
 
+    <!-- 14. Contact -->
     <ContactUs client:visible />
 
 </main>

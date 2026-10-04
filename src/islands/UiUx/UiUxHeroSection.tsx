@@ -1,4 +1,4 @@
-"use client";
+
 
 import PrimaryButton from "@/components/Shared/PrimaryButton";
 import SecondaryButton from "@/components/Shared/SecondaryButton";
@@ -19,13 +19,16 @@ export default function UiUxHeroSection() {
         {/* ستون راست (تصاویر): در موبایل می‌آید بالا (order-1) */}
         {/* ========================================== */}
         <div className="order-1 lg:order-2 relative w-full sm:w-[85%] md:w-[75%] lg:w-7/13 flex lg:left-10 xl:left-30 justify-center mt-6 lg:mt-0">
-          <img src="/uiux/RightElement/22.webp" alt="" loading="eager" fetchpriority="high" className="scale-[1.2]"/>
+          <img src="/uiux/RightElement/22.webp" alt="" loading="eager" fetchPriority="high" className="scale-[1.2]"/>
         </div>
 
         {/* ========================================== */}
         {/* ستون چپ (متن‌ها): در موبایل می‌آید پایین (order-2) */}
         {/* ========================================== */}
         <div className="order-2 lg:order-1 flex w-full flex-col items-center text-center lg:items-start lg:text-left lg:w-5/12 z-10">
+          <span className="tracking-[0.25rem] text-[#00E6D7]/90 text-xs sm:text-sm uppercase font-semibold mb-3 block">
+            Designed for users, built for scale
+          </span>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.12] tracking-tight text-white lg:text-[54px] xl:text-[60px]">
             <span className="text-[#32c9b4]">UI/UX Design</span> for SaaS & Digital Products
             <br className="hidden sm:block lg:hidden xl:block" />

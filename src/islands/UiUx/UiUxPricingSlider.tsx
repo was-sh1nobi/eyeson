@@ -32,7 +32,7 @@ const slides = [
       "Figma Source Files",
     ],
     primaryCta: "Request a Proposal",
-    secondaryCta: "Book a Discovery Call",
+    secondaryCta: "Book a Call",
     mainImage: "/uiux/slidebg.webp",
     floatingTags: [
       "/pricing/tag-price-1.webp",
@@ -140,6 +140,7 @@ export default function UiUxPricingSlider() {
                         <SecondaryButton
                           text={slide.secondaryCta}
                           width="auto"
+
                         />
                       </div>
                     </div>

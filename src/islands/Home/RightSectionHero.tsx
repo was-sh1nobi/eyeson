@@ -66,50 +66,21 @@ interface RightSectionHeroProps {
     onCategoryChange: (category: string) => void;
 }
 
-export default function RightSectionHero({
+function RightSectionHeroComponent({
     activeTab,
     videoRef,
-    handleTimeUpdate,
     onCategoryChange,
-}: RightSectionHeroProps) {
+}: Omit<RightSectionHeroProps, "handleTimeUpdate">) {
     const isShowreel = activeTab === "showreel";
     const activeCategory = CATEGORIES.find((c) => c.id === activeTab) || null;
     const activeVideo = isShowreel ? SHOWREEL.videoUrl : (activeCategory?.videoUrl ?? SHOWREEL.videoUrl);
     const activePoster = isShowreel ? SHOWREEL.poster : (activeCategory?.poster ?? SHOWREEL.poster);
     const containerRef = useRef<HTMLDivElement>(null);
     const [canLoadVideo, setCanLoadVideo] = useState(false);
-    // Poster-first on constrained devices: mobile, reduced motion, GPU-off,
-    // or save-data never autoplay the ~24MB showreel — show the poster and
-    // let the user tap to load instead.
-    const [liteVideo, setLiteVideo] = useState(false);
-    const [userRequestedVideo, setUserRequestedVideo] = useState(false);
 
-    useEffect(() => {
-        const mq = window.matchMedia("(max-width: 1023px)");
-        const rm = window.matchMedia("(prefers-reduced-motion: reduce)");
-        const check = () => {
-            const conn = (navigator as any).connection;
-            setLiteVideo(
-                mq.matches ||
-                    rm.matches ||
-                    document.documentElement.classList.contains("gpu-off") ||
-                    document.documentElement.classList.contains("reduce-motion") ||
-                    (window as any).__GPU_OFF__ === true ||
-                    (window as any).__REDUCED_MOTION__ === true ||
-                    conn?.saveData === true,
-            );
-        };
-        check();
-        mq.addEventListener?.("change", check);
-        rm.addEventListener?.("change", check);
-        return () => {
-            mq.removeEventListener?.("change", check);
-            rm.removeEventListener?.("change", check);
-        };
-    }, []);
-
-    // On lite devices the video src is only attached after an explicit tap.
-    const shouldAttachSrc = canLoadVideo && (!liteVideo || userRequestedVideo);
+    // Always autoplay in every mode (normal, gpu-off, reduced-motion, mobile).
+    // No tap-to-play gate: src attaches as soon as the hero is near viewport.
+    const shouldAttachSrc = canLoadVideo;
 
     // React does not reliably set the `muted` *property* from JSX, so browsers
     // treat the video as unmuted and block autoplay. Force it via ref and
@@ -119,27 +90,32 @@ export default function RightSectionHero({
     // stuck forever). play() both initiates the fetch and starts playback.
     useEffect(() => {
         if (!canLoadVideo) return;
-        if (liteVideo && !userRequestedVideo) return;
         const video = videoRef.current;
         if (!video) return;
         video.muted = true;
         video.defaultMuted = true;
+        // On weak devices the first play() often rejects (decode not ready,
+        // background tab, data-saver) — keep retrying on every signal.
         const tryPlay = () => {
-            video.muted = true;
-            const p = video.play();
-            if (p) {
-                p.catch(() => {
-                    // Autoplay blocked (e.g. data-saver) — user can tap to start.
-                });
-            }
+            const v = videoRef.current;
+            if (!v || !v.paused) return;
+            v.muted = true;
+            const p = v.play();
+            if (p) p.catch(() => {});
         };
         tryPlay();
-        // Backup: if data wasn't ready, retry once it can play.
-        if (video.readyState < 2) {
-            video.addEventListener("canplay", tryPlay, { once: true });
-            return () => video.removeEventListener("canplay", tryPlay);
-        }
-    }, [activeVideo, canLoadVideo, liteVideo, userRequestedVideo, videoRef]);
+        video.addEventListener("loadeddata", tryPlay);
+        video.addEventListener("canplay", tryPlay);
+        const onVisible = () => {
+            if (!document.hidden) tryPlay();
+        };
+        document.addEventListener("visibilitychange", onVisible);
+        return () => {
+            video.removeEventListener("loadeddata", tryPlay);
+            video.removeEventListener("canplay", tryPlay);
+            document.removeEventListener("visibilitychange", onVisible);
+        };
+    }, [activeVideo, canLoadVideo, videoRef]);
 
     const goPrev = () => {
         if (isShowreel) {
@@ -172,7 +148,7 @@ export default function RightSectionHero({
             if (entry.isIntersecting) {
                 setCanLoadVideo(true);
                 const video = videoRef.current;
-                if (video && !liteVideo && (!liteVideo || userRequestedVideo)) {
+                if (video) {
                     video.muted = true;
                     video.play().catch(() => {});
                 }
@@ -185,21 +161,12 @@ export default function RightSectionHero({
         }, { rootMargin: "150px", threshold: 0 });
         io.observe(el);
         return () => io.disconnect();
-    }, [liteVideo, userRequestedVideo, videoRef]);
+    }, [videoRef]);
 
     return (
         <div className="relative w-full max-w-[850px] xl:max-w-[950px] mx-auto animate-fade-in flex flex-col items-center">
-            {/* Background Glow Overlay Elements */}
-            <div className="absolute -inset-10 pointer-events-none hidden md:block overflow-visible -z-10">
-                <img
-                    src="/home/RightElements/el/20.svg"
-                    alt=""
-                    loading="eager"
-                    fetchPriority="high"
-                    decoding="async"
-                    className="h-full w-full object-contain scale-[1.2] opacity-70"
-                />
-            </div>
+
+
 
             <img
                 src="/home/RightElements/el/2.svg"
@@ -232,43 +199,32 @@ export default function RightSectionHero({
                 </div>
 
                 {/* Inner Video Container */}
-                <div className="relative w-full h-[calc(100%-2.2rem)] sm:h-[calc(100%-2.8rem)] md:h-[calc(100%-3.1rem)] mt-6 sm:mt-7 md:mt-8 rounded-[18px] sm:rounded-[24px] md:rounded-[28px] overflow-hidden ">
+                <div
+                    className="relative w-full h-[calc(100%-2.2rem)] sm:h-[calc(100%-2.8rem)] md:h-[calc(100%-3.1rem)] mt-6 sm:mt-7 md:mt-8 rounded-[18px] sm:rounded-[24px] md:rounded-[28px] overflow-hidden"
+                    style={{ transform: "translate3d(0, 0, 0)", backfaceVisibility: "hidden" }}
+                >
                     <SmartImage src="/home/VideoElements/20/child.webp" alt="" fill priority className="rounded-[inherit] object-cover" />
                     <video
-                        key={activeTab}
                         ref={videoRef}
                         src={shouldAttachSrc ? activeVideo : undefined}
                         poster={activePoster}
-                        preload={shouldAttachSrc ? "auto" : "none"}
-                        autoPlay={!liteVideo}
+                        preload="metadata"
+                        autoPlay
                         muted
                         loop
                         playsInline
                         disablePictureInPicture={false}
-                        onTimeUpdate={handleTimeUpdate}
                         onCanPlay={() => {
-                            if (liteVideo && !userRequestedVideo) return;
                             const video = videoRef.current;
                             if (video) {
                                 video.muted = true;
                                 video.play().catch(() => {});
                             }
                         }}
-                        className="absolute inset-0 h-full w-full object-cover rounded-[inherit] transition-opacity duration-300"
+                        className="absolute inset-0 h-full w-full object-cover rounded-[inherit]"
+                        style={{ transform: "translate3d(0, 0, 0)", backfaceVisibility: "hidden" }}
                     />
-                    {liteVideo && !userRequestedVideo && (
-                        <button
-                            type="button"
-                            onClick={() => setUserRequestedVideo(true)}
-                            aria-label="Play video"
-                            className="absolute inset-0 z-10 flex items-center justify-center cursor-pointer"
-                        >
-                            <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/90 text-[#071B2A] shadow-xl transition-transform hover:scale-105">
-                                <svg className="h-6 w-6 translate-x-[2px]" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9V3z" /></svg>
-                            </span>
-                        </button>
-                    )}
-                    <div className="absolute inset-0 bg-[#051118]/10 mix-blend-overlay pointer-events-none rounded-[inherit]" aria-hidden="true" />
+                    <div className="absolute inset-0 bg-[#051118]/20 pointer-events-none rounded-[inherit]" aria-hidden="true" />
                 </div>
             </div>
 
@@ -279,7 +235,8 @@ export default function RightSectionHero({
                 }}
                 disabled={isShowreel}
                 aria-pressed={isShowreel}
-                className={`mt-4 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors ${isShowreel ? "bg-white/60 text-[#071B2A]/60 cursor-default" : "bg-white text-[#071B2A] hover:bg-white/90 cursor-pointer"}`}
+                style={{ backgroundImage: "var(--button-primary-bg)" }}
+                className={`mt-4 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold text-white shadow-[var(--button-shadow)] transition-all hover:shadow-[var(--button-shadow-hover)] ${isShowreel ? "opacity-60 cursor-default" : "hover:scale-105 cursor-pointer"}`}
             >
                 <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9V3z" /></svg>
                 Showreel
@@ -335,3 +292,5 @@ export default function RightSectionHero({
         </div>
     );
 }
+
+export default React.memo(RightSectionHeroComponent);

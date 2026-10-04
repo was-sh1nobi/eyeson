@@ -1,4 +1,4 @@
-"use client";
+
 
 import { useState, useEffect } from "react";
 import SecondaryButton from "@/components/Shared/SecondaryButton";
@@ -44,7 +44,8 @@ const MENU_ITEMS = [
     { id: "3", title: "Portfolio", path: "/portfolio" },
     { id: "4", title: "Pricing", path: "/pricing" },
     { id: "5", title: "About", path: "/about" },
-    { id: "6", title: "Contact", path: "/contact" },
+    { id: "6", title: "Blogs", path: "/blogs" },
+    { id: "7", title: "Contact", path: "/contact" },
 ];
 
 // ─── Desktop Mega Menu ────────────────────────────────────────────────────────
@@ -328,7 +329,7 @@ export const Header = () => {
                 <div className={`relative px-4 sm:px-6 lg:px-10 transition-[padding] duration-300 ease-out ${scrolled ? "py-2 lg:py-3" : "py-3 lg:py-6"}`}>
 
                     {/* Scroll background */}
-                    <div className={`pointer-events-none absolute inset-x-0 top-0 h-full transition-[background-color,box-shadow,opacity] duration-300 ease-out ${scrolled ? "bg-[#000E17]/90 backdrop-blur-md shadow-md" : "bg-transparent opacity-0"}`} />
+                    <div className={`pointer-events-none absolute inset-x-0 top-0 h-full transition-[background-color,box-shadow,opacity] duration-300 ease-out hidden lg:block ${scrolled ? "bg-[#000E17]/90 backdrop-blur-md shadow-md" : "bg-transparent opacity-0"}`} />
 
                     {/* Desktop Header */}
                     <div className="relative mx-auto max-w-[1200px] hidden lg:flex items-center justify-between gap-3">

@@ -15,6 +15,7 @@ import UiUxPricingSlider from "../../islands/UiUx/UiUxPricingSlider";
 import UiUxAppSlider from "../../islands/UiUx/UiUxAppSlider";
 import { SplineScene } from "@/islands/About/SplineAboutPage";
 import PrimaryButton from "../Shared/PrimaryButton";
+import {VideoHeader} from "@/islands/Shared/VideoHeader.tsx";
 
 const features = [
   {
@@ -62,37 +63,79 @@ const features = [
 <div class="relative flex flex-col gap-3 justify-center items-between">
   <HomeBackground />
 
-  <UiUxHeroSection />
+
+  <VideoHeader
+      topText="DESIGNED FOR USERS · BUILT FOR SCALE"
+      BeforeHighlight=""
+      Highlight="UI/UX Design"
+      AfterHighlight={`for SaaS & Digital Products`}
+      Description="Designing websites, landing pages, and product interfaces that users understand and
+            teams can scale."
+
+
+      imageUrl="/uiux/RightElement/22.webp"
+
+
+      primaryBtnText="Request Proposal"
+
+      primaryBtnUrl="/contact"
+      secondaryBtnText="Book a Call"
+      secondaryBtnUrl="/contact"
+
+
+      enableImageHover={true}
+
+
+      showBackground={true}
+      backgroundClassName="
+    bg-[linear-gradient(to_bottom,#010e17_0%,#01343a_35%,#34776c_65%,rgba(52,119,108,0.6)_80%,rgba(52,119,108,0.25)_90%,transparent_100%)]
+    "
+
+
+      headingClassName="text-3xl sm:text-3xl lg:text-4xl font-extrabold"
+      highlightClassName="text-[#39d0c3]"
+
+      textContainerClassName="space-y-5"
+
+
+      primaryBtnWrapperClassName="bg-gradient-to-r from-[#0fe0d2] to-[#08717e] p-[2px] rounded-full"
+      primaryBtnClassName="bg-gradient-to-r from-[#00A9BD] to-[#1D553A] text-white px-6 py-3"
+
+      secondaryBtnWrapperClassName="bg-gradient-to-r from-[#08717e] to-[#40ae90] p-[2px] rounded-full"
+      secondaryBtnClassName="bg-gradient-to-r from-[#00061D] to-[#0B1F2A] text-white px-6 py-3"
+
+
+      imageWrapperClassName="rounded-3xl overflow-hidden w-80 md:w-140 !scale-[1.2]"
+      client:idle
+  />
   <LogoCaro />
 
-  <section class="relative w-full overflow-hidden py-12 md:py-16 lg:py-24">
-    <div
-      class="mx-auto flex w-full max-w-7xl flex-col items-center gap-8 px-4 sm:px-6 lg:flex-row lg:justify-between lg:gap-12 lg:px-8"
-    >
+  <section class="relative w-full overflow-hidden py-[var(--space-lg)] sm:py-[var(--space-xl)]">
+    <div class="relative z-10 mx-auto max-w-[var(--container-max)] px-[var(--space-gutter)] sm:px-[var(--space-gutter-md)] lg:px-[var(--space-gutter-lg)]">
+      <div class="flex flex-col lg:flex-row items-center gap-[var(--space-md)] lg:gap-[var(--space-lg)] xl:gap-[var(--space-xl)]">
+        {/* Spline Animation Section */}
+        <div class="w-full lg:w-[55%] flex justify-center lg:justify-start order-1 lg:order-1 mx-auto">
+          <div class="relative w-full group">
+            <div class="relative z-10 w-full flex items-center justify-center mx-auto rounded-[var(--radius-xl)] overflow-hidden h-87.5 sm:h-112.5 lg:h-137.5">
+              <SplineScene
+                scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+                className="w-full h-full object-contain"
+                client:visible
+              />
+            </div>
+          </div>
+        </div>
 
-      <div
-        class="order-1 lg:order-2 relative flex w-full items-center justify-center h-87.5 sm:h-112.5 lg:h-137.5 lg:w-[55%] xl:w-[60%]"
-      >
-        <SplineScene
-          scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-          className="w-full h-full object-contain"
-          client:visible
-        />
-      </div>
+        {/* Text Section */}
+        <div class="w-full lg:w-[42%] flex flex-col items-center text-center lg:items-start lg:text-left order-2 lg:order-2">
+          <h2 class="text-h2 mb-4 sm:mb-6">
+            <span class="block text-white mb-1">What is</span>
+            <span class="block bg-gradient-to-r from-[var(--primitive-teal-400)] to-[var(--primitive-teal-700)] bg-clip-text text-transparent">
+              UI/UX design?
+            </span>
+          </h2>
 
-
-      <div
-        class="order-2 lg:order-1 relative z-10 flex w-full flex-col items-center text-center lg:w-[45%] xl:w-[40%] lg:items-start lg:text-left gap-6 lg:gap-8"
-      >
-        <div>
-          <h1
-            class="text-center text-3xl sm:text-4xl md:text-5xl lg:text-[42px] xl:text-5xl font-bold bg-clip-text text-transparent bg-linear-to-b from-neutral-50 to-neutral-400 leading-[1.15]"
-          >
-            What is <span class="text-[#31B9C4]">UI/UX design?</span>
-          </h1>
-          <p
-            class="mt-4 sm:mt-6 text-[14px] sm:text-base lg:text-lg leading-relaxed text-neutral-300 max-w-lg mx-auto lg:mx-0 font-light"
-          >
+          <p class="text-lg leading-[1.7] text-white/60 max-w-[48ch] mx-auto lg:mx-0 mb-8 sm:mb-10 font-light">
             UI/UX design is the process of designing the interface and user experience of a digital
             product. It focuses on how your website, app, or platform looks, feels, and functions for the
             people using it.
@@ -100,10 +143,18 @@ const features = [
             interaction seamless. Whether it's a website, landing page, SaaS platform, or mobile app,
             great design helps users accomplish their goals faster and with less friction.
           </p>
+
+          <div class="relative group/btn w-full sm:w-auto">
+            <div
+              class="absolute -inset-1 rounded-full bg-gradient-to-r from-[var(--primitive-teal-400)] to-[var(--primitive-teal-700)] opacity-0 blur-lg transition-opacity duration-[var(--duration-slow)] group-hover/btn:opacity-30"
+              aria-hidden="true"
+            >
+            </div>
+            <div class="relative transform-gpu transition-transform duration-[var(--duration-normal)] ease-[var(--ease-default)] group-hover/btn:scale-[1.02] group-active/btn:scale-[0.98]">
+              <PrimaryButton text="See our Work" width="14rem" href="/portfolio" />
+            </div>
+          </div>
         </div>
-
-
-        <PrimaryButton text="See our Work" width="60%" />
       </div>
     </div>
   </section>

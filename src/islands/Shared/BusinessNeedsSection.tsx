@@ -149,14 +149,14 @@ export default function BusinessNeedsSection({
               </p>
 
               <div className="mt-7 flex flex-nowrap gap-3 md:flex-wrap md:gap-4">
-                <PrimaryButton text={primaryBtnText} />
-                <SecondaryButton text={secondaryBtnText} />
+                <PrimaryButton text={primaryBtnText} textClassName="!text-sm md:!text-lg"/>
+                <SecondaryButton text={secondaryBtnText} textClassName="!text-sm md:!text-lg"/>
               </div>
             </div>
 
             <div className="order-1 lg:order-2 lg:pl-10 flex items-center justify-center">
               {rightSection ?? (
-                  <img src="/Shared/sharing/main-right.webp" alt="Right Section SVG" className="scale-100 md:scale-110 lg:scale-140"/>
+                  <img src="/Shared/sharing/main-right.webp" alt="Right Section SVG" className="scale-140 md:scale-110 lg:scale-140"/>
               )}
             </div>
           </div>

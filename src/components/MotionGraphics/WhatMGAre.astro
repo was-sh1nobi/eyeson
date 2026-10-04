@@ -1,59 +1,66 @@
 ---
 import { SmartImage } from "@/utils/SmartImage";
+import PrimaryButton from "../Shared/PrimaryButton";
 ---
 
-<div class="relative py-8 sm:py-12 lg:py-16 overflow-hidden">
-  <div class="absolute top-1/4 -right-20 w-[500px] h-[500px] -z-10"></div>
-
-  <div class="mx-auto max-w-7xl px-6 lg:px-8">
-    <div class="grid grid-cols-1 items-center gap-x-16 gap-y-12 lg:grid-cols-2">
-      <!-- Left Column: Image — top on mobile -->
-      <div class="reveal-on-scroll relative order-1 lg:order-1">
-        <div class="relative group">
-          <SmartImage
-            src="/motion-graphics/boh.webp"
-            alt="Motion Graphics Production Interface"
-            className="w-full h-auto rounded-2xl drop-shadow-[0_20px_50px_rgba(0,0,0,0.9)] transition-transform duration-500 group-hover:scale-[1.01]"
-          />
+<section class="relative w-full overflow-hidden py-[var(--space-lg)] sm:py-[var(--space-xl)]">
+  <div class="relative z-10 mx-auto max-w-[var(--container-max)] px-[var(--space-gutter)] sm:px-[var(--space-gutter-md)] lg:px-[var(--space-gutter-lg)]">
+    <div class="flex flex-col lg:flex-row items-center gap-[var(--space-md)] lg:gap-[var(--space-lg)] xl:gap-[var(--space-xl)]">
+      {/* Image Section */}
+      <div class="w-full lg:w-[55%] flex justify-center lg:justify-start order-1 lg:order-1 mx-auto">
+        <div class="relative w-full group">
           <div
-            class="absolute inset-0 -z-10 bg-[#2fd0c8]/10 blur-3xl rounded-full scale-90 opacity-50"
+            class="relative z-10 w-full transform-gpu transition-transform duration-[var(--duration-emphasis)] ease-[var(--ease-default)] flex items-center justify-center mx-auto rounded-[var(--radius-xl)] overflow-hidden"
+            style="aspect-ratio: 1300 / 1040"
+          >
+            <SmartImage
+              src="/motion-graphics/boh.webp"
+              alt="Motion Graphics Production Interface"
+              fill={true}
+              objectFit="contain"
+              priority={true}
+              className="drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)] transition-transform duration-[var(--duration-emphasis)] ease-[var(--ease-default)]"
+            />
+          </div>
+          <div
+            class="absolute inset-0 -z-10 bg-[#2fd0c8]/10 blur-3xl rounded-full scale-90 opacity-50 pointer-events-none"
           >
           </div>
         </div>
       </div>
 
-      <!-- Right Column: Text — bottom on mobile -->
-      <div class="reveal-on-scroll order-2 lg:order-2 text-center lg:text-left" data-reveal-delay="150">
-        <h2
-          class="text-lg md:text-2xl lg:text-[28px] font-bold tracking-tight text-white leading-[1.1]"
-        >
-          What <span class="text-[#2fd0c8]">Motion Graphics</span> Are and Why Your
-          Brand Needs Them
+      {/* Text Section */}
+      <div class="w-full lg:w-[42%] flex flex-col items-center text-center lg:items-start lg:text-left order-2 lg:order-2">
+        <h2 class="text-h2 mb-4 sm:mb-6">
+          <span class="block text-white mb-1">What Motion Graphics Are</span>
+          <span class="block bg-gradient-to-r from-[var(--primitive-teal-400)] to-[var(--primitive-teal-700)] bg-clip-text text-transparent">
+            and Why Your Brand Needs Them
+          </span>
         </h2>
 
-        <div class="mt-6 space-y-4">
-          <p class="text-sm leading-relaxed text-white/70 font-medium">
-            Motion graphics turn static information into visual stories that are easier to understand,
-            easier to remember, and more engaging to watch.
-            Instead of relying on plain images, long explanations, or complicated screenshots, motion
-            helps your audience quickly understand what matters. It brings rhythm, structure, and
-            visual clarity to your message, making your brand feel more modern, professional, and
-            easier to trust.
-            For SaaS products, AI tools, startups, content teams, and modern brands, motion graphics
-            help explain value faster, improve content retention, and make every message feel sharper
-            across websites, social media, launch videos, ads, and presentations.
-          </p>
-        </div>
+        <p class="text-lg leading-[1.7] text-white/60 max-w-[48ch] mx-auto lg:mx-0 mb-8 sm:mb-10 font-light">
+          Motion graphics turn static information into visual stories that are easier to understand,
+          easier to remember, and more engaging to watch.
+          Instead of relying on plain images, long explanations, or complicated screenshots, motion
+          helps your audience quickly understand what matters. It brings rhythm, structure, and
+          visual clarity to your message, making your brand feel more modern, professional, and
+          easier to trust.
+          For SaaS products, AI tools, startups, content teams, and modern brands, motion graphics
+          help explain value faster, improve content retention, and make every message feel sharper
+          across websites, social media, launch videos, ads, and presentations.
+        </p>
 
-        <div class="mt-8 flex justify-center lg:justify-start">
-          <a
-            href="/portfolio"
-            class="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#00A9BD] to-[#124d43] px-8 py-3 text-sm font-bold text-white shadow-[0_0_25px_rgba(0,169,189,0.5)] transition-[transform,box-shadow] duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(0,169,189,0.7)]"
+        <div class="relative group/btn w-full sm:w-auto">
+          <div
+            class="absolute -inset-1 rounded-full bg-gradient-to-r from-[var(--primitive-teal-400)] to-[var(--primitive-teal-700)] opacity-0 blur-lg transition-opacity duration-[var(--duration-slow)] group-hover/btn:opacity-30"
+            aria-hidden="true"
           >
-            See our work
-          </a>
+          </div>
+          <div class="relative transform-gpu transition-transform duration-[var(--duration-normal)] ease-[var(--ease-default)] group-hover/btn:scale-[1.02] group-active/btn:scale-[0.98]">
+            <PrimaryButton text="See our work" width="14rem" href="/portfolio" />
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</section>

@@ -87,12 +87,26 @@ export const SummaryPanel = ({ packageName, lines, total, duration, durationTitl
 
             {onEdit && (
                 <div className="mt-6 flex justify-center">
-                    <button
-                        onClick={onEdit}
-                        className="h-11 rounded-lg border border-[#15B8C9] bg-transparent px-8 text-sm font-semibold text-[#15B8C9] transition hover:bg-[#15B8C9] hover:text-[#0B1F2A]"
-                    >
-                        Edit Selection
-                    </button>
+                    <div className="group relative inline-flex rounded-[var(--radius-full)] p-[1.5px] transition-transform duration-200 ease-out hover:scale-105 active:scale-95">
+                        <div
+                            aria-hidden="true"
+                            className="absolute inset-0 rounded-[var(--radius-full)] opacity-100 shadow-[var(--button-shadow)] transition-[opacity,box-shadow] duration-[var(--duration-normal)] ease-[var(--ease-default)] group-hover:shadow-[var(--button-shadow-hover)] group-active:shadow-[0_0_6px_rgba(0,169,189,0.4)]"
+                            style={{ backgroundImage: "var(--button-primary-border-gradient)" }}
+                        />
+                        <button
+                            onClick={onEdit}
+                            className="relative z-10 flex h-12 items-center justify-center overflow-hidden rounded-[var(--radius-full)] px-10 text-[15px] font-bold whitespace-nowrap text-white transition-colors duration-[var(--duration-normal)] ease-[var(--ease-default)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#15B8C9]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#061B22]"
+                            style={{ backgroundImage: "var(--button-secondary-bg)" }}
+                        >
+                            <div
+                                aria-hidden="true"
+                                className="absolute inset-0 -translate-x-[150%] skew-x-[-25deg] bg-gradient-to-r from-transparent via-cyan-300/10 to-transparent transition-transform duration-[var(--duration-emphasis)] ease-[var(--ease-default)] group-hover:translate-x-[150%]"
+                            />
+                            <span className="relative z-20 transition-transform duration-[var(--duration-normal)] ease-[var(--ease-default)] group-hover:scale-[1.02]">
+                                Edit Selection
+                            </span>
+                        </button>
+                    </div>
                 </div>
             )}
             </div>

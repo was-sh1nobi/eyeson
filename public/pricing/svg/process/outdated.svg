@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_23" data-name="Layer 23" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1289.28 860">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#radial-gradient-2);
+      }
+
+      .cls-2 {
+        fill: none;
+        stroke: #08d8f1;
+      }
+
+      .cls-3 {
+        clip-path: url(#clippath);
+      }
+
+      .cls-4 {
+        fill: url(#radial-gradient);
+        opacity: .7;
+      }
+    </style>
+    <clipPath id="clippath">
+      <rect class="cls-2" x="325.43" y="151.73" width="253.54" height="149.34" rx="14.05" ry="14.05"/>
+    </clipPath>
+    <radialGradient id="radial-gradient" cx="454.51" cy="336.4" fx="454.51" fy="336.4" r="195.92" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#05dcf0"/>
+      <stop offset=".34" stop-color="#0599ab" stop-opacity=".65"/>
+      <stop offset=".8" stop-color="#054151" stop-opacity=".19"/>
+      <stop offset="1" stop-color="#051e2e" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient-2" cx="452.2" cy="301.08" fx="452.2" fy="301.08" r="105.63" gradientUnits="userSpaceOnUse">
+      <stop offset=".22" stop-color="#05dcf0"/>
+      <stop offset=".33" stop-color="#05d9ed" stop-opacity=".98"/>
+      <stop offset=".43" stop-color="#05d1e5" stop-opacity=".94"/>
+      <stop offset=".53" stop-color="#06c5d8" stop-opacity=".86"/>
+      <stop offset=".63" stop-color="#07b3c6" stop-opacity=".74"/>
+      <stop offset=".72" stop-color="#099caf" stop-opacity=".6"/>
+      <stop offset=".82" stop-color="#0b7f92" stop-opacity=".42"/>
+      <stop offset=".92" stop-color="#0d5e71" stop-opacity=".21"/>
+      <stop offset="1" stop-color="#103d4f" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <g class="cls-3">
+    <rect class="cls-4" x="242.63" y="155.47" width="395.47" height="191.81"/>
+    <path class="cls-1" d="M302.85,301.08c24.89-1.24,49.78-1.89,74.68-2.33,12.45-.28,24.89-.34,37.34-.5l37.34-.17,37.34.16c12.45.17,24.89.22,37.34.5,24.89.44,49.78,1.09,74.68,2.34-24.89,1.25-49.78,1.9-74.68,2.34-12.45.28-24.89.33-37.34.5l-37.34.16-37.34-.17c-12.45-.16-24.89-.22-37.34-.5-24.89-.44-49.78-1.09-74.68-2.33Z"/>
+  </g>
+  <rect class="cls-2" x="325.43" y="151.73" width="253.54" height="149.34" rx="14.05" ry="14.05"/>
+</svg>

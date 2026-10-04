@@ -69,17 +69,17 @@ export const MoneyCards = () => {
 
 
   return (
-    <section className="relative z-10 w-full px-4 pb-20 sm:px-6 lg:px-8">
-      <div className="mx-auto w-full max-w-6xl">
+    <section className="relative z-10 w-full px-4 pt-10 pb-20 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-6xl min-h-[640px] lg:min-h-[760px] flex flex-col justify-end">
         {/* دسکتاپ: Grid */}
-        <div className="hidden md:grid md:grid-cols-3 gap-6 lg:gap-8">
+        <div className="hidden md:grid md:grid-cols-3 gap-6 lg:gap-8 items-end">
           {orderedPlans.map((plan) => (
             <PlanCard key={plan.name} plan={plan} />
           ))}
         </div>
 
         {/* موبایل: Swiper */}
-        <div className="md:hidden ">
+        <div className="md:hidden mt-auto">
           <Swiper
             modules={[Pagination, A11y]}
             slidesPerView={1}
@@ -113,7 +113,7 @@ export const MoneyCards = () => {
 function PlanCard({ plan, mobile = false }: { plan: Plan; mobile?: boolean }) {
   return (
     <article
-      className={`relative rounded-2xl sm:rounded-3xl border p-6 sm:p-8 shadow-[0_10px_30px_rgba(0,0,0,0.25)] backdrop-blur-sm transition-shadow duration-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.35)] ${
+      className={`relative flex flex-col justify-between rounded-2xl sm:rounded-3xl border p-6 sm:p-8 shadow-[0_10px_30px_rgba(0,0,0,0.25)] backdrop-blur-sm transition-shadow duration-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.35)] ${
         plan.highlighted
           ? "border-[#44B39F] bg-linear-to-b from-[#09232E] via-[#083440] to-[#073E4A] scale-[1.02]"
           : "border-[#1A4648] bg-[#0B1F2A]"
@@ -144,7 +144,7 @@ function PlanCard({ plan, mobile = false }: { plan: Plan; mobile?: boolean }) {
       </div>
 
       {/* ویژگی‌ها */}
-      <ul className="space-y-2.5 sm:space-y-3 mb-8">
+      <ul className="space-y-2.5 sm:space-y-3 mb-8 flex-1">
         {plan.features.map((feature) => (
           <li key={feature} className="flex items-center gap-3 text-lg sm:text-xl text-white leading-tight">
             <span className="inline-flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full border-2 border-[#1CB8B5] text-sm sm:text-base text-[#1CB8B5] font-bold">
@@ -158,7 +158,7 @@ function PlanCard({ plan, mobile = false }: { plan: Plan; mobile?: boolean }) {
       {/* دکمه */}
       <button
         type="button"
-        className={`w-full cursor-pointer rounded-xl sm:rounded-[20px] border py-3 sm:py-2.5 text-base sm:text-lg font-bold text-white transition-[transform,border-color,box-shadow] duration-300 hover:scale-[1.02] ${
+        className={`w-full cursor-pointer rounded-xl sm:rounded-[20px] border py-3 sm:py-2.5 text-base sm:text-lg font-bold text-white transition-[transform,border-color,box-shadow] duration-300 hover:scale-[1.02] mt-auto ${
           plan.highlighted
             ? "border-none bg-linear-to-r from-[#46B6A0] to-[#056E7C] shadow-[0_0_25px_rgba(70,182,160,0.4)] hover:shadow-[0_0_35px_rgba(70,182,160,0.6)]"
             : "border-2 border-[#07505E] bg-linear-to-r from-[#0B1F2A] to-[#093B48] hover:border-[#1CB8B5]"

@@ -44,7 +44,7 @@ export default function ContactUs() {
               height={600}
               loading="lazy"
               decoding="async"
-              className="rounded-2xl sm:rounded-3xl w-100 h-auto drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)] transition-transform duration-500"
+              className=" w-100 h-auto drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)] transition-transform duration-500"
             />
           </div>
         </div>

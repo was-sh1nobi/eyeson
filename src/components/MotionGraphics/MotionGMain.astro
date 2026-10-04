@@ -13,37 +13,52 @@ import QandASection from "@/components/Shared/QandASection.astro";
 import FinalCta from "@/islands/Shared/FinalCta";
 import HomeBackground from "@/components/Home/HomeBackground.astro";
 import VideoWorkShowcaseSection from "@/islands/Shared/VideoWorkShowcaseSection.tsx";
+import {VideoHeader} from "@/islands/Shared/VideoHeader.tsx";
 ---
 
 <div class="relative">
   <HomeBackground />
-  <HeroBasic
-    client:idle
-    BeforeHighlight="Motion Graphics That Make"
-    Highlight="Complex Ideas Feel Simple."
-    Description="We create motion graphics that explain products, simplify messages, and turn brand ideas
-into clear, engaging visual stories built for modern digital platforms."
-    imageUrl="/motion-graphics/hero-motion.webp"
 
-    primaryBtnText="Start a Project"
-    primaryBtnUrl="/contact"
-    secondaryBtnUrl="/pricing"
-    secondaryBtnText="Get Pricing"
-    imageDivClassName="relative lg:!max-w-none lg:w-[140%] lg:-ml-40 lg:mt-0 mt-10 z-0 hidden lg:block"
-    imageWrapperClassName="absolute w-200 h-230 -right-10 top-50"
-    imageClassName="w-170 h-140 object-contain drop-shadow-[0_0_50px_rgba(50,210,199,0.15) xl:scale-[1.5] lg:scale-[1.2] md:hidden relative  lg:right-55 "
-    textContainerClassName="relative z-10 "
-    headingClassName="!text-white text-[24px] md:text-[27px] lg:text-[32px] font-bold tracking-tight leading-[1.1]"
-    highlightClassName="!text-[#2fd0c8] !bg-none font-bold"
-    descriptionClassName="!text-white/60 max-w-lg text-sm md:text-base leading-relaxed "
-    primaryBtnWrapperClassName="hover:scale-105 transition-transform duration-300"
-    primaryBtnClassName="!bg-[#2fd0c8] text-white font-bold !px-10 !py-3.5 shadow-[0_0_30px_rgba(47,208,200,0.5)]"
-    secondaryBtnWrapperClassName="hover:scale-105 transition-transform duration-300"
-    secondaryBtnClassName="!bg-transparent !border-2 !border-[#2fd0c8] !text-white font-bold !px-10 !py-3.5 shadow-[0_0_20px_rgba(47,208,200,0.2)]"
-    showBackground={true}
-    sectionClassName="!mt-0 pt-20 md:pt-4 pb-10 flex items-center justify-center"
-    gridClassName="!min-h-auto"
-  />
+    <VideoHeader
+
+            BeforeHighlight="Motion Graphics That Make"
+            Highlight="Complex Ideas Feel Simple."
+            Description="We create motion graphics that explain products, simplify messages, and turn brand ideas
+into clear, engaging visual stories built for modern digital platforms."
+            imageUrl="/motion-graphics/hero-motion.webp"
+
+
+            primaryBtnText="Start a Project"
+            primaryBtnUrl="/contact"
+            secondaryBtnUrl="/pricing"
+            secondaryBtnText="Get Pricing"
+
+
+            enableImageHover={true}
+
+
+            showBackground={true}
+            backgroundClassName="
+    bg-[linear-gradient(to_bottom,#010e17_0%,#01343a_35%,#34776c_65%,rgba(52,119,108,0.6)_80%,rgba(52,119,108,0.25)_90%,transparent_100%)]
+    "
+
+
+            headingClassName="text-3xl sm:text-3xl lg:text-4xl font-extrabold"
+            highlightClassName="text-[#39d0c3]"
+
+            textContainerClassName="space-y-5"
+
+
+            primaryBtnWrapperClassName="bg-gradient-to-r from-[#0fe0d2] to-[#08717e] p-[2px] rounded-full"
+            primaryBtnClassName="bg-gradient-to-r from-[#00A9BD] to-[#1D553A] text-white px-6 py-3"
+
+            secondaryBtnWrapperClassName="bg-gradient-to-r from-[#08717e] to-[#40ae90] p-[2px] rounded-full"
+            secondaryBtnClassName="bg-gradient-to-r from-[#00061D] to-[#0B1F2A] text-white px-6 py-3"
+
+
+            imageWrapperClassName="rounded-3xl overflow-hidden w-80 md:w-140 !scale-[1.5] right-10 lg:right-0"
+            client:idle
+    />
 
   <WhatMGAre />
   <FeaturesSection

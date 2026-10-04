@@ -305,13 +305,13 @@ export const BlogHero = ({
         <div className="fixed inset-x-0 top-0 z-50 h-1 bg-transparent pointer-events-none" aria-hidden="true">
           <div
               ref={progressBarRef}
-              className="h-full bg-gradient-to-r from-[#45B6A0] to-[#25d9e0] shadow-[0_0_12px_rgba(0,169,189,0.7)] transition-[width] duration-75 ease-out"
+              className="h-full bg-linear-to-r from-[#45B6A0] to-[#25d9e0] shadow-[0_0_12px_rgba(0,169,189,0.7)] transition-[width] duration-75 ease-out"
               style={{ width: "0%" }}
           />
         </div>
 
         {/* ===================== HERO ===================== */}
-        <section className="relative overflow-hidden text-white">
+        <section className="relative overflow-hidden text-white pt-10">
           <div className="relative mx-auto flex w-full max-w-350 flex-col px-6 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-28">
             <div className="grid w-full items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
               <div className="order-2 max-w-2xl lg:order-1">

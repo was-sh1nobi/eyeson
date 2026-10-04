@@ -21,7 +21,7 @@ export default function FinalCta({
   secondaryHref,
 }: FinalCtaProps) {
   return (
-    <section className="relative w-full overflow-hidden px-4 pb-16 pt-10 sm:px-6 lg:px-20 lg:pb-24">
+    <section className="relative w-full overflow-hidden px-4 pb-16  sm:px-6 lg:px-20 lg:pb-24">
       <div className="relative mx-auto max-w-5xl overflow-hidden rounded-3xl border border-[#00A9BD]/40 px-6 py-12 text-center shadow-[0_0_40px_rgba(0,168,182,0.15)] md:px-12 md:py-16 animate-fade-in">
         <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_0%,rgba(17,180,185,0.18),transparent_65%)]" />
         <p className="text-[11px] tracking-[0.2em] text-[#c2d3dc] sm:text-xs">{kicker}</p>

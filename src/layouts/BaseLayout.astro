@@ -111,7 +111,7 @@ const heroImageType = heroImage?.endsWith(".svg")
               renderer += (gl.getParameter(gl.RENDERER) || '') + ' ';
               vendor += (gl.getParameter(gl.VENDOR) || '');
               var info = (renderer + ' ' + vendor).toLowerCase();
-              if (/swiftshader|software|llvmpipe|basic render|software rasterizer|rasterizer|mesa|angle.*software|microsoft basic/i.test(info)) {
+              if (/swiftshader|software|llvmpipe|softpipe|swrast|basic render|software rasterizer|rasterizer|angle.*software|microsoft basic/i.test(info)) {
                 gpuOff = true;
               }
             }

@@ -10,14 +10,51 @@ import AdCreativesSection from "./AdCreativesSection.astro";
 import AdAssetsGrid from "./AdAssetsGrid.astro";
 import LogoCaro from "../Shared/LogoCaro.astro";
 import HighPerformingAds from "../../islands/Adcreatives/HighPerformingAds.tsx";
-import AdCreativesHero from "../../islands/Adcreatives/AdCreativesHero.tsx";
+import { HeroBasic } from "../../islands/Shared/HeroBasic";
 import AdcreativesBackground from "../../islands/Adcreatives/AdcreativesBackground.tsx";
 import HomeBackground from "../Home/HomeBackground.astro";
+import {VideoHeader} from "@/islands/Shared/VideoHeader.tsx";
 ---
 
 <div class="relative flex flex-col gap-3 justify-center items-between">
   <HomeBackground />
-  <AdCreativesHero />
+    <VideoHeader
+
+            BeforeHighlight="Viral Ad Creatives"
+            Highlight="That Turn Attention"
+            AfterHighlight={`Into Action.`}
+            Description="Most ads are ignored in seconds. We design scroll-stopping ad creatives with viral hooks, bold visuals, and platform-specific structure to help your campaigns convert attention into measurable results."
+
+
+            imageUrl="/adcreatives/19-2.webp"
+
+
+            primaryBtnText="See Our Work"
+            primaryBtnUrl="/portfolio"
+            secondaryBtnText="Start a Project"
+            secondaryBtnUrl="/contact"
+            enableImageHover={true}
+            showBackground={true}
+
+            backgroundClassName="bg-[linear-gradient(to_bottom,#010e17_0%,#01343a_35%,#34776c_65%,rgba(52,119,108,0.6)_80%,rgba(52,119,108,0.25)_90%,transparent_100%)]"
+
+
+            headingClassName="text-3xl sm:text-3xl lg:text-4xl font-extrabold"
+            highlightClassName="text-[#39d0c3]"
+
+            textContainerClassName="space-y-5"
+
+
+            primaryBtnWrapperClassName="bg-gradient-to-r from-[#0fe0d2] to-[#08717e] p-[2px] rounded-full"
+            primaryBtnClassName="bg-gradient-to-r from-[#00A9BD] to-[#1D553A] text-white px-6 py-3"
+
+            secondaryBtnWrapperClassName="bg-gradient-to-r from-[#08717e] to-[#40ae90] p-[2px] rounded-full"
+            secondaryBtnClassName="bg-gradient-to-r from-[#00061D] to-[#0B1F2A] text-white px-6 py-3"
+
+
+            imageWrapperClassName="overflow-hidden rounded-3xl w-full !scale-[1.2]"
+            client:idle
+    />
   <AdCreativesSection />
   <FeaturesSection
     title="Excellence in High-Converting"

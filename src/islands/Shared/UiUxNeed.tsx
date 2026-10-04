@@ -98,7 +98,7 @@ export default function UiUxNeed({
           <h2 className="text-3xl font-extrabold text-white md:text-5xl">
             {titleLine1}{" "}
             <span className="text-[#12d4d1]">
-              {titleHighlight} <span className="text-white">Matters</span>
+              {titleHighlight} <span className="text-white"></span>
             </span>
           </h2>
           <p className="mt-5 text-sm leading-7 text-[#c4d5df] md:text-base">
@@ -211,10 +211,7 @@ export default function UiUxNeed({
           })}
         </div>
 
-        <div className="mt-4 flex items-center justify-center gap-2 md:hidden">
-          <PrimaryButton text={primaryButtonLabel} width="auto" />
-          <SecondaryButton text={secondaryButtonLabel} width="auto" />
-        </div>
+
       </div>
     </section>
   );

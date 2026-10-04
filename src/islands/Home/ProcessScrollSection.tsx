@@ -178,13 +178,13 @@ export default function ProcessScrollSection() {
           <div className="space-y-10 sm:space-y-12 lg:space-y-20 lg:pb-24 min-w-0">
             {PROCESS_STEPS.map((step) => (
               <div key={step.id} className="process-step will-change-transform">
-                <div className="relative p-6 sm:p-8 rounded-[var(--radius-xl)] sm:rounded-[var(--radius-xl)] bg-[var(--card-bg)] border border-[var(--card-border)] backdrop-blur-md hover:border-[var(--card-border-hover)] hover:shadow-[var(--card-shadow-hover)] transition-[border-color,box-shadow] duration-[var(--duration-normal)] ease-[var(--ease-default)] group shadow-[var(--elevation-1)]">
+                <div className="relative p-6 sm:p-8 rounded-[var(--radius-xl)] sm:rounded-[var(--radius-xl)] bg-gradient-to-br from-[#0b1f2a] to-[#020915] border border-white/[0.08] backdrop-blur-md hover:border-[#00A9BD]/50 hover:shadow-[0_0_30px_rgba(0,169,189,0.25)] transition-[border-color,box-shadow] duration-[var(--duration-normal)] ease-[var(--ease-default)] group shadow-[var(--elevation-1)]">
                   
-                  <div className="absolute step-bg top-5 right-5 sm:top-8 sm:right-8 text-[10px] sm:text-xs font-bold px-3 py-1 sm:py-1.5 rounded-full border border-[var(--color-border)] bg-white/[0.04] text-white/70">
+                  <div className="absolute top-5 right-5 sm:top-8 sm:right-8 text-[10px] sm:text-xs font-bold px-3 py-1 sm:py-1.5 rounded-full border border-[#00A9BD]/40 bg-[#00A9BD]/10 text-[#7eece4]">
                     {step.step}
                   </div>
 
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-[var(--radius-lg)] di-bg flex items-center justify-center mb-5 sm:mb-6 group-hover:scale-[1.04] transition-transform duration-[var(--duration-normal)] ease-[var(--ease-default)] border border-white/[0.06] bg-white/[0.04]">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-[var(--radius-lg)] flex items-center justify-center mb-5 sm:mb-6 group-hover:scale-[1.04] transition-transform duration-[var(--duration-normal)] ease-[var(--ease-default)] border border-[#00A9BD]/40 bg-[#00A9BD]/15 text-[#00E6D7] shadow-[0_0_16px_rgba(0,169,189,0.35)]">
                     {step.icon}
                   </div>
 

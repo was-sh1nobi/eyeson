@@ -164,12 +164,11 @@ const questions: QAItem[] = questionOverrides.map((override) => {
 });
 ---
 
-<section class="relative overflow-hidden px-4 py-16 text-white sm:px-6 md:px-10 md:py-24">
+<section class="qa-section relative overflow-hidden px-4 py-16 text-white sm:px-6 md:px-10 md:py-24">
   <div class="relative mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-[380px_1fr] lg:gap-12 lg:items-start">
-    
-    {/* ===== بخش هدر و تصویر سمت چپ ===== */}
-    <div class="space-y-6 sm:space-y-8 flex flex-col items-center text-center lg:items-start lg:text-left">
-      <div class="w-full ">
+    {/* ===== Left: Header & Visual ===== */}
+    <div class="flex flex-col items-center text-center lg:items-start lg:text-left space-y-6 sm:space-y-8">
+      <div class="w-full">
         <h2 class="text-3xl font-extrabold leading-tight sm:text-4xl md:text-5xl">
           <span class="block">{title1}</span>
           <span class="block text-[#39d0c3] drop-shadow-[0_0_15px_rgba(57,208,195,0.4)]">{title2}</span>
@@ -179,98 +178,176 @@ const questions: QAItem[] = questionOverrides.map((override) => {
         </p>
       </div>
 
-      {/* تصویر سمت چپ */}
-      <div class="w-full max-w-[600px] sm:max-w-[700px]">
+      <div class="qa-figure w-full max-w-150 sm:max-w-175">
         <SmartImage
-            src={imageSrc}
-            alt={imageAlt}
-            width={1200}
-            height={1200}
-            className="select-none object-contain opacity-95 [filter:drop-shadow(0_20px_40px_rgba(0,0,0,0.5))]"
+          src={imageSrc}
+          alt={imageAlt}
+          width={1200}
+          height={1200}
+          className="select-none object-contain opacity-95 filter-[drop-shadow(0_20px_40px_rgba(0,0,0,0.5))]"
         />
       </div>
     </div>
 
-    {/* ===== بخش آکوردیون (سوالات) ===== */}
+    {/* ===== Right: Structured Accordion Items ===== */}
     <div class="w-full">
-      <div class="space-y-3 sm:space-y-4" data-qa-root>
-        {questions.map((item, index) => (
+      <div class="space-y-3 sm:space-y-3.5" data-qa-root>
+        {questions.map((item, index) => {
+          const paragraphs = item.a
+            .split(/\n\s*\n/)
+            .map((p) => p.replace(/\s+/g, " ").trim())
+            .filter(Boolean);
+
+          return (
             <div
-                class={`qa-item group relative overflow-hidden rounded-xl sm:rounded-2xl border border-white/5 bg-linear-to-br from-[#082A33] to-[#052128] shadow-lg shadow-black/25 hover:border-cyan-400/25${index === 0 ? " is-open" : ""}`}
-                data-qa-index={index}
+              class={`qa-item group relative rounded-xl sm:rounded-2xl border border-white/[0.08] bg-[#06242b]${index === 0 ? " is-open" : ""}`}
+              data-qa-index={index}
             >
-              <span class="qa-accent" aria-hidden="true"></span>
-
               <button
-                  type="button"
-                  class="qa-trigger relative z-10 flex w-full cursor-pointer items-center gap-3 sm:gap-4 px-4 py-4 sm:px-5 md:px-6 md:py-5 text-left outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400/60"
-                  aria-expanded={index === 0 ? "true" : "false"}
-                  aria-controls={`qa-panel-${index}`}
+                type="button"
+                class="qa-trigger relative z-10 flex w-full cursor-pointer items-center justify-between gap-3 p-4 text-left outline-none sm:gap-4 sm:p-5 md:px-6 md:py-4.5"
+                aria-expanded={index === 0 ? "true" : "false"}
+                aria-controls={`qa-panel-${item.id}`}
+                id={`qa-trigger-${item.id}`}
               >
-                <span class="qa-question flex-1 pr-2 text-[15px] font-semibold leading-relaxed text-white/90 transition-colors duration-200 group-hover:text-white sm:text-base md:text-lg">
-                  <span class="qa-num mr-2 inline-block shrink-0 bg-linear-to-br from-[#39d0c3] to-[#31d1a6] bg-clip-text font-heading font-extrabold text-transparent">{String(item.id).padStart(2, "0")}</span>
-                  {item.q}
-                </span>
+                <div class="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
+                  <span class="qa-badge flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-xs font-mono font-bold tracking-wider text-white/50">
+                    {String(item.id).padStart(2, "0")}
+                  </span>
 
-                <span class="qa-icon-wrap mt-0.5 inline-flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-full border border-cyan-400/20 bg-cyan-400/5 text-[#39d0c3] transition-[border-color,background-color] duration-200 group-hover:border-cyan-400/40 group-hover:bg-cyan-400/10" aria-hidden="true">
-                  <svg class="qa-icon" width="15" height="15" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+                  <h3 class="qa-question text-[15px] sm:text-base md:text-lg font-semibold leading-snug text-white/90">
+                    {item.q}
+                  </h3>
+                </div>
+
+                <span
+                  class="qa-icon-wrap flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/3 text-white/60"
+                  aria-hidden="true"
+                >
+                  <svg class="qa-icon h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 5v14M5 12h14" />
                   </svg>
                 </span>
               </button>
 
               <div
-                  id={`qa-panel-${index}`}
-                  class={`qa-panel relative z-10 px-4 sm:px-5 md:px-6 ${index === 0 ? "is-open" : "is-collapsed"}`}
-                  role="region"
-                  aria-label={item.q}
+                id={`qa-panel-${item.id}`}
+                class={`qa-panel relative z-10${index === 0 ? " is-open" : ""}`}
+                role="region"
+                aria-labelledby={`qa-trigger-${item.id}`}
               >
-                <div class="qa-panel-inner">
-                  <div class="qa-divider" aria-hidden="true"></div>
+                <div class="qa-panel-inner px-4 pb-4 sm:px-5 sm:pb-5 md:px-6 md:pb-5.5">
+                  <div class="rounded-xl border border-white/[0.06] bg-[#03181f]/80 p-4 sm:p-5">
+                    <div class="mb-2.5 flex items-center gap-2">
+                      <span class="inline-flex items-center gap-1.5 rounded-full border border-[#39d0c3]/25 bg-[#39d0c3]/10 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-[#39d0c3]">
+                        <span class="h-1.5 w-1.5 rounded-full bg-[#39d0c3]"></span>
+                        Answer
+                      </span>
+                    </div>
 
-                  <div class="flex items-start gap-3 pb-6 pt-1 sm:gap-4">
-                    <span class="qa-mark" aria-hidden="true">A</span>
-                    <p class="qa-answer-text max-w-4xl pt-0.5 text-[14px] font-light leading-relaxed text-white/70 sm:text-[15px] sm:leading-7">
-                      {item.a}
-                    </p>
+                    <div class="space-y-2.5">
+                      {paragraphs.map((p) => (
+                        <p class="qa-answer text-[14px] sm:text-[15px] font-normal leading-relaxed text-white/75">
+                          {p}
+                        </p>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  /* ================= انیمیشن‌های اسکرول ================= */
-  /* Hidden state only when JS is active — no-JS / no-observer stays visible */
-  html.js .reveal-on-scroll {
-    opacity: 0;
+  .qa-section {
+    contain: paint;
+    isolation: isolate;
   }
 
-  
-
-  
-
-  .reveal-on-scroll.is-visible {
-    opacity: 1;
-    transform: translate(0);
+  /* ================= Container Containment & Transitions ================= */
+  .qa-item {
+    contain: layout paint;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    transition: border-color 180ms ease, background-color 180ms ease;
   }
 
-  .delay-100 { transition-delay: 0.15s; }
+  .qa-item:hover {
+    border-color: rgba(57, 208, 195, 0.28);
+  }
 
-  /* ================= منطق آکوردیون (CSS Grid Trick) ================= */
-  /* Cheap open animation: only grid-rows + opacity (no transform/layout thrash).
-     Reduced-motion users get instant toggle via media query below. */
+  .qa-item.is-open {
+    border-color: rgba(57, 208, 195, 0.4);
+    background-color: rgba(8, 41, 50, 0.9);
+  }
+
+  /* ================= Question & Elements ================= */
+  .qa-question {
+    transition: color 180ms ease;
+  }
+
+  .qa-item:hover .qa-question,
+  .qa-item.is-open .qa-question {
+    color: #ffffff;
+  }
+
+  .qa-badge {
+    transition: border-color 180ms ease, background-color 180ms ease, color 180ms ease;
+  }
+
+  .qa-item:hover .qa-badge {
+    border-color: rgba(57, 208, 195, 0.3);
+    color: #39d0c3;
+  }
+
+  .qa-item.is-open .qa-badge {
+    border-color: rgba(57, 208, 195, 0.45);
+    background-color: rgba(57, 208, 195, 0.15);
+    color: #39d0c3;
+  }
+
+  .qa-icon-wrap {
+    transition: border-color 180ms ease, background-color 180ms ease, color 180ms ease;
+  }
+
+  .qa-item:hover .qa-icon-wrap {
+    border-color: rgba(57, 208, 195, 0.35);
+    background-color: rgba(57, 208, 195, 0.1);
+    color: #39d0c3;
+  }
+
+  .qa-item.is-open .qa-icon-wrap {
+    border-color: rgba(57, 208, 195, 0.45);
+    background-color: rgba(57, 208, 195, 0.15);
+    color: #39d0c3;
+  }
+
+  .qa-icon {
+    transition: transform 200ms ease;
+    transform: rotate(0deg);
+  }
+
+  .qa-item.is-open .qa-icon {
+    transform: rotate(45deg);
+  }
+
+  .qa-figure {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  /* ================= Smooth CSS Grid Height Animation ================= */
   .qa-panel {
     display: grid;
     grid-template-rows: 0fr;
     opacity: 0;
-    transition:
-        grid-template-rows 280ms cubic-bezier(0.4, 0, 0.2, 1),
-        opacity 200ms ease;
+    transition: grid-template-rows 200ms cubic-bezier(0.4, 0, 0.2, 1), opacity 160ms ease;
+    will-change: grid-template-rows, opacity;
   }
 
   .qa-panel.is-open {
@@ -278,168 +355,31 @@ const questions: QAItem[] = questionOverrides.map((override) => {
     opacity: 1;
   }
 
-  .qa-panel > div {
+  .qa-panel-inner {
+    min-height: 0;
     overflow: hidden;
-  }
-
-  /* ================= ترنزیشن نرم کارت ================= */
-  /* NOTE: no permanent will-change here — it forces a GPU layer per card
-     (15 layers) and makes mobile open/close laggy.
-     NOTE 2: box-shadow is intentionally NOT transitioned — animating shadows
-     repaints the whole card every frame. It swaps instantly instead. */
-  .qa-item {
-    transition: border-color 200ms ease;
-    /* Scope text reflow during open/close to the card itself so the browser
-       doesn't recalc layout for siblings on every animation frame. */
-    contain: layout style;
-  }
-
-  /* ================= حاشیه گرادیانی ================= */
-  .qa-item::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(135deg, rgba(57, 208, 195, 0.6), rgba(49, 209, 166, 0.08) 65%);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask-composite: exclude;
-    opacity: 0;
-    transition: opacity 350ms ease;
-    pointer-events: none;
-  }
-
-  .qa-item:hover::before,
-  .qa-item.is-open::before {
-    opacity: 1;
-  }
-
-  /* ================= نوار آکشن سمت چپ ================= */
-  .qa-accent {
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    z-index: 1;
-    width: 3px;
-    border-radius: 9999px;
-    background: linear-gradient(to bottom, #39d0c3, #31d1a6);
-    box-shadow: 0 0 12px rgba(57, 208, 195, 0.55);
-    transform: scaleY(0);
-    transform-origin: top;
-    transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .qa-item.is-open .qa-accent {
-    transform: scaleY(1);
-  }
-
-  /* ================= پس‌زمینه حالت باز ================= */
-  .qa-item::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, #0B333C 0%, #06242B 100%);
-    opacity: 0;
-    transition: opacity 350ms ease;
-    pointer-events: none;
-  }
-
-  .qa-item.is-open::after {
-    opacity: 1;
-  }
-
-  .qa-item.is-open {
-    border-color: rgba(57, 208, 195, 0.35);
-    box-shadow: 0 20px 45px -20px rgba(0, 0, 0, 0.6), 0 0 24px rgba(57, 208, 195, 0.08);
-  }
-
-  .qa-item.is-open .qa-question {
-    color: #fff;
-  }
-
-  /* ================= آیکون پلاس (چرخش ۴۵ درجه = ضربدر) ================= */
-  .qa-icon {
-    transform: rotate(0deg);
-    transition: transform 200ms ease-out;
-  }
-
-  .qa-item.is-open .qa-icon {
-    transform: rotate(45deg);
-  }
-
-  .qa-item.is-open .qa-icon-wrap {
-    background: rgba(57, 208, 195, 0.15);
-    border-color: rgba(57, 208, 195, 0.45);
-    box-shadow: 0 0 18px rgba(57, 208, 195, 0.25);
-  }
-
-  /* ================= استایل پاسخ ================= */
-  .qa-divider {
-    height: 1px;
-    width: 100%;
-    background: linear-gradient(to right, rgba(57, 208, 195, 0.35), rgba(57, 208, 195, 0.06) 55%, transparent);
-  }
-
-  .qa-mark {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    width: 1.75rem;
-    height: 1.75rem;
-    border-radius: 9999px;
-    background: linear-gradient(135deg, #39d0c3, #31d1a6);
-    color: #03242b;
-    font-size: 11px;
-    font-weight: 800;
-    box-shadow: 0 0 14px rgba(57, 208, 195, 0.35);
   }
 
   .qa-trigger {
     -webkit-tap-highlight-color: transparent;
   }
 
-  /* ================= موبایل: حذف لایه‌های گرافیکی سنگین ================= */
-  /* On touch devices the open/close animation runs ONLY grid-rows + opacity.
-     - ::before (masked gradient border) is the most expensive layer on mobile
-       GPUs: mask-composite re-rasterizes every frame while it fades. The open
-       state is still signaled by border-color + accent bar.
-     - ::after background swaps instantly instead of fading (one repaint).
-     - Shorter panel duration = fewer frames of text reflow.
-     - Smaller open shadow = cheaper paint. */
-  @media (pointer: coarse) {
-    .qa-item::before {
-      display: none;
-    }
-    .qa-item::after {
-      transition: none;
-    }
-    .qa-panel {
-      transition:
-          grid-template-rows 200ms ease-out,
-          opacity 150ms ease;
-    }
-    .qa-accent {
-      transition-duration: 250ms;
-    }
-    .qa-item.is-open {
-      box-shadow: 0 10px 24px -18px rgba(0, 0, 0, 0.6);
-    }
-    .qa-item.is-open .qa-icon-wrap {
-      box-shadow: none;
+  /* ================= Mobile & Reduced Motion: Zero Reflow Loop ================= */
+  /* On mobile touch devices, continuous height transitions force full-page
+     layout invalidation and repaint loops of SVG filters/background orbs below.
+     Instant toggle eliminates multi-frame repaint thrash completely. */
+  @media (max-width: 768px), (pointer: coarse) {
+    .qa-figure img {
+      filter: none !important;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .qa-panel,
     .qa-item,
-    .qa-item::before,
-    .qa-item::after,
-    .qa-accent,
+    .qa-badge,
+    .qa-question,
+    .qa-icon-wrap,
     .qa-icon {
       transition: none !important;
     }
@@ -448,27 +388,6 @@ const questions: QAItem[] = questionOverrides.map((override) => {
 
 <script is:inline>
   function initQA() {
-    // 1. منطق انیمیشن اسکرول
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const gpuOff = document.documentElement.classList.contains('gpu-off') || window.__GPU_OFF__;
-    const revealElements = document.querySelectorAll('.reveal-on-scroll');
-
-    if (prefersReducedMotion || gpuOff || typeof IntersectionObserver === 'undefined') {
-      revealElements.forEach(el => el.classList.add('is-visible'));
-    } else {
-      const observer = new IntersectionObserver((entries, obs) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            obs.unobserve(entry.target);
-          }
-        });
-      }, { root: null, rootMargin: '0px 0px -50px 0px', threshold: 0.1 });
-
-      revealElements.forEach(el => observer.observe(el));
-    }
-
-    // 2. منطق آکوردیون — event delegation, فقط ۲ آیتم در هر کلیک
     const roots = document.querySelectorAll("[data-qa-root]");
     roots.forEach((root) => {
       if (root.__qaInit) return;
@@ -476,35 +395,39 @@ const questions: QAItem[] = questionOverrides.map((override) => {
 
       let openItem = root.querySelector(".qa-item.is-open") || null;
 
-      const setState = (item, open) => {
+      function setItemState(item, open) {
         const trigger = item.querySelector(".qa-trigger");
         const panel = item.querySelector(".qa-panel");
         if (!trigger || !panel) return;
+
         item.classList.toggle("is-open", open);
         trigger.setAttribute("aria-expanded", open ? "true" : "false");
         panel.classList.toggle("is-open", open);
-        panel.classList.toggle("is-collapsed", !open);
-      };
+      }
 
       root.addEventListener("click", (e) => {
         const trigger = e.target.closest(".qa-trigger");
         if (!trigger || !root.contains(trigger)) return;
+
         const item = trigger.closest(".qa-item");
         if (!item) return;
 
         if (item === openItem) {
-          setState(item, false);
+          setItemState(item, false);
           openItem = null;
           return;
         }
-        if (openItem) setState(openItem, false);
-        setState(item, true);
+
+        if (openItem) {
+          setItemState(openItem, false);
+        }
+
+        setItemState(item, true);
         openItem = item;
       });
     });
   }
 
-  // اجرا در لود اولیه و جابجایی بین صفحات در Astro
   document.addEventListener("DOMContentLoaded", initQA);
   document.addEventListener("astro:page-load", initQA);
 </script>

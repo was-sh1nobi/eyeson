@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { ShortForm } from "./ShortForm";
 import { SummaryPanel } from "./SummaryPanel";
 import { PackageCards } from "./PackageCards";
@@ -20,7 +21,6 @@ const options = [
 export const PricingHero = () => {
   const [selected, SetSelected] = useState<string>(options[0].name);
   const [menuOpen, setMenuOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
   const [estimatedSummary, setEstimatedSummary] = useState<{
     packageName: string
     lines: { title: string; value: string; price: number }[]
@@ -49,21 +49,19 @@ export const PricingHero = () => {
     setMenuOpen(false);
   };
 
-  // Close the mobile menu on outside tap / Escape.
+  // Modal behavior: lock body scroll + close on Escape.
+  // The option list is only mounted while the modal is open,
+  // so mobile doesn't pay for hidden submenu DOM / layout.
   useEffect(() => {
     if (!menuOpen) return;
-    const onPointerDown = (e: PointerEvent) => {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-        setMenuOpen(false);
-      }
-    };
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") setMenuOpen(false);
     };
-    document.addEventListener("pointerdown", onPointerDown);
     document.addEventListener("keydown", onKeyDown);
     return () => {
-      document.removeEventListener("pointerdown", onPointerDown);
+      document.body.style.overflow = prevOverflow;
       document.removeEventListener("keydown", onKeyDown);
     };
   }, [menuOpen]);
@@ -72,17 +70,24 @@ export const PricingHero = () => {
     <>
       <div
         className="pricing-hero-bg relative w-full min-h-dvh flex items-center justify-center flex-col gap-10 sm:gap-20 overflow-x-hidden pb-20 pt-40"
-        style={{
-          backgroundImage: "url('/aboutus.webp')",
-          backgroundSize: "contain",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          WebkitMaskImage:
-            "linear-gradient(180deg, transparent 0%, black 20%, black 80%, transparent 100%)",
-          maskImage:
-            "linear-gradient(180deg, transparent 0%, black 20%, black 80%, transparent 100%)",
-        }}
       >
+        {/* Background image on its own layer: the edge-fade mask must live here,
+            NOT on the content container — a mask on the parent fades the form,
+            summary and buttons sitting in the top/bottom 20% too. */}
+        <div
+          aria-hidden="true"
+          className="pricing-hero-bg-image pointer-events-none absolute inset-0"
+          style={{
+            backgroundImage: "url('/aboutus.webp')",
+            backgroundSize: "contain",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            WebkitMaskImage:
+              "linear-gradient(180deg, transparent 0%, black 20%, black 80%, transparent 100%)",
+            maskImage:
+              "linear-gradient(180deg, transparent 0%, black 20%, black 80%, transparent 100%)",
+          }}
+        />
 
         {/* پس‌زمینه محو */}
         <div className="absolute bg-[#003641] w-[372px] h-[262px] top-[97px] -left-[147px] blur-[300px] pointer-events-none z-[-1]" />
@@ -102,11 +107,11 @@ export const PricingHero = () => {
               From social content and motion graphics to branding, animation, and product videos, <br/>
               choose the solution that fits your goals, timeline, and budget.
             </span>
-            <span className="font-bold relative top-10 text-md sm:text-xl  text-white/90 sm:text-white mt-2 block sm:mt-0 sm:inline">
+            <span className="font-bold hidden md:block relative top-10 text-md sm:text-xl  text-white/90 sm:text-white mt-2  sm:mt-0 sm:inline">
               The pricing shown below is intended as a general estimate and starting point. <br/> Final
 pricing may vary depending on project scope, complexity, timeline, and specific
 requirements. <br/>
-              <span className="font-light text-md sm:text-xl  text-white/90 sm:text-white mt-2 block sm:mt-0 sm:inline">
+              <span className="font-light hidden md:block text-md sm:text-xl  text-white/90 sm:text-white mt-2  sm:mt-0 sm:inline">
               For a tailored quote and project consultation, we recommend booking a call with our team. <br/>
 We also offer special pricing and discounts for first-time clients on selected services.
             </span>
@@ -116,21 +121,17 @@ We also offer special pricing and discounts for first-time clients on selected s
 
 
 
-          {/* ===== Service selector: structured dropdown on mobile, pill list on desktop ===== */}
-          <div ref={menuRef} className="w-full px-4 sm:px-6 md:hidden">
+          {/* ===== Service selector: modal trigger on mobile, pill list on desktop ===== */}
+          <div className="w-full px-4 sm:px-6 md:hidden">
             <p className="mb-2 px-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/40">
               Select a service
             </p>
             <button
               type="button"
-              aria-haspopup="listbox"
+              aria-haspopup="dialog"
               aria-expanded={menuOpen}
-              onClick={() => setMenuOpen((o) => !o)}
-              className={`flex w-full items-center justify-between gap-3 rounded-2xl border px-5 py-4 text-left transition-colors ${
-                menuOpen
-                  ? "border-[#00A9BD] bg-linear-to-r from-[#065A69] via-[#093A47] to-[#0B1F2A] shadow-[0_0_15px_rgba(0,169,189,0.3)]"
-                  : "border-[#00A9BD3D] bg-[#0B1F2A] hover:border-[#00A9BD80]"
-              }`}
+              onClick={() => setMenuOpen(true)}
+              className="flex w-full items-center justify-between gap-3 rounded-2xl border border-[#00A9BD3D] bg-[#0B1F2A] px-5 py-4 text-left hover:border-[#00A9BD80]"
             >
               <span className="min-w-0 flex-1 truncate text-[15px] font-bold text-white">
                 {options.find((o) => o.name === selected)?.label ?? selected}
@@ -141,59 +142,86 @@ We also offer special pricing and discounts for first-time clients on selected s
                 viewBox="0 0 24 24"
                 fill="none"
                 aria-hidden="true"
-                className={`shrink-0 text-[#2bd6de] transition-transform duration-300 ${menuOpen ? "rotate-180" : ""}`}
+                className="shrink-0 text-[#2bd6de]"
               >
                 <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </button>
+          </div>
 
-            <div
-              className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out ${
-                menuOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-              }`}
-            >
-              <div className="overflow-hidden">
-                <ul
-                  role="listbox"
-                  aria-label="Services"
-                  className="mt-2 space-y-1 rounded-2xl border border-[#00A9BD3D] bg-[#071e2b] p-2"
-                >
-                  {options.map((option) => {
-                    const isActive = option.name === selected;
-                    return (
-                      <li key={option.id}>
-                        <button
-                          type="button"
-                          role="option"
-                          aria-selected={isActive}
-                          onClick={() => handleTabChange(option.name)}
-                          className={`flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold transition-colors ${
-                            isActive
-                              ? "bg-linear-to-r from-[#065A69] via-[#093A47] to-[#0B1F2A] text-white shadow-[0_0_15px_rgba(0,169,189,0.25)]"
-                              : "text-white/70 hover:bg-white/[0.05] hover:text-white active:bg-white/[0.08]"
-                          }`}
-                        >
-                          <span
-                            className={`w-7 shrink-0 text-xs font-extrabold tabular-nums ${
-                              isActive ? "text-[#2bd6de]" : "text-white/30"
+          {menuOpen &&
+            typeof document !== "undefined" &&
+            createPortal(
+              <div className="fixed inset-0 z-[100] md:hidden" role="dialog" aria-modal="true" aria-label="Select a service">
+                {/* Backdrop — plain color only (no backdrop-blur: expensive on mobile GPUs) */}
+                <button
+                  type="button"
+                  aria-label="Close service selector"
+                  onClick={() => setMenuOpen(false)}
+                  className="pricing-service-backdrop absolute inset-0 cursor-default bg-black/70"
+                />
+                {/* Bottom sheet — transform/opacity animation only (compositor thread) */}
+                <div className="pricing-service-sheet absolute inset-x-0 bottom-0 flex max-h-[82dvh] flex-col overflow-hidden rounded-t-3xl border-t border-x border-[#00A9BD3D] bg-[#071e2b]">
+                  <div className="mx-auto mt-2.5 h-1 w-10 shrink-0 rounded-full bg-white/20" />
+                  <div className="flex shrink-0 items-center justify-between gap-3 px-5 pt-3 pb-2">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/40">
+                      Select a service
+                    </p>
+                    <button
+                      type="button"
+                      autoFocus
+                      onClick={() => setMenuOpen(false)}
+                      aria-label="Close"
+                      className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/70 hover:text-white active:bg-white/10"
+                    >
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+                      </svg>
+                    </button>
+                  </div>
+                  <ul
+                    role="listbox"
+                    aria-label="Services"
+                    className="min-h-0 flex-1 space-y-1 overflow-y-auto overscroll-contain p-2 pt-1 pb-[max(0.75rem,env(safe-area-inset-bottom))]"
+                    style={{ WebkitOverflowScrolling: "touch" }}
+                  >
+                    {options.map((option) => {
+                      const isActive = option.name === selected;
+                      return (
+                        <li key={option.id}>
+                          <button
+                            type="button"
+                            role="option"
+                            aria-selected={isActive}
+                            onClick={() => handleTabChange(option.name)}
+                            className={`flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold ${
+                              isActive
+                                ? "bg-linear-to-r from-[#065A69] via-[#093A47] to-[#0B1F2A] text-white"
+                                : "text-white/70 hover:bg-white/[0.05] hover:text-white active:bg-white/[0.08]"
                             }`}
                           >
-                            {String(option.id).padStart(2, "0")}
-                          </span>
-                          <span className="min-w-0 flex-1 leading-snug">{option.label}</span>
-                          {isActive && (
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="shrink-0 text-[#2bd6de]">
-                              <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                          )}
-                        </button>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            </div>
-          </div>
+                            <span
+                              className={`w-7 shrink-0 text-xs font-extrabold tabular-nums ${
+                                isActive ? "text-[#2bd6de]" : "text-white/30"
+                              }`}
+                            >
+                              {String(option.id).padStart(2, "0")}
+                            </span>
+                            <span className="min-w-0 flex-1 leading-snug">{option.label}</span>
+                            {isActive && (
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="shrink-0 text-[#2bd6de]">
+                                <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+                              </svg>
+                            )}
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              </div>,
+              document.body
+            )}
 
           <div className="hidden w-full px-4 sm:px-6 md:block">
             <div className="flex flex-wrap justify-center gap-3 py-2">
@@ -484,14 +512,24 @@ We also offer special pricing and discounts for first-time clients on selected s
         </div>
       </div>
 
-      {/* استایل برای موبایل */}
+      {/* استایل برای موبایل + انیمیشن سبک مودال (فقط transform/opacity) */}
       <style dangerouslySetInnerHTML={{ __html: `
         @media (max-width: 767px) {
-          .pricing-hero-bg {
-            background-image: none !important;
-            -webkit-mask-image: none;
-            mask-image: none;
+          .pricing-hero-bg-image {
+            display: none;
           }
+        }
+        @keyframes pricing-service-fade {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes pricing-service-sheet-up {
+          from { opacity: 0; transform: translateY(24px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @media (prefers-reduced-motion: no-preference) {
+          .pricing-service-backdrop { animation: pricing-service-fade 160ms ease-out; }
+          .pricing-service-sheet { animation: pricing-service-sheet-up 200ms ease-out; will-change: transform; }
         }
       `}} />
     </>

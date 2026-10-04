@@ -61,7 +61,7 @@ export default function ApproachTimelineSection({
 
                 {/* Card SVG */}
                 <div
-                  className="min-w-0 flex-1 overflow-hidden rounded-2xl opacity-95 hover:opacity-100 transition-opacity"
+                  className="min-w-0 flex-1 overflow-hidden  opacity-95 hover:opacity-100 transition-opacity"
                 >
                   <img
                     src={desktopSrc(step)}

@@ -2,7 +2,7 @@ import { SmartImage } from "../../utils/SmartImage.tsx";
 
 export const AssetsGallerySection = () => {
   const card =
-    "bg-[#0A1A24] border border-[#14313B] rounded-[24px] overflow-hidden shadow-lg transition-colors duration-200 hover:border-[#42D1D1]/40";
+    "bg-[#071c2e]/80 backdrop-blur-md border border-[#13a8b8]/30 rounded-[24px] overflow-hidden shadow-lg transition-colors duration-200 hover:border-[#42D1D1]/60";
 
   return (
     <section className="w-full py-12 px-4 sm:py-16 md:px-8 lg:py-20 lg:px-16 font-sans">
@@ -34,7 +34,7 @@ export const AssetsGallerySection = () => {
           <p className="text-gray-400 text-xs leading-relaxed font-light mb-4 sm:text-sm sm:mb-5">
             Distinctive logos designed to be memorable, scalable, and instantly recognizable.
           </p>
-          <div className="relative flex-1 min-h-45 sm:min-h-55 rounded-2xl overflow-hidden bg-[#060F18]">
+          <div className="relative flex-1 min-h-45 sm:min-h-55 rounded-2xl overflow-hidden bg-[#051320]">
             <SmartImage
               src="/Branding/topleft.webp"
               alt="Logo design examples"
@@ -56,7 +56,7 @@ export const AssetsGallerySection = () => {
               Strategic color palettes that strengthen recognition and create visual consistency.
             </p>
           </div>
-          <div className="relative w-20 h-20 shrink-0 rounded-xl overflow-hidden bg-[#060F18] sm:w-24 sm:h-24 lg:w-28 lg:h-28">
+          <div className="relative w-20 h-20 shrink-0 rounded-xl overflow-hidden bg-[#051320] sm:w-24 sm:h-24 lg:w-28 lg:h-28">
             <SmartImage
               src="/Branding/topright1.webp"
               alt="Brand color system"
@@ -70,7 +70,7 @@ export const AssetsGallerySection = () => {
         <div
           className={`${card} lg:col-start-8 lg:col-span-5 lg:row-start-2 flex flex-row items-center gap-3 p-5 sm:gap-4 sm:p-6`}
         >
-          <div className="relative w-20 h-20 shrink-0 rounded-xl overflow-hidden bg-[#060F18] sm:w-24 sm:h-24 lg:w-28 lg:h-28">
+          <div className="relative w-20 h-20 shrink-0 rounded-xl overflow-hidden bg-[#051320] sm:w-24 sm:h-24 lg:w-28 lg:h-28">
             <SmartImage
               src="/Branding/topright2.webp"
               alt="Typography system"
@@ -92,7 +92,7 @@ export const AssetsGallerySection = () => {
         <div
           className={`${card} lg:col-start-1 lg:col-span-3 lg:row-start-3 flex flex-col p-4 sm:p-5`}
         >
-          <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-[#060F18] mb-3 sm:mb-4">
+          <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-[#051320] mb-3 sm:mb-4">
             <SmartImage
               src="/Branding/bottomright1.webp"
               alt="Brand patterns"
@@ -112,7 +112,7 @@ export const AssetsGallerySection = () => {
         <div
           className={`${card} lg:col-start-4 lg:col-span-4 lg:row-start-3 flex flex-col p-4 sm:p-5`}
         >
-          <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-[#060F18] mb-3 sm:mb-4">
+          <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-[#051320] mb-3 sm:mb-4">
             <SmartImage
               src="/Branding/bottomright2.webp"
               alt="Brand guidelines"
@@ -139,7 +139,7 @@ export const AssetsGallerySection = () => {
           <p className="text-gray-400 text-xs leading-relaxed font-light mb-4 sm:text-sm sm:mb-5">
             Branded templates and visual assets designed for consistent content creation.
           </p>
-          <div className="relative flex-1 min-h-50 sm:min-h-60 lg:min-h-0 rounded-2xl overflow-hidden bg-[#060F18]">
+          <div className="relative flex-1 min-h-50 sm:min-h-60 lg:min-h-0 rounded-2xl overflow-hidden bg-[#051320]">
             <SmartImage
               src="/Branding/bottomright.webp"
               alt="Branded intro slides showcase"
@@ -153,7 +153,7 @@ export const AssetsGallerySection = () => {
         <div
           className={`${card} md:col-span-2 lg:col-start-1 lg:col-span-7 lg:row-start-4 flex flex-col md:flex-row items-center gap-4 p-5 sm:gap-6 sm:p-6`}
         >
-          <div className="relative w-full md:w-[42%] aspect-video rounded-xl overflow-hidden bg-[#060F18] shrink-0">
+          <div className="relative w-full md:w-[42%] aspect-video rounded-xl overflow-hidden bg-[#051320] shrink-0">
             <SmartImage
               src="/Branding/bottom.webp"
               alt="Branded GIFs showcase"

@@ -7,17 +7,68 @@ import SaasEditingSection from "../islands/saas/SaasEditingSection";
 import CostSaas from "./Shared/CostSaas.astro";
 import {SaasNeedsBlock} from "../islands/saas/SaasNeedsBlock.tsx";
 import SaasServicesVideoStyle from "../islands/saas/SaasServicesVideoStyle";
-import SaasUseCasesSection from "../islands/saas/SaasUseCasesSection";
 import CaseStudiesSection from "../islands/CaseStudiesSection";
-import SaasTransformationSection from "../islands/saas/SaasTransformationSection";
-import SaasProcessSection from "../islands/saas/SaasProcessSection";
-import SaasProductStorySection from "../islands/saas/SaasProductStorySection";
+import ApproachTimelineSection from "../islands/Video/ApproachTimelineSection";
+import VideoWorkShowcaseSection from "../islands/Shared/VideoWorkShowcaseSection";
 import SaasPackagesSection from "../islands/saas/SaasPackagesSection";
 import SaasWhatsIncludedSection from "../islands/saas/SaasWhatsIncludedSection";
-import FinalCta from "../islands/Shared/FinalCta";
-import SaasFaqSection from "../islands/saas/SaasFaqSection";
+import QandASection from "./Shared/QandASection.astro";
 import HomeBackground from "./Home/HomeBackground.astro";
+import SaasBackground from "./Saas/SaasBackground.astro";
 import { VideoHeader } from "../islands/Shared/VideoHeader";
+
+const qas = [
+  {
+    id: 1,
+    q: "What is the difference between a SaaS trailer and a product explainer?",
+    a: "A SaaS trailer is usually shorter, faster, and more cinematic. Its main goal is to create excitement, communicate the core value quickly, and make the product feel premium. A product explainer goes deeper into the problem, solution, features, workflow, and benefits, giving viewers a clearer understanding of how the software works.",
+  },
+  {
+    id: 2,
+    q: "How long should my SaaS video be?",
+    a: "It depends on the goal. Most SaaS trailers work best between 30–60 seconds, while product explainers are typically around 60–90 seconds. Product demos or more detailed walkthroughs can be longer when the product requires additional explanation. We help determine the right length based on your audience, platform, and message.",
+  },
+  {
+    id: 3,
+    q: "Do you help with the script and concept?",
+    a: "Yes. We can handle the entire creative process from the initial concept to the final video. We study your product, audience, positioning, features, and goals before developing the core idea, structure, messaging, script, and visual direction.",
+  },
+  {
+    id: 4,
+    q: "What do you need from us to get started?",
+    a: "Usually, we need access to your website or product, brand guidelines if available, logo files, UI designs or screenshots, key features, target audience, and any visual references you like. If you do not have everything prepared, we can still guide the project and identify exactly what is needed during the discovery stage.",
+  },
+  {
+    id: 5,
+    q: "Can you animate our actual product UI?",
+    a: "Yes. UI animation is one of the core parts of our SaaS video production. We can animate dashboards, mobile apps, websites, product screens, workflows, interactions, charts, notifications, menus, and other interface elements to make the product feel smooth, intuitive, and premium.",
+  },
+  {
+    id: 6,
+    q: "Can you create the video if our product is not fully launched yet?",
+    a: "Yes. We can work with Figma designs, prototypes, screenshots, mockups, early product builds, and design files to create a polished product video before the final software is publicly available. This is especially useful for launches, fundraising, waitlists, and pre-release campaigns.",
+  },
+  {
+    id: 7,
+    q: "Do you provide voiceover and sound design?",
+    a: "Yes. Depending on the project, we can include professional AI or human voiceover, sound effects, music, transitions, and complete sound design to make the final video feel more immersive and polished. Videos can also be created without voiceover when a typography and UI-driven approach works better.",
+  },
+  {
+    id: 8,
+    q: "How does the revision process work?",
+    a: "We share the video during key production stages so feedback can be incorporated efficiently. Revisions can include adjustments to pacing, animation, typography, UI presentation, messaging, transitions, sound, and other production details depending on the scope of the project. Our goal is to make sure the final video feels aligned with both your product and your brand.",
+  },
+  {
+    id: 9,
+    q: "Can you create multiple versions for different platforms?",
+    a: "Yes. We can prepare different formats, durations, and variations for your website, LinkedIn, X, Instagram, TikTok, YouTube, Meta Ads, presentations, and other platforms. We can also create shorter cutdowns from the main video for advertising and social campaigns.",
+  },
+  {
+    id: 10,
+    q: "How much does a SaaS trailer or explainer cost?",
+    a: "Pricing depends on the video length, animation complexity, UI requirements, visual style, voiceover, number of scenes, and overall production scope. Once we understand your product and what you want to create, we can recommend the right production package and provide a clear quote before the project begins.",
+  },
+];
 ---
 
 
@@ -25,16 +76,8 @@ import { VideoHeader } from "../islands/Shared/VideoHeader";
 
 
         <HomeBackground />
-
-
-
-
-
-
-
-
-
-    <StarBackground />
+        <SaasBackground />
+        <StarBackground />
 
 
     <VideoHeader
@@ -47,7 +90,7 @@ import { VideoHeader } from "../islands/Shared/VideoHeader";
 
 
     imageUrl="/saas/right-hero-c2.webp"
-    imageDivClassName="hidden md:scale-[1.2] lg:flex"
+    imageDivClassName=" md:scale-[1.2] "
     imageClassName="scale-[1.2]"
     primaryBtnText="Start Your Video"
     primaryBtnUrl="/contact"
@@ -98,25 +141,29 @@ import { VideoHeader } from "../islands/Shared/VideoHeader";
     />
     <SaasNeedsBlock client:visible />
     <SaasServicesVideoStyle client:visible/>
-    <SaasUseCasesSection />
     <SaasWhatsIncludedSection client:visible/>
-    <SaasTransformationSection />
-    <SaasProcessSection />
-    <SaasProductStorySection />
-    <FinalCta
-      kicker="YOUR PRODUCT DESERVES MORE THAN SCREEN RECORDINGS"
-      title="Show People Why Your SaaS Matters."
-      description="Whether you are preparing for a launch, improving your landing page, introducing a new feature, running paid campaigns, or simply need a better way to explain your product, we can turn your software into a video people actually want to watch. Let’s create something that makes your product clear, memorable, and impossible to overlook."
-      primaryText="Start Your Project"
-      primaryHref="/contact"
-      secondaryText="View SaaS Projects"
-      secondaryHref="/portfolio"
+    <ApproachTimelineSection
+      eyebrow="OUR PROCESS"
+      title="Our Approach to SaaS Video Production"
+      description="We handle the entire process from understanding your product to delivering the final video, with every stage built around clarity, storytelling, and premium execution."
+      client:visible
     />
-    <SaasFaqSection />
+    <VideoWorkShowcaseSection
+      eyebrow="SEE THE WORK"
+      title="SaaS Videos That Make People"
+      highlight="Stop Scrolling."
+      description="Explore SaaS trailers, product explainers, UI motion, feature demos, and launch videos crafted to turn complex software into clear, engaging visual stories."
+      client:visible
+    />
     <SaasPackagesSection client:visible/>
     <CaseStudiesSection client:visible />
     <CostSaas  />
-
+    <QandASection
+      questions={qas}
+      title1="Everything You Need to Know"
+      title2="Before Starting Your SaaS Video"
+      description="From timelines and pricing to scripts, UI files, revisions, and deliverables, here are the most common questions we get about SaaS trailers and product explainer videos."
+    />
     <ContactUs client:visible />
 
 </main>

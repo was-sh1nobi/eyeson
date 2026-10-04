@@ -11,7 +11,7 @@ export const WhyBrandingSection = () => {
           {/* تیتر */}
           <div className="mb-1 animate-slide-up">
             <h2 className="text-3xl font-bold uppercase leading-tight tracking-tight text-white sm:text-4xl text-center lg:text-left md:text-5xl">
-              WHY <span className="text-[#1ECFBC]">BRANDING</span> MATTERS
+              WHY <span className="text-[#42D1D1]">BRANDING</span> MATTERS
             </h2>
             <p className="text-gray-300 text-base font-light mt-2 sm:text-lg md:text-xl text-center lg:text-left">
               The Business Value of a Strong Brand
@@ -20,7 +20,7 @@ export const WhyBrandingSection = () => {
 
           {/* کارت ۱: عکس چپ، متن راست */}
           <div
-            className="flex flex-row rounded-2xl border border-[#14313B] bg-[#081620] overflow-hidden transition-transform duration-200 hover:border-[#1ECFBC]/40"
+            className="flex flex-row rounded-2xl border border-[#13a8b8]/30 bg-[#071c2e]/80 backdrop-blur-md overflow-hidden transition-all duration-200 hover:border-[#42D1D1]/60"
             style={{ minHeight: 160 }}
           >
             <div className="relative shrink-0" style={{ width: "42%" }}>
@@ -48,7 +48,7 @@ export const WhyBrandingSection = () => {
 
           {/* کارت ۲: متن چپ، عکس راست */}
           <div
-            className="flex flex-row rounded-2xl border border-[#14313B] bg-[#081620] overflow-hidden transition-transform duration-200 hover:border-[#1ECFBC]/40"
+            className="flex flex-row rounded-2xl border border-[#13a8b8]/30 bg-[#071c2e]/80 backdrop-blur-md overflow-hidden transition-all duration-200 hover:border-[#42D1D1]/60"
             style={{ minHeight: 160 }}
           >
             <div
@@ -76,7 +76,7 @@ export const WhyBrandingSection = () => {
 
         {/* ===== ستون وسط: Consistency ===== */}
         <div
-          className="flex flex-col rounded-2xl border border-[#1A5560] bg-[#071820] overflow-hidden lg:w-[33%] transition-transform duration-200 hover:border-[#1ECFBC]/40"
+          className="flex flex-col rounded-2xl border border-[#13a8b8]/30 bg-[#071c2e]/80 backdrop-blur-md overflow-hidden lg:w-[33%] transition-all duration-200 hover:border-[#42D1D1]/60"
         >
           <div className="p-5 sm:p-6 lg:p-7 shrink-0">
             <h3 className="text-xl font-bold text-white leading-tight mb-3 sm:text-2xl lg:mb-4">
@@ -99,7 +99,7 @@ export const WhyBrandingSection = () => {
 
         {/* ===== ستون راست: Better Performing ===== */}
         <div
-          className="flex flex-col rounded-2xl border border-[#1A5560] bg-[#071820] overflow-hidden lg:w-[25%] transition-transform duration-200 hover:border-[#1ECFBC]/40"
+          className="flex flex-col rounded-2xl border border-[#13a8b8]/30 bg-[#071c2e]/80 backdrop-blur-md overflow-hidden lg:w-[25%] transition-all duration-200 hover:border-[#42D1D1]/60"
         >
           <div className="relative flex-1" style={{ minHeight: 240 }}>
             <SmartImage

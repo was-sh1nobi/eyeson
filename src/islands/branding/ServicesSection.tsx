@@ -1,9 +1,9 @@
 import { SmartImage } from "../../utils/SmartImage.tsx";
 
 export const ServicesSection = () => {
-  const cardBg = "bg-[#091D24]/80";
-  const cardBorder = "border border-[#14343B]";
-  const tagBg = "bg-transparent border border-[#234F58]";
+  const cardBg = "bg-[#071c2e]/80 backdrop-blur-md";
+  const cardBorder = "border border-[#13a8b8]/30";
+  const tagBg = "bg-[#0c2b42]/40 border border-[#13a8b8]/30";
 
   return (
     <section className="relative w-full py-12 px-4 sm:py-16 sm:px-6 lg:py-20 lg:px-16 overflow-hidden font-sans">
@@ -26,7 +26,7 @@ export const ServicesSection = () => {
       >
         {/* ===== کارت بزرگ چپ ===== */}
         <div
-          className={`lg:col-span-5 rounded-3xl ${cardBg} ${cardBorder} p-6 sm:p-8 flex flex-col justify-between shadow-xl transition-colors duration-200 hover:border-[#42D1D1]/40`}
+          className={`lg:col-span-5 rounded-3xl ${cardBg} ${cardBorder} p-6 sm:p-8 flex flex-col justify-between shadow-xl transition-colors duration-200 hover:border-[#42D1D1]/60`}
         >
           <div>
             <h3 className="text-xl font-bold text-white mb-3 sm:text-2xl sm:mb-4">
@@ -53,7 +53,7 @@ className={`px-3 py-1 rounded-full text-xs text-gray-300 ${tagBg}`}
 </div>
 </div>
 
-<div className="relative w-full aspect-video rounded-xl overflow-hidden mt-auto bg-[#041217] sm:aspect-4/3">
+<div className="relative w-full aspect-video rounded-xl overflow-hidden mt-auto bg-[#051320] sm:aspect-4/3">
 <SmartImage
 src="/Branding/transform.webp"
 alt="Transform your brand"
@@ -67,10 +67,10 @@ className="object-cover"
 <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5 lg:gap-6">
 {/* کارت ۱ */}
 <div
-className={`rounded-3xl ${cardBg} ${cardBorder} p-5 sm:p-6 shadow-lg transition-colors duration-200 hover:border-[#42D1D1]/40`}
+className={`rounded-3xl ${cardBg} ${cardBorder} p-5 sm:p-6 shadow-lg transition-colors duration-200 hover:border-[#42D1D1]/60`}
 >
 <div className="flex items-center gap-3 mb-3 sm:gap-4 sm:mb-4">
-<div className="w-10 h-10 shrink-0 rounded-xl bg-gradient-to-b from-[#14343B] to-transparent border border-[#234F58] flex items-center justify-center shadow-inner sm:w-12 sm:h-12">
+<div className="w-10 h-10 shrink-0 rounded-xl bg-gradient-to-b from-[#0c2b42] to-transparent border border-[#13a8b8]/40 flex items-center justify-center shadow-inner sm:w-12 sm:h-12">
 <svg
 className="w-5 h-5 text-[#42D1D1] sm:w-6 sm:h-6"
 fill="none"
@@ -106,10 +106,10 @@ className={`px-2.5 py-0.5 rounded-full text-xs text-gray-300 ${tagBg}`}
 
 {/* کارت ۲ */}
 <div
-className={`rounded-3xl ${cardBg} ${cardBorder} p-5 sm:p-6 shadow-lg transition-colors duration-200 hover:border-[#42D1D1]/40`}
+className={`rounded-3xl ${cardBg} ${cardBorder} p-5 sm:p-6 shadow-lg transition-colors duration-200 hover:border-[#42D1D1]/60`}
 >
 <div className="flex items-center gap-3 mb-3 sm:gap-4 sm:mb-4">
-<div className="w-10 h-10 shrink-0 rounded-xl bg-gradient-to-b from-[#14343B] to-transparent border border-[#234F58] flex items-center justify-center shadow-inner sm:w-12 sm:h-12">
+<div className="w-10 h-10 shrink-0 rounded-xl bg-gradient-to-b from-[#0c2b42] to-transparent border border-[#13a8b8]/40 flex items-center justify-center shadow-inner sm:w-12 sm:h-12">
 <svg
 className="w-5 h-5 text-[#42D1D1] sm:w-6 sm:h-6"
 fill="none"
@@ -147,10 +147,10 @@ className={`px-2.5 py-0.5 rounded-full text-xs text-gray-300 ${tagBg}`}
 
 {/* کارت ۳ */}
 <div
-className={`rounded-3xl ${cardBg} ${cardBorder} p-5 sm:p-6 shadow-lg transition-colors duration-200 hover:border-[#42D1D1]/40`}
+className={`rounded-3xl ${cardBg} ${cardBorder} p-5 sm:p-6 shadow-lg transition-colors duration-200 hover:border-[#42D1D1]/60`}
 >
 <div className="flex items-center gap-3 mb-3 sm:gap-4 sm:mb-4">
-<div className="w-10 h-10 shrink-0 rounded-xl bg-gradient-to-b from-[#14343B] to-transparent border border-[#234F58] flex items-center justify-center shadow-inner sm:w-12 sm:h-12">
+<div className="w-10 h-10 shrink-0 rounded-xl bg-gradient-to-b from-[#0c2b42] to-transparent border border-[#13a8b8]/40 flex items-center justify-center shadow-inner sm:w-12 sm:h-12">
 <svg
 className="w-5 h-5 text-[#42D1D1] sm:w-6 sm:h-6"
 fill="none"
@@ -190,10 +190,10 @@ className={`px-2.5 py-0.5 rounded-full text-xs text-gray-300 ${tagBg}`}
 
 {/* کارت ۴ */}
 <div
-className={`rounded-3xl ${cardBg} ${cardBorder} p-5 sm:p-6 shadow-lg transition-colors duration-200 hover:border-[#42D1D1]/40`}
+className={`rounded-3xl ${cardBg} ${cardBorder} p-5 sm:p-6 shadow-lg transition-colors duration-200 hover:border-[#42D1D1]/60`}
 >
 <div className="flex items-center gap-3 mb-3 sm:gap-4 sm:mb-4">
-<div className="w-10 h-10 shrink-0 rounded-xl bg-gradient-to-b from-[#14343B] to-transparent border border-[#234F58] flex items-center justify-center shadow-inner sm:w-12 sm:h-12">
+<div className="w-10 h-10 shrink-0 rounded-xl bg-gradient-to-b from-[#0c2b42] to-transparent border border-[#13a8b8]/40 flex items-center justify-center shadow-inner sm:w-12 sm:h-12">
 <svg
 className="w-5 h-5 text-[#42D1D1] sm:w-6 sm:h-6"
 fill="none"

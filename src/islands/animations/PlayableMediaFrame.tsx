@@ -46,7 +46,8 @@ export function PlayableMediaFrame({
   return (
     <>
       <div
-        className={`group relative h-[320px] overflow-hidden rounded-[24px] border border-white/10 shadow-2xl md:h-[460px] ${className}`.trim()}
+        className={`group relative w-full overflow-hidden rounded-[var(--radius-xl)] border border-white/10 shadow-2xl ${className}`.trim()}
+        style={{ aspectRatio: "1300 / 1040" }}
       >
         <SmartImage
           src={imgUrl}

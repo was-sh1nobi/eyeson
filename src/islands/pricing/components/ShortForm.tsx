@@ -160,12 +160,26 @@ export const ShortForm = ({
                 )}
 
                 <div className="flex flex-col items-center gap-4 sm:flex-row">
-                    <button
-                        onClick={handleEstimate}
-                        className="h-11 w-full cursor-pointer rounded-lg bg-linear-to-r from-[#1AD1BC] to-[#0989A5] px-6 text-sm font-semibold text-white select-none shadow-[0_10px_25px_-12px_rgba(26,209,188,0.8)] transition duration-200 hover:-translate-y-px hover:brightness-125 hover:shadow-[0_10px_30px_-10px_rgba(26,209,188,0.9)] active:translate-y-0 active:brightness-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1AD1BC]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0C232B] sm:w-auto"
-                    >
-                        {hasPrices ? "Estimate Your Project" : "Get Started"}
-                    </button>
+                    <div className="group relative inline-flex w-full rounded-[var(--radius-full)] p-[var(--primitive-border-width-medium)] transition-transform duration-200 ease-out hover:scale-105 active:scale-95 sm:w-auto">
+                        <div
+                            aria-hidden="true"
+                            className="absolute inset-0 rounded-[var(--radius-full)] opacity-80 shadow-[var(--button-shadow)] transition-[opacity,box-shadow] duration-[var(--duration-normal)] ease-[var(--ease-default)] group-hover:opacity-100 group-hover:shadow-[var(--button-shadow-hover)] group-active:shadow-[0_0_8px_var(--color-primary)]"
+                            style={{ backgroundImage: "var(--button-primary-border-gradient)" }}
+                        />
+                        <button
+                            onClick={handleEstimate}
+                            className="relative z-10 flex h-12 w-full cursor-pointer items-center justify-center overflow-hidden rounded-[var(--radius-full)] px-10 text-[15px] font-bold whitespace-nowrap text-white shadow-inner select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1AD1BC]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0C232B] sm:w-auto"
+                            style={{ backgroundImage: "var(--button-primary-bg)" }}
+                        >
+                            <div
+                                aria-hidden="true"
+                                className="absolute inset-0 -translate-x-[150%] skew-x-[-20deg] bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-[var(--duration-emphasis)] ease-[var(--ease-default)] group-hover:translate-x-[150%]"
+                            />
+                            <span className="relative z-20 drop-shadow-md">
+                                {hasPrices ? "Estimate Your Project" : "Get Started"}
+                            </span>
+                        </button>
+                    </div>
                 </div>
             </div>
 

@@ -1,5 +1,7 @@
 ---
 import { SmartImage } from "../../utils/SmartImage.tsx";
+import SecondaryButton from "@/components/Shared/SecondaryButton.tsx";
+import PrimaryButton from "@/components/Shared/PrimaryButton.tsx";
 ---
 
 <style>
@@ -139,33 +141,8 @@ import { SmartImage } from "../../utils/SmartImage.tsx";
 
     <!-- Buttons -->
     <div class="mt-6 flex flex-row flex-wrap justify-center gap-3">
-      <!-- Primary -->
-      <div class="relative inline-flex rounded-full p-0.5">
-        <div
-          class="absolute -inset-0.5 rounded-full bg-linear-to-r from-[#45B6A0] to-[#12ACB5] shadow-[0_0_12px_#00A9BD]"
-        >
-        </div>
-        <a
-          href="#"
-          class="relative z-10 rounded-full px-5 py-2.5 bg-linear-to-r from-[#00A9BD] to-[#1D553A] text-sm md:text-lg"
-        >
-          Book a Call
-        </a>
-      </div>
-
-      <!-- Secondary -->
-      <div class="relative inline-flex rounded-full p-0.5">
-        <div
-          class="absolute -inset-0.5 rounded-full bg-linear-to-r from-[#056E7C] to-[#46B6A0] shadow-[0_0_12px_#00A9BD]"
-        >
-        </div>
-        <a
-          href="#"
-          class="relative z-10 rounded-full px-5 py-2.5 bg-linear-to-r from-[#00061D] to-[#0B1F2A] text-sm md:text-lg"
-        >
-          See our work
-        </a>
-      </div>
+      <PrimaryButton text="Book a call" href="/contact"/>
+      <SecondaryButton text="See our work" href="/portfolio"/>
     </div>
   </div>
 
