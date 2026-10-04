@@ -129,7 +129,7 @@ export default function SaasWhatsIncludedSection() {
                       {item.title}
                     </h3>
                   </div>
-                  <p className="mt-1.5 text-xs leading-relaxed text-[#c4d6df]/85 line-clamp-3">
+                  <p className="text-md leading-relaxed text-[#c4d6df]/85 ">
                     {item.description}
                   </p>
                 </article>
