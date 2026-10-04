@@ -192,7 +192,7 @@ export const OrbitSystem = memo(function OrbitSystem({
   return (
     <div
       ref={containerRef}
-      className="w-full min-h-[65vh] md:min-h-screen overflow-visible relative flex items-center justify-center py-12 md:py-0"
+      className="w-full min-h-[65vh] md:min-h-screen overflow-visible relative flex items-center justify-center py-12 md:py-10"
     >
       <div className="pointer-events-none absolute inset-0" />
       <div
@@ -201,7 +201,7 @@ export const OrbitSystem = memo(function OrbitSystem({
       >
         <div className="relative w-full h-full">
           <svg
-            viewBox="0 0 1000 1000"
+            viewBox="-60 -60 1120 1120"
             preserveAspectRatio="xMidYMid meet"
             className="absolute inset-0 w-full h-full mx-auto overflow-visible will-change-transform"
             style={{
@@ -209,7 +209,6 @@ export const OrbitSystem = memo(function OrbitSystem({
                 "linear-gradient(to bottom, black 65%, transparent 100%)",
               WebkitMaskImage:
                 "linear-gradient(to bottom, black 65%, transparent 100%)",
-              contain: "layout style paint",
               overflow: "visible",
             }}
           >
