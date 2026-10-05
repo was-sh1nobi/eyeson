@@ -169,7 +169,7 @@ const Folder: React.FC = () => {
  */
 const MotionSection: React.FC = () => {
   return (
-    <div className="min-h-screen w-full flex items-center justify-center px-6 md:px-8 font-sans overflow-hidden py-20 lg:py-0">
+    <div className="min-h-screen w-full flex items-center justify-center px-6 md:px-8 font-sans overflow-hidden  lg:py-0">
       <div
         className="w-full flex flex-col lg:flex-row justify-center items-center relative z-10 gap-12 lg:gap-16 animate-fade-in"
       >
