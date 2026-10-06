@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect, useRef, memo } from "react";
 import { VideoShowreelModal } from "./VideoShowreelModal"; // آدرس این کامپوننت رو درست تنظیم کن
 import { SmartImage } from "../../utils/SmartImage.tsx";
 
@@ -11,6 +11,7 @@ type MediaItem = {
   id: number | string;
   src: string;        // عکس تامنیل گالری
   videoUrl?: string;  // لینک ویدیوی اصلی
+  previewUrl?: string; // لینک پیش‌نمایش ویدیویی هنگام هاور
   playable?: boolean;
   title?: string;     // برای پلیر کاستوم
 };
@@ -48,6 +49,79 @@ function PlaySvgButton() {
     </svg>
   );
 }
+
+const MediaGridCard = memo(function MediaGridCard({
+  item,
+  mediaType,
+  onPlay,
+}: {
+  item: MediaItem;
+  mediaType: PortfolioKey;
+  onPlay: (item: MediaItem) => void;
+}) {
+  const [isHovered, setIsHovered] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleMouseEnter = () => {
+    if (!item.previewUrl) return;
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+  };
+
+  return (
+    <div
+      className="group relative aspect-[16/10] w-full overflow-hidden rounded-[24px] border border-cyan-300/20 bg-gradient-to-r from-[#0B1F2A] to-[#003A43] shadow-lg cursor-pointer"
+      onClick={() => onPlay(item)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <SmartImage
+        src={item.src}
+        alt={mediaType}
+        fill
+        className={`absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out ${
+          isHovered && item.previewUrl ? "opacity-0" : "opacity-100 group-hover:scale-105"
+        }`}
+      />
+
+      {item.previewUrl && isHovered && (
+        <video
+          ref={videoRef}
+          src={item.previewUrl}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          className="absolute inset-0 h-full w-full object-cover z-5"
+          onCanPlay={(e) => {
+            const p = (e.currentTarget as HTMLVideoElement).play();
+            if (p) p.catch(() => {});
+          }}
+        />
+      )}
+
+      {item.playable && (
+        <div
+          className={`absolute inset-0 z-10 flex items-center justify-center transition-all duration-500 ${
+            isHovered && item.previewUrl
+              ? "opacity-0 pointer-events-none"
+              : "bg-black/10 group-hover:bg-black/30 backdrop-blur-[1px] group-hover:backdrop-blur-[2px]"
+          }`}
+        >
+          <PlaySvgButton />
+        </div>
+      )}
+    </div>
+  );
+});
 
 export const MediaGrid = ({
   mediaType,
@@ -147,26 +221,12 @@ export const MediaGrid = ({
                <div className="w-8 h-8 border-4 border-[#00E6D7] border-t-transparent rounded-full animate-spin"></div>
              </div>
           ) : paginatedItems.map((item, idx) => (
-            <div
+            <MediaGridCard
               key={`${item.id}-${idx}`}
-              className="group relative aspect-[16/10] w-full overflow-hidden rounded-[24px] border border-cyan-300/20 bg-gradient-to-r from-[#0B1F2A] to-[#003A43] shadow-lg cursor-pointer"
-              onClick={() => handlePlayClick(item)} // با کلیک روی کل باکس هم باز بشه
-            >
-              {/* عکس گالری */}
-              <SmartImage
-                src={item.src}
-                alt={mediaType}
-                fill
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-              />
-              
-              {/* دکمه پلی */}
-              {item.playable && (
-                <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/10 transition-colors duration-500 group-hover:bg-black/30 backdrop-blur-[1px] group-hover:backdrop-blur-[2px]">
-                   <PlaySvgButton />
-                </div>
-              )}
-            </div>
+              item={item}
+              mediaType={mediaType}
+              onPlay={handlePlayClick}
+            />
           ))}
 
           {/* Placeholders */}

@@ -23,6 +23,7 @@ type ShowcaseItem = {
   id: number;
   src: string;
   videoUrl: string;
+  previewUrl?: string;
   playable: boolean;
   title: string;
 };
@@ -78,6 +79,22 @@ const WorkCard = memo(function WorkCard({
   item: ShowcaseItem;
   onPlay: (item: ShowcaseItem) => void;
 }) {
+  const [isHovered, setIsHovered] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleMouseEnter = () => {
+    if (!item.previewUrl) return;
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+  };
+
   return (
     <article
       className={`group relative shrink-0 overflow-hidden rounded-xl border border-[#188e9f]/70 sm:rounded-2xl ${
@@ -85,6 +102,8 @@ const WorkCard = memo(function WorkCard({
       }`}
       style={{ ...CARD_STYLE, contentVisibility: "auto", containIntrinsicSize: "300px 200px" } as React.CSSProperties}
       onClick={item.playable ? () => onPlay(item) : undefined}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <SmartImage
         src={item.src}
@@ -95,10 +114,32 @@ const WorkCard = memo(function WorkCard({
         // Hover zoom is desktop-only (sm:) — no transform churn on touch.
         // No backdrop-blur here: blurring an animating layer forces a full
         // repaint every frame on mobile GPUs.
-        className="absolute inset-0 h-full w-full object-cover sm:transition-transform sm:duration-500 sm:group-hover:scale-105"
+        className={`absolute inset-0 h-full w-full object-cover sm:transition-transform sm:duration-500 ${
+          isHovered && item.previewUrl ? "opacity-0" : "opacity-100 sm:group-hover:scale-105"
+        }`}
       />
+      {item.previewUrl && isHovered && (
+        <video
+          ref={videoRef}
+          src={item.previewUrl}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          className="absolute inset-0 h-full w-full object-cover z-5"
+          onCanPlay={(e) => {
+            const p = (e.currentTarget as HTMLVideoElement).play();
+            if (p) p.catch(() => {});
+          }}
+        />
+      )}
       {item.playable && (
-        <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/10 sm:transition-colors sm:duration-500 sm:group-hover:bg-black/30">
+        <div
+          className={`absolute inset-0 z-10 flex items-center justify-center transition-opacity duration-300 ${
+            isHovered && item.previewUrl ? "opacity-0 pointer-events-none" : "bg-black/10 sm:transition-colors sm:duration-500 sm:group-hover:bg-black/30"
+          }`}
+        >
           <span className="transition-transform duration-300 ease-out group-hover:-translate-y-1 group-hover:scale-110 sm:drop-shadow-[0_0_16px_rgba(72,235,214,0.45)]">
             <PlaySvgButton />
           </span>
@@ -191,6 +232,7 @@ export default function VideoWorkShowcaseSection({
               id: v.id,
               src: v.cover ? (v.cover.startsWith('http') ? v.cover : `${import.meta.env.PUBLIC_API_URL}${v.cover}`) : '/video-pieces/person.webp',
               videoUrl: v.video ? (v.video.startsWith('http') ? v.video : `${import.meta.env.PUBLIC_API_URL}${v.video}`) : '',
+              previewUrl: v.preview ? (v.preview.startsWith('http') ? v.preview : `${import.meta.env.PUBLIC_API_URL}${v.preview}`) : undefined,
               playable: !!v.video,
               title: v.category,
             });

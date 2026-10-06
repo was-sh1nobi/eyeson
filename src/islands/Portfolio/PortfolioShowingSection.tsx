@@ -33,9 +33,10 @@ export const PortfolioShowingSection = () => {
            id: v.id,
            src: v.cover ? (v.cover.startsWith('http') ? v.cover : `${import.meta.env.PUBLIC_API_URL}${v.cover}`) : '/video-pieces/person.webp',
            videoUrl: v.video ? (v.video.startsWith('http') ? v.video : `${import.meta.env.PUBLIC_API_URL}${v.video}`) : '',
+           previewUrl: v.preview ? (v.preview.startsWith('http') ? v.preview : `${import.meta.env.PUBLIC_API_URL}${v.preview}`) : undefined,
            playable: !!v.video,
            category: v.category,
-            title: v.category
+           title: v.category
         }));
         
         setItems(mappedItems);

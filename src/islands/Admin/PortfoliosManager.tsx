@@ -6,7 +6,7 @@ const CATEGORIES = ["Brand Trailer", "Explainer Videos", "Motion Graphics", "Ad 
 const FILTER_CATEGORIES = ["All", ...CATEGORIES];
 
 type PortfolioItem = {
-  id?: string;
+  id?: string | number;
   _id?: string;
   uuid?: string;
   category: string;
@@ -14,17 +14,24 @@ type PortfolioItem = {
   filepath?: string;
   fileUrl?: string;
   url?: string;
+  video?: string;
   cover?: string;
   coverpath?: string;
   coverUrl?: string;
+  preview?: string;
+  previewpath?: string;
+  previewUrl?: string;
   createdAt?: string;
 };
+
+const MAX_PREVIEW_SIZE = 5 * 1024 * 1024; // 5MB limit
 
 export default function PortfoliosManager() {
   const [category, setCategory] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [cover, setCover] = useState<File | null>(null);
-  
+  const [preview, setPreview] = useState<File | null>(null);
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState<{ type: 'idle' | 'success' | 'error', message: string }>({ type: 'idle', message: '' });
 
@@ -41,6 +48,7 @@ export default function PortfoliosManager() {
   const [editingItem, setEditingItem] = useState<PortfolioItem | null>(null);
   const [editFile, setEditFile] = useState<File | null>(null);
   const [editCover, setEditCover] = useState<File | null>(null);
+  const [editPreview, setEditPreview] = useState<File | null>(null);
   const [editCategory, setEditCategory] = useState<string>("");
   const [updatingId, setUpdatingId] = useState<string | null>(null);
 
@@ -84,7 +92,12 @@ export default function PortfoliosManager() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!category || !file || !cover) {
-      setStatus({ type: 'error', message: 'All fields are required.' });
+      setStatus({ type: 'error', message: 'Category, media file, and cover are required.' });
+      return;
+    }
+
+    if (preview && preview.size > MAX_PREVIEW_SIZE) {
+      setStatus({ type: 'error', message: 'Preview video must not exceed 5MB.' });
       return;
     }
 
@@ -96,22 +109,26 @@ export default function PortfoliosManager() {
       formData.append('category', category);
       formData.append('file', file);
       formData.append('cover', cover);
+      if (preview) formData.append('preview', preview);
 
       await httpService.post('/portfolio/upload', formData);
 
       setStatus({ type: 'success', message: 'Portfolio uploaded successfully!' });
-      
+
       // Reset form
       setCategory("");
       setFile(null);
       setCover(null);
-      
+      setPreview(null);
+
       // Clear file inputs
       const fileInput = document.getElementById('file-upload') as HTMLInputElement;
       if (fileInput) fileInput.value = '';
       const coverInput = document.getElementById('cover-upload') as HTMLInputElement;
       if (coverInput) coverInput.value = '';
-      
+      const previewInput = document.getElementById('preview-upload') as HTMLInputElement;
+      if (previewInput) previewInput.value = '';
+
       // Refresh listing
       fetchPortfolios();
     } catch (err: any) {
@@ -148,12 +165,14 @@ export default function PortfoliosManager() {
     setEditCategory(item.category || "");
     setEditFile(null);
     setEditCover(null);
+    setEditPreview(null);
   };
 
   const cancelEdit = () => {
     setEditingItem(null);
     setEditFile(null);
     setEditCover(null);
+    setEditPreview(null);
   };
 
   const handleUpdate = async () => {
@@ -164,6 +183,11 @@ export default function PortfoliosManager() {
       return;
     }
 
+    if (editPreview && editPreview.size > MAX_PREVIEW_SIZE) {
+      setStatus({ type: 'error', message: 'Preview video must not exceed 5MB.' });
+      return;
+    }
+
     setUpdatingId(itemId);
     setStatus({ type: 'idle', message: '' });
     try {
@@ -171,6 +195,7 @@ export default function PortfoliosManager() {
       formData.append('category', editCategory);
       if (editFile) formData.append('file', editFile);
       if (editCover) formData.append('cover', editCover);
+      if (editPreview) formData.append('preview', editPreview);
 
       await httpService.patch(`/portfolio/${itemId}`, formData);
 
@@ -238,7 +263,7 @@ export default function PortfoliosManager() {
             <div></div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {/* Cover Input */}
             <div>
               <label className="block text-sm font-medium text-white/70 mb-2">Cover Image</label>
@@ -266,9 +291,9 @@ export default function PortfoliosManager() {
               </label>
             </div>
 
-            {/* File Input */}
+            {/* Main File Input */}
             <div>
-              <label className="block text-sm font-medium text-white/70 mb-2">Media File</label>
+              <label className="block text-sm font-medium text-white/70 mb-2">Main Media File</label>
               <label className="group relative flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-white/10 rounded-xl hover:border-[#00E6D7]/50 hover:bg-[#00E6D7]/5 transition-colors cursor-pointer overflow-hidden">
                 <input
                   id="file-upload"
@@ -289,6 +314,47 @@ export default function PortfoliosManager() {
                   <div className="flex flex-col items-center gap-2 text-white/40 group-hover:text-[#00E6D7] transition-colors">
                     <Upload size={32} />
                     <span className="text-sm font-medium">Click to upload file</span>
+                  </div>
+                )}
+              </label>
+            </div>
+
+            {/* Preview Video Input (Max 5MB) */}
+            <div>
+              <label className="block text-sm font-medium text-white/70 mb-2">
+                Preview Video <span className="text-white/40 font-normal">(hover, max 5MB)</span>
+              </label>
+              <label className="group relative flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-white/10 rounded-xl hover:border-[#00E6D7]/50 hover:bg-[#00E6D7]/5 transition-colors cursor-pointer overflow-hidden">
+                <input
+                  id="preview-upload"
+                  type="file"
+                  accept="video/*"
+                  onChange={(e) => {
+                    const f = e.target.files?.[0] || null;
+                    if (f && f.size > MAX_PREVIEW_SIZE) {
+                      setStatus({ type: 'error', message: 'Preview video exceeds 5MB limit.' });
+                      e.target.value = '';
+                      setPreview(null);
+                      return;
+                    }
+                    setStatus({ type: 'idle', message: '' });
+                    setPreview(f);
+                  }}
+                  className="hidden"
+                />
+                {preview ? (
+                  <div className="absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-white/5">
+                    <FileVideo size={48} className="text-[#00E6D7] mb-2" />
+                    <span className="text-sm font-medium text-white truncate px-4 w-full text-center">{preview.name}</span>
+                    <span className="text-xs text-white/40">{(preview.size / (1024 * 1024)).toFixed(2)} MB</span>
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <span className="text-white text-sm font-medium flex items-center gap-2"><Upload size={16} /> Change Preview</span>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center gap-2 text-white/40 group-hover:text-[#00E6D7] transition-colors">
+                    <FileVideo size={32} />
+                    <span className="text-sm font-medium">Upload preview (max 5MB)</span>
                   </div>
                 )}
               </label>
@@ -428,7 +494,7 @@ export default function PortfoliosManager() {
 
                   {/* Details Footer */}
                   <div className="p-4 flex items-center justify-between border-t border-white/5 bg-black/20">
-                    <span className="text-xs text-white/40 truncate max-w-[200px]">
+                    <div className="flex items-center gap-3 text-xs text-white/40 truncate max-w-[260px]">
                       {mediaUrl ? (
                         <a
                           href={mediaUrl}
@@ -436,12 +502,22 @@ export default function PortfoliosManager() {
                           rel="noopener noreferrer"
                           className="hover:text-[#00E6D7] underline transition-colors"
                         >
-                          View Media
+                          Media
                         </a>
                       ) : (
-                        "No media file"
+                        "No media"
                       )}
-                    </span>
+                      {item.preview && (
+                        <a
+                          href={fixUrl(item.preview || item.previewpath || item.previewUrl)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:text-[#00E6D7] text-cyan-400/80 underline transition-colors"
+                        >
+                          Preview
+                        </a>
+                      )}
+                    </div>
                     <span className="text-xs text-white/30">
                       ID: {String(itemId).slice(-6)}
                     </span>
@@ -537,6 +613,43 @@ export default function PortfoliosManager() {
                       <div className="flex flex-col items-center gap-1 text-white/40 group-hover:text-[#00E6D7] transition-colors">
                         <ImageIcon size={22} />
                         <span className="text-xs font-medium">Keep to replace cover</span>
+                      </div>
+                    )}
+                  </label>
+                </div>
+
+                {/* Preview Video */}
+                <div>
+                  <label className="block text-sm font-medium text-white/70 mb-2">
+                    Preview Video <span className="text-white/40 font-normal">(optional — replace, max 5MB)</span>
+                  </label>
+                  <label className="group relative flex flex-col items-center justify-center w-full h-28 border-2 border-dashed border-white/10 rounded-xl hover:border-[#00E6D7]/50 hover:bg-[#00E6D7]/5 transition-colors cursor-pointer overflow-hidden">
+                    <input
+                      type="file"
+                      accept="video/*"
+                      onChange={(e) => {
+                        const f = e.target.files?.[0] || null;
+                        if (f && f.size > MAX_PREVIEW_SIZE) {
+                          setStatus({ type: 'error', message: 'Preview video exceeds 5MB limit.' });
+                          e.target.value = '';
+                          setEditPreview(null);
+                          return;
+                        }
+                        setStatus({ type: 'idle', message: '' });
+                        setEditPreview(f);
+                      }}
+                      className="hidden"
+                    />
+                    {editPreview ? (
+                      <div className="flex flex-col items-center gap-1 text-[#00E6D7]">
+                        <FileVideo size={24} />
+                        <span className="text-xs font-medium truncate px-4 w-full text-center">{editPreview.name}</span>
+                        <span className="text-[10px] text-white/40">{(editPreview.size / (1024 * 1024)).toFixed(2)} MB</span>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-center gap-1 text-white/40 group-hover:text-[#00E6D7] transition-colors">
+                        <FileVideo size={22} />
+                        <span className="text-xs font-medium">Click to replace preview video</span>
                       </div>
                     )}
                   </label>
