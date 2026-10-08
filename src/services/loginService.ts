@@ -7,6 +7,6 @@ type LoginPayload = {
 
 export const loginService = {
     async login(data: LoginPayload) {
-        return await httpService.post("/auth/login", { email: data.email, password: data.password });
+        return await httpService.post("/auth/login", { email: data.email, password: data.password }, { withCredentials: false });
     },
 };

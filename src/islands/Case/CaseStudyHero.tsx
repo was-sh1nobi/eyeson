@@ -40,7 +40,7 @@ export default function CaseStudyHero({ slug }: Props) {
         const API_URL = import.meta.env.PUBLIC_API_URL;
         const response = await fetch(
           `${API_URL}/project/details?slug=${slug}`,
-          { credentials: "include" }
+          { credentials: "omit" }
         );
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const json = await response.json();
