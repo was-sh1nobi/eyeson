@@ -6,7 +6,7 @@ const getAxiosInstance = () => {
     axiosInstancePromise ??= import("axios").then(({ default: axios }) => {
         const axiosInstance = axios.create({
             baseURL: import.meta.env.PUBLIC_API_URL,
-            withCredentials: true,
+            withCredentials: false,
         });
 
         axiosInstance.interceptors.request.use((config) => {
