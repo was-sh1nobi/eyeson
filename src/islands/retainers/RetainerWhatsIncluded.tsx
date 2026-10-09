@@ -91,12 +91,12 @@ export default function RetainerWhatsIncluded() {
               variations — so your team can focus on strategy.
             </p>
 
-            <div className="relative mt-4 h-[360px] overflow-hidden rounded-xl shadow-[0_0_15px_#00A9BDB2]">
+            <div className="relative mt-4 h-[360px]  overflow-hidden rounded-xl shadow-[0_0_15px_#00A9BDB2] ">
               <SmartImage
                 src="/retainers/2.webp"
                 alt="Creative production pipeline"
                 fill
-                className="object-cover"
+                className="object-cover scale-[0.8] md:scale-[1]"
               />
             </div>
           </article>

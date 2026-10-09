@@ -131,13 +131,13 @@ export default function UiUxNeed({
               </p>
 
               <div className="mt-7 flex flex-nowrap gap-3 md:flex-wrap md:gap-4">
-                <PrimaryButton text={primaryButtonLabel} width="auto" />
+                <PrimaryButton text={primaryButtonLabel} textClassName="!text-sm md:!text-lg" />
                 <div className="relative inline-flex rounded-full ">
                   <div
                     aria-hidden
                     className="absolute inset-0 rounded-full bg-linear-to-r from-[#056E7C] to-[#46B6A0]"
                   />
-                  <SecondaryButton text={secondaryButtonLabel} width="auto" />
+                  <SecondaryButton text={secondaryButtonLabel} textClassName="!text-sm md:!text-lg" />
                 </div>
               </div>
             </div>

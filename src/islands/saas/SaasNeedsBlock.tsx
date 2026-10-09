@@ -14,6 +14,7 @@ export const SaasNeedsBlock = () => {
             mainBody="Software often becomes difficult to market because too much information is presented at once. Features, dashboards, workflows, integrations, automation, AI capabilities, and technical advantages can quickly overwhelm a new visitor. A strong SaaS trailer simplifies that complexity. We show the problem, introduce the product, demonstrate what makes it valuable, and guide the viewer through the experience without forcing them to read an entire website. The result is a product that feels easier to understand, easier to trust, and easier to buy."
             primaryBtnText="Start Your Video"
             secondaryBtnText="See Our Work"
+
             cards={[
                 {
                     id: 1,

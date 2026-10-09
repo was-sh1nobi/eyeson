@@ -119,17 +119,17 @@ export default function SaasWhatsIncludedSection() {
               return (
                 <article
                   key={item.id}
-                  className="w-full min-w-full sm:min-w-0 snap-center rounded-2xl bg-linear-to-br from-[#0B1F2A] to-[#093C49] p-4 sm:p-5 border border-white/5 flex flex-col justify-between aspect-square transition-all duration-300 hover:border-[#1ed7d8]/40 hover:scale-[1.02]"
+                  className="w-full min-w-full sm:min-w-0 snap-center rounded-2xl bg-linear-to-br from-[#0B1F2A] to-[#093C49] p-5 sm:p-5 border border-white/5 flex flex-col justify-start gap-4 lg:justify-between lg:gap-0 lg:aspect-square transition-all duration-300 hover:border-[#1ed7d8]/40 hover:scale-[1.02]"
                 >
                   <div>
                     <div className="mb-2.5 inline-flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-linear-to-br from-[#000E17] to-[#143C3E] border border-[#1ed7d8]/60 text-[#1ed7d8] shadow-[0_0_8px_#00A9BD60]">
                       <Icon className="h-4.5 w-4.5 sm:h-5 sm:w-5" />
                     </div>
-                    <h3 className="text-sm sm:text-base font-bold text-white leading-snug">
+                    <h3 className="text-base sm:text-base font-bold text-white leading-snug">
                       {item.title}
                     </h3>
                   </div>
-                  <p className="text-md leading-relaxed text-[#c4d6df]/85 ">
+                  <p className="text-sm sm:text-[15px] leading-relaxed text-[#c4d6df]/85">
                     {item.description}
                   </p>
                 </article>

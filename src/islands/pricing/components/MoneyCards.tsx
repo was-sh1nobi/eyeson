@@ -69,17 +69,17 @@ export const MoneyCards = () => {
 
 
   return (
-    <section className="relative z-10 w-full px-4 pt-10 pb-20 sm:px-6 lg:px-8">
-      <div className="mx-auto w-full max-w-6xl min-h-[640px] lg:min-h-[760px] flex flex-col justify-end">
+    <section className="relative z-10 w-full px-4  pb-20 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-6xl min-h-[640px] lg:min-h-[760px] flex flex-col justify-center">
         {/* دسکتاپ: Grid */}
-        <div className="hidden md:grid md:grid-cols-3 gap-6 lg:gap-8 items-end">
+        <div className="hidden md:grid md:grid-cols-3 gap-6 lg:gap-8 items-center">
           {orderedPlans.map((plan) => (
             <PlanCard key={plan.name} plan={plan} />
           ))}
         </div>
 
         {/* موبایل: Swiper */}
-        <div className="md:hidden mt-auto">
+        <div className="md:hidden  ">
           <Swiper
             modules={[Pagination, A11y]}
             slidesPerView={1}
@@ -88,7 +88,7 @@ export const MoneyCards = () => {
             centeredSlidesBounds
             initialSlide={0}
             onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
-            className="money-swiper h-auto pb-10 mt-8 overflow-visible"
+            className="money-swiper  pb-10 mt-8 overflow-visible"
             pagination={{
               dynamicBullets: true,
               dynamicMainBullets: 2,
@@ -98,7 +98,7 @@ export const MoneyCards = () => {
 
           >
             {orderedPlans.map((plan) => (
-              <SwiperSlide key={plan.name} className="flex justify-center items-center" >
+              <SwiperSlide key={plan.name} className="flex justify-center items-center " >
                 <PlanCard plan={plan} mobile />
               </SwiperSlide>
             ))}
@@ -113,9 +113,9 @@ export const MoneyCards = () => {
 function PlanCard({ plan, mobile = false }: { plan: Plan; mobile?: boolean }) {
   return (
     <article
-      className={`relative flex flex-col justify-between rounded-2xl sm:rounded-3xl border p-6 sm:p-8 shadow-[0_10px_30px_rgba(0,0,0,0.25)] backdrop-blur-sm transition-shadow duration-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.35)] ${
+      className={`relative  flex flex-col scale-[0.9] justify-between rounded-2xl sm:rounded-3xl border p-6 sm:p-8 shadow-[0_10px_30px_rgba(0,0,0,0.25)] backdrop-blur-sm transition-shadow duration-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.35)] ${
         plan.highlighted
-          ? "border-[#44B39F] bg-linear-to-b from-[#09232E] via-[#083440] to-[#073E4A] scale-[1.02]"
+          ? "border-[#44B39F] bg-linear-to-b from-[#09232E] via-[#083440] to-[#073E4A] "
           : "border-[#1A4648] bg-[#0B1F2A]"
       } ${mobile ? "w-[95%] mx-auto" : ""}`}
     >

@@ -49,8 +49,8 @@ export const ConversionScroll = () => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: el,
-          start: "top 15%",
-          end: "bottom 50%",
+          start: "top 75%",
+          end: "bottom 55%",
           scrub: 0.5,
           fastScrollEnd: true,
           onToggle: (self) => {
@@ -61,7 +61,12 @@ export const ConversionScroll = () => {
 
       // Parallax position float
       if (parallaxRef.current) {
-        tl.fromTo(parallaxRef.current, { y: -8 }, { y: 8, ease: "none" }, 0);
+        tl.fromTo(
+          parallaxRef.current,
+          { y: -8 },
+          { y: 8, ease: "none", duration: 1 },
+          0
+        );
       }
 
       // Progress line fill scale
@@ -69,7 +74,7 @@ export const ConversionScroll = () => {
         tl.fromTo(
           fillRef.current,
           { scaleY: 0, transformOrigin: "top" },
-          { scaleY: 1, ease: "none" },
+          { scaleY: 1, ease: "none", duration: 1 },
           0
         );
       }
@@ -79,42 +84,35 @@ export const ConversionScroll = () => {
         tl.fromTo(
           dotRef.current,
           { top: "0%" },
-          { top: "100%", ease: "none" },
+          { top: "100%", ease: "none", duration: 1 },
           0
         );
       }
 
-      // Sequential layer cross-fading
-      const totalLayers = SVG_LAYERS.length;
-      const step = 1 / totalLayers;
+      // Cumulative sticky card activation:
+      // each layer fades in once (slightly before the dot reaches it)
+      // and stays visible until the timeline scrubs all the way back.
+      const fadeDuration = 0.15;
+      // Full-opacity points sit just ahead of the dot arrival so the
+      // line feels like it triggers the card early.
+      const activateAt = [0, 0.16, 0.44, 0.72];
 
       layersRef.current.forEach((layerEl, i) => {
         if (!layerEl) return;
         if (i === 0) {
-          // First layer starts visible, fades out as next layer arrives
-          tl.fromTo(
-            layerEl,
-            { opacity: 1 },
-            { opacity: 0.05, ease: "power1.inOut", duration: step * 0.8 },
-            step * 0.4
-          );
+          // First card starts active and stays active.
+          tl.set(layerEl, { opacity: 1 }, 0);
         } else {
-          // Consecutive layers fade in, then fade out (except the last layer)
-          const fadeInStart = Math.max(0, (i - 1) * step + step * 0.4);
           tl.fromTo(
             layerEl,
             { opacity: 0.05 },
-            { opacity: 1, ease: "power1.inOut", duration: step * 0.8 },
-            fadeInStart
+            {
+              opacity: 1,
+              ease: "power1.inOut",
+              duration: fadeDuration,
+            },
+            activateAt[i] ?? 0.5
           );
-
-          if (i < totalLayers - 1) {
-            tl.to(
-              layerEl,
-              { opacity: 0.05, ease: "power1.inOut", duration: step * 0.8 },
-              i * step + step * 0.4
-            );
-          }
         }
       });
 

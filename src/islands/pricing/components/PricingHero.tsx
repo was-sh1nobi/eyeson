@@ -69,7 +69,7 @@ export const PricingHero = () => {
   return (
     <>
       <div
-        className="pricing-hero-bg relative w-full min-h-dvh flex items-center justify-center flex-col gap-10 sm:gap-20 overflow-x-hidden pb-20 pt-40"
+        className="pricing-hero-bg relative w-full min-h-dvh flex items-center justify-center flex-col gap-10 sm:gap-20 overflow-x-hidden pt-40"
       >
         {/* Background image on its own layer: the edge-fade mask must live here,
             NOT on the content container — a mask on the parent fades the form,
