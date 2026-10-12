@@ -5,22 +5,8 @@ import { SmartImage } from "@/utils/SmartImage.tsx";
 import { httpService } from "@/utils/httpService.ts";
 import { VideoShowreelModal } from "./VideoShowreelModal.tsx";
 
-const CATEGORIES = [
-  "Brand Trailer",
-  "Explainer Videos",
-  "Motion Graphics",
-  "Ad Creatives",
-  "Social Content",
-  "Graphic Design",
-];
-
-const LIMIT_PER_CATEGORY = 2;
-// Mobile: fewer unique cards → less DOM / fewer image decodes.
-// Tripled for the -33.33% seamless loop, so keep unique count small.
-const MAX_ITEMS_MOBILE = 8;
-
 type ShowcaseItem = {
-  id: number;
+  id: number | string;
   src: string;
   videoUrl: string;
   previewUrl?: string;
@@ -28,146 +14,247 @@ type ShowcaseItem = {
   title: string;
 };
 
-function useCoarsePointer() {
-  const [coarse, setCoarse] = useState(false);
-  useEffect(() => {
-    try {
-      const mq = window.matchMedia("(pointer: coarse)");
-      const update = () => setCoarse(mq.matches);
-      update();
-      mq.addEventListener("change", update);
-      return () => mq.removeEventListener("change", update);
-    } catch {
-      return;
-    }
-  }, []);
-  return coarse;
+const FALLBACK_ITEMS: ShowcaseItem[] = [
+  {
+    id: 6,
+    src: "https://back.eyesonstudio.com/media/raw/portfolio/1786431829961-Screenshot%202026-08-11%20063656.png",
+    videoUrl: "https://back.eyesonstudio.com/media/raw/portfolio/1786431829450-00%20-%20Predictefy%20-%20Launch%20Trailer.mp4",
+    previewUrl: "https://back.eyesonstudio.com/media/raw/portfolio/preview-1791455470498-1786431829450-00%20-%20Predictefy%20-%20Launch%20Trailer.mp4",
+    playable: true,
+    title: "Brand Trailer",
+  },
+  {
+    id: 7,
+    src: "https://back.eyesonstudio.com/media/raw/portfolio/1786441608144-Screenshot%20From%202026-08-11%2013-14-37.png",
+    videoUrl: "https://back.eyesonstudio.com/media/raw/portfolio/1786441607973-01%20-%20Starbucks%20%E2%80%93%20Brand%20Trailer_compressed.mp4",
+    previewUrl: "https://back.eyesonstudio.com/media/raw/portfolio/preview-1791822450052-1786441607973-01%20-%20Starbucks%20%E2%80%93%20Brand%20Trailer_compressed.mp4",
+    playable: true,
+    title: "Brand Trailer",
+  },
+  {
+    id: 20,
+    src: "https://back.eyesonstudio.com/media/raw/portfolio/1786446536483-Screenshot%20From%202026-08-11%2014-31-35.png",
+    videoUrl: "https://back.eyesonstudio.com/media/raw/portfolio/1786446536127-16%20-%20Vuetify%20%E2%80%93%20SaaS%20Explainer%20Video_compressed.mp4",
+    previewUrl: "https://back.eyesonstudio.com/media/raw/portfolio/preview-1791822389591-1786446536127-16%20-%20Vuetify%20%E2%80%93%20SaaS%20Explainer%20Video_compressed.mp4",
+    playable: true,
+    title: "Explainer Videos",
+  },
+  {
+    id: 25,
+    src: "https://back.eyesonstudio.com/media/raw/portfolio/1786459227358-Screenshot%20From%202026-08-11%2018-09-15.png",
+    videoUrl: "https://back.eyesonstudio.com/media/raw/portfolio/1786459227301-AkiraLink%20%E2%80%94%20Social%20Reel_compressed.mp4",
+    previewUrl: "https://back.eyesonstudio.com/media/raw/portfolio/preview-1791822174206-1786459227301-AkiraLink%20%E2%80%94%20Social%20Reel_compressed.mp4",
+    playable: true,
+    title: "Motion Graphics",
+  },
+  {
+    id: 29,
+    src: "https://back.eyesonstudio.com/media/raw/portfolio/1786459750944-Screenshot%20From%202026-08-11%2018-17-34.png",
+    videoUrl: "https://back.eyesonstudio.com/media/raw/portfolio/1786459750837-CryptoZen%20Solana%20%E2%80%94%20Educational%20Reel_compressed.mp4",
+    previewUrl: "https://back.eyesonstudio.com/media/raw/portfolio/preview-1791822274460-1786459750837-CryptoZen%20Solana%20%E2%80%94%20Educational%20Reel_compressed.mp4",
+    playable: true,
+    title: "Motion Graphics",
+  },
+  {
+    id: 41,
+    src: "https://back.eyesonstudio.com/media/raw/portfolio/1786461805783-Screenshot%20From%202026-08-11%2018-50-43.png",
+    videoUrl: "https://back.eyesonstudio.com/media/raw/portfolio/1786461805166-17%20-%20Coconut%20Care%20%E2%80%93%20Product%20Ad%20_compressed.mp4",
+    previewUrl: "https://back.eyesonstudio.com/media/raw/portfolio/preview-1791822507540-1786461805166-17%20-%20Coconut%20Care%20%E2%80%93%20Product%20Ad%20_compressed.mp4",
+    playable: true,
+    title: "Ad Creatives",
+  },
+  {
+    id: 8,
+    src: "https://back.eyesonstudio.com/media/raw/portfolio/1786442015930-Screenshot%20From%202026-08-11%2013-20-21.png",
+    videoUrl: "https://back.eyesonstudio.com/media/raw/portfolio/1786442015364-02%20-%20Uber%20-%20Brand%20Trailer_compressed.mp4",
+    previewUrl: "#",
+    playable: true,
+    title: "Brand Trailer",
+  },
+  {
+    id: 9,
+    src: "https://back.eyesonstudio.com/media/raw/portfolio/1786442482739-Screenshot%20From%202026-08-11%2013-28-50.png",
+    videoUrl: "https://back.eyesonstudio.com/media/raw/portfolio/1786442482564-04%20-%20Binance%20-%20Crypto%20Brand%20Trailer_compressed.mp4",
+    previewUrl: "#",
+    playable: true,
+    title: "Brand Trailer",
+  },
+  {
+    id: 10,
+    src: "https://back.eyesonstudio.com/media/raw/portfolio/1786442607476-Screenshot%20From%202026-08-11%2013-30-52.png",
+    videoUrl: "https://back.eyesonstudio.com/media/raw/portfolio/1786442607284-05%20-%20Apple%20Health%20-%20Product%20Trailer_compressed.mp4",
+    previewUrl: "#",
+    playable: true,
+    title: "Brand Trailer",
+  },
+  {
+    id: 11,
+    src: "https://back.eyesonstudio.com/media/raw/portfolio/1786442807822-Screenshot%20From%202026-08-11%2013-34-01.png",
+    videoUrl: "https://back.eyesonstudio.com/media/raw/portfolio/1786442807656-06%20-%20Pandora%20Parlays%20-%20SaaS%20Trailer_compressed.mp4",
+    previewUrl: "#",
+    playable: true,
+    title: "Brand Trailer",
+  },
+];
+
+/* ──────────────────────────────────────────────────────────────
+ * Global "live video" slot manager
+ *
+ * Phones only have a few hardware video decoders. Instead of letting
+ * every card run its own <video>, only MAX_LIVE cards in the whole
+ * page may hold a mounted <video> at the same time. Everyone else
+ * shows the poster image only. When a slot frees up, the next waiting
+ * (visible) card gets it.
+ * ────────────────────────────────────────────────────────────── */
+
+const activeSlots = new Set<object>();
+const waitingSlots = new Map<object, () => void>();
+
+function getMaxLive(): number {
+  if (typeof window === "undefined") return 0;
+
+  // No video at all for people who asked for less motion / data.
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return 0;
+  const conn = (navigator as any).connection;
+  if (conn?.saveData) return 0;
+
+  const isTouch = window.matchMedia("(pointer: coarse)").matches;
+  const lowMemory = ((navigator as any).deviceMemory ?? 8) <= 2;
+
+  if (isTouch) return lowMemory ? 2 : 3;
+  return lowMemory ? 3 : 6;
 }
 
-// همون دکمه پلی که در PostComp استفاده شده
-function PlaySvgButton() {
-  return (
-    <svg
-      viewBox="0 0 69 78"
-      fill="white"
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-7 w-6 sm:h-10 sm:w-9 lg:h-13.5 lg:w-12"
-      aria-hidden
-    >
-      <path
-        d="M66 33.7218C70 36.0312 70 41.8047 66 44.1141L9 77.0231C5 79.3325 0 76.4457 0 71.8269V6.009C0 1.3902 5 -1.49655 9 0.812852L66 33.7218Z"
-        fillOpacity="0.8"
-      />
-    </svg>
-  );
+function isTouchDevice(): boolean {
+  return typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches;
 }
 
-const CARD_STYLE = {
-  width: "calc((100vw - 32px) / 3)",
-  height: "calc((100vw - 32px) / 3 * 0.65)",
-  maxWidth: "300px",
-  maxHeight: "200px",
-  minWidth: "110px",
-  minHeight: "72px",
-} as const;
+/** Try to take a slot. If none is free, register as waiting. */
+function requestSlot(token: object, onGranted: () => void): boolean {
+  if (activeSlots.has(token)) return true;
+  if (activeSlots.size < getMaxLive()) {
+    activeSlots.add(token);
+    waitingSlots.delete(token);
+    return true;
+  }
+  waitingSlots.set(token, onGranted);
+  return false;
+}
+
+/** Give a slot back (or stop waiting) and hand it to the next waiter. */
+function releaseSlot(token: object) {
+  waitingSlots.delete(token);
+  const hadSlot = activeSlots.delete(token);
+  if (!hadSlot) return;
+
+  for (const [waiter, grant] of waitingSlots) {
+    if (activeSlots.size >= getMaxLive()) break;
+    waitingSlots.delete(waiter);
+    activeSlots.add(waiter);
+    grant();
+  }
+}
 
 // Memoized so marquee re-renders / parent state churn don't re-create cards.
 const WorkCard = memo(function WorkCard({
-  item,
-  onPlay,
-}: {
+                                          item,
+                                          onPlay,
+                                          paused,
+                                        }: {
   item: ShowcaseItem;
   onPlay: (item: ShowcaseItem) => void;
+  paused?: boolean;
 }) {
-  const [isHovered, setIsHovered] = useState(false);
+  const cardRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const token = useRef<object>({}).current;
+  const [live, setLive] = useState(false);
 
-  const handleMouseEnter = () => {
-    if (!item.previewUrl) return;
-    setIsHovered(true);
-  };
+  // Some items use the full-size video as their "preview". On touch
+  // devices that is far too heavy, so those stay poster-only there.
+  const hasLightPreview = useMemo(() => {
+    if (!item.previewUrl) return false;
+    if (item.previewUrl === item.videoUrl && isTouchDevice()) return false;
+    return true;
+  }, [item.previewUrl, item.videoUrl]);
 
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    if (videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
-    }
-  };
+  // Take a decoder slot only while the card is actually visible.
+  useEffect(() => {
+    const el = cardRef.current;
+    if (!el || !hasLightPreview || typeof IntersectionObserver === "undefined") return;
+
+    const io = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            if (requestSlot(token, () => setLive(true))) setLive(true);
+          } else {
+            releaseSlot(token);
+            setLive(false);
+          }
+        },
+        { threshold: 0.5 }
+    );
+    io.observe(el);
+
+    return () => {
+      io.disconnect();
+      releaseSlot(token);
+    };
+  }, [hasLightPreview, token]);
+
+  // The <video> only exists while the card owns a slot AND nothing paused it.
+  // Unmounting it frees the decoder + frame buffers (also while a modal is open).
+  const showVideo = live && !paused && hasLightPreview;
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = true;
+    v.defaultMuted = true;
+    v.play().catch(() => {});
+
+    return () => {
+      v.pause();
+      v.removeAttribute("src");
+      v.load();
+    };
+  }, [showVideo]);
 
   return (
-    <article
-      className={`group relative shrink-0 overflow-hidden rounded-xl border border-[#188e9f]/70 sm:rounded-2xl ${
-        item.playable ? "cursor-pointer" : ""
-      }`}
-      style={{ ...CARD_STYLE, contentVisibility: "auto", containIntrinsicSize: "300px 200px" } as React.CSSProperties}
-      onClick={item.playable ? () => onPlay(item) : undefined}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <SmartImage
-        src={item.src}
-        alt={item.title || "Video"}
-        decoding="async"
-        loading="lazy"
-        sizes="(max-width: 640px) 33vw, 300px"
-        // Hover zoom is desktop-only (sm:) — no transform churn on touch.
-        // No backdrop-blur here: blurring an animating layer forces a full
-        // repaint every frame on mobile GPUs.
-        className={`absolute inset-0 h-full w-full object-cover sm:transition-transform sm:duration-500 ${
-          isHovered && item.previewUrl ? "opacity-0" : "opacity-100 sm:group-hover:scale-105"
-        }`}
-      />
-      {item.previewUrl && isHovered && (
-        <video
-          ref={videoRef}
-          src={item.previewUrl}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          className="absolute inset-0 h-full w-full object-cover z-5"
-          onCanPlay={(e) => {
-            const p = (e.currentTarget as HTMLVideoElement).play();
-            if (p) p.catch(() => {});
-          }}
-        />
-      )}
-      {item.playable && (
-        <div
-          className={`absolute inset-0 z-10 flex items-center justify-center transition-opacity duration-300 ${
-            isHovered && item.previewUrl ? "opacity-0 pointer-events-none" : "bg-black/10 sm:transition-colors sm:duration-500 sm:group-hover:bg-black/30"
+      <article
+          ref={cardRef}
+          className={`group relative shrink-0 overflow-hidden rounded-xl border border-[#188e9f]/70 sm:rounded-2xl w-[220px] h-[140px] sm:w-[280px] sm:h-[180px] lg:w-[320px] lg:h-[200px] ${
+              item.playable ? "cursor-pointer" : ""
           }`}
-        >
-          <span className="transition-transform duration-300 ease-out group-hover:-translate-y-1 group-hover:scale-110 sm:drop-shadow-[0_0_16px_rgba(72,235,214,0.45)]">
-            <PlaySvgButton />
-          </span>
-        </div>
-      )}
-    </article>
+          onClick={item.playable ? () => onPlay(item) : undefined}
+      >
+        {/* Poster is always present: cheap, and covers the video while it loads. */}
+        <SmartImage
+            src={item.src}
+            alt={item.title || "Video"}
+            decoding="async"
+            loading="lazy"
+            sizes="(max-width: 640px) 220px, (max-width: 1024px) 280px, 320px"
+            className="absolute inset-0 h-full w-full object-cover sm:transition-transform sm:duration-500 sm:group-hover:scale-105"
+        />
+
+        {showVideo && (
+            <video
+                ref={videoRef}
+                src={item.previewUrl}
+                poster={item.src}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="none"
+                disablePictureInPicture
+                className="absolute inset-0 h-full w-full object-cover sm:transition-transform sm:duration-500 sm:group-hover:scale-105"
+            />
+        )}
+      </article>
   );
 });
-
-// کارت محو/گرافیتی برای حالت خطا — حس اینکه قبلاً چیزی اونجا بوده
-function GhostCard() {
-  return (
-    <div
-      className="relative shrink-0 overflow-hidden rounded-xl border border-[#188e9f]/25 bg-linear-to-br from-[#0B2534] to-[#071824] sm:rounded-2xl"
-      style={{ ...CARD_STYLE }}
-    >
-      <div className="absolute left-3 top-3 flex h-8 w-8 items-center justify-center rounded-full border border-[#9de9e5]/30 bg-[#08263a]/50 sm:left-4 sm:top-4 sm:h-9 sm:w-9">
-        <svg
-          className="h-3 w-3 text-[#b9ffff]/40 sm:h-3.5 sm:w-3.5"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-        >
-          <path d="M8 5v14l11-7z" />
-        </svg>
-      </div>
-    </div>
-  );
-}
 
 type VideoWorkShowcaseSectionProps = {
   eyebrow?: string | null;
@@ -183,91 +270,86 @@ type VideoWorkShowcaseSectionProps = {
 };
 
 export default function VideoWorkShowcaseSection({
-  eyebrow = "OUR WORK",
-  title = "Videos That Make People",
-  highlight = "Stop Scrolling.",
-  description = "Explore motion graphics, launch videos, explainers, social content, animations, and edits\n" +
-      "crafted to capture attention fast, keep viewers engaged, and turn your message into\n" +
-      "something people actually want to watch.",
-  sectionClassName = "",
-  eyebrowClassName = "text-[10px] tracking-[0.18em] text-[#c6d6de] sm:text-xs",
-  titleClassName = "mt-3 text-3xl font-bold leading-tight text-white sm:mt-4 sm:text-4xl md:text-5xl lg:text-6xl",
-  highlightClassName = "text-[#35d2cc]",
-  descriptionClassName = "mx-auto mt-4 max-w-2xl text-xs leading-6 text-[#c5d7e0] sm:mt-5 sm:text-sm sm:leading-7",
-  fadeColor = "#030d18",
-}: VideoWorkShowcaseSectionProps) {
-  const [items, setItems] = useState<ShowcaseItem[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [failed, setFailed] = useState(false);
+                                                   eyebrow = "OUR WORK",
+                                                   title = "Videos That Make People",
+                                                   highlight = "Stop Scrolling.",
+                                                   description = "Explore motion graphics, launch videos, explainers, social content, animations, and edits\n" +
+                                                       "crafted to capture attention fast, keep viewers engaged, and turn your message into\n" +
+                                                       "something people actually want to watch.",
+                                                   sectionClassName = "",
+                                                   eyebrowClassName = "text-[10px] tracking-[0.18em] text-[#c6d6de] sm:text-xs",
+                                                   titleClassName = "mt-3 text-3xl font-bold leading-tight text-white sm:mt-4 sm:text-4xl md:text-5xl lg:text-6xl",
+                                                   highlightClassName = "text-[#35d2cc]",
+                                                   descriptionClassName = "mx-auto mt-4 max-w-2xl text-xs leading-6 text-[#c5d7e0] sm:mt-5 sm:text-sm sm:leading-7",
+                                                   fadeColor = "#030d18",
+                                                 }: VideoWorkShowcaseSectionProps) {
+  const [items, setItems] = useState<ShowcaseItem[]>(FALLBACK_ITEMS);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<ShowcaseItem | null>(null);
   const [inView, setInView] = useState(true);
   const [pageHidden, setPageHidden] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
-  const isCoarse = useCoarsePointer();
 
   useEffect(() => {
     let cancelled = false;
-    const controller = new AbortController();
     const fetchVideos = async () => {
-      setLoading(true);
-      setFailed(false);
       try {
-        const results = await Promise.allSettled(
-          CATEGORIES.map((category) =>
-            httpService.post<any>(`/portfolio/list?page=1&limit=${LIMIT_PER_CATEGORY}`, { category })
-          )
-        );
+        const res: any = await httpService.post<any>("/portfolio/list?page=1&limit=60", {});
         if (cancelled) return;
 
+        const rawList = res?.videos || [];
         const mapped: ShowcaseItem[] = [];
-        const seen = new Set<number>();
-        for (const result of results) {
-          if (result.status !== "fulfilled") continue;
-          const res: any = result.value;
-          for (const v of res.videos || []) {
-            if (seen.has(v.id)) continue;
-            seen.add(v.id);
-            mapped.push({
-              id: v.id,
-              src: v.cover ? (v.cover.startsWith('http') ? v.cover : `${import.meta.env.PUBLIC_API_URL}${v.cover}`) : '/video-pieces/person.webp',
-              videoUrl: v.video ? (v.video.startsWith('http') ? v.video : `${import.meta.env.PUBLIC_API_URL}${v.video}`) : '',
-              previewUrl: v.preview ? (v.preview.startsWith('http') ? v.preview : `${import.meta.env.PUBLIC_API_URL}${v.preview}`) : undefined,
-              playable: !!v.video,
-              title: v.category,
-            });
-          }
+        const seenIds = new Set<number | string>();
+        const seenVideos = new Set<string>();
+
+        for (const v of rawList) {
+          if (!v || seenIds.has(v.id)) continue;
+          const videoPath = v.video || "";
+          if (videoPath && seenVideos.has(videoPath)) continue;
+
+          seenIds.add(v.id);
+          if (videoPath) seenVideos.add(videoPath);
+
+          const previewRaw = v.preview || v.video;
+          const previewUrl = previewRaw
+              ? (previewRaw.startsWith("http") ? previewRaw : `${import.meta.env.PUBLIC_API_URL}${previewRaw}`)
+              : undefined;
+
+          mapped.push({
+            id: v.id,
+            src: v.cover
+                ? (v.cover.startsWith("http") ? v.cover : `${import.meta.env.PUBLIC_API_URL}${v.cover}`)
+                : "/video-pieces/person.webp",
+            videoUrl: videoPath
+                ? (videoPath.startsWith("http") ? videoPath : `${import.meta.env.PUBLIC_API_URL}${videoPath}`)
+                : "",
+            previewUrl,
+            playable: !!videoPath,
+            title: v.category || "Video",
+          });
         }
 
-        if (mapped.length === 0) {
-          setFailed(true);
-        } else {
-          setItems(mapped);
+        if (mapped.length >= 6) {
+          setItems(mapped.slice(0, 10));
         }
       } catch (err) {
-        if (!cancelled) {
-          console.error("Failed to fetch videos", err);
-          setFailed(true);
-        }
-      } finally {
-        if (!cancelled) setLoading(false);
+        console.error("Failed to fetch showcase videos, using fallback", err);
       }
     };
     fetchVideos();
     return () => {
       cancelled = true;
-      controller.abort();
     };
   }, []);
 
-  // Pause the marquee when the section is offscreen — the single biggest
-  // mobile win: no compositor work while the user can't see it.
+  // Pause the marquee when the section is offscreen — no compositor work
+  // while the user can't see it.
   useEffect(() => {
     const el = sectionRef.current;
     if (!el || typeof IntersectionObserver === "undefined") return;
     const io = new IntersectionObserver(
-      ([entry]) => setInView(entry.isIntersecting),
-      { rootMargin: "100px" }
+        ([entry]) => setInView(entry.isIntersecting),
+        { rootMargin: "100px" }
     );
     io.observe(el);
     return () => io.disconnect();
@@ -285,50 +367,54 @@ export default function VideoWorkShowcaseSection({
     setIsModalOpen(true);
   };
 
-  // Cap unique cards on touch devices: tripled loop × 12 items = 36 <img>
-  // decodes. 8 unique → 24 nodes is plenty for a phone viewport.
-  const visibleItems = useMemo(
-    () => (isCoarse && items.length > MAX_ITEMS_MOBILE ? items.slice(0, MAX_ITEMS_MOBILE) : items),
-    [items, isCoarse]
-  );
-
   const { row1, row2, playableList } = useMemo(() => {
-    const r1 = visibleItems.filter((_, idx) => idx % 2 === 0);
-    const r2 = visibleItems.filter((_, idx) => idx % 2 === 1);
+    const r1: ShowcaseItem[] = [];
+    const r2: ShowcaseItem[] = [];
+
+    items.forEach((item, idx) => {
+      if (idx % 2 === 0) {
+        r1.push(item);
+      } else {
+        r2.push(item);
+      }
+    });
+
+    // 3 copies (animation moves -33.333%) so wide screens never see a gap.
+    // Cards are cheap now: only a few of them ever mount a <video>.
     return {
       row1: [...r1, ...r1, ...r1],
       row2: [...r2, ...r2, ...r2],
-      playableList: visibleItems.filter((v) => v.playable),
+      playableList: items.filter((v) => v.playable),
     };
-  }, [visibleItems]);
+  }, [items]);
 
-  // Any of these → freeze the CSS animation (GPU does zero work).
+  // Any of these → freeze the CSS animation and unmount all live videos.
   const marqueePaused = !inView || pageHidden || isModalOpen;
 
   return (
-    <section
-      ref={sectionRef}
-      className={`relative overflow-hidden px-4 pb-16 pt-10 sm:px-6 sm:pb-20 sm:pt-12 lg:px-20 lg:pb-24 ${sectionClassName}`}
-    >
-      {/* ── Header ── */}
-      <div className="mx-auto max-w-7xl">
-        <div className="mx-auto max-w-3xl text-center">
-          {eyebrow ? <p className={eyebrowClassName}>{eyebrow}</p> : null}
-          <h2 className={titleClassName}>
-            {title}
-            {highlight ? (
-              <>
-                <br />
-                <span className={highlightClassName}>{highlight}</span>
-              </>
-            ) : null}
-          </h2>
-          <p className={descriptionClassName}>{description}</p>
+      <section
+          ref={sectionRef}
+          className={`relative overflow-hidden px-4 pb-16 pt-10 sm:px-6 sm:pb-20 sm:pt-12 lg:px-20 lg:pb-24 ${sectionClassName}`}
+      >
+        {/* ── Header ── */}
+        <div className="mx-auto max-w-7xl">
+          <div className="mx-auto max-w-3xl text-center">
+            {eyebrow ? <p className={eyebrowClassName}>{eyebrow}</p> : null}
+            <h2 className={titleClassName}>
+              {title}
+              {highlight ? (
+                  <>
+                    <br />
+                    <span className={highlightClassName}>{highlight}</span>
+                  </>
+              ) : null}
+            </h2>
+            <p className={descriptionClassName}>{description}</p>
+          </div>
         </div>
-      </div>
 
-      {/* ── CSS Keyframes ── */}
-      <style>{`
+        {/* ── CSS Keyframes ── */}
+        <style>{`
         @keyframes scroll-left {
           0%   { transform: translate3d(0, 0, 0); }
           100% { transform: translate3d(-33.333%, 0, 0); }
@@ -343,21 +429,20 @@ export default function VideoWorkShowcaseSection({
           gap: 12px;
           will-change: transform;
           transform: translateZ(0);
-          backface-visibility: hidden;
         }
         @media (min-width: 640px) {
           .track-left, .track-right { gap: 16px; }
         }
         .track-left {
-          animation: scroll-left 35s linear infinite;
+          animation: scroll-left 50s linear infinite;
         }
         .track-right {
-          animation: scroll-right 38s linear infinite;
+          animation: scroll-right 54s linear infinite;
         }
         /* Touch: slower scroll = fewer frames to composite per second. */
         @media (pointer: coarse) {
-          .track-left { animation-duration: 55s; }
-          .track-right { animation-duration: 60s; }
+          .track-left { animation-duration: 62s; }
+          .track-right { animation-duration: 66s; }
         }
         /* Hover-pause is pointer-exact only — touch scroll otherwise
            fights the animation and janks. */
@@ -380,114 +465,80 @@ export default function VideoWorkShowcaseSection({
         }
         /* gpu-off lite = slower scroll (decrease, never disable) */
         html.gpu-off .track-left {
-          animation-duration: 70s !important;
+          animation-duration: 75s !important;
         }
         html.gpu-off .track-right {
-          animation-duration: 76s !important;
+          animation-duration: 80s !important;
         }
       `}</style>
 
-      {/* ── Rows ── */}
-      <div className={`mt-8 space-y-3 sm:mt-10 sm:space-y-4 ${marqueePaused ? "track-paused" : ""}`}>
-        {loading ? null : failed ? (
-          <div className="relative">
-            {/* ردیف‌های محو — حس اینکه ویدیوها قبلاً اونجا بوده‌ان */}
-            <div className="space-y-3 opacity-40 sm:space-y-4" aria-hidden>
-              <div className="flex gap-4 overflow-hidden" style={{ transform: "translateX(-24px)" }}>
-                {Array.from({ length: 8 }).map((_, i) => (
-                  <GhostCard key={`g1-${i}`} />
-                ))}
-              </div>
-              <div className="flex gap-4 overflow-hidden" style={{ transform: "translateX(-90px)" }}>
-                {Array.from({ length: 8 }).map((_, i) => (
-                  <GhostCard key={`g2-${i}`} />
-                ))}
-              </div>
-            </div>
-
-            {/* پیام خطا روی ردیف‌های محو */}
-            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-2 px-4 text-center">
-              <div
-                className="pointer-events-none absolute inset-x-0 inset-y-0"
+        {/* ── Rows ── */}
+        <div className={`mt-8 space-y-3 sm:mt-10 sm:space-y-4 ${marqueePaused ? "track-paused" : ""}`}>
+          {/* ردیف اول: به سمت چپ */}
+          <div className="relative w-full overflow-hidden">
+            {/* fade mask چپ و راست */}
+            <div
+                className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 sm:w-20"
                 style={{
-                  background: `radial-gradient(ellipse at center, ${fadeColor} 30%, transparent 75%)`,
+                  background: `linear-gradient(to right, ${fadeColor}, transparent)`,
                 }}
-              />
-              <p className="bg-linear-to-r from-[#46B6A0] to-[#2EBACA] bg-clip-text text-lg font-bold text-transparent sm:text-xl">
-                Failed to fetch videos
-              </p>
-              <p className="text-xs text-[#c5d7e0]/70 sm:text-sm">
-                Please try again later.
-              </p>
+            />
+            <div
+                className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 sm:w-20"
+                style={{
+                  background: `linear-gradient(to left, ${fadeColor}, transparent)`,
+                }}
+            />
+
+            <div className="track-left">
+              {row1.map((item, idx) => (
+                  <WorkCard
+                      key={`r1-${item.id}-${idx}`}
+                      item={item}
+                      onPlay={handlePlay}
+                      paused={marqueePaused}
+                  />
+              ))}
             </div>
           </div>
-        ) : (
-          <>
-            {/* ردیف اول: به سمت چپ */}
-            <div className="relative w-full overflow-hidden">
-              {/* fade mask چپ و راست */}
-              <div
+
+          {/* ردیف دوم: به سمت راست */}
+          <div className="relative w-full overflow-hidden">
+            <div
                 className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 sm:w-20"
                 style={{
                   background: `linear-gradient(to right, ${fadeColor}, transparent)`,
                 }}
-              />
-              <div
+            />
+            <div
                 className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 sm:w-20"
                 style={{
                   background: `linear-gradient(to left, ${fadeColor}, transparent)`,
                 }}
-              />
+            />
 
-              <div className="track-left">
-                {row1.map((item, idx) => (
+            <div className="track-right">
+              {row2.map((item, idx) => (
                   <WorkCard
-                    key={`r1-${item.id}-${idx}`}
-                    item={item}
-                    onPlay={handlePlay}
+                      key={`r2-${item.id}-${idx}`}
+                      item={item}
+                      onPlay={handlePlay}
+                      paused={marqueePaused}
                   />
-                ))}
-              </div>
+              ))}
             </div>
+          </div>
+        </div>
 
-            {/* ردیف دوم: به سمت راست */}
-            <div className="relative w-full overflow-hidden">
-              <div
-                className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 sm:w-20"
-                style={{
-                  background: `linear-gradient(to right, ${fadeColor}, transparent)`,
-                }}
-              />
-              <div
-                className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 sm:w-20"
-                style={{
-                  background: `linear-gradient(to left, ${fadeColor}, transparent)`,
-                }}
-              />
-
-              <div className="track-right">
-                {row2.map((item, idx) => (
-                  <WorkCard
-                    key={`r2-${item.id}-${idx}`}
-                    item={item}
-                    onPlay={handlePlay}
-                  />
-                ))}
-              </div>
-            </div>
-          </>
+        {/* مودال پلیر — همون پلیر صفحه پورتفولیو */}
+        {selectedVideo && (
+            <VideoShowreelModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                videoList={playableList}
+                initialVideo={selectedVideo}
+            />
         )}
-      </div>
-
-      {/* مودال پلیر — همون پلیر صفحه پورتفولیو */}
-      {selectedVideo && (
-        <VideoShowreelModal
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          videoList={playableList}
-          initialVideo={selectedVideo}
-        />
-      )}
-    </section>
+      </section>
   );
 }

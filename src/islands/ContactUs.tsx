@@ -51,7 +51,7 @@ export default function ContactUs() {
 
         {/* ===== Right: Form ===== */}
         <div
-          className="lg:col-span-7 w-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-12 shadow-2xl animate-slide-up"
+          className="lg:col-span-7 w-full bg-linear-to-b from-[#0a2333] via-[#071924] to-[#04111a] border border-[#00A9BD]/30 rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-12 shadow-[0_20px_60px_-15px_rgba(0,169,189,0.25)] animate-slide-up"
         >
           <form className="space-y-5 sm:space-y-6 md:space-y-8 text-white w-full text-left">
             {/* Name */}
@@ -86,7 +86,7 @@ export default function ContactUs() {
                       ${
                         selectedBudget === budget
                           ? "bg-cyan-400 text-black border-cyan-400 shadow-lg shadow-cyan-400/40"
-                          : "bg-white/5 border-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_15px_rgba(34,211,238,0.3)] text-white/80"
+                          : "bg-[#04121b]/80 border-[#00A9BD]/20 hover:border-cyan-400/50 hover:shadow-[0_0_15px_rgba(34,211,238,0.3)] text-white/80"
                       }`}
                     >
                       {budget}
@@ -104,8 +104,8 @@ export default function ContactUs() {
               <textarea
                 rows={4}
                 placeholder="What do you want to create, what is your goal, and do you have any references, deadline, or style in mind?"
-                className="bg-[#040e14]/50 border border-white/10 rounded-xl px-4 py-3 text-sm
-                            focus:outline-none focus:border-cyan-400/50 focus:bg-white/5 focus:shadow-[0_0_20px_rgba(34,211,238,0.15)]
+                className="bg-[#020b12]/80 border border-[#00A9BD]/20 rounded-xl px-4 py-3 text-sm
+                            focus:outline-none focus:border-cyan-400 focus:bg-[#020b12] focus:shadow-[0_0_20px_rgba(34,211,238,0.2)]
                            transition-[background-color,border-color,box-shadow] duration-300 resize-none w-full"
               />
             </div>
@@ -114,9 +114,9 @@ export default function ContactUs() {
             <div className="pt-4">
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-cyan-400 to-teal-400 text-black font-bold rounded-xl
+                className="w-full bg-linear-to-r from-cyan-400 via-[#00E6D7] to-[#00A9BD] text-[#01141c] font-bold rounded-xl
                            py-3.5 text-[15px] cursor-pointer
-                           sm:py-4 sm:text-base shadow-[0_0_20px_rgba(34,211,238,0.2)] transition-[transform,box-shadow] duration-200 ease-out hover:scale-[1.01] hover:shadow-[0_0_30px_rgba(34,211,238,0.4)] active:scale-[0.98]"
+                           sm:py-4 sm:text-base shadow-[0_0_25px_rgba(34,211,238,0.3)] transition-[transform,box-shadow] duration-200 ease-out hover:scale-[1.01] hover:shadow-[0_0_35px_rgba(34,211,238,0.5)] active:scale-[0.98]"
               >
                 Send Project Request
               </button>
@@ -137,9 +137,9 @@ function Select({ label, options }: { label: string; options: string[] }) {
       </label>
       <select
         defaultValue=""
-        className="bg-[#040e14]/50 border border-white/10 rounded-xl
+        className="bg-[#020b12]/80 border border-[#00A9BD]/20 rounded-xl
                    px-4 py-3 text-sm sm:text-base w-full
-                   focus:outline-none focus:border-cyan-400/50 focus:bg-white/5
+                   focus:outline-none focus:border-cyan-400 focus:bg-[#020b12]
                    transition-colors duration-300 text-white"
       >
         <option value="" disabled className="text-gray-400">
@@ -163,9 +163,9 @@ function Input({ label, type = "text" }: { label: string; type?: string }) {
       </label>
       <input
         type={type}
-        className="bg-[#040e14]/50 border border-white/10 rounded-xl
+        className="bg-[#020b12]/80 border border-[#00A9BD]/20 rounded-xl
                    px-4 py-3 text-sm sm:text-base w-full
-                   focus:outline-none focus:border-cyan-400/50 focus:bg-white/5 focus:shadow-[0_0_20px_rgba(34,211,238,0.15)]
+                   focus:outline-none focus:border-cyan-400 focus:bg-[#020b12] focus:shadow-[0_0_20px_rgba(34,211,238,0.2)]
                    transition-[background-color,border-color,box-shadow] duration-300"
       />
     </div>

@@ -305,7 +305,7 @@ export const BlogHero = ({
         <div className="fixed inset-x-0 top-0 z-50 h-1 bg-transparent pointer-events-none" aria-hidden="true">
           <div
               ref={progressBarRef}
-              className="h-full bg-linear-to-r from-[#45B6A0] to-[#25d9e0] shadow-[0_0_12px_rgba(0,169,189,0.7)] transition-[width] duration-75 ease-out"
+              className="h-full bg-linear-to-r from-[#00A9BD] to-[#00E6D7] shadow-[0_0_12px_rgba(0,169,189,0.7)] transition-[width] duration-75 ease-out"
               style={{ width: "0%" }}
           />
         </div>
@@ -466,7 +466,7 @@ export const BlogHero = ({
 
         {/* ===================== CONTENT ===================== */}
         <section className="relative mx-auto w-full max-w-350 px-4 py-10 sm:px-8 lg:px-12 lg:py-16">
-          <div className="rounded-[1.5rem] border border-white/5 bg-[#071b24]/92 p-5 shadow-[0_0_70px_rgba(0,169,189,0.08)] backdrop-blur-md sm:p-8 lg:rounded-[2rem] lg:p-12">
+          <div className="rounded-[1.5rem] border border-[#00A9BD]/15 bg-[#081827]/95 p-5 shadow-[0_0_70px_rgba(0,169,189,0.08)] backdrop-blur-md sm:p-8 lg:rounded-[2rem] lg:p-12">
             <nav className="mb-6 flex flex-wrap items-center gap-2 text-xs text-white/50">
               <a href="/" className="transition-colors hover:text-[#25d9e0]">Home</a>
               <span>/</span>

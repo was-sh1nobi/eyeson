@@ -18,9 +18,13 @@ const getAxiosInstance = () => {
             // passes `withCredentials: true` in per-request config.
             config.withCredentials = false;
             if (typeof window !== "undefined") {
-                const accessToken = localStorage.getItem("accessToken");
-                if (accessToken) {
-                    config.headers.Authorization = `Bearer ${accessToken}`;
+                try {
+                    const accessToken = localStorage.getItem("accessToken");
+                    if (accessToken) {
+                        config.headers.Authorization = `Bearer ${accessToken}`;
+                    }
+                } catch {
+                    // Ignore storage access errors in private/restricted browsing
                 }
             }
             return config;

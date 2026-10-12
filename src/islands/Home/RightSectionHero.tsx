@@ -11,6 +11,8 @@ import {
     Film,
     Layers,
     Box,
+    Volume2,
+    VolumeX,
 } from "lucide-react";
 import { SmartImage } from "@/utils/SmartImage";
 
@@ -77,6 +79,18 @@ function RightSectionHeroComponent({
     const activePoster = isShowreel ? SHOWREEL.poster : (activeCategory?.poster ?? SHOWREEL.poster);
     const containerRef = useRef<HTMLDivElement>(null);
     const [canLoadVideo, setCanLoadVideo] = useState(false);
+    const [isMuted, setIsMuted] = useState(true);
+
+    const toggleMute = () => {
+        const video = videoRef.current;
+        if (!video) return;
+        const nextMuted = !video.muted;
+        video.muted = nextMuted;
+        setIsMuted(nextMuted);
+        if (video.paused) {
+            video.play().catch(() => {});
+        }
+    };
 
     // Always autoplay in every mode (normal, gpu-off, reduced-motion, mobile).
     // No tap-to-play gate: src attaches as soon as the hero is near viewport.
@@ -92,14 +106,14 @@ function RightSectionHeroComponent({
         if (!canLoadVideo) return;
         const video = videoRef.current;
         if (!video) return;
-        video.muted = true;
-        video.defaultMuted = true;
+        video.muted = isMuted;
+        video.defaultMuted = isMuted;
         // On weak devices the first play() often rejects (decode not ready,
         // background tab, data-saver) — keep retrying on every signal.
         const tryPlay = () => {
             const v = videoRef.current;
             if (!v || !v.paused) return;
-            v.muted = true;
+            v.muted = isMuted;
             const p = v.play();
             if (p) p.catch(() => {});
         };
@@ -115,7 +129,7 @@ function RightSectionHeroComponent({
             video.removeEventListener("canplay", tryPlay);
             document.removeEventListener("visibilitychange", onVisible);
         };
-    }, [activeVideo, canLoadVideo, videoRef]);
+    }, [activeVideo, canLoadVideo, videoRef, isMuted]);
 
     const goPrev = () => {
         if (isShowreel) {
@@ -149,7 +163,7 @@ function RightSectionHeroComponent({
                 setCanLoadVideo(true);
                 const video = videoRef.current;
                 if (video) {
-                    video.muted = true;
+                    video.muted = isMuted;
                     video.play().catch(() => {});
                 }
             } else {
@@ -161,7 +175,7 @@ function RightSectionHeroComponent({
         }, { rootMargin: "150px", threshold: 0 });
         io.observe(el);
         return () => io.disconnect();
-    }, [videoRef]);
+    }, [videoRef, isMuted]);
 
     return (
         <div className="relative w-full max-w-212.5 xl:max-w-237.5 mx-auto animate-fade-in flex flex-col items-center">
@@ -210,14 +224,14 @@ function RightSectionHeroComponent({
                         poster={activePoster}
                         preload="metadata"
                         autoPlay
-                        muted
+                        muted={isMuted}
                         loop
                         playsInline
                         disablePictureInPicture={false}
                         onCanPlay={() => {
                             const video = videoRef.current;
                             if (video) {
-                                video.muted = true;
+                                video.muted = isMuted;
                                 video.play().catch(() => {});
                             }
                         }}
@@ -225,25 +239,39 @@ function RightSectionHeroComponent({
                         style={{ transform: "translate3d(0, 0, 0)", backfaceVisibility: "hidden" }}
                     />
                     <div className="absolute inset-0 bg-[#051118]/20 pointer-events-none rounded-[inherit]" aria-hidden="true" />
+
+                    {/* Mute / Unmute Button */}
+                    <button
+                        type="button"
+                        onClick={toggleMute}
+                        aria-label={isMuted ? "Unmute sound" : "Mute sound"}
+                        className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 z-20 flex items-center justify-center h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-black/60 hover:bg-black/80 text-white border border-white/20 hover:border-[#00E6D7] shadow-lg backdrop-blur-md transition-all duration-200 cursor-pointer hover:scale-110 active:scale-95"
+                    >
+                        {isMuted ? (
+                            <VolumeX className="h-4 w-4 sm:h-5 sm:w-5 text-white/80" />
+                        ) : (
+                            <Volume2 className="h-4 w-4 sm:h-5 sm:w-5 text-[#00E6D7]" />
+                        )}
+                    </button>
                 </div>
             </div>
 
-            {/* Showreel button — visible on all breakpoints, switches directly to showreel */}
-            <button
-                onClick={() => {
-                    if (activeTab !== "showreel") onCategoryChange("showreel");
-                }}
-                disabled={isShowreel}
-                aria-pressed={isShowreel}
-                style={{ backgroundImage: "var(--button-primary-bg)" }}
-                className={`mt-4 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold text-white shadow-(--button-shadow) transition-all hover:shadow-(--button-shadow-hover) ${isShowreel ? "opacity-60 cursor-default" : "hover:scale-105 cursor-pointer"}`}
-            >
-                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9V3z" /></svg>
-                Showreel
-            </button>
+            {/* Showreel button — hidden when showreel is playing */}
+            {!isShowreel && (
+                <button
+                    onClick={() => {
+                        onCategoryChange("showreel");
+                    }}
+                    style={{ backgroundImage: "var(--button-primary-bg)" }}
+                    className="mt-4 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold text-white shadow-(--button-shadow) transition-all hover:shadow-(--button-shadow-hover) hover:scale-105 cursor-pointer"
+                >
+                    <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9V3z" /></svg>
+                    Showreel
+                </button>
+            )}
 
-            {/* Premium Category Bar — Desktop Only (Clean Glass Cards with Neon Accents) */}
-            <div className="hidden lg:grid grid-cols-4 gap-3.5 mt-5 w-full relative z-30">
+            {/* Category Bar — Desktop Only */}
+            <div className="hidden lg:grid grid-cols-4 gap-3 mt-5 w-full relative z-30">
                 {CATEGORIES.map((cat) => {
                     const Icon = cat.icon;
                     const isActive = activeTab === cat.id;
@@ -253,22 +281,17 @@ function RightSectionHeroComponent({
                             key={cat.id}
                             onClick={() => onCategoryChange(cat.id)}
                             aria-pressed={isActive}
-                            className={`group relative flex items-center gap-3 p-3 rounded-2xl border transition-[transform,border-color,background-color,box-shadow] duration-300 text-left cursor-pointer overflow-hidden backdrop-blur-xl ${
+                            className={`group relative flex items-center gap-3 p-3 rounded-2xl border transition-[border-color,background-color,box-shadow,transform] duration-200 text-left cursor-pointer overflow-hidden ${
                                 isActive
-                                    ? "bg-linear-to-r from-[#042833]/90 to-[#063342]/90 border-[#00E6D7] shadow-[0_0_30px_rgba(0,230,215,0.25)] scale-[1.02]"
-                                    : "bg-[#05141e]/80 border-white/8 hover:border-white/25 hover:bg-[#071f2d]/90 hover:scale-[1.01]"
+                                    ? "bg-[#0a2c3a] border-[#00A9BD]/60 shadow-[0_4px_16px_rgba(0,169,189,0.2)]"
+                                    : "bg-[#061924]/85 border-[#00A9BD]/15 hover:border-[#00A9BD]/35 hover:bg-[#08202e]"
                             }`}
                         >
-                            {/* Active Top Glow Line */}
-                            {isActive && (
-                                <div className="absolute top-0 inset-x-0 h-0.5 bg-linear-to-r from-transparent via-[#00E6D7] to-transparent shadow-[0_0_10px_#00E6D7]" />
-                            )}
-
                             {/* Icon Box */}
-                            <div className={`p-2.5 rounded-xl border transition-[background-color,border-color,box-shadow,color] duration-300 shrink-0 ${
-                                isActive 
-                                    ? "bg-[#00E6D7]/20 border-[#00E6D7]/60 text-[#00E6D7] shadow-[0_0_15px_rgba(0,230,215,0.3)]" 
-                                    : "bg-white/5 border-white/10 text-white/50 group-hover:text-white group-hover:border-white/20 group-hover:bg-white/10"
+                            <div className={`p-2.5 rounded-xl border transition-colors duration-200 shrink-0 ${
+                                isActive
+                                    ? "bg-[#00A9BD]/20 border-[#00A9BD]/40 text-[#00E6D7]"
+                                    : "bg-white/[0.04] border-white/10 text-white/50 group-hover:text-white/80 group-hover:border-white/15"
                             }`}>
                                 <Icon className="h-4 w-4" />
                             </div>
@@ -279,7 +302,7 @@ function RightSectionHeroComponent({
                                 }`}>
                                     {cat.badge}
                                 </span>
-                                <span className={`block text-[13px] font-bold truncate transition-colors ${
+                                <span className={`block text-[13px] font-semibold truncate transition-colors ${
                                     isActive ? "text-white" : "text-white/80 group-hover:text-white"
                                 }`}>
                                     {cat.title}
