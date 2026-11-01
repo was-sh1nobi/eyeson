@@ -121,6 +121,15 @@ function getMaxLive(): number {
   const isTouch = window.matchMedia("(pointer: coarse)").matches;
   const lowMemory = ((navigator as any).deviceMemory ?? 8) <= 2;
 
+  // Firefox/cpu-lite: video decode is CPU-bound there — cut concurrent
+  // decoders to a minimum (marquee still shows posters for the rest).
+  if (
+    document.documentElement.classList.contains("gpu-off") ||
+    (window as any).__GPU_OFF__
+  ) {
+    return isTouch ? 1 : 2;
+  }
+
   if (isTouch) return lowMemory ? 2 : 3;
   return lowMemory ? 3 : 6;
 }

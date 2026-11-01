@@ -4,11 +4,43 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const SVG_LAYERS = [
-  { left: "/pricing/svg/process/5.svg", right: "/pricing/svg/process/1.svg" },
-  { left: "/pricing/svg/process/6.svg", right: "/pricing/svg/process/2.svg" },
-  { left: "/pricing/svg/process/7.svg", right: "/pricing/svg/process/3.svg" },
-  { left: "/pricing/svg/process/8.svg", right: "/pricing/svg/process/4.svg" },
+const CARDS = [
+  {
+    left: "/pricing/svg/process/5.svg",
+    step: "1.",
+    title: "Faster Understanding",
+    subtitle: "Understand in Seconds. Not Minutes.",
+    description:
+      "Most users decide in the first 20-30 seconds whether your product is worth their time. A structured product video removes friction instantly and shows what your product does, why it matters, and how it works.",
+    top: 17.64,
+  },
+  {
+    left: "/pricing/svg/process/6.svg",
+    step: "2.",
+    title: "Higher Landing Page Conversion",
+    subtitle: "Clarity Removes Hesitation.",
+    description:
+      "Confusion creates doubt. Doubt kills conversions. A well-crafted explainer aligns messaging, visuals, and value into one clear narrative so people instantly move from curiosity to action.",
+    top: 37.55,
+  },
+  {
+    left: "/pricing/svg/process/7.svg",
+    step: "3.",
+    title: "Shorter Sales Calls",
+    subtitle: "Less Explaining. More Closing.",
+    description:
+      "Instead of repeating the same 15-minute explanation in every sales conversation, use one video to educate upfront. Better pre-qualified leads. Faster close cycles.",
+    top: 57.45,
+  },
+  {
+    left: "/pricing/svg/process/8.svg",
+    step: "4.",
+    title: "Stronger Brand Perception",
+    subtitle: "Professional Motion Builds Trust.",
+    description:
+      "High-quality visual storytelling signals confidence and credibility. People trust products they understand and remember brands that communicate clearly.",
+    top: 77.35,
+  },
 ];
 
 const CARD_AREA_TOP = 16.42;
@@ -59,8 +91,13 @@ export const ConversionScroll = () => {
         },
       });
 
-      // Parallax position float
-      if (parallaxRef.current) {
+      // Parallax position float (disabled in gpu-off/Firefox to avoid SVG re-rasterization)
+      const isGpuOff =
+        typeof document !== "undefined" &&
+        (document.documentElement.classList.contains("gpu-off") ||
+          /firefox|seamonkey/i.test(navigator.userAgent));
+
+      if (parallaxRef.current && !isGpuOff) {
         tl.fromTo(
           parallaxRef.current,
           { y: -8 },
@@ -167,8 +204,8 @@ export const ConversionScroll = () => {
             </div>
           </div>
 
-          {/* SVG Layers */}
-          {SVG_LAYERS.map((svg, i) => (
+          {/* Card Layers */}
+          {CARDS.map((card, i) => (
             <div
               key={i}
               ref={(el) => {
@@ -180,39 +217,46 @@ export const ConversionScroll = () => {
               {/* Desktop-only left illustration image */}
               {!isMobile && (
                 <img
-                  src={svg.left}
+                  src={card.left}
                   alt=""
                   aria-hidden="true"
                   draggable={false}
                   loading="lazy"
                   decoding="async"
-                  className={`absolute inset-0 w-full h-full object-cover ${i == 0 ? "top-8" : ""}`}
+                  className={`absolute inset-0 w-full h-full object-cover ${i === 0 ? "top-8" : ""}`}
                 />
               )}
 
-              {/* Right text image: cropped to card column on mobile, full width on desktop */}
-              <img
-                src={svg.right}
-                alt=""
-                aria-hidden="true"
-                draggable={false}
-                loading="lazy"
-                decoding="async"
-                className="absolute top-0 h-full max-w-none"
-                style={
-                  isMobile
-                    ? {
-                        width: "339.28%",
-                        left: "-162.63%",
-                        objectFit: "fill",
-                      }
-                    : {
-                        width: "100%",
-                        left: "0",
-                        objectFit: "cover",
-                      }
-                }
-              />
+              {/* Right text card */}
+              <div
+                className="pointer-events-auto absolute left-[18%] w-[76%] md:left-[53%] md:w-[32%] lg:w-[28%] xl:w-[26%] h-[17.37%] overflow-hidden rounded-[14px] px-[5%] py-[3.5%] flex flex-col justify-center gap-1.5 md:gap-2"
+                style={{
+                  top: `${card.top}%`,
+                  containerType: "inline-size",
+                }}
+              >
+                <img
+                  src="/pricing/bgs/card-bg.png"
+                  alt=""
+                  aria-hidden="true"
+                  draggable={false}
+                  className="absolute inset-0 h-full w-full object-fill pointer-events-none -z-10 select-none"
+                />
+
+                <div className="flex flex-col gap-0.5 w-full">
+                  <div className="flex items-baseline gap-1.5 text-white font-bold text-[clamp(13px,5.2cqi,20px)] leading-tight">
+                    <span>{card.step}</span>
+                    <span>{card.title}</span>
+                  </div>
+                  <div className="text-[#08DCF0] font-medium text-[clamp(11px,4.2cqi,15px)] leading-tight">
+                    {card.subtitle}
+                  </div>
+                </div>
+
+                <p className="text-white/85 font-normal text-[clamp(10px,3.6cqi,14px)] leading-snug w-full">
+                  {card.description}
+                </p>
+              </div>
             </div>
           ))}
         </div>

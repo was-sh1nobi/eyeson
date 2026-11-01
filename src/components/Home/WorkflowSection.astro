@@ -185,7 +185,7 @@ const {
     }
 
     // اسپات‌لایت دنبال‌کننده موس با بهینه‌سازی
-    if (!reduced && !window.matchMedia("(pointer: coarse)").matches) {
+    if (!reduced && !gpuOff && !window.matchMedia("(pointer: coarse)").matches) {
       cards.forEach((card) => {
         let raf = 0;
         let pending: { x: number; y: number } | null = null;

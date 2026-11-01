@@ -111,6 +111,10 @@ let GA_ID = "G-FMW55G6R11";
         try {
           document.documentElement.classList.add('js');
           var gpuOff = false;
+          // Firefox: backdrop-filter, heavy CSS blurs, blend modes and stretches
+          // of will-change rasterize far too slowly → same CPU-lite treatment
+          // as gpu-off (same styles, same behaviours, on every platform).
+          if (/firefox|seamonkey/i.test(navigator.userAgent)) gpuOff = true;
           // WebGL probe — fails when GPU acceleration off or swiftshader disabled
           try {
             var c = document.createElement('canvas');

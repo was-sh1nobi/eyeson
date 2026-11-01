@@ -6,6 +6,7 @@ type Logo = { src: string; alt: string };
 type Props = {
   tagline?: string;
   logos?: Logo[];
+  class?: string;
 };
 
 const {
@@ -32,6 +33,7 @@ const {
 
     { src: "/customers/additional/8.jpg", alt: "Customer 8" },
   ],
+  class: klass = "",
 } = Astro.props as Props;
 
 // Duplicate 2x for a seamless -50%→0 loop. (4x doubled the <img> count
@@ -39,31 +41,35 @@ const {
 const loopLogos = [...logos, ...logos];
 ---
 
-<section class="relative flex flex-col items-center gap-6 overflow-hidden pt-6 pb-2">
-  <p class="text-center text-xs sm:text-sm font-medium tracking-wide text-white/70">{tagline}</p>
+<section class:list={["relative w-full overflow-hidden py-8 sm:py-10", klass]}>
+  <div class="relative w-full max-w-[var(--container-max)] mx-auto px-[var(--space-gutter)] sm:px-[var(--space-gutter-md)] lg:px-[var(--space-gutter-lg)] flex flex-col items-center gap-6">
+    {tagline && (
+      <p class="text-center text-xs sm:text-sm font-medium tracking-wide text-white/70">{tagline}</p>
+    )}
 
-  <!-- ================= UNIFIED TIGHT MARQUEE ================= -->
-  <div class="logo-mask w-full opacity-90" aria-label="Brand logos">
-    <div class="logo-scroll flex w-max items-center">
-      {
-        loopLogos.map((logo, _index) => (
-          <div class="logo-slot">
-            <div class="logo-item group">
-              <SmartImage
-                src={logo.src}
-                alt={logo.alt}
-                width={84}
-                height={84}
-                loading="lazy"
-                decoding="async"
-                className="logo-img h-12 w-12 sm:h-14 sm:w-14 md:h-[56px] md:w-[56px] rounded-[50%] object-cover "
-              />
-            </div>
-          </div>
-        ))
-      }
+    <!-- ================= UNIFIED MARQUEE ================= -->
+    <div class="logo-mask w-full opacity-90" aria-label="Brand logos">
+      <div class="logo-scroll flex w-max items-center">
+          {
+            loopLogos.map((logo, _index) => (
+              <div class="logo-slot">
+                <div class="logo-item group">
+                  <SmartImage
+                    src={logo.src}
+                    alt={logo.alt}
+                    width={84}
+                    height={84}
+                    loading="lazy"
+                    decoding="async"
+                    className="logo-img h-12 w-12 sm:h-14 sm:w-14 md:h-[56px] md:w-[56px] rounded-[50%] object-cover "
+                  />
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
     </div>
-  </div>
 </section>
 
 <style>
@@ -98,17 +104,33 @@ const loopLogos = [...logos, ...logos];
     -webkit-mask-image: linear-gradient(
       to right,
       transparent 0%,
-      black 10%,
-      black 90%,
+      rgba(0, 0, 0, 0.05) 2%,
+      rgba(0, 0, 0, 0.25) 5%,
+      rgba(0, 0, 0, 0.65) 10%,
+      black 16%,
+      black 84%,
+      rgba(0, 0, 0, 0.65) 90%,
+      rgba(0, 0, 0, 0.25) 95%,
+      rgba(0, 0, 0, 0.05) 98%,
       transparent 100%
     );
     mask-image: linear-gradient(
       to right,
       transparent 0%,
-      black 10%,
-      black 90%,
+      rgba(0, 0, 0, 0.05) 2%,
+      rgba(0, 0, 0, 0.25) 5%,
+      rgba(0, 0, 0, 0.65) 10%,
+      black 16%,
+      black 84%,
+      rgba(0, 0, 0, 0.65) 90%,
+      rgba(0, 0, 0, 0.25) 95%,
+      rgba(0, 0, 0, 0.05) 98%,
       transparent 100%
     );
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
   }
 
   .logo-scroll {

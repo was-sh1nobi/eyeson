@@ -90,14 +90,14 @@ export const PricingHero = () => {
         />
 
         {/* پس‌زمینه محو */}
-        <div className="absolute bg-[#003641] w-93 h-65.5 top-24.25 -left-36.75 blur-[300px] pointer-events-none z-[-1]" />
+        <div className="absolute bg-[radial-gradient(ellipse_at_center,rgba(0,229,255,0.22)_0%,rgba(0,169,189,0.1)_50%,transparent_70%)] w-96 h-80 top-20 -left-36 blur-[120px] pointer-events-none z-[-1]" />
 
         {/* عنوان */}
         <div className="px-4 text-center ">
           <h2 className="leading-tight flex flex-col items-center justify-center gap-2">
             <span className="text-3xl sm:text-[40px] font-bold text-white">
               Flexible {' '}
-              <span className="bg-linear-to-t from-[#42B6A7] to-[#41B6A7] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#00E5FF] via-[#22D3EE] to-[#00A9BD] bg-clip-text text-transparent">
                 Pricing <br/>
               </span>{" "}
               for Every Creative Need
@@ -131,7 +131,7 @@ We also offer special pricing and discounts for first-time clients on selected s
               aria-haspopup="dialog"
               aria-expanded={menuOpen}
               onClick={() => setMenuOpen(true)}
-              className="flex w-full items-center justify-between gap-3 rounded-2xl border border-[#00A9BD3D] bg-[#0B1F2A] px-5 py-4 text-left hover:border-[#00A9BD80]"
+              className="flex w-full items-center justify-between gap-3 rounded-2xl border border-[#00E5FF]/25 bg-[#051822] px-5 py-4 text-left hover:border-[#00E5FF]/60 shadow-[0_10px_30px_rgba(0,0,0,0.5)] transition-colors"
             >
               <span className="min-w-0 flex-1 truncate text-[15px] font-bold text-white">
                 {options.find((o) => o.name === selected)?.label ?? selected}
@@ -142,7 +142,7 @@ We also offer special pricing and discounts for first-time clients on selected s
                 viewBox="0 0 24 24"
                 fill="none"
                 aria-hidden="true"
-                className="shrink-0 text-[#2bd6de]"
+                className="shrink-0 text-[#00E5FF]"
               >
                 <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -158,13 +158,13 @@ We also offer special pricing and discounts for first-time clients on selected s
                   type="button"
                   aria-label="Close service selector"
                   onClick={() => setMenuOpen(false)}
-                  className="pricing-service-backdrop absolute inset-0 cursor-default bg-black/70"
+                  className="pricing-service-backdrop absolute inset-0 cursor-default bg-black/75"
                 />
                 {/* Bottom sheet — transform/opacity animation only (compositor thread) */}
-                <div className="pricing-service-sheet absolute inset-x-0 bottom-0 flex max-h-[82dvh] flex-col overflow-hidden rounded-t-3xl border-t border-x border-[#00A9BD3D] bg-[#071e2b]">
+                <div className="pricing-service-sheet absolute inset-x-0 bottom-0 flex max-h-[82dvh] flex-col overflow-hidden rounded-t-3xl border-t border-x border-[#00E5FF]/30 bg-[#04151e] shadow-[0_-20px_50px_rgba(0,0,0,0.8)]">
                   <div className="mx-auto mt-2.5 h-1 w-10 shrink-0 rounded-full bg-white/20" />
                   <div className="flex shrink-0 items-center justify-between gap-3 px-5 pt-3 pb-2">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/40">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#00E5FF]/70">
                       Select a service
                     </p>
                     <button
@@ -194,22 +194,22 @@ We also offer special pricing and discounts for first-time clients on selected s
                             role="option"
                             aria-selected={isActive}
                             onClick={() => handleTabChange(option.name)}
-                            className={`flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold ${
+                            className={`flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold transition-colors ${
                               isActive
-                                ? "bg-linear-to-r from-[#065A69] via-[#093A47] to-[#0B1F2A] text-white"
+                                ? "bg-gradient-to-r from-[#00A9BD]/80 via-[#006f85] to-[#05212c] text-white border border-[#00E5FF]/40 shadow-[0_0_15px_rgba(0,229,255,0.2)]"
                                 : "text-white/70 hover:bg-white/5 hover:text-white active:bg-white/8"
                             }`}
                           >
                             <span
                               className={`w-7 shrink-0 text-xs font-extrabold tabular-nums ${
-                                isActive ? "text-[#2bd6de]" : "text-white/30"
+                                isActive ? "text-[#00E5FF]" : "text-white/30"
                               }`}
                             >
                               {String(option.id).padStart(2, "0")}
                             </span>
                             <span className="min-w-0 flex-1 leading-snug">{option.label}</span>
                             {isActive && (
-                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="shrink-0 text-[#2bd6de]">
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="shrink-0 text-[#00E5FF]">
                                 <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
                               </svg>
                             )}
@@ -231,11 +231,11 @@ We also offer special pricing and discounts for first-time clients on selected s
                   type="button"
                   aria-pressed={option.name === selected}
                   onClick={() => handleTabChange(option.name)}
-                  className={`text-white font-bold border cursor-pointer transition-colors rounded-full py-2 px-5 sm:px-6 h-12 text-sm sm:text-base text-center flex items-center justify-center shrink-0 whitespace-nowrap
+                  className={`text-white font-bold border cursor-pointer transition-all rounded-full py-2 px-5 sm:px-6 h-12 text-sm sm:text-base text-center flex items-center justify-center shrink-0 whitespace-nowrap
                     ${
                       option.name === selected
-                        ? "bg-linear-to-r from-[#065A69] via-[#093A47] to-[#0B1F2A] border-[#00A9BD] shadow-[0_0_15px_rgba(0,169,189,0.3)]"
-                        : "bg-[#0B1F2A] border-[#00A9BD3D] hover:border-[#00A9BD80]"
+                        ? "bg-gradient-to-r from-[#00A9BD] via-[#007f96] to-[#005566] border-[#00E5FF] shadow-[0_0_20px_rgba(0,229,255,0.35)] text-white"
+                        : "bg-[#051822]/90 border-[#00E5FF]/20 text-white/80 hover:border-[#00E5FF]/60 hover:text-white hover:bg-[#072230]"
                     }`}
                 >
                   {option.label}
@@ -243,10 +243,10 @@ We also offer special pricing and discounts for first-time clients on selected s
               ))}
             </div>
           </div>
-       
+
 
         {/* خط جداکننده (فقط در موبایل) */}
-        <div className="w-full -mt-6 sm:-mt-10 h-px relative bg-linear-to-r from-[#00222600] via-[#00A9BD50] to-[#00222600] md:hidden" />
+        <div className="w-full -mt-6 sm:-mt-10 h-px relative bg-gradient-to-r from-transparent via-[#00E5FF]/40 to-transparent md:hidden" />
 
         {/* محتوای انتخابی */}
         <div className="z-10 w-full px-4 sm:px-6 max-w-6xl mx-auto flex justify-center -mt-2 sm:-mt-8">
@@ -319,6 +319,8 @@ We also offer special pricing and discounts for first-time clients on selected s
               {selected === "Social Media Animation Reels" && (
             <ShortForm
               packageName="Social Media Animation Reels"
+              durationTitle="Video Duration"
+              initialDuration={60}
               onEstimated={handleEstimated}
               fields={[
                 { title: "Base Price", items: ["$160 Per Minute"], prices: [160], unit: "per_minute" },
@@ -336,6 +338,8 @@ We also offer special pricing and discounts for first-time clients on selected s
               {selected === "2D Animation" && (
             <ShortForm
               packageName="2D Animation"
+              durationTitle="Video Duration"
+              initialDuration={60}
               onEstimated={handleEstimated}
               fields={[
                 { title: "Base Price", items: ["$180 Per Finished Minute"], prices: [180], unit: "per_minute" },
@@ -353,6 +357,8 @@ We also offer special pricing and discounts for first-time clients on selected s
               {selected === "3D Animation" && (
             <ShortForm
               packageName="3D Animation"
+              durationTitle="Video Duration"
+              initialDuration={60}
               onEstimated={handleEstimated}
               fields={[
                 { title: "Base Price", items: ["$350 Per Finished Minute"], prices: [350], unit: "per_minute" },
@@ -371,6 +377,8 @@ We also offer special pricing and discounts for first-time clients on selected s
               {selected === "Talking Head Editing" && (
             <ShortForm
               packageName="Talking Head Editing"
+              durationTitle="Video Duration"
+              initialDuration={60}
               onEstimated={handleEstimated}
               fields={[
                 { title: "Base Price", items: ["$120 Per Minute"], prices: [120], unit: "per_minute" },
@@ -492,6 +500,8 @@ We also offer special pricing and discounts for first-time clients on selected s
               {selected === "CGI & Character Animation" && (
             <ShortForm
               packageName="CGI & Character Animation"
+              durationTitle="Video Duration"
+              initialDuration={60}
               onEstimated={handleEstimated}
               fields={[
                 { title: "Project Type", items: ["CGI Product Animation", "Character Animation", "CGI Commercial"], prices: [500, 700, 900], unit: "per_minute" },

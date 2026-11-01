@@ -102,7 +102,7 @@ export default function HeroHome() {
           </div>
 
           <p className="mt-6 sm:mt-7 text-xs sm:text-sm text-white/50 tracking-wider">
-            Trusted by brands, founders, and creative teams across 25+ countries.
+            Trusted by brands, founders, and creative teams across 45+ countries.
           </p>
         </div>
       </div>

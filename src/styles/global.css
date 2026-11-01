@@ -115,6 +115,17 @@ html.gpu-off [class*="blur-["] {
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
 }
+html.gpu-off .bg-svg-layer,
+html.gpu-off .hb-saas,
+html.gpu-off svg filter {
+  display: none !important;
+}
+@-moz-document url-prefix() {
+  .bg-svg-layer,
+  .hb-saas {
+    display: none !important;
+  }
+}
 /* decorative large blur orbs and SVG Gaussian blurs are purely aesthetic — hide on CPU to avoid huge offscreen paints */
 html.gpu-off .pointer-events-none[class*="blur-["],
 html.gpu-off div[class*="blur-["].pointer-events-none {
@@ -167,6 +178,75 @@ html.gpu-off [class*="mix-blend-"] {
   html.gpu-off * {
     scroll-behavior: auto !important;
   }
+}
+
+/* ── Firefox/CPU-lite second pass ──────────────────────────────────────
+   Section-scoped effects the class-based rules above can't reach.
+   Firefox rasterizes all of these on the CPU during scroll/hover:
+   custom CSS `filter: blur()` glows, SVG mask-image cards, glow text
+   shadows, drop-shadow[] filters and background-position repaints. */
+
+/* Glow text shadows: Firefox re-rasterizes text every frame it moves */
+html.gpu-off .nav-link,
+html.gpu-off [class*="nav-link"] {
+  text-shadow: none !important;
+}
+
+/* Non-animating images with drop-shadow[...]: 40px-ish blur per paint.
+   (Analogous to [class*="blur-["], which misses drop-shadow.) */
+html.gpu-off [class*="drop-shadow"],
+html.gpu-off [class*="filter-[drop"] {
+  filter: none !important;
+  transition-property: transform, opacity !important;
+}
+
+/* Scoped CSS blur glows — the radial gradients already fade softly,
+   so dropping the blur is nearly invisible but removes per-frame blur. */
+html.gpu-off .hero-cards-deck::before,
+html.gpu-off .orb,
+html.gpu-off .orb-line,
+html.gpu-off .glow-top,
+html.gpu-off .glow-bottom-left,
+html.gpu-off .glow-bottom-right,
+html.gpu-off .hb {
+  filter: none !important;
+}
+
+/* Folder cards (AdCreatives / HighPerformingAds): SVG mask-image +
+   ::before SVG border re-rasterize on every 3D-tilt frame. Plain
+   rounded corners are visually equivalent in motion. */
+html.gpu-off .folder-front {
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+html.gpu-off .folder-front::before {
+  background-image: none !important;
+}
+
+/* Pricing card entries animate through filter: blur() keyframes —
+   rasterizing each card while it animates in. */
+html.gpu-off .animate-design-entry,
+html.gpu-off .animate-felash-entry {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+  will-change: auto !important;
+}
+
+/* background-position gradient animation = full repaint every frame */
+html.gpu-off .animate-gradient {
+  animation: none !important;
+}
+
+/* Pointer-tracking spotlights keep repainting their gradient while the
+   cursor moves over cards — WorkflowSection's spotlight JS isn't gated
+   by gpu-off, so kill the layer here as a safety net too. */
+html.gpu-off .card-spotlight,
+html.gpu-off .spotlight-card::before {
+  display: none !important;
 }
 
 @custom-variant dark (&:is(.dark *));

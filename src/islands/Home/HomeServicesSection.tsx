@@ -21,6 +21,7 @@ export default function HomeServicesSection() {
         "High impact videos built to introduce new products, features, apps, SaaS tools, and\n" +
           "campaigns with clarity, energy, and a premium first impression.",
       image: "/animation-section/short-form.webp",
+      href: "/video",
     },
     {
       id: 2,
@@ -29,6 +30,7 @@ export default function HomeServicesSection() {
         "Clear animated videos that simplify complex SaaS and AI products, services, or ideas, so\n" +
           "your audience understands the value fast.",
       image: "/animation-section/3D.webp",
+      href: "/animation",
     },
     {
       id: 3,
@@ -37,6 +39,7 @@ export default function HomeServicesSection() {
         "Clean animated visuals, text, icons, UI elements, and brand motion designed to make your\n" +
           "content feel sharper and more modern.",
       image: "/animation-section/motion.webp",
+      href: "/motiongraphics",
     },
     {
       id: 4,
@@ -45,6 +48,7 @@ export default function HomeServicesSection() {
         "High retention videos for Reels, TikTok, Shorts, ads, and daily social content built to grab\n" +
           "attention and support growth.",
       image: "/animation-section/video.webp",
+      href: "/video",
     },
     {
       id: 5,
@@ -53,6 +57,7 @@ export default function HomeServicesSection() {
         "Sharp editing for podcasts, founder videos, educational content, YouTube, and personal\n" +
           "brands that need to hold attention longer.",
       image: "/animation-section/short-form.webp",
+      href: "/video",
     },
     {
       id: 6,
@@ -61,6 +66,7 @@ export default function HomeServicesSection() {
         "Custom animated scenes, product visuals, characters, and premium brand storytelling for\n" +
           "content that needs more depth and impact.",
       image: "/animation-section/3D.webp",
+      href: "/animation",
     },
     {
       id: 7,
@@ -69,6 +75,7 @@ export default function HomeServicesSection() {
         "Modern product videos for software, apps, and tech brands, including UI walkthroughs,\n" +
           "feature videos, demos, and launch explainers.",
       image: "/animation-section/motion.webp",
+      href: "/saas",
     },
     {
       id: 8,
@@ -77,6 +84,7 @@ export default function HomeServicesSection() {
         "Performance-focused video creatives for paid ads, campaigns, hooks, variations, and\n" +
           "offers that need to convert attention into action.",
       image: "/animation-section/video.webp",
+      href: "/adcreatives",
     },
   ];
 
@@ -88,6 +96,7 @@ export default function HomeServicesSection() {
         "Scroll stopping static and motion ad visuals designed to make your offer clear, your brand\n" +
           "look sharper, and your campaigns feel more professional.",
       image: "/animation-section/adcreatives.webp",
+      href: "/adcreatives",
     },
     {
       id: 2,
@@ -96,6 +105,7 @@ export default function HomeServicesSection() {
         "Visual identity design that gives your brand a clear, consistent look across logos, colors,\n" +
           "typography, social content, and digital touchpoints.",
       image: "/animation-section/brandidentity.webp",
+      href: "/branding",
     },
     {
       id: 3,
@@ -104,6 +114,7 @@ export default function HomeServicesSection() {
         "Clean interface and experience design for websites, apps, landing pages, and product\n" +
           "screens that need to feel modern, simple, and easy to use.",
       image: "/animation-section/uiux.webp",
+      href: "/uiux",
     },
     {
       id: 4,
@@ -112,6 +123,7 @@ export default function HomeServicesSection() {
           "Professional graphics for social posts, carousels, banners, pitch decks, thumbnails, and\n" +
           "marketing assets that keep your brand looking consistent.",
       image: "/animation-section/adcreatives.webp",
+      href: "/adcreatives",
     }
   ];
   const services =
@@ -197,7 +209,7 @@ export default function HomeServicesSection() {
                 <div className="group relative h-full py-4 w-full">
                   <div className="absolute inset-0 rounded-[var(--radius-2xl)] border border-[var(--color-border-teal)] bg-[var(--card-bg)] opacity-0 lg:group-hover:opacity-100 transition-opacity duration-[var(--duration-slow)]" aria-hidden="true" />
 
-                    <div className="relative h-full bg-[#0f172a]/70 backdrop-blur-md rounded-[var(--radius-2xl)] border border-[var(--card-border)] overflow-hidden z-10 shadow-[var(--card-shadow)] transition-[transform,box-shadow,border-color] duration-[var(--duration-slow)] ease-[var(--ease-default)] lg:group-hover:-translate-y-1.5 lg:group-hover:shadow-[var(--card-shadow-hover)] flex flex-col">
+                    <a href={service.href} className="relative h-full bg-[#0f172a]/70 backdrop-blur-md rounded-[var(--radius-2xl)] border border-[var(--card-border)] overflow-hidden z-10 shadow-[var(--card-shadow)] transition-[transform,box-shadow,border-color] duration-[var(--duration-slow)] ease-[var(--ease-default)] lg:group-hover:-translate-y-1.5 lg:group-hover:shadow-[var(--card-shadow-hover)] flex flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]">
                     <div className="relative h-40 lg:h-48 bg-[#020915] overflow-hidden m-2 rounded-[var(--radius-lg)] shrink-0 border border-white/[0.04]">
                       <SmartImage
                         src={service.image}
@@ -215,7 +227,7 @@ export default function HomeServicesSection() {
                         {service.description}
                       </p>
                     </div>
-                  </div>
+                  </a>
                 </div>
               </SwiperSlide>
             ))}

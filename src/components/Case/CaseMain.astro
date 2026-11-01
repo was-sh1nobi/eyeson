@@ -20,8 +20,8 @@ const { slug } = Astro.props;
   <HomeBackground />
   <div class="relative flex flex-col gap-3">
     <CaseStudyHero client:load slug={slug} />
-    <VisualProofSection client:visible slug={slug} />
     <CaseStudyTabsSection client:visible slug={slug} />
+    <VisualProofSection client:visible slug={slug} />
     <CaseStudiesSection client:visible />
     <ContactUs client:visible />
   </div>

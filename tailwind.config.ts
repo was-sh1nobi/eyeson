@@ -22,8 +22,8 @@ export default {
         },
       },
       fontFamily: {
-        sans: ["Space Grotesk", "sans-serif"],
-        heading: ["Space Grotesk", "sans-serif"],
+        sans: ["Plus Jakarta Sans", "Inter", "sans-serif"],
+        heading: ["Plus Jakarta Sans", "Inter", "sans-serif"],
       },
       borderRadius: {
         sm: "var(--radius-sm)",
