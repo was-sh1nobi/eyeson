@@ -12,12 +12,14 @@ import VideoWorkShowcaseSection from "../islands/Shared/VideoWorkShowcaseSection
 import FeaturesSection from "./Shared/FeaturesSection.astro";
 import LogoCaro from "./Shared/LogoCaro.astro";
 import AnimationNeedsBlock from "../islands/animations/AnimationNeedsBlock";
+import SpecificVideoWorkSection from "@/islands/Shared/SpecificVideoWorkSection";
 ---
 
 <div class="animations-page-mobile relative w-full overflow-x-hidden">
 
   <AnimationsHero />
   <LogoCaro />
+  <SpecificVideoWorkSection client:visible category="Motion Graphics" />
   <MediaFrameHero client:visible />
   <FeaturesSection
     title="A Professional Animation Workflow"

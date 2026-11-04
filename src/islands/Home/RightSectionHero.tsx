@@ -24,7 +24,7 @@ const CATEGORIES = [
         icon: Film,
         image: "/home/20/2.webp",
         videoUrl: "/home/Videos/output-first.mp4",
-        poster: "/home/Videos/output-first-poster.jpg",
+        poster: "/home/Videos/output-first-poster.webp",
     },
     {
         id: "motion-design",
@@ -33,7 +33,7 @@ const CATEGORIES = [
         icon: Sparkles,
         image: "/home/20/1.webp",
         videoUrl: "/home/Videos/output-second.mp4",
-        poster: "/home/Videos/output-second-poster.jpg",
+        poster: "/home/Videos/output-second-poster.webp",
     },
     {
         id: "3d-uiux",
@@ -42,7 +42,7 @@ const CATEGORIES = [
         icon: Box,
         image: "/home/20/3.webp",
         videoUrl: "/home/Videos/output-third.mp4",
-        poster: "/home/Videos/output-third-poster.jpg",
+        poster: "/home/Videos/output-third-poster.webp",
     },
     {
         id: "brand-identity",
@@ -51,13 +51,13 @@ const CATEGORIES = [
         icon: Layers,
         image: "/home/20/4.webp",
         videoUrl: "/home/Videos/output-fourth.mp4",
-        poster: "/home/Videos/output-fourth-poster.jpg",
+        poster: "/home/Videos/output-fourth-poster.webp",
     },
 ];
 
 const SHOWREEL = {
     videoUrl: "/home/showreel/showreel.mp4",
-    poster: "/home/showreel/showreel-poster.png",
+    poster: "/home/showreel/showreel-poster.webp",
 };
 
 interface RightSectionHeroProps {

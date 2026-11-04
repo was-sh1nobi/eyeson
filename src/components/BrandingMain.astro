@@ -2,7 +2,6 @@
 import { BrandingHeroWrapper } from "../islands/branding/BrandingHeroWrapper";
 import ContactUs from "../islands/ContactUs";
 import FeaturesSection from "./Shared/FeaturesSection.astro";
-import StarBackground from "../islands/StarBackground";
 import HomeBackground from "./Home/HomeBackground.astro";
 import QandASection from "./Shared/QandASection.astro";
 import LogoCaro from "./Shared/LogoCaro.astro";
@@ -11,6 +10,7 @@ import { ServicesSection } from "../islands/branding/ServicesSection.tsx";
 import { AssetsGallerySection } from "../islands/branding/AssetsGallerySection.tsx";
 import { WhyBrandingSection } from "../islands/branding/WhyBrandingSection";
 import FinalCta from "@/islands/Shared/FinalCta";
+import SpecificVideoWorkSection from "@/islands/Shared/SpecificVideoWorkSection";
 
 const qas = [
   {
@@ -108,6 +108,7 @@ const features = [
   <HomeBackground />
   <BrandingHeroWrapper />
   <LogoCaro />
+  <SpecificVideoWorkSection client:visible category="Brand Trailer" />
   <WhatIsBranding />
   <FeaturesSection
     title="Why Brands Choose "

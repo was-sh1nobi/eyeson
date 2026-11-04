@@ -76,7 +76,7 @@ export const CustomerStoriesShowcase = () => {
           See how brands grow
           <br />
           with{" "}
-          <span className="bg-linear-to-r from-[#46B6A0] to-[#2EBACA] bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-cyan-400 via-[#00E6D7] to-[#00A9BD] bg-clip-text text-transparent">
             Eyeson
           </span>
         </h2>

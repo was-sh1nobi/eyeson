@@ -16,6 +16,7 @@ import UiUxAppSlider from "../../islands/UiUx/UiUxAppSlider";
 import { SplineScene } from "@/islands/About/SplineAboutPage";
 import PrimaryButton from "../Shared/PrimaryButton";
 import {VideoHeader} from "@/islands/Shared/VideoHeader.tsx";
+import SpecificVideoWorkSection from "@/islands/Shared/SpecificVideoWorkSection";
 
 const features = [
   {
@@ -109,6 +110,7 @@ const features = [
       client:idle
   />
   <LogoCaro />
+  <SpecificVideoWorkSection client:visible category="Explainer Videos" />
 
   <section class="relative w-full overflow-hidden py-(--space-lg) sm:py-(--space-xl)">
     <div class="relative z-10 mx-auto max-w-(--container-max) px-(--space-gutter) sm:px-(--space-gutter-md) lg:px-(--space-gutter-lg)">

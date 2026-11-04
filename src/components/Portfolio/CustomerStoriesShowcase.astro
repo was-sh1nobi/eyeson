@@ -1,5 +1,6 @@
 ---
 import { SmartImage } from "../../utils/SmartImage.tsx";
+import { getCategoryHref } from "../../utils/categoryLinks";
 
 const storyItems = [
   {
@@ -75,7 +76,7 @@ const storyItems = [
       <br />
       with
       <span
-        class="bg-linear-to-r from-[#46B6A0] to-[#2EBACA] bg-clip-text text-transparent"
+        class="bg-linear-to-r from-cyan-400 via-[#00E6D7] to-[#00A9BD] bg-clip-text text-transparent"
       >
         Eyeson
       </span>
@@ -105,6 +106,11 @@ const storyItems = [
             <div class="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/70 to-transparent p-3">
               <span class="text-xs text-white/85">{item.category}</span>
             </div>
+            <a
+              href={getCategoryHref(item.category)}
+              class="absolute inset-0 z-10 rounded-2xl"
+              aria-label={`View our ${item.category} work`}
+            ></a>
           </article>
         ))
       }
@@ -131,6 +137,11 @@ const storyItems = [
                 {item.category}
               </span>
             </div>
+            <a
+              href={getCategoryHref(item.category)}
+              class="absolute inset-0 z-10 rounded-2xl"
+              aria-label={`View our ${item.category} work`}
+            ></a>
           </article>
         ))
       }

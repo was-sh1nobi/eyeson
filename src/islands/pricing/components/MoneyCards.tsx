@@ -48,11 +48,10 @@ const plans: Plan[] = [
       unit: "per month",
     },
     stories: {
-      title: "Stories",
+      title: "Instagram Stories",
       subtitle: "Animated or edited stories",
       count: "12",
       unit: "per month",
-      subUnit: "(or 10 reels)",
     },
     carousels: {
       title: "Carousel Posts",
@@ -65,10 +64,9 @@ const plans: Plan[] = [
       subtitle: "Instagram & TikTok Ready",
     },
     included: [
-      "Consistent visual branding",
-      "Social media optimization",
-      "Script & creative direction",
-      "Optimized export formats",
+      "Consistent Visual Branding",
+      "Social Media Optimization",
+      "Instagram & TikTok Ready",
     ],
   },
   {
@@ -87,7 +85,7 @@ const plans: Plan[] = [
       unit: "per month",
     },
     stories: {
-      title: "Stories",
+      title: "Instagram Stories",
       subtitle: "Animated or edited stories",
       count: "20",
       unit: "per month",
@@ -103,10 +101,8 @@ const plans: Plan[] = [
       subtitle: "Multi-Platform Optimization",
     },
     included: [
-      "Script & creative consultation",
-      "Multi-platform optimization",
-      "Consistent visual branding",
-      "Dedicated production support",
+      "Script & Creative Consultation",
+      "Multi-Platform Optimization",
     ],
   },
   {
@@ -124,7 +120,7 @@ const plans: Plan[] = [
       unit: "per month",
     },
     stories: {
-      title: "Stories",
+      title: "Instagram Stories",
       subtitle: "Animated or edited stories",
       count: "30",
       unit: "per month",
@@ -137,13 +133,11 @@ const plans: Plan[] = [
     },
     platforms: {
       title: "Platforms",
-      subtitle: "All Major Social Platforms",
+      subtitle: "Multi-Platform Optimization",
     },
     included: [
-      "Dedicated creative direction",
-      "Monthly strategy & review",
-      "Multi-platform optimization",
-      "Priority turnaround & revisions",
+      "Dedicated Creative Direction",
+      "Monthly Strategy & Performance Review",
     ],
   },
 ];
@@ -508,3 +502,5 @@ function PlanCard({ plan, mobile = false }: { plan: Plan; mobile?: boolean }) {
     </article>
   );
 }
+
+export default MoneyCards;

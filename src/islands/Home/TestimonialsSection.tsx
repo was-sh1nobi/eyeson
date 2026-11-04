@@ -78,7 +78,7 @@ export default function TestimonialsSection() {
       id: 7,
       name: "Nexo",
       role: "Digital Assets Platform",
-      avatar: "/customers/nexo.png",
+      avatar: "/customers/nexo.webp",
       text: "The team brought a strong level of polish to our video content. The editing felt clean, the motion details were subtle but effective, and the final result looked aligned with the standard we needed.",
       stars: 5,
     },

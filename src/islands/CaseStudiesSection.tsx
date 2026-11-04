@@ -65,7 +65,7 @@ export default function CaseStudiesSection() {
             Customer Stories
           </p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[56px] font-bold leading-[1.1] tracking-tight text-white">
-            <span className="block bg-gradient-to-r from-cyan-300 to-teal-400 bg-clip-text text-transparent pb-1">
+            <span className="block bg-gradient-to-r from-cyan-400 via-[#00E6D7] to-[#00A9BD] bg-clip-text text-transparent pb-1">
               CASE STUDIES
             </span>
             <span className="block mt-1">From Idea to Impact</span>
@@ -82,7 +82,7 @@ export default function CaseStudiesSection() {
         {/* بدنه اصلی اسلایدر */}
         <div className="relative">
           {!projects ? (
-            <div className="grid grid-cols-1 lg:grid-cols-12 rounded-[24px] md:rounded-[32px] border border-[#1a5660]/50 bg-[#071922]/80 backdrop-blur-2xl overflow-hidden min-h-[400px] sm:min-h-[500px]">
+            <div className="grid grid-cols-1 lg:grid-cols-12 rounded-[24px] md:rounded-[32px] border border-[#00A9BD]/30 bg-linear-to-b from-[#0a2333] via-[#071924] to-[#04111a] shadow-[0_20px_60px_-15px_rgba(0,169,189,0.25)] backdrop-blur-2xl overflow-hidden min-h-[400px] sm:min-h-[500px]">
               <div className="order-2 lg:order-1 lg:col-span-7 flex flex-col justify-center p-5 sm:p-8 md:p-10 lg:p-12 border-t lg:border-t-0 lg:border-r border-white/10">
                 <div className="h-7 w-3/4 rounded-lg bg-white/5 animate-pulse mb-6" />
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
@@ -115,7 +115,7 @@ export default function CaseStudiesSection() {
               </div>
               <div className="order-1 lg:order-2 lg:col-span-5 relative h-[250px] sm:h-[320px] md:h-[400px] lg:h-full w-full overflow-hidden bg-white/[0.02]">
                 <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-white/[0.01] animate-pulse" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#071922] via-[#071922]/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#04111a] via-[#04111a]/20 to-transparent" />
               </div>
             </div>
           ) : mounted ? (
@@ -146,7 +146,7 @@ export default function CaseStudiesSection() {
               bulletActiveClass: "swiper-custom-bullet-active",
             }}
             autoplay={autoplayAllowed ? { delay: 6000, disableOnInteraction: false, pauseOnMouseEnter: true } : false}
-            className="rounded-[24px] md:rounded-[32px] border border-[#1a5660]/50 bg-[#071922]/80 backdrop-blur-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
+            className="rounded-[24px] md:rounded-[32px] border border-[#00A9BD]/30 bg-linear-to-b from-[#0a2333] via-[#071924] to-[#04111a] shadow-[0_20px_60px_-15px_rgba(0,169,189,0.25)] backdrop-blur-2xl overflow-hidden"
           >
             {projects.map((project) => {
               const coverSrc = project.cover?.startsWith("http")
@@ -172,8 +172,8 @@ export default function CaseStudiesSection() {
                         </p>
                       </div>
 
-                      <div className="rounded-[18px] border border-teal-400/20 bg-teal-500/5 p-4 md:p-5 transition-colors hover:bg-teal-500/10">
-                        <h4 className="mb-2 text-sm font-bold text-teal-300">
+                      <div className="rounded-[18px] border border-cyan-400/20 bg-cyan-500/5 p-4 md:p-5 transition-colors hover:bg-cyan-500/10">
+                        <h4 className="mb-2 text-sm font-bold text-cyan-300">
                           Our Motion Solution
                         </h4>
                         <p className="text-xs sm:text-sm leading-[1.7] text-white/65">
@@ -191,26 +191,26 @@ export default function CaseStudiesSection() {
                         {STATIC_CONTENT.stats.map((stat, idx) => (
                           <span
                             key={idx}
-                            className="rounded-full border border-cyan-400/20 bg-[#0a262e] px-4 py-1.5 text-[12px] font-medium text-cyan-100/90 shadow-inner"
+                            className="rounded-full border border-cyan-400/20 bg-[#061926] px-4 py-1.5 text-[12px] font-medium text-cyan-100/90 shadow-inner"
                           >
                             {stat.label}
                           </span>
                         ))}
                       </div>
 
-                      <div className="mb-6 inline-flex w-full sm:w-auto rounded-xl sm:rounded-full border border-cyan-400/15 bg-[#081e24] px-4 py-2.5 text-center text-[12px] sm:text-[13px] text-white/80">
+                      <div className="mb-6 inline-flex w-full sm:w-auto rounded-xl sm:rounded-full border border-[#00A9BD]/20 bg-[#04111a]/80 px-4 py-2.5 text-center text-[12px] sm:text-[13px] text-white/80">
                         ✨ {STATIC_CONTENT.resultText}
                       </div>
 
                       <div className="mt-2">
                         <a
                           href={`/case/${project.slug}`}
-                          className="group relative inline-flex w-full sm:w-auto overflow-hidden rounded-full bg-gradient-to-r from-cyan-500 to-teal-400 px-8 py-3.5 text-sm font-bold text-white shadow-[0_0_20px_rgba(34,211,238,0.3)] transition-[transform,box-shadow] duration-300 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(34,211,238,0.5)] active:scale-[0.98]"
+                          className="group relative inline-flex w-full sm:w-auto overflow-hidden rounded-full bg-gradient-to-r from-cyan-400 via-[#00E6D7] to-[#00A9BD] px-8 py-3.5 text-sm font-bold text-[#01141c] shadow-[0_0_20px_rgba(34,211,238,0.3)] transition-[transform,box-shadow] duration-300 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(34,211,238,0.5)] active:scale-[0.98]"
                         >
                           <span className="relative z-10">
                             See Full Case Study
                           </span>
-                          <div className="absolute inset-0 z-0 bg-gradient-to-r from-teal-400 to-cyan-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+                          <div className="absolute inset-0 z-0 bg-gradient-to-r from-[#00A9BD] via-[#00E6D7] to-cyan-400 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
                         </a>
                       </div>
                     </div>
@@ -224,7 +224,7 @@ export default function CaseStudiesSection() {
                       loading="lazy"
                       className="absolute inset-0 h-full w-full object-cover transform-gpu transition-transform duration-[10s] hover:scale-110"
                     />
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#071922] via-[#071922]/20 to-transparent opacity-80 lg:opacity-60" />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#04111a] via-[#04111a]/20 to-transparent opacity-80 lg:opacity-60" />
                   </div>
                 </div>
               </SwiperSlide>
@@ -232,14 +232,14 @@ export default function CaseStudiesSection() {
             })}
           </Swiper>
           ) : (
-            <div className="rounded-[24px] md:rounded-[32px] border border-[#1a5660]/50 bg-[#071922]/80 backdrop-blur-2xl overflow-hidden min-h-[400px] sm:min-h-[500px] flex items-center justify-center">
+            <div className="rounded-[24px] md:rounded-[32px] border border-[#00A9BD]/30 bg-linear-to-b from-[#0a2333] via-[#071924] to-[#04111a] shadow-[0_20px_60px_-15px_rgba(0,169,189,0.25)] backdrop-blur-2xl overflow-hidden min-h-[400px] sm:min-h-[500px] flex items-center justify-center">
               <Loader2 className="h-8 w-8 animate-spin text-cyan-400" />
             </div>
           )}
 
           {mounted && (<>
           {/* دکمه‌های اسلایدر */}
-          <button className="swiper-button-prev-case group absolute -left-5 top-1/2 z-20 hidden lg:flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-[#071922]/90 text-white shadow-lg backdrop-blur-md transition-[transform,background-color,border-color,color] hover:border-cyan-400/50 hover:bg-[#0a262e] hover:text-cyan-400 active:scale-95">
+          <button className="swiper-button-prev-case group absolute -left-5 top-1/2 z-20 hidden lg:flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[#00A9BD]/30 bg-[#071924]/90 text-white shadow-lg backdrop-blur-md transition-[transform,background-color,border-color,color] hover:border-cyan-400/50 hover:bg-[#0a2333] hover:text-cyan-400 active:scale-95">
             <svg
               className="h-5 w-5 transition-transform group-hover:-translate-x-0.5"
               viewBox="0 0 24 24"
@@ -255,7 +255,7 @@ export default function CaseStudiesSection() {
             </svg>
           </button>
 
-          <button className="swiper-button-next-case group absolute -right-5 top-1/2 z-20 hidden lg:flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-[#071922]/90 text-white shadow-lg backdrop-blur-md transition-[transform,background-color,border-color,color] hover:border-cyan-400/50 hover:bg-[#0a262e] hover:text-cyan-400 active:scale-95">
+          <button className="swiper-button-next-case group absolute -right-5 top-1/2 z-20 hidden lg:flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[#00A9BD]/30 bg-[#071924]/90 text-white shadow-lg backdrop-blur-md transition-[transform,background-color,border-color,color] hover:border-cyan-400/50 hover:bg-[#0a2333] hover:text-cyan-400 active:scale-95">
             <svg
               className="h-5 w-5 transition-transform group-hover:translate-x-0.5"
               viewBox="0 0 24 24"

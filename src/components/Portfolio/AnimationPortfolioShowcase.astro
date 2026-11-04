@@ -1,5 +1,6 @@
 ---
 import { SmartImage } from "../../utils/SmartImage.tsx";
+import { getCategoryHref } from "../../utils/categoryLinks";
 
 const showcaseItems = [
   {
@@ -45,7 +46,7 @@ const showcaseItems = [
   <div class="mx-auto max-w-2xl text-center">
     <span class="tracking-[0.2em] font-thin text-sm">OUR WORK</span>
     <h2
-      class="bg-linear-to-r from-[#46B6A0] to-[#2EBACA] bg-clip-text text-3xl font-bold text-transparent sm:text-4xl md:text-5xl"
+      class="bg-linear-to-r from-cyan-400 via-[#00E6D7] to-[#00A9BD] bg-clip-text text-3xl font-bold text-transparent sm:text-4xl md:text-5xl"
     >
       Animation portfolio
     </h2>
@@ -68,6 +69,11 @@ const showcaseItems = [
           <div class="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/70 to-transparent p-3">
             <span class="text-xs text-white/85">{item.category}</span>
           </div>
+          <a
+            href={getCategoryHref(item.category)}
+            class="absolute inset-0 z-10 rounded-2xl"
+            aria-label={`View our ${item.category} work`}
+          ></a>
         </article>
       ))
     }
@@ -94,6 +100,11 @@ const showcaseItems = [
               {item.category}
             </span>
           </div>
+          <a
+            href={getCategoryHref(item.category)}
+            class="absolute inset-0 z-10 rounded-2xl"
+            aria-label={`View our ${item.category} work`}
+          ></a>
         </article>
       ))
     }

@@ -1,4 +1,5 @@
 import { SmartImage } from "../../utils/SmartImage.tsx";
+import { getCategoryHref } from "../../utils/categoryLinks";
 
 type DesignShowcaseItem = {
   id: string;
@@ -86,7 +87,7 @@ export const DesignPortfolioShowcase = () => {
           <span className="text-sm text-white font-thin tracking-[0.2em]">
             OUR WORK
           </span>
-          <h2 className="bg-linear-to-r from-[#46B6A0] to-[#2EBACA] bg-clip-text text-3xl font-bold text-transparent sm:text-4xl md:text-5xl">
+          <h2 className="bg-linear-to-r from-cyan-400 via-[#00E6D7] to-[#00A9BD] bg-clip-text text-3xl font-bold text-transparent sm:text-4xl md:text-5xl">
             Design portfolio
           </h2>
           <p className="mt-3 text-sm leading-6 text-white/70 sm:text-base">
@@ -110,6 +111,11 @@ export const DesignPortfolioShowcase = () => {
               <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/70 to-transparent p-3">
                 <span className="text-xs text-white/85">{item.category}</span>
               </div>
+              <a
+                href={getCategoryHref(item.category)}
+                className="absolute inset-0 z-10 rounded-2xl"
+                aria-label={`View our ${item.category} work`}
+              />
             </article>
           ))}
         </div>
@@ -133,6 +139,11 @@ export const DesignPortfolioShowcase = () => {
                   {item.category}
                 </span>
               </div>
+              <a
+                href={getCategoryHref(item.category)}
+                className="absolute inset-0 z-10 rounded-2xl"
+                aria-label={`View our ${item.category} work`}
+              />
             </article>
           ))}
         </div>

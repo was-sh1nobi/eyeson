@@ -182,7 +182,7 @@ export const MobileMenu = ({ open, onClose, currentPath = "/" }: MobileMenuProps
                     {/* Header */}
                     <div className="mb-8 flex items-center justify-between">
                         <a href="/" onClick={onClose}>
-                            <img src="/logo.webp" className="h-10 object-contain" alt="EyesOn logo" />
+                            <img src="/logo.webp" width={278} height={249} className="h-10 w-auto object-contain" alt="EyesOn logo" />
                         </a>
                         <button onClick={onClose} className="h-10 w-10 rounded-full border border-[#3AAFC8]/40 bg-[#071D29] text-[#45D4E8] text-2xl flex items-center justify-center">
                             ×
@@ -334,7 +334,7 @@ export const Header = () => {
                     {/* Desktop Header */}
                     <div className="relative mx-auto max-w-300 hidden lg:flex items-center justify-between gap-3">
                         <a href="/" className="relative z-50">
-                            <img src="/logo.webp" className={`object-contain transition-[height] duration-300 ${scrolled ? "h-10" : "h-14"}`} alt="EyesOn logo" />
+                            <img src="/logo.webp" width={278} height={249} className={`w-auto object-contain transition-[height] duration-300 ${scrolled ? "h-10" : "h-14"}`} alt="EyesOn logo" />
                         </a>
 
                         <nav className="hidden lg:flex items-center gap-7">
@@ -376,7 +376,7 @@ export const Header = () => {
                     {/* Mobile / Compact Header */}
                     <div className="relative mx-auto max-w-300 flex lg:hidden items-center justify-between rounded-full border border-[#3AAFC8]/35 bg-[#000E17]/90 px-4 py-2 shadow-lg backdrop-blur-md sm:px-6">
                         <a href="/" className="relative z-50">
-                            <img src="/logo.webp" className="h-9 object-contain" alt="EyesOn logo" />
+                            <img src="/logo.webp" width={278} height={249} className="h-9 w-auto object-contain" alt="EyesOn logo" />
                         </a>
                         <button className="rounded-full px-5 py-2 text-[13px] font-semibold text-white bg-linear-to-r from-[#00A9BD] to-[#1D553A]">
                             Free sample

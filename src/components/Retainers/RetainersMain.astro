@@ -4,7 +4,6 @@ import FeaturesSection from "../Shared/FeaturesSection.astro";
 import LogoCaro from "../Shared/LogoCaro.astro";
 import CostVideo from "../Shared/CostVideo.astro";
 import QandASection from "../Shared/QandASection.astro";
-import StarBackground from "@/islands/StarBackground";
 import HomeBackground from "../Home/HomeBackground.astro";
 import RetainersBackground from "./RetainersBackground.astro";
 import { VideoHeader } from "@/islands/Shared/VideoHeader";
@@ -16,6 +15,7 @@ import ApproachTimelineSection from "@/islands/Video/ApproachTimelineSection";
 import VideoWorkShowcaseSection from "@/islands/Shared/VideoWorkShowcaseSection";
 import RetainerPackagesSection from "@/islands/retainers/RetainerPackagesSection";
 import CaseStudiesSection from "@/islands/CaseStudiesSection";
+import SpecificVideoWorkSection from "@/islands/Shared/SpecificVideoWorkSection";
 
 const features = [
     {
@@ -129,7 +129,6 @@ const faqQuestions = [
 
     <HomeBackground />
     <RetainersBackground />
-    <StarBackground />
 
     <!-- 1. Hero -->
     <VideoHeader
@@ -172,6 +171,7 @@ branded visuals every month."
 
     <!-- 2. Logo Carousel -->
     <LogoCaro tagline="Trusted by startups, SaaS teams, agencies, and product-led brands that produce content month after month." />
+    <SpecificVideoWorkSection client:visible category="Social Content" />
 
     <!-- 3. Under-hero split section -->
     <RetainersEditingSection client:visible/>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DayPicker } from "react-day-picker";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
 import { httpService } from "@/utils/httpService.ts";
@@ -20,22 +20,127 @@ const projectTypes = [
     "Not Sure Yet"
 ];
 
+function mapProjectType(val: string): string {
+  const t = val.toLowerCase().trim();
+  if (t.includes("motion") || t.includes("animation")) return "Motion Graphics";
+  if (t.includes("launch") || t.includes("demo")) return "Product Demo";
+  if (t.includes("explainer") || t.includes("saas")) return "SaaS Explainer";
+  if (t.includes("film")) return "Brand Film";
+  if (t.includes("brand") || t.includes("identity")) return "Branding & Visual Identity";
+  if (t.includes("ad")) return "Ad Creatives";
+  if (t.includes("edit") || t.includes("talking head") || t.includes("social")) return "Video Editing";
+  if (t.includes("ui") || t.includes("ux")) return "UI/UX Design";
+  if (t.includes("graphic")) return "Graphic Design";
+  if (t.includes("subscription") || t.includes("retainer") || t.includes("monthly") || t.includes("content")) return "Design Subscription";
+
+  const match = projectTypes.find((p) => p.toLowerCase() === t);
+  return match || val;
+}
+
+function mapBudget(val: string): string {
+  const lower = val.toLowerCase().trim();
+  if (lower.includes("500") && !lower.includes("1,500") && !lower.includes("1500")) {
+    return "Under $1,000";
+  }
+  if (lower.includes("1,500") || lower.includes("1500") || lower.includes("500 to 1,500")) {
+    return "$1,000 – $3,000";
+  }
+  if (lower.includes("1,000") || lower.includes("1000")) {
+    if (lower.includes("under") || lower.includes("<")) return "Under $1,000";
+    return "$1,000 – $3,000";
+  }
+  if (lower.includes("3,000") || lower.includes("3000") || lower.includes("7,500") || lower.includes("7500")) {
+    return "$3,000 – $10,000";
+  }
+  if (lower.includes("7,500+") || lower.includes("10,000") || lower.includes("10000") || lower.includes("10k") || lower.includes("+")) {
+    return "$10,000+";
+  }
+  const match = budgetRanges.find(
+    (b) => b.replace(/[–—\-]/g, "-").toLowerCase() === lower.replace(/[–—\-]/g, "-")
+  );
+  return match || val;
+}
+
 export const ContactBookingSection = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [companyName, setCompanyName] = useState("");
-  const [projectType, setProjectType] = useState("2D/3D animation");
+  const [projectType, setProjectType] = useState("Motion Graphics");
   const [projectDetails, setProjectDetails] = useState("");
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
-  const [selectedDuration, setSelectedDuration] = useState("15 min");
+  const [selectedDuration, setSelectedDuration] = useState("15 Minutes");
   const [selectedTime, setSelectedTime] = useState("4:00 pm");
-  const [selectedBudget, setSelectedBudget] = useState("< $10k");
+  const [selectedBudget, setSelectedBudget] = useState("Under $1,000");
   const [showProjectTypes, setShowProjectTypes] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    if (!params.size) return;
+
+    const name = params.get("name");
+    const fName = params.get("firstName") || params.get("first_name");
+    const lName = params.get("lastName") || params.get("last_name");
+    if (fName) {
+      setFirstName(fName);
+    } else if (name) {
+      const parts = name.trim().split(/\s+/);
+      setFirstName(parts[0] || "");
+      if (parts.length > 1) {
+        setLastName(parts.slice(1).join(" "));
+      }
+    }
+    if (lName) setLastName(lName);
+
+    const em = params.get("email");
+    if (em) setEmail(em);
+
+    const ph = params.get("phone") || params.get("tel") || params.get("telegram") || params.get("whatsapp");
+    if (ph) setPhone(ph);
+
+    const comp = params.get("companyName") || params.get("company_name") || params.get("company");
+    if (comp) setCompanyName(comp);
+
+    const pType = params.get("projectType") || params.get("project_type") || params.get("type") || params.get("service");
+    if (pType) setProjectType(mapProjectType(pType));
+
+    const bgt = params.get("budget") || params.get("budgetRange") || params.get("budget_range");
+    if (bgt) setSelectedBudget(mapBudget(bgt));
+
+    const msg = params.get("message") || params.get("details") || params.get("projectDetails") || params.get("project_details");
+    if (msg) setProjectDetails(msg);
+
+    const dur = params.get("duration");
+    if (dur) {
+      const match = durations.find((d) => d.toLowerCase().startsWith(dur.toLowerCase()));
+      if (match) setSelectedDuration(match);
+    }
+
+    const time = params.get("time");
+    if (time) {
+      const match = timeSlots.find((t) => t.toLowerCase() === time.toLowerCase());
+      if (match) setSelectedTime(match);
+    }
+
+    const date = params.get("date");
+    if (date) {
+      const parsed = new Date(date);
+      if (!isNaN(parsed.getTime())) setSelectedDate(parsed);
+    }
+  }, []);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState<{ type: 'idle' | 'success' | 'error', message: string }>({ type: 'idle', message: '' });
+
+  const projectTypesList = projectTypes.includes(projectType)
+    ? projectTypes
+    : [projectType, ...projectTypes];
+
+  const budgetRangesList = budgetRanges.includes(selectedBudget) || !selectedBudget
+    ? budgetRanges
+    : [...budgetRanges, selectedBudget];
 
   const handleConfirmBooking = async () => {
     if (!firstName || !email) {
@@ -182,7 +287,7 @@ export const ContactBookingSection = () => {
                 </div>
                 {showProjectTypes && (
                     <div className="absolute z-20 mt-1 w-full rounded-xl border border-white/10 bg-[#0a232e] p-1 shadow-2xl">
-                      {projectTypes.map((type) => (
+                      {projectTypesList.map((type) => (
                           <div
                               key={type}
                               onClick={() => {
@@ -206,7 +311,7 @@ export const ContactBookingSection = () => {
             <div className="mt-6 space-y-2">
               <label className="text-sm p-2 font-medium text-white/90">Budget Range</label>
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-                {budgetRanges.map((range) => (
+                {budgetRangesList.map((range) => (
                     <button
                         key={range}
                         onClick={() => setSelectedBudget(range)}

@@ -33,7 +33,6 @@ export function SmartImage({
       src={src}
       alt={alt}
       loading={loading ?? (priority ? "eager" : "lazy")}
-      // @ts-expect-error fetchPriority not in React 19 types yet
       fetchPriority={priority ? "high" : "auto"}
       decoding={decoding ?? "async"}
       sizes={sizes}

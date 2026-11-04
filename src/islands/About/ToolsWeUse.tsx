@@ -4,22 +4,22 @@ import React, { useEffect, useRef, useState } from "react";
 import { SmartImage } from "../../utils/SmartImage.tsx";
 
 const tools = [
-  { name: "After Effects", icon: "/icons/about/aftereffect.png" },
-  { name: "Premiere Pro", icon: "/icons/about/premierpro.png" },
-  { name: "Blender", icon: "/icons/about/blender.png" },
-  { name: "Figma", icon: "/icons/about/figma.png" },
-  { name: "Photoshop", icon: "/icons/about/photoshop.png" },
-  { name: "Illustrator", icon: "/icons/about/illustrator.png" },
-  { name: "Miro", icon: "/icons/about/miro.png" },
-  { name: "Cinema 4D", icon: "/icons/about/cinema4d.png" },
-  { name: "DaVinci Resolve", icon: "/icons/about/davinciresolve.png" },
-  { name: "Framer", icon: "/icons/about/framer.png" },
-  { name: "Lottie", icon: "/icons/about/lottie.png" },
-  { name: "ChatGPT", icon: "/icons/about/chatgpt.png" },
-  { name: "ElevenLabs", icon: "/icons/about/elevenlabs.png" },
-  { name: "HeyGen", icon: "/icons/about/heygen.png" },
-  { name: "Higgsfield", icon: "/icons/about/higgsfield.png" },
-  { name: "Midjourney", icon: "/icons/about/midjourney.png" },
+  { name: "After Effects", icon: "/icons/about/aftereffect.webp" },
+  { name: "Premiere Pro", icon: "/icons/about/premierpro.webp" },
+  { name: "Blender", icon: "/icons/about/blender.webp" },
+  { name: "Figma", icon: "/icons/about/figma.webp" },
+  { name: "Photoshop", icon: "/icons/about/photoshop.webp" },
+  { name: "Illustrator", icon: "/icons/about/illustrator.webp" },
+  { name: "Miro", icon: "/icons/about/miro.webp" },
+  { name: "Cinema 4D", icon: "/icons/about/cinema4d.webp" },
+  { name: "DaVinci Resolve", icon: "/icons/about/davinciresolve.webp" },
+  { name: "Framer", icon: "/icons/about/framer.webp" },
+  { name: "Lottie", icon: "/icons/about/lottie.webp" },
+  { name: "ChatGPT", icon: "/icons/about/chatgpt.webp" },
+  { name: "ElevenLabs", icon: "/icons/about/elevenlabs.webp" },
+  { name: "HeyGen", icon: "/icons/about/heygen.webp" },
+  { name: "Higgsfield", icon: "/icons/about/higgsfield.webp" },
+  { name: "Midjourney", icon: "/icons/about/midjourney.webp" },
 ];
 
 export const ToolsComponent = () => {

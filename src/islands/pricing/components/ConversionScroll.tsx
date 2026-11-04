@@ -236,7 +236,7 @@ export const ConversionScroll = () => {
                 }}
               >
                 <img
-                  src="/pricing/bgs/card-bg.png"
+                  src="/pricing/bgs/card-bg.webp"
                   alt=""
                   aria-hidden="true"
                   draggable={false}

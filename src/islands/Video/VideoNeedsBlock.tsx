@@ -20,6 +20,7 @@ more, and stay engaged longer. Better pacing, structure, visuals, and storytelli
 content feel easier to watch and more effective across modern platforms."
             primaryBtnText="Get a Free Sample"
             secondaryBtnText="See Our Work"
+
             cards={[
                 {
                     id: 1,

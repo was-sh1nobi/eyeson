@@ -6,6 +6,26 @@ const contactImg = "/Shared/contact/a.webp";
 export default function ContactUs() {
   const [selectedBudget, setSelectedBudget] = useState<string | null>(null);
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const params = new URLSearchParams();
+
+    for (const [key, val] of formData.entries()) {
+      const trimmed = typeof val === "string" ? val.trim() : "";
+      if (trimmed) {
+        params.set(key, trimmed);
+      }
+    }
+
+    if (selectedBudget) {
+      params.set("budget", selectedBudget);
+    }
+
+    const qs = params.toString();
+    window.location.href = qs ? `/contact?${qs}` : "/contact";
+  };
+
   return (
     <section className="py-12 px-4 mb-16 sm:py-16 sm:px-6 sm:mb-24 lg:px-16 lg:py-20 lg:mb-40">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-12 lg:gap-16 items-center">
@@ -53,21 +73,42 @@ export default function ContactUs() {
         <div
           className="lg:col-span-7 w-full bg-linear-to-b from-[#0a2333] via-[#071924] to-[#04111a] border border-[#00A9BD]/30 rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-12 shadow-[0_20px_60px_-15px_rgba(0,169,189,0.25)] animate-slide-up"
         >
-          <form className="space-y-5 sm:space-y-6 md:space-y-8 text-white w-full text-left">
+          <form
+            action="/contact"
+            method="GET"
+            onSubmit={handleSubmit}
+            className="space-y-5 sm:space-y-6 md:space-y-8 text-white w-full text-left"
+          >
             {/* Name */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-              <Input label="First Name" />
-              <Input label="Last Name" />
+              <Input label="First Name" name="firstName" placeholder="John" />
+              <Input label="Last Name" name="lastName" placeholder="Smith" />
             </div>
 
             {/* Email & Phone */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-              <Input label="Email" type="email" />
-              <Input label="Telegram or Whatsapp" type="tel" />
+              <Input label="Email" type="email" name="email" placeholder="john@company.com" />
+              <Input label="Telegram or Whatsapp" type="tel" name="phone" placeholder="+1 (555) 123-4567" />
             </div>
 
-            <Input label="Company Name" />
-            <Select label="Project Type" options={["Product Launch Video", "Explainer Video", "Motion Graphics", "Talking Head Editing", "Short Form Social Content", "Video Ads", "2D or 3D Animation", "UI or Graphic Design", "Brand Identity", "Ongoing Monthly Content", "Other"]} />
+            <Input label="Company Name" name="companyName" placeholder="Your company or brand" />
+            <Select
+              label="Project Type"
+              name="projectType"
+              options={[
+                "Product Launch Video",
+                "Explainer Video",
+                "Motion Graphics",
+                "Talking Head Editing",
+                "Short Form Social Content",
+                "Video Ads",
+                "2D or 3D Animation",
+                "UI or Graphic Design",
+                "Brand Identity",
+                "Ongoing Monthly Content",
+                "Other",
+              ]}
+            />
 
             {/* Budget */}
             <div className="space-y-3 pt-2">
@@ -80,7 +121,9 @@ export default function ContactUs() {
                     <button
                       key={budget}
                       type="button"
-                      onClick={() => setSelectedBudget(budget)}
+                      onClick={() =>
+                        setSelectedBudget(selectedBudget === budget ? null : budget)
+                      }
                       className={`px-3 py-2 text-[11px] font-medium rounded-full border transition-[transform,background-color,border-color,color,box-shadow] duration-200 ease-out hover:scale-105 active:scale-95
                       sm:px-4 sm:py-2.5 sm:text-sm flex-1 sm:flex-none whitespace-nowrap cursor-pointer
                       ${
@@ -102,6 +145,7 @@ export default function ContactUs() {
                 Tell us about your project
               </label>
               <textarea
+                name="message"
                 rows={4}
                 placeholder="What do you want to create, what is your goal, and do you have any references, deadline, or style in mind?"
                 className="bg-[#020b12]/80 border border-[#00A9BD]/20 rounded-xl px-4 py-3 text-sm
@@ -129,7 +173,12 @@ export default function ContactUs() {
 }
 
 /* ===== Reusable Select ===== */
-function Select({ label, options }: { label: string; options: string[] }) {
+interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
+  label: string;
+  options: string[];
+}
+
+function Select({ label, options, ...props }: SelectProps) {
   return (
     <div className="flex flex-col gap-1.5 sm:gap-2">
       <label className="text-xs sm:text-sm text-gray-400 font-medium ml-1">
@@ -137,6 +186,7 @@ function Select({ label, options }: { label: string; options: string[] }) {
       </label>
       <select
         defaultValue=""
+        {...props}
         className="bg-[#020b12]/80 border border-[#00A9BD]/20 rounded-xl
                    px-4 py-3 text-sm sm:text-base w-full
                    focus:outline-none focus:border-cyan-400 focus:bg-[#020b12]
@@ -155,7 +205,11 @@ function Select({ label, options }: { label: string; options: string[] }) {
   );
 }
 
-function Input({ label, type = "text" }: { label: string; type?: string }) {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  label: string;
+}
+
+function Input({ label, type = "text", ...props }: InputProps) {
   return (
     <div className="flex flex-col gap-1.5 sm:gap-2">
       <label className="text-xs sm:text-sm text-gray-400 font-medium ml-1">
@@ -163,6 +217,7 @@ function Input({ label, type = "text" }: { label: string; type?: string }) {
       </label>
       <input
         type={type}
+        {...props}
         className="bg-[#020b12]/80 border border-[#00A9BD]/20 rounded-xl
                    px-4 py-3 text-sm sm:text-base w-full
                    focus:outline-none focus:border-cyan-400 focus:bg-[#020b12] focus:shadow-[0_0_20px_rgba(34,211,238,0.2)]

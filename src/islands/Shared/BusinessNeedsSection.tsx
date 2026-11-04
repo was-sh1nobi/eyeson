@@ -149,8 +149,8 @@ export default function BusinessNeedsSection({
               </p>
 
               <div className="mt-7 flex flex-nowrap gap-3 md:flex-wrap md:gap-4">
-                <PrimaryButton text={primaryBtnText} textClassName="!text-sm md:!text-lg"/>
-                <SecondaryButton text={secondaryBtnText} textClassName="!text-sm md:!text-lg"/>
+                <PrimaryButton text={primaryBtnText} textClassName="!text-xs md:!text-lg"/>
+                <SecondaryButton text={secondaryBtnText} textClassName="!text-xs md:!text-lg"/>
               </div>
             </div>
 

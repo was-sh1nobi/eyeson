@@ -3,26 +3,38 @@ import { CircleCheck } from "@lucide/astro";
 import { SmartImage } from "@/utils/SmartImage.tsx";
 
 const data = [
-  { title: "Strategy-first scripting" },
-  { title: "UI-native motion design" },
-  { title: "Built specially for SaaS" },
-  { title: "Clarity over flashy effects" },
+  {
+    title: "Strategy-first scripting",
+    subtitle: "Clear messages that drive results.",
+  },
+  {
+    title: "UI-native motion design",
+    subtitle: "Animations that feel like your product.",
+  },
+  {
+    title: "Built specially for SaaS",
+    subtitle: "We understand product-led growth.",
+  },
+  {
+    title: "Clarity over flashy effects",
+    subtitle: "Purposeful visuals that make an impact.",
+  },
 ];
 ---
 
 <div class="px-3">
-  <div class="w-full flex items-center justify-center px-4 py-10 md:scale-110">
+  <div class="w-full flex items-center justify-center px-4 py-10 md:scale-105">
     <div
         class="reveal-on-scroll spotlight-card relative w-full  max-w-6xl overflow-hidden rounded-[24px] border border-cyan-500/20 px-6 py-10 shadow-[0_0_80px_rgba(0,0,0,0.35)] transition-transform duration-300 hover:scale-[1.005] md:px-10 lg:px-12"
     >
       <SmartImage
-          src="/blogs/Story-Back.webp"
-          className="absolute inset-0 h-full w-full object-cover opacity-50"
+          src="/blogs/bg.webp"
+          className="absolute inset-0 h-full w-full object-contain opacity-50"
       />
 
-      <div class="absolute inset-0 bg-white/5 backdrop-blur-md"></div>
 
-      <div class="relative z-10 grid gap-10 lg:grid-cols-[1fr_2fr] lg:items-center">
+
+      <div class="relative z-10 grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-4">
         <div class="flex flex-col gap-8">
           <div class="flex flex-col gap-5">
             <h2
@@ -48,17 +60,22 @@ const data = [
           >
           </div>
 
-          <div class="space-y-4">
+          <div class="space-y-3">
             {
               data.map((item) => (
-                  <div class="flex items-center gap-3">
+                  <div class="flex items-center gap-4 rounded-2xl bg-white/[0.03] border border-white/[0.06] px-4 py-3">
                     <CircleCheck
                         size={28}
                         stroke-width={1.75}
                         color="#1EAFB1"
                         class="shrink-0"
                     />
-                    <h3 class="text-lg text-white/90">{item.title}</h3>
+                    <div class="flex flex-col">
+                      <h3 class="text-lg font-semibold text-white/95">
+                        {item.title}
+                      </h3>
+                      <p class="text-sm text-white/60">{item.subtitle}</p>
+                    </div>
                   </div>
               ))
             }
@@ -70,7 +87,7 @@ const data = [
               Cards span x 93–1196 / y 227–697 of the 1289x860 canvas,
               so 11/5 centered keeps all four cards while cutting the
               empty margins. Desktop keeps the full composition. */}
-          <div class="relative w-full aspect-[11/5] overflow-hidden lg:aspect-[1200/800]">
+          <div class="relative w-full aspect-[11/5] overflow-hidden lg:aspect-[1200/800] lg:scale-[1.22] lg:origin-center">
             <div class="absolute inset-0 z-1 animate-felash-entry [animation-delay:1000ms]">
               <SmartImage src="/pricing/svg/Felash-1.svg" className="h-full w-full" />
             </div>

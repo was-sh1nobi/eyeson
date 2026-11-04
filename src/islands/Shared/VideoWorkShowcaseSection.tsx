@@ -14,89 +14,6 @@ type ShowcaseItem = {
   title: string;
 };
 
-const FALLBACK_ITEMS: ShowcaseItem[] = [
-  {
-    id: 6,
-    src: "https://back.eyesonstudio.com/media/raw/portfolio/1786431829961-Screenshot%202026-08-11%20063656.png",
-    videoUrl: "https://back.eyesonstudio.com/media/raw/portfolio/1786431829450-00%20-%20Predictefy%20-%20Launch%20Trailer.mp4",
-    previewUrl: "https://back.eyesonstudio.com/media/raw/portfolio/preview-1791455470498-1786431829450-00%20-%20Predictefy%20-%20Launch%20Trailer.mp4",
-    playable: true,
-    title: "Brand Trailer",
-  },
-  {
-    id: 7,
-    src: "https://back.eyesonstudio.com/media/raw/portfolio/1786441608144-Screenshot%20From%202026-08-11%2013-14-37.png",
-    videoUrl: "https://back.eyesonstudio.com/media/raw/portfolio/1786441607973-01%20-%20Starbucks%20%E2%80%93%20Brand%20Trailer_compressed.mp4",
-    previewUrl: "https://back.eyesonstudio.com/media/raw/portfolio/preview-1791822450052-1786441607973-01%20-%20Starbucks%20%E2%80%93%20Brand%20Trailer_compressed.mp4",
-    playable: true,
-    title: "Brand Trailer",
-  },
-  {
-    id: 20,
-    src: "https://back.eyesonstudio.com/media/raw/portfolio/1786446536483-Screenshot%20From%202026-08-11%2014-31-35.png",
-    videoUrl: "https://back.eyesonstudio.com/media/raw/portfolio/1786446536127-16%20-%20Vuetify%20%E2%80%93%20SaaS%20Explainer%20Video_compressed.mp4",
-    previewUrl: "https://back.eyesonstudio.com/media/raw/portfolio/preview-1791822389591-1786446536127-16%20-%20Vuetify%20%E2%80%93%20SaaS%20Explainer%20Video_compressed.mp4",
-    playable: true,
-    title: "Explainer Videos",
-  },
-  {
-    id: 25,
-    src: "https://back.eyesonstudio.com/media/raw/portfolio/1786459227358-Screenshot%20From%202026-08-11%2018-09-15.png",
-    videoUrl: "https://back.eyesonstudio.com/media/raw/portfolio/1786459227301-AkiraLink%20%E2%80%94%20Social%20Reel_compressed.mp4",
-    previewUrl: "https://back.eyesonstudio.com/media/raw/portfolio/preview-1791822174206-1786459227301-AkiraLink%20%E2%80%94%20Social%20Reel_compressed.mp4",
-    playable: true,
-    title: "Motion Graphics",
-  },
-  {
-    id: 29,
-    src: "https://back.eyesonstudio.com/media/raw/portfolio/1786459750944-Screenshot%20From%202026-08-11%2018-17-34.png",
-    videoUrl: "https://back.eyesonstudio.com/media/raw/portfolio/1786459750837-CryptoZen%20Solana%20%E2%80%94%20Educational%20Reel_compressed.mp4",
-    previewUrl: "https://back.eyesonstudio.com/media/raw/portfolio/preview-1791822274460-1786459750837-CryptoZen%20Solana%20%E2%80%94%20Educational%20Reel_compressed.mp4",
-    playable: true,
-    title: "Motion Graphics",
-  },
-  {
-    id: 41,
-    src: "https://back.eyesonstudio.com/media/raw/portfolio/1786461805783-Screenshot%20From%202026-08-11%2018-50-43.png",
-    videoUrl: "https://back.eyesonstudio.com/media/raw/portfolio/1786461805166-17%20-%20Coconut%20Care%20%E2%80%93%20Product%20Ad%20_compressed.mp4",
-    previewUrl: "https://back.eyesonstudio.com/media/raw/portfolio/preview-1791822507540-1786461805166-17%20-%20Coconut%20Care%20%E2%80%93%20Product%20Ad%20_compressed.mp4",
-    playable: true,
-    title: "Ad Creatives",
-  },
-  {
-    id: 8,
-    src: "https://back.eyesonstudio.com/media/raw/portfolio/1786442015930-Screenshot%20From%202026-08-11%2013-20-21.png",
-    videoUrl: "https://back.eyesonstudio.com/media/raw/portfolio/1786442015364-02%20-%20Uber%20-%20Brand%20Trailer_compressed.mp4",
-    previewUrl: "#",
-    playable: true,
-    title: "Brand Trailer",
-  },
-  {
-    id: 9,
-    src: "https://back.eyesonstudio.com/media/raw/portfolio/1786442482739-Screenshot%20From%202026-08-11%2013-28-50.png",
-    videoUrl: "https://back.eyesonstudio.com/media/raw/portfolio/1786442482564-04%20-%20Binance%20-%20Crypto%20Brand%20Trailer_compressed.mp4",
-    previewUrl: "#",
-    playable: true,
-    title: "Brand Trailer",
-  },
-  {
-    id: 10,
-    src: "https://back.eyesonstudio.com/media/raw/portfolio/1786442607476-Screenshot%20From%202026-08-11%2013-30-52.png",
-    videoUrl: "https://back.eyesonstudio.com/media/raw/portfolio/1786442607284-05%20-%20Apple%20Health%20-%20Product%20Trailer_compressed.mp4",
-    previewUrl: "#",
-    playable: true,
-    title: "Brand Trailer",
-  },
-  {
-    id: 11,
-    src: "https://back.eyesonstudio.com/media/raw/portfolio/1786442807822-Screenshot%20From%202026-08-11%2013-34-01.png",
-    videoUrl: "https://back.eyesonstudio.com/media/raw/portfolio/1786442807656-06%20-%20Pandora%20Parlays%20-%20SaaS%20Trailer_compressed.mp4",
-    previewUrl: "#",
-    playable: true,
-    title: "Brand Trailer",
-  },
-];
-
 /* ──────────────────────────────────────────────────────────────
  * Global "live video" slot manager
  *
@@ -179,13 +96,11 @@ const WorkCard = memo(function WorkCard({
   const token = useRef<object>({}).current;
   const [live, setLive] = useState(false);
 
-  // Some items use the full-size video as their "preview". On touch
-  // devices that is far too heavy, so those stay poster-only there.
   const hasLightPreview = useMemo(() => {
     if (!item.previewUrl) return false;
-    if (item.previewUrl === item.videoUrl && isTouchDevice()) return false;
+    if (isTouchDevice()) return false;
     return true;
-  }, [item.previewUrl, item.videoUrl]);
+  }, [item.previewUrl]);
 
   // Take a decoder slot only while the card is actually visible.
   useEffect(() => {
@@ -292,7 +207,7 @@ export default function VideoWorkShowcaseSection({
                                                    descriptionClassName = "mx-auto mt-4 max-w-2xl text-xs leading-6 text-[#c5d7e0] sm:mt-5 sm:text-sm sm:leading-7",
                                                    fadeColor = "#030d18",
                                                  }: VideoWorkShowcaseSectionProps) {
-  const [items, setItems] = useState<ShowcaseItem[]>(FALLBACK_ITEMS);
+  const [items, setItems] = useState<ShowcaseItem[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<ShowcaseItem | null>(null);
   const [inView, setInView] = useState(true);
@@ -319,9 +234,12 @@ export default function VideoWorkShowcaseSection({
           seenIds.add(v.id);
           if (videoPath) seenVideos.add(videoPath);
 
-          const previewRaw = v.preview || v.video;
-          const previewUrl = previewRaw
-              ? (previewRaw.startsWith("http") ? previewRaw : `${import.meta.env.PUBLIC_API_URL}${previewRaw}`)
+          const previewRaw = v.preview;
+          const previewUrl =
+            previewRaw && previewRaw !== v.video
+              ? previewRaw.startsWith("http")
+                ? previewRaw
+                : `${import.meta.env.PUBLIC_API_URL}${previewRaw}`
               : undefined;
 
           mapped.push({
@@ -340,9 +258,11 @@ export default function VideoWorkShowcaseSection({
 
         if (mapped.length >= 6) {
           setItems(mapped.slice(0, 10));
+        } else if (mapped.length > 0) {
+          setItems(mapped);
         }
       } catch (err) {
-        console.error("Failed to fetch showcase videos, using fallback", err);
+        console.error("Failed to fetch showcase videos", err);
       }
     };
     fetchVideos();

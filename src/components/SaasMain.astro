@@ -2,7 +2,6 @@
 import ContactUs from "../islands/ContactUs";
 import FeaturesSection from "./Shared/FeaturesSection.astro";
 import LogoCaro from "./Shared/LogoCaro.astro";
-import StarBackground from "../islands/StarBackground";
 import SaasEditingSection from "../islands/saas/SaasEditingSection";
 import CostSaas from "./Shared/CostSaas.astro";
 import {SaasNeedsBlock} from "../islands/saas/SaasNeedsBlock.tsx";
@@ -16,6 +15,7 @@ import QandASection from "./Shared/QandASection.astro";
 import HomeBackground from "./Home/HomeBackground.astro";
 import SaasBackground from "./Saas/SaasBackground.astro";
 import { VideoHeader } from "../islands/Shared/VideoHeader";
+import SpecificVideoWorkSection from "@/islands/Shared/SpecificVideoWorkSection";
 
 const qas = [
   {
@@ -77,7 +77,6 @@ const qas = [
 
         <HomeBackground />
         <SaasBackground />
-        <StarBackground />
 
 
     <VideoHeader
@@ -124,6 +123,7 @@ const qas = [
     client:idle
     />
     <LogoCaro tagline="Trusted by SaaS teams, startups, and product-led brands worldwide." />
+    <SpecificVideoWorkSection client:visible category="Explainer Videos" />
     <SaasEditingSection client:visible/>
     <FeaturesSection
       badgeText=""

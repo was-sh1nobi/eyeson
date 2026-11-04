@@ -56,7 +56,7 @@ export const PortfolioShowingSection = () => {
     <section className="relative z-10 w-full max-w-7xl mx-auto px-4 mt-16 sm:mt-24 sm:px-6 flex flex-col items-center animate-fade-in">
       <div className="w-full max-w-5xl text-center">
         <h4 className="text-xs font-thin tracking-[0.2em] sm:text-sm">OUR WORK</h4>
-        <h2 className="bg-linear-to-r from-[#46B6A0] to-[#2EBACA] bg-clip-text text-3xl font-bold text-transparent sm:text-4xl md:text-5xl">
+        <h2 className="bg-linear-to-r from-cyan-400 via-[#00E6D7] to-[#00A9BD] bg-clip-text text-3xl font-bold text-transparent sm:text-4xl md:text-5xl">
           Featured Projects & Creative Work
         </h2>
         <p className="mx-auto mt-4 max-w-3xl text-sm font-light leading-7 sm:text-base">

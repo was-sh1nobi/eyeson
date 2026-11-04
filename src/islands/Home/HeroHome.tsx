@@ -112,14 +112,14 @@ export default function HeroHome() {
         <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 md:gap-14">
           <div className="flex items-center gap-3">
             <div className="flex -space-x-2.5 isolate">
-              {items.map((item, index) => (
+                {items.map((item, index) => (
                 <div
                   key={index}
                   style={{ zIndex: items.length - index }}
                   className={`h-10 w-10 sm:h-11 sm:w-11 rounded-full overflow-hidden border-2 cursor-pointer shadow-md transition-transform duration-200 hover:scale-110 hover:-translate-y-1
                     ${index === 3 ? "border-white/20" : "border-[var(--color-border)]"} bg-zinc-700`}
                 >
-                  <SmartImage src={item.src} />
+                  <SmartImage src={item.src} width={128} height={128} />
                 </div>
               ))}
             </div>
