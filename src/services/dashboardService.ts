@@ -119,6 +119,7 @@ type LatestRequest = {
 };
 
 type RequestItem = {
+    id: string;
     title: string;
     from: string;
     createdAt: string;
