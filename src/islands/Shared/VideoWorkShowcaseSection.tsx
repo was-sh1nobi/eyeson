@@ -204,7 +204,7 @@ export default function VideoWorkShowcaseSection({
                                                    eyebrowClassName = "text-[10px] tracking-[0.18em] text-[#c6d6de] sm:text-xs",
                                                    titleClassName = "mt-3 text-3xl font-bold leading-tight text-white sm:mt-4 sm:text-4xl md:text-5xl lg:text-6xl",
                                                    highlightClassName = "text-[#35d2cc]",
-                                                   descriptionClassName = "mx-auto mt-4 max-w-2xl text-xs leading-6 text-[#c5d7e0] sm:mt-5 sm:text-sm sm:leading-7",
+                                                   descriptionClassName = "mx-auto mt-4 max-w-2xl text-base leading-6 text-[#c5d7e0] sm:mt-5 sm:text-md sm:leading-7",
                                                    fadeColor = "#030d18",
                                                  }: VideoWorkShowcaseSectionProps) {
   const [items, setItems] = useState<ShowcaseItem[]>([]);

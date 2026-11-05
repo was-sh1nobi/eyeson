@@ -11,13 +11,13 @@ export default function SaasEditingSection() {
             <div className="relative w-full group">
               <div
                 className="relative z-10 w-full transform-gpu transition-transform duration-[var(--duration-emphasis)] ease-[var(--ease-default)] flex items-center justify-center mx-auto rounded-[var(--radius-xl)] overflow-hidden"
-                style={{ aspectRatio: "1300 / 1040" }}
+                style={{ aspectRatio: "1350 / 1040" }}
               >
                 <SmartImage
                   src="/saas/2.webp"
                   alt="SaaS Creative"
                   fill={true}
-                  className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)] transition-transform duration-[var(--duration-emphasis)] ease-[var(--ease-default)]"
+                  className="object-contain transition-transform duration-[var(--duration-emphasis)] ease-[var(--ease-default)]"
                   loading="lazy"
                 />
               </div>

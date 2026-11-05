@@ -4,6 +4,7 @@ import {
   Coins,
   ScanEye,
   FolderSearch,
+  type LucideIcon,
 } from "lucide-react";
 
 const rows = [
@@ -41,13 +42,7 @@ const rows = [
   },
 ];
 
-const icons = [
-  <BadgeCheck key="1" className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-cyan-300" />,
-  <Wand2 key="2" className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-cyan-300" />,
-  <Coins key="3" className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-cyan-300" />,
-  <ScanEye key="4" className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-cyan-300" />,
-  <FolderSearch key="5" className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-cyan-300" />,
-];
+const icons: LucideIcon[] = [BadgeCheck, Wand2, Coins, ScanEye, FolderSearch];
 
 export default function AnimationStyleComparisonSection() {
   return (
@@ -74,7 +69,7 @@ export default function AnimationStyleComparisonSection() {
         </div>
 
         {/* === Table Container === */}
-        <div className="mt-8 sm:mt-10 overflow-hidden rounded-2xl border border-cyan-300/30 bg-[#081e2f]/80 shadow-[0_0_45px_rgba(34,211,238,0.15)] sm:rounded-3xl">
+        <div className="mt-8 overflow-hidden sm:mt-10 rounded-3xl border border-white/10 bg-linear-to-b from-[#0b1f2a]/80 to-[#020915]/80 shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-md">
           {/* 
             اینجا min-w رو برداشتیم تا توی موبایل اسکرول افقی نخوره.
             از table-fixed استفاده کردیم که ستون‌ها متناسب تقسیم بشن.
@@ -83,14 +78,14 @@ export default function AnimationStyleComparisonSection() {
             
             {/* === Table Head === */}
             <thead>
-              <tr className="bg-[linear-gradient(90deg,#0dbfca,#0e8f9d)] text-white">
+              <tr className="border-b border-white/10 bg-white/5 text-white">
                 <th className="w-[28%] px-2 py-3 text-[11px] font-semibold tracking-wide sm:w-[30%] sm:px-4 sm:py-4 sm:text-lg md:px-6 md:text-2xl">
                   Variables
                 </th>
-                <th className="w-[36%] px-2 py-3 text-[11px] font-semibold tracking-wide border-l border-cyan-300/20 sm:w-[35%] sm:px-4 sm:py-4 sm:text-lg md:px-6 md:text-2xl">
+                <th className="w-[36%] px-2 py-3 text-[11px] font-semibold tracking-wide border-l border-white/10 sm:w-[35%] sm:px-4 sm:py-4 sm:text-lg md:px-6 md:text-2xl">
                   2D animation
                 </th>
-                <th className="w-[36%] px-2 py-3 text-[11px] font-semibold tracking-wide border-l border-cyan-300/20 sm:w-[35%] sm:px-4 sm:py-4 sm:text-lg md:px-6 md:text-2xl">
+                <th className="w-[36%] px-2 py-3 text-[11px] font-semibold tracking-wide border-l border-white/10 sm:w-[35%] sm:px-4 sm:py-4 sm:text-lg md:px-6 md:text-2xl">
                   3D animation
                 </th>
               </tr>
@@ -101,14 +96,19 @@ export default function AnimationStyleComparisonSection() {
               {rows.map((row, index) => (
                 <tr
                   key={row.variable}
-                  className={index % 2 === 0 ? "bg-[#0a1f31]" : "bg-[#113149]"}
+                  className={index % 2 === 0 ? "bg-white/[0.03]" : "bg-white/[0.06]"}
                 >
                   
                   {/* Column 1: Variables */}
-                  <td className="border-t border-cyan-300/20 px-2 py-3 align-top sm:px-4 sm:py-4 md:px-6 md:py-5">
+                  <td className="border-t border-white/10 px-2 py-3 align-top sm:px-4 sm:py-4 md:px-6 md:py-5">
                     <div className="flex flex-col items-start gap-1.5 sm:flex-row sm:items-center sm:gap-3">
-                      <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-cyan-300/35 bg-cyan-200/10 text-cyan-300 sm:h-8 sm:w-8 md:h-10 md:w-10">
-                        {icons[index]}
+                      <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-xl border border-[#1ed7d8]/60 bg-linear-to-br from-[#000E17] to-[#143C3E] text-[#1ed7d8] shadow-[0_0_10px_#00A9BD80] sm:h-8 sm:w-8 md:h-10 md:w-10">
+                        {(() => {
+                          const Icon = icons[index];
+                          return (
+                            <Icon className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6" />
+                          );
+                        })()}
                       </span>
                       <span className="text-[11px] font-bold text-white sm:text-sm md:text-lg lg:text-xl">
                         {row.variable}
@@ -117,12 +117,12 @@ export default function AnimationStyleComparisonSection() {
                   </td>
 
                   {/* Column 2: 2D Animation */}
-                  <td className="border-t border-l border-cyan-300/20 px-2 py-3 align-top text-[10px] leading-relaxed text-white/85 sm:px-4 sm:py-4 sm:text-sm sm:leading-6 md:px-6 md:py-5 md:text-base md:leading-7 lg:text-lg lg:leading-8">
+                  <td className="border-t border-l border-white/10 px-2 py-3 align-top text-[10px] leading-relaxed text-white/85 sm:px-4 sm:py-4 sm:text-sm sm:leading-6 md:px-6 md:py-5 md:text-base md:leading-7 lg:text-lg lg:leading-8">
                     {row.twoD}
                   </td>
 
                   {/* Column 3: 3D Animation */}
-                  <td className="border-t border-l border-cyan-300/20 px-2 py-3 align-top text-[10px] leading-relaxed text-white/85 sm:px-4 sm:py-4 sm:text-sm sm:leading-6 md:px-6 md:py-5 md:text-base md:leading-7 lg:text-lg lg:leading-8">
+                  <td className="border-t border-l border-white/10 px-2 py-3 align-top text-[10px] leading-relaxed text-white/85 sm:px-4 sm:py-4 sm:text-sm sm:leading-6 md:px-6 md:py-5 md:text-base md:leading-7 lg:text-lg lg:leading-8">
                     {row.threeD}
                   </td>
 

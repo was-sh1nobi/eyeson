@@ -65,8 +65,14 @@ const socialLinks = [
   </div>
 
   <footer
-    class="relative w-full bg-cover bg-center overflow-hidden text-white bg-linear-to-b from-[#000E17] to-[#006b7747]"
+    class="relative w-full bg-cover bg-center overflow-hidden text-white bg-linear-to-b from-transparent via-[#000E17] from-10% to-[#006b7747]"
   >
+    <!-- Smooth top fade — blends the footer edge into the page above -->
+    <div
+      class="pointer-events-none absolute inset-x-0 top-0 z-0 h-32 bg-linear-to-b from-[#000E17] via-[#000E17]/60 to-transparent"
+      aria-hidden="true"
+    >
+    </div>
     <div class="absolute inset-0 opacity-70 pointer-events-none">
       <div class="stars"></div>
       <div class="stars2"></div>

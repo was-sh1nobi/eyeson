@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SmartImage } from "@/utils/SmartImage.tsx";
 
 const contactImg = "/Shared/contact/a.webp";
@@ -172,35 +172,117 @@ export default function ContactUs() {
   );
 }
 
-/* ===== Reusable Select ===== */
-interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
+/* ===== Reusable Select (custom glass dropdown — native <select> menus can't be styled) ===== */
+interface SelectProps {
   label: string;
   options: string[];
+  name: string;
 }
 
-function Select({ label, options, ...props }: SelectProps) {
+function Select({ label, options, name }: SelectProps) {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState("");
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const close = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    const esc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("mousedown", close);
+    document.addEventListener("keydown", esc);
+    const panel = ref.current!.querySelector<HTMLElement>("[role='listbox']");
+    const blockWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      const el = e.currentTarget as HTMLElement;
+      const atTop = el.scrollTop <= 0 && e.deltaY < 0;
+      const atBottom =
+        el.scrollTop + el.clientHeight >= el.scrollHeight && e.deltaY > 0;
+      // Scroll the panel itself when it has room, block the page only at its edges
+      if (!atTop && !atBottom) {
+        el.scrollTop += e.deltaY;
+      }
+    };
+    panel?.addEventListener("wheel", blockWheel, { passive: false });
+    return () => {
+      document.removeEventListener("mousedown", close);
+      document.removeEventListener("keydown", esc);
+      panel?.removeEventListener("wheel", blockWheel);
+    };
+  }, [open]);
+
   return (
-    <div className="flex flex-col gap-1.5 sm:gap-2">
+    <div className="flex flex-col gap-1.5 sm:gap-2 relative" ref={ref}>
       <label className="text-xs sm:text-sm text-gray-400 font-medium ml-1">
         {label}
       </label>
-      <select
-        defaultValue=""
-        {...props}
-        className="bg-[#020b12]/80 border border-[#00A9BD]/20 rounded-xl
-                   px-4 py-3 text-sm sm:text-base w-full
-                   focus:outline-none focus:border-cyan-400 focus:bg-[#020b12]
-                   transition-colors duration-300 text-white"
+      {/* hidden native input so the form still submits projectType */}
+      <input type="hidden" name={name} value={value} />
+
+      <button
+        type="button"
+        onClick={() => setOpen(o => !o)}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        className={`flex w-full items-center justify-between gap-3 rounded-xl px-4 py-3 text-sm sm:text-base text-left cursor-pointer
+                   bg-[#020b12]/80 border transition-[background-color,border-color,box-shadow] duration-300
+                   ${open ? "border-cyan-400 shadow-[0_0_20px_rgba(34,211,238,0.2)]" : "border-[#00A9BD]/20"}`}
       >
-        <option value="" disabled className="text-gray-400">
-          Select {label}
-        </option>
-        {options.map((opt) => (
-          <option key={opt} value={opt} className="text-white bg-[#040e14]">
-            {opt}
-          </option>
-        ))}
-      </select>
+        <span className={value ? "text-white" : "text-white/40"}>
+          {value || `Select ${label}`}
+        </span>
+        <svg
+          className={`h-4 w-4 shrink-0 text-[#00E5FF] transition-transform duration-300 ${open ? "rotate-180" : ""}`}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={2}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      </button>
+
+      {open && (
+        <div
+          role="listbox"
+          className="absolute left-0 right-0 top-full z-50 mt-2 max-h-[280px] overflow-y-auto rounded-2xl
+                     border border-white/10 bg-linear-to-b from-[#0b1f2a]/90 to-[#020915]/90
+                     backdrop-blur-md shadow-[0_20px_50px_rgba(0,0,0,0.45)] p-1.5 overscroll-contain
+                     animate-fade-in"
+        >
+          {options.map((opt) => {
+            const active = opt === value;
+            return (
+              <button
+                key={opt}
+                type="button"
+                role="option"
+                aria-selected={active}
+                onClick={() => {
+                  setValue(opt);
+                  setOpen(false);
+                }}
+                className={`flex w-full items-center justify-between gap-3 rounded-xl px-4 py-2.5 text-sm sm:text-[15px] text-left transition-colors duration-150 cursor-pointer
+                  ${active
+                    ? "bg-cyan-400/15 text-cyan-300"
+                    : "text-white/80 hover:bg-white/5 hover:text-white"}`}
+              >
+                <span>{opt}</span>
+                {active && (
+                  <svg className="h-4 w-4 shrink-0 text-cyan-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                )}
+              </button>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

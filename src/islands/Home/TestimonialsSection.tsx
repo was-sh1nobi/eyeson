@@ -85,7 +85,7 @@ export default function TestimonialsSection() {
   ];
 
   return (
-    <section className="relative py-16 sm:py-24 lg:py-32 overflow-hidden">
+    <section className="relative  overflow-hidden">
       {stars.length > 0 && (
         <div className="absolute inset-0 pointer-events-none -z-10" aria-hidden="true">
           {stars.map((star, i) => (

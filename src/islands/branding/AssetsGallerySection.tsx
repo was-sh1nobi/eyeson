@@ -2,7 +2,7 @@ import { SmartImage } from "../../utils/SmartImage.tsx";
 
 export const AssetsGallerySection = () => {
   const card =
-    "bg-[#071c2e]/80 backdrop-blur-md border border-[#13a8b8]/30 rounded-[24px] overflow-hidden shadow-lg transition-colors duration-200 hover:border-[#42D1D1]/60";
+    "bg-linear-to-br from-[#0b1f2a]/80 to-[#020915]/80 backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.35)] transition-colors duration-300 hover:border-[#00A9BD]/50";
 
   return (
     <section className="w-full py-12 px-4 sm:py-16 md:px-8 lg:py-20 lg:px-16 font-sans">

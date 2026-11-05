@@ -13,11 +13,11 @@ type CardItem = {
 };
 
 const defaultItems: CardItem[] = [
-  { label: "Lottie Animation", section: SECTIONS[0], imageUrl: "/case/rframe.webp" },
-  { label: "UI Animation", section: SECTIONS[1], imageUrl: "/case/lframe.webp" },
-  { label: "Branded motion", section: SECTIONS[2], imageUrl: "/case/b1f.webp" },
-  { label: "UI Animation", section: SECTIONS[3], imageUrl: "/case/b2f.webp" },
-  { label: "Lottie Animation", section: SECTIONS[4], imageUrl: "/case/b3f.webp" },
+  { label: "Lottie Animation", section: SECTIONS[0], imageUrl: "" },
+  { label: "UI Animation", section: SECTIONS[1], imageUrl: "" },
+  { label: "Branded motion", section: SECTIONS[2], imageUrl: "" },
+  { label: "UI Animation", section: SECTIONS[3], imageUrl: "" },
+  { label: "Lottie Animation", section: SECTIONS[4], imageUrl: "" },
 ];
 
 type Props = {
@@ -145,6 +145,26 @@ export default function AdminVisualProofSection({ slug: propSlug }: Props) {
           opacity: 1;
           transform: translateY(0);
         }
+        .skeleton-shimmer {
+          background: #0a1d24;
+        }
+        /* Shine animates via transform (GPU-composited), not background-position (repaints every frame) */
+        .skeleton-shimmer::after {
+          content: "";
+          position: absolute;
+          inset: 0 -60%;
+          background: linear-gradient(100deg, transparent 40%, #10262e99 50%, transparent 60%);
+          transform: translateX(-50%);
+          animation: skeleton-shimmer 1.6s ease-in-out infinite;
+          will-change: transform;
+        }
+        @keyframes skeleton-shimmer {
+          from { transform: translateX(-50%); }
+          to { transform: translateX(50%); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .skeleton-shimmer::after { animation: none; opacity: 0; }
+        }
       `,
         }}
       />
@@ -207,11 +227,10 @@ export default function AdminVisualProofSection({ slug: propSlug }: Props) {
                 `}
               >
                 {item.imageUrl ? (
-                <img
+                <ImageWithSkeleton
+                  key={item.imageUrl}
                   src={item.imageUrl.startsWith("http") ? item.imageUrl : item.imageUrl.startsWith("/media/") ? `${import.meta.env.PUBLIC_API_URL}${item.imageUrl}` : item.imageUrl}
                   alt={item.label}
-                  loading="lazy"
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
                 ) : (
                   <div className="absolute inset-0 flex items-center justify-center bg-[#071a21] text-white/30 text-sm">
@@ -241,5 +260,37 @@ export default function AdminVisualProofSection({ slug: propSlug }: Props) {
         </div>
       </div>
     </section>
+  );
+}
+
+function ImageWithSkeleton({ src, alt }: { src: string; alt: string }) {
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <div className="absolute inset-0">
+      {/* Skeleton — shows while the picture is fetching and fades out on load */}
+      {!loaded && (
+        <div className="absolute inset-0 skeleton-shimmer" aria-hidden="true">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-white/30 animate-bounce [animation-delay:0ms]" />
+              <span className="h-1.5 w-1.5 rounded-full bg-white/30 animate-bounce [animation-delay:150ms]" />
+              <span className="h-1.5 w-1.5 rounded-full bg-white/30 animate-bounce [animation-delay:300ms]" />
+            </div>
+          </div>
+        </div>
+      )}
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        // Cached images never fire onLoad after hydration — catch them here
+        ref={(el) => {
+          if (el && el.complete && el.naturalWidth > 0) setLoaded(true);
+        }}
+        onLoad={() => setLoaded(true)}
+        className={`absolute inset-0 h-full w-full object-cover transition-[opacity,transform] duration-700 ease-out group-hover:scale-105 ${loaded ? "opacity-100" : "opacity-0"}`}
+      />
+    </div>
   );
 }

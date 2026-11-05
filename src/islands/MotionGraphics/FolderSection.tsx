@@ -44,8 +44,8 @@ const Folder: React.FC = () => {
       tl.to(
         flapRef.current,
         {
-          y: 20,
-          rotateX: -15,
+          y: 10,
+          rotateX: -8,
           duration: 0.6,
           ease: "power3.out",
         },
@@ -56,9 +56,9 @@ const Folder: React.FC = () => {
     cardRefs.current.forEach((card, i) => {
       if (card) {
         gsap.to(card, {
-          y: -140 - i * 35,
-          x: (i - 1) * 45,
-          rotation: (i - 1) * 12,
+          y: -70 - i * 18,
+          x: (i - 1) * 24,
+          rotation: (i - 1) * 7,
           scale: 1,
           duration: 0.7,
           delay: i * 0.04,
@@ -118,7 +118,7 @@ const Folder: React.FC = () => {
   return (
     <div
       ref={container}
-      className="relative w-[450px] max-w-full h-[400px] flex items-center justify-center cursor-pointer"
+      className="relative w-[450px] max-w-full h-[380px] flex items-center justify-center cursor-pointer"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       style={{ perspective: "1000px" }}
@@ -169,7 +169,7 @@ const Folder: React.FC = () => {
  */
 const MotionSection: React.FC = () => {
   return (
-    <div className="min-h-screen w-full flex items-center justify-center px-6 md:px-8 font-sans overflow-hidden  lg:py-0">
+    <div className="w-full flex items-center justify-center px-6 md:px-8 py-4 font-sans overflow-hidden">
       <div
         className="w-full flex flex-col lg:flex-row justify-center items-center relative z-10 gap-12 lg:gap-16 animate-fade-in"
       >

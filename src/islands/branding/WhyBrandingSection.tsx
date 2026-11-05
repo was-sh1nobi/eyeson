@@ -20,7 +20,7 @@ export const WhyBrandingSection = () => {
 
           {/* کارت ۱: عکس چپ، متن راست */}
           <div
-            className="flex flex-row rounded-2xl border border-[#13a8b8]/30 bg-[#071c2e]/80 backdrop-blur-md overflow-hidden transition-all duration-200 hover:border-[#42D1D1]/60"
+            className="flex flex-row rounded-2xl border border-white/10 bg-linear-to-br from-[#0b1f2a]/80 to-[#020915]/80 backdrop-blur-md overflow-hidden transition-colors duration-300 hover:border-[#00A9BD]/50"
             style={{ minHeight: 160 }}
           >
             <div className="relative shrink-0" style={{ width: "42%" }}>
@@ -48,7 +48,7 @@ export const WhyBrandingSection = () => {
 
           {/* کارت ۲: متن چپ، عکس راست */}
           <div
-            className="flex flex-row rounded-2xl border border-[#13a8b8]/30 bg-[#071c2e]/80 backdrop-blur-md overflow-hidden transition-all duration-200 hover:border-[#42D1D1]/60"
+            className="flex flex-row rounded-2xl border border-white/10 bg-linear-to-br from-[#0b1f2a]/80 to-[#020915]/80 backdrop-blur-md overflow-hidden transition-colors duration-300 hover:border-[#00A9BD]/50"
             style={{ minHeight: 160 }}
           >
             <div
@@ -76,7 +76,7 @@ export const WhyBrandingSection = () => {
 
         {/* ===== ستون وسط: Consistency ===== */}
         <div
-          className="flex flex-col rounded-2xl border border-[#13a8b8]/30 bg-[#071c2e]/80 backdrop-blur-md overflow-hidden lg:w-[33%] transition-all duration-200 hover:border-[#42D1D1]/60"
+          className="flex flex-col rounded-2xl border border-white/10 bg-linear-to-br from-[#0b1f2a]/80 to-[#020915]/80 backdrop-blur-md overflow-hidden lg:w-[33%] transition-colors duration-300 hover:border-[#00A9BD]/50"
         >
           <div className="p-5 sm:p-6 lg:p-7 shrink-0">
             <h3 className="text-xl font-bold text-white leading-tight mb-3 sm:text-2xl lg:mb-4">
@@ -99,7 +99,7 @@ export const WhyBrandingSection = () => {
 
         {/* ===== ستون راست: Better Performing ===== */}
         <div
-          className="flex flex-col rounded-2xl border border-[#13a8b8]/30 bg-[#071c2e]/80 backdrop-blur-md overflow-hidden lg:w-[25%] transition-all duration-200 hover:border-[#42D1D1]/60"
+          className="flex flex-col rounded-2xl border border-white/10 bg-linear-to-br from-[#0b1f2a]/80 to-[#020915]/80 backdrop-blur-md overflow-hidden lg:w-[25%] transition-colors duration-300 hover:border-[#00A9BD]/50"
         >
           <div className="relative flex-1" style={{ minHeight: 240 }}>
             <SmartImage

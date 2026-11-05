@@ -12,11 +12,11 @@ type CardItem = {
 };
 
 const defaultItems: CardItem[] = [
-  { label: "Lottie Animation", section: SECTIONS[0], imageUrl: "/case/rframe.webp" },
-  { label: "UI Animation", section: SECTIONS[1], imageUrl: "/case/lframe.webp" },
-  { label: "Branded motion", section: SECTIONS[2], imageUrl: "/case/b1f.webp" },
-  { label: "UI Animation", section: SECTIONS[3], imageUrl: "/case/b2f.webp" },
-  { label: "Lottie Animation", section: SECTIONS[4], imageUrl: "/case/b3f.webp" },
+  { label: "Lottie Animation", section: SECTIONS[0], imageUrl: "" },
+  { label: "UI Animation", section: SECTIONS[1], imageUrl: "" },
+  { label: "Branded motion", section: SECTIONS[2], imageUrl: "" },
+  { label: "UI Animation", section: SECTIONS[3], imageUrl: "" },
+  { label: "Lottie Animation", section: SECTIONS[4], imageUrl: "" },
 ];
 
 type Props = {
@@ -26,9 +26,14 @@ type Props = {
 export default function VisualProofSection({ slug }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [items, setItems] = useState<CardItem[]>(defaultItems);
+  const [loadingPictures, setLoadingPictures] = useState(true);
 
   useEffect(() => {
-    if (!slug) return;
+    if (!slug) {
+      setLoadingPictures(false);
+      return;
+    }
+    setLoadingPictures(true);
     (async () => {
       try {
         const res: any = await httpService.get(`/project/picture/get?slug=${slug}`);
@@ -42,6 +47,8 @@ export default function VisualProofSection({ slug }: Props) {
         }
       } catch (err: any) {
         console.warn("[VisualProofSection] Failed to fetch backend pictures, using fallback:", err);
+      } finally {
+        setLoadingPictures(false);
       }
     })();
   }, [slug]);
@@ -91,6 +98,26 @@ export default function VisualProofSection({ slug }: Props) {
           opacity: 1;
           transform: translateY(0);
         }
+        .skeleton-shimmer {
+          background: #0a1d24;
+        }
+        /* Shine animates via transform (GPU-composited), not background-position (repaints every frame) */
+        .skeleton-shimmer::after {
+          content: "";
+          position: absolute;
+          inset: 0 -60%;
+          background: linear-gradient(100deg, transparent 40%, #10262e99 50%, transparent 60%);
+          transform: translateX(-50%);
+          animation: skeleton-shimmer 1.6s ease-in-out infinite;
+          will-change: transform;
+        }
+        @keyframes skeleton-shimmer {
+          from { transform: translateX(-50%); }
+          to { transform: translateX(50%); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .skeleton-shimmer::after { animation: none; opacity: 0; }
+        }
       `,
         }}
       />
@@ -114,6 +141,12 @@ export default function VisualProofSection({ slug }: Props) {
             const isWide = index === 0; // کارت اول دو ستون میگیره
             const isTopRow = index < 2; // دو کارت اول ردیف بالا هستن
 
+            // While fetching: show skeletons for all cards.
+            // After fetch: only render cards that actually have a picture.
+            if (!loadingPictures && !item.imageUrl && !item.imageUrl.startsWith("/case/")) {
+              return null;
+            }
+
             return (
               <article
                 key={index}
@@ -124,12 +157,23 @@ export default function VisualProofSection({ slug }: Props) {
                   ${isTopRow ? "min-h-[280px] sm:min-h-[340px] lg:min-h-[420px]" : "min-h-[220px] sm:min-h-[240px] lg:min-h-[280px]"}
                 `}
               >
-                <img
-                  src={fixImageUrl(item.imageUrl)}
-                  alt={item.label}
-                  loading="lazy"
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                />
+                {loadingPictures || !item.imageUrl ? (
+                  <div className="absolute inset-0 skeleton-shimmer" aria-hidden="true">
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="flex items-center gap-2">
+                        <span className="h-1.5 w-1.5 rounded-full bg-white/30 animate-bounce [animation-delay:0ms]" />
+                        <span className="h-1.5 w-1.5 rounded-full bg-white/30 animate-bounce [animation-delay:150ms]" />
+                        <span className="h-1.5 w-1.5 rounded-full bg-white/30 animate-bounce [animation-delay:300ms]" />
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <ImageWithSkeleton
+                    key={item.imageUrl}
+                    src={fixImageUrl(item.imageUrl)}
+                    alt={item.label}
+                  />
+                )}
 
                 <div className="absolute bottom-4 left-4 rounded-full border border-white/20 bg-black/60 px-3.5 py-1.5 text-[11px] font-medium tracking-wide text-white/90 backdrop-blur-md">
                   {item.label}
@@ -140,6 +184,39 @@ export default function VisualProofSection({ slug }: Props) {
         </div>
       </div>
     </section>
+  );
+}
+
+function ImageWithSkeleton({ src, alt }: { src: string; alt: string }) {
+  const [loaded, setLoaded] = useState(false);
+  const [showSkeleton, setShowSkeleton] = useState(true);
+
+  return (
+    <div className="absolute inset-0">
+      {/* Skeleton only renders when needed — cached images skip it entirely */}
+      {showSkeleton && !loaded && (
+        <div className="absolute inset-0 skeleton-shimmer" aria-hidden="true">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-white/30 animate-bounce [animation-delay:0ms]" />
+              <span className="h-1.5 w-1.5 rounded-full bg-white/30 animate-bounce [animation-delay:150ms]" />
+              <span className="h-1.5 w-1.5 rounded-full bg-white/30 animate-bounce [animation-delay:300ms]" />
+            </div>
+          </div>
+        </div>
+      )}
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        // Cached images never fire onLoad after hydration — catch them here
+        ref={(el) => {
+          if (el && el.complete && el.naturalWidth > 0) setLoaded(true);
+        }}
+        onLoad={() => setLoaded(true)}
+        className={`absolute inset-0 h-full w-full object-cover transition-[opacity,transform] duration-700 ease-out group-hover:scale-105 ${loaded ? "opacity-100" : "opacity-0"}`}
+      />
+    </div>
   );
 }
 

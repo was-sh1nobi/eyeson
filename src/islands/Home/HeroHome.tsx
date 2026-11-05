@@ -61,7 +61,7 @@ export default function HeroHome() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   return (
-    <section className="relative w-full overflow-hidden pt-24 pb-16 sm:pt-28 sm:pb-20 lg:pt-36 lg:pb-28 bg-[radial-gradient(ellipse_1000px_600px_at_50%_-10%,rgba(0,169,189,0.12),transparent_70%),radial-gradient(ellipse_700px_350px_at_90%_25%,rgba(46,182,160,0.08),transparent_60%)]">
+    <section className="relative w-full overflow-hidden pt-24  sm:pt-28  lg:pt-36  bg-[radial-gradient(ellipse_1000px_600px_at_50%_-10%,rgba(0,169,189,0.12),transparent_70%),radial-gradient(ellipse_700px_350px_at_90%_25%,rgba(46,182,160,0.08),transparent_60%)]">
       {/* Ambient blobs */}
 
 
@@ -134,7 +134,7 @@ export default function HeroHome() {
 
           <div className="hidden sm:block h-8 w-px bg-white/10" />
 
-          <CountUpStat target={25} suffix="+" label="Countries Served" />
+          <CountUpStat target={45} suffix="+" label="Countries Served" />
         </div>
 
         <div className="h-px w-full max-w-3xl bg-gradient-to-r from-transparent via-[var(--color-border-teal)] to-transparent opacity-60" />

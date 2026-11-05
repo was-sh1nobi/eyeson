@@ -1,76 +1,12 @@
 "use client";
-import type { JSX } from "astro/jsx-runtime";
-import { useState } from "react";
+import { ClipboardList, Boxes, Film, Zap, type LucideIcon } from "lucide-react";
+import {useState} from "react";
 
 type WorkflowItem = {
   id: number;
   title: string;
   description: string;
-  icon: JSX.Element;
-};
-
-// آیکون‌های مشابه با تصویر (به صورت SVG)
-const icons = {
-  concept: (
-    <svg
-      className="w-6 h-6"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={1.5}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"
-      />
-    </svg>
-  ),
-  design: (
-    <svg
-      className="w-6 h-6"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={1.5}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
-      />
-    </svg>
-  ),
-  animation: (
-    <svg
-      className="w-6 h-6"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={1.5}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"
-      />
-    </svg>
-  ),
-  lighting: (
-    <svg
-      className="w-6 h-6"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={1.5}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M13 10V3L4 14h7v7l9-11h-7z"
-      />
-    </svg>
-  ),
+  icon: LucideIcon;
 };
 
 const workflowItems: WorkflowItem[] = [
@@ -81,7 +17,7 @@ const workflowItems: WorkflowItem[] = [
       "We begin by understanding your brand, goals, audience, and message to define the visual\n" +
         "direction, storytelling approach, animation style, and overall creative vision behind the\n" +
         "project.",
-    icon: icons.concept,
+    icon: ClipboardList,
   },
   {
     id: 2,
@@ -89,7 +25,7 @@ const workflowItems: WorkflowItem[] = [
     description:
       "Scenes, assets, environments, motion systems, and visual elements are developed with a\n" +
         "consistent design language to create a more premium and unified final result.",
-    icon: icons.design,
+    icon: Boxes,
   },
   {
     id: 3,
@@ -97,7 +33,7 @@ const workflowItems: WorkflowItem[] = [
     description:
       "Motion, transitions, camera movement, timing, and scene interactions are carefully\n" +
         "animated to create smoother storytelling, stronger pacing, and more engaging visual flow.",
-    icon: icons.animation,
+    icon: Film,
   },
   {
     id: 4,
@@ -106,7 +42,7 @@ const workflowItems: WorkflowItem[] = [
       "Lighting, textures, sound integration, visual polish, color work, and compositing are refined\n" +
         "in the final stage to deliver cinematic-quality animations optimized for websites, ads,\n" +
         "social media, SaaS products, and modern campaigns.",
-    icon: icons.lighting,
+    icon: Zap,
   },
 ];
 
@@ -151,12 +87,13 @@ export default function AnimationWorkflowSection() {
         </div>
 
         {/* === ستون راست: باکس اصلی حاوی لیست آکاردئون === */}
-        <div className="relative w-full rounded-2xl sm:rounded-[32px] bg-gradient-to-br from-[#00aabf]/20 to-[#0A1A1F]/90 backdrop-blur-xl border border-[#244b4b]/50 shadow-[0_0_50px_rgba(27,54,54,0.3)] overflow-hidden">
+        <div className="relative w-full rounded-3xl border border-white/10 bg-linear-to-br from-[#0b1f2a]/80 to-[#020915]/80 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.35)] transition-colors duration-300 overflow-hidden">
           {/* خط دکوری فیروزه‌ای سمت چپ کانتینر */}
           <div className="absolute left-0 top-16 bottom-16 w-[3px] bg-[#00aabf]/80 rounded-r-md hidden sm:block shadow-[0_0_15px_#00aabf]" />
 
           <div className="flex flex-col">
             {workflowItems.map((item, index) => {
+              const Icon = item.icon;
               const isOpen = openId === item.id;
               // خط جداکننده بین آیتم‌ها (بجز آخری)
               const isLast = index === workflowItems.length - 1;
@@ -177,8 +114,8 @@ export default function AnimationWorkflowSection() {
                     <div className="relative shrink-0">
                       {/* افکت نوری دور آیکون */}
                       <div className="absolute inset-0 bg-[#00aabf] blur-md opacity-20 rounded-xl" />
-                      <div className="relative flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-[#122b2e] to-[#0d1f23] border border-[#1e4444] text-[#00aabf] shadow-[inset_0_1px_12px_rgba(77,226,196,0.1)] transition-[transform,border-color,color,box-shadow] duration-300 group-hover:scale-105 group-hover:border-[#00aabf]/60 group-hover:text-[#55d2b9] group-hover:shadow-[inset_0_1px_12px_rgba(77,226,196,0.1),0_0_24px_rgba(0,170,191,0.25)]">
-                        {item.icon}
+                      <div className="relative flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-linear-to-br from-[#000E17] to-[#143C3E] border border-[#1ed7d8]/60 text-[#1ed7d8] shadow-[0_0_10px_#00A9BD80] transition-[transform,border-color,color,box-shadow] duration-300 group-hover:scale-105 group-hover:border-[#1ed7d8] group-hover:shadow-[0_0_20px_rgba(0,169,189,0.5)]">
+                        <Icon className="w-6 h-6" />
                       </div>
                     </div>
 

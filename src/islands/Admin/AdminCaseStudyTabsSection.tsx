@@ -83,10 +83,10 @@ export default function AdminCaseStudyTabsSection({ slug: propSlug }: Props) {
     setDisplayedText("");
     let i = 0;
     const timer = setInterval(() => {
-      i += 2;
+      i += 100;
       setDisplayedText(activeTabItem.text.slice(0, i));
       if (i >= activeTabItem.text.length) clearInterval(timer);
-    }, 18);
+    }, 16);
     return () => clearInterval(timer);
   }, [activeTab, activeTabItem?.text, editField, isAdding]);
 

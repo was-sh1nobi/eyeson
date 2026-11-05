@@ -1,6 +1,13 @@
 "use client";
 
-const steps = [
+import { Lightbulb, PenTool, Rocket, type LucideIcon } from "lucide-react";
+
+const steps: {
+  title: string;
+  description: string;
+  image: string;
+  icon: LucideIcon;
+}[] = [
   {
     title: "Concept & Creative Direction",
     description:
@@ -8,6 +15,7 @@ const steps = [
         "style, animation direction, mood, storytelling approach, and overall creative vision behind\n" +
         "the project.",
     image: "/hero-card/11.webp",
+    icon: Lightbulb,
   },
   {
     title: "Visual Development & Refinement",
@@ -16,6 +24,7 @@ const steps = [
         "early to refine pacing, composition, transitions, and overall creative execution before full\n" +
         "production begins.",
     image: "/hero-card/10.webp",
+    icon: PenTool,
   },
   {
     title: "Animation Production & Delivery",
@@ -24,6 +33,7 @@ const steps = [
         "exports, every stage is optimized to deliver polished visuals built for websites, ads, social\n" +
         "media, SaaS products, and modern digital campaigns.",
     image: "/hero-card/8.webp",
+    icon: Rocket,
   },
 ];
 
@@ -50,18 +60,10 @@ export default function AnimationProcessSection() {
           {steps.map((step) => (
             <article
               key={step.title}
-              className="rounded-3xl border border-cyan-300/25 bg-linear-to-b from-[#00717F66] to-[#0B1F2A] p-3 shadow-[0_0_32px_rgba(34,211,238,0.12)]"
+              className="group rounded-3xl border border-white/10 bg-linear-to-br from-[#0b1f2a]/80 to-[#020915]/80 p-3 shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-md transition-colors duration-300 hover:border-[#00A9BD]/50"
             >
-              <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg border border-cyan-300/40 bg-cyan-200/10 text-cyan-100">
-                <svg
-                  className="h-5 w-5"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path d="M12 3v18M3 12h18" />
-                </svg>
+              <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-[#1ed7d8]/60 bg-linear-to-br from-[#000E17] to-[#143C3E] text-[#1ed7d8] shadow-[0_0_10px_#00A9BD80]">
+                <step.icon className="h-5 w-5" />
               </div>
 
               <h3 className="text-3xl font-bold text-white">{step.title}</h3>

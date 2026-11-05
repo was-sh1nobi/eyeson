@@ -29,30 +29,6 @@ const items = [
   },
 ];
 
-function ArrowButton({ direction }: { direction: "left" | "right" }) {
-  return (
-    <button
-      type="button"
-      aria-label={direction === "left" ? "Previous" : "Next"}
-      className="hidden h-10 w-10 items-center justify-center rounded-full border border-cyan-300/25 bg-cyan-200/10 text-cyan-100 lg:flex"
-    >
-      <svg
-        className="h-4 w-4"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-      >
-        {direction === "left" ? (
-          <path d="M15 18l-6-6 6-6" />
-        ) : (
-          <path d="M9 18l6-6-6-6" />
-        )}
-      </svg>
-    </button>
-  );
-}
-
 export default function IndustriesServeSection({
   smallLabel = "ANIMATION SERVICES",
 }: {
@@ -86,11 +62,6 @@ export default function IndustriesServeSection({
         </div>
 
         <div className="relative mt-10">
-          <div className="pointer-events-none absolute left-0 right-0 top-1/2 -z-0">
-            <div className="h-[2px] w-full bg-linear-to-r from-[#00222600] via-[#00A9BD] to-[#00222600]" />
-            <div className="mx-auto mt-1 h-20 w-4/5 rounded-full bg-[#00A9BD]/20 blur-3xl" />
-          </div>
-
           <div className="relative z-10 md:hidden">
             <Swiper
               modules={[Pagination]}
@@ -101,66 +72,60 @@ export default function IndustriesServeSection({
             >
               {items.map((item) => (
                 <SwiperSlide key={`${item.title}-mobile`} className="!h-auto">
-                  <article className="h-full w-full rounded-3xl border border-cyan-300/25 bg-[#081b2b]/80 p-2 shadow-[0_0_34px_rgba(34,211,238,0.12)]">
-                    <div className="relative h-56 overflow-hidden rounded-2xl">
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="object-cover"
-                        sizes="90vw"
-                      />
-                    </div>
-                    <div className="p-3 pb-4">
-                      <h3 className="text-3xl font-bold text-white">
-                        {item.title}
-                      </h3>
-                      <p className="mt-2 text-sm leading-7 text-white/65">
-                        {item.description}
-                      </p>
-                    </div>
-                  </article>
+                  <SpotlightCard item={item} />
                 </SwiperSlide>
               ))}
             </Swiper>
           </div>
 
-          <div className="relative z-10 hidden items-center gap-4 md:grid lg:grid-cols-[auto_minmax(0,1fr)_auto]">
-            <div className="flex justify-center">
-              <ArrowButton direction="left" />
-            </div>
-
-            <div className="grid gap-5 md:grid-cols-3">
-              {items.map((item) => (
-                <article
-                  key={item.title}
-                  className="h-full rounded-3xl border border-cyan-300/25 bg-[#081b2b]/80 p-2 shadow-[0_0_34px_rgba(34,211,238,0.12)]"
-                >
-                  <div className="relative h-56 overflow-hidden rounded-2xl">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="object-cover"
-                      sizes="(max-width: 1024px) 100vw, 33vw"
-                    />
-                  </div>
-                  <div className="p-3 pb-4">
-                    <h3 className="text-3xl font-bold text-white">
-                      {item.title}
-                    </h3>
-                    <p className="mt-2 text-sm leading-7 text-white/65">
-                      {item.description}
-                    </p>
-                  </div>
-                </article>
-              ))}
-            </div>
-
-            <div className="flex justify-center">
-              <ArrowButton direction="right" />
-            </div>
+          <div className="relative z-10 grid gap-5 md:grid-cols-3">
+            {items.map((item) => (
+              <SpotlightCard key={item.title} item={item} />
+            ))}
           </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function SpotlightCard({
+  item,
+}: {
+  item: { title: string; description: string; image: string };
+}) {
+  return (
+    <article
+      onMouseMove={(e) => {
+        const el = e.currentTarget;
+        const rect = el.getBoundingClientRect();
+        el.style.setProperty("--spot-x", `${e.clientX - rect.left}px`);
+        el.style.setProperty("--spot-y", `${e.clientY - rect.top}px`);
+      }}
+      className="group relative h-full overflow-hidden rounded-3xl border border-cyan-300/25 bg-[#081b2b]/80 p-2 shadow-[0_0_34px_rgba(34,211,238,0.12)] transition-colors duration-300 hover:border-cyan-300/50"
+    >
+      {/* Mouse spotlight */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        style={{
+          background:
+            "radial-gradient(320px circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(34,211,238,0.12), transparent 65%)",
+        }}
+      />
+      <div className="relative h-56 overflow-hidden rounded-2xl">
+        <img
+          src={item.image}
+          alt={item.title}
+          className="object-cover"
+          sizes="(max-width: 1024px) 100vw, 33vw"
+        />
+      </div>
+      <div className="p-3 pb-4">
+        <h3 className="text-3xl font-bold text-white">{item.title}</h3>
+        <p className="mt-2 text-sm leading-7 text-white/65">
+          {item.description}
+        </p>
+      </div>
+    </article>
   );
 }

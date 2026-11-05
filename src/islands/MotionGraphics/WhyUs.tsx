@@ -90,23 +90,23 @@ const useMediaQuery = (query: string): boolean => {
 
 // --- Sub-component ---
 const CardContent: FC<{ card: Card }> = ({ card }) => (
-  <div className="flex h-full flex-col rounded-[2rem] border border-slate-700/50 bg-linear-to-br from-[#0B1F2A] to-[#094350] p-6 sm:p-8 transition-colors duration-300 hover:border-cyan-500/30 group">
+  <div className="flex h-full flex-col rounded-[2rem] border border-slate-700/50 bg-linear-to-br from-[#0B1F2A] to-[#093C49] p-6 sm:p-8 transition-colors duration-300 hover:border-cyan-500/30 group">
     <div className="flex flex-1 flex-col">
       <h3 className="text-2xl font-bold text-white group-hover:text-cyan-400 transition-colors">
         {card.title}
       </h3>
-      <p className="mt-2 text-base font-medium text-[#00A9BD]">
+      <p className="mt-2 text-lg font-medium text-[#00A9BD]">
         {card.subtitle}
       </p>
-      <p className="mt-4 text-sm leading-relaxed text-slate-400">
+      <p className="mt-4 text-md leading-relaxed text-slate-400">
         {card.description}
       </p>
 
-      <div className="mt-auto pt-8">
+      <div className="mt-9">
         <span className="text-[10px] uppercase tracking-wider font-bold text-white">
           Best for:
         </span>
-        <div className="mt-3 flex flex-wrap gap-2">
+        <div className=" flex flex-wrap gap-2">
           {card.tags.map((tag, index) => (
             <span
               key={index}

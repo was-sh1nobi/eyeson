@@ -114,7 +114,7 @@ export default function RetainerServicesSection() {
               const Icon = card.icon;
               return (
                 <SwiperSlide key={card.id} className="flex">
-                  <article className="group flex h-full w-full flex-col rounded-3xl border border-[#13a8b8]/60 bg-[linear-gradient(160deg,#071c2e,#0a2433)] p-6 shadow-[0_10px_30px_rgba(0,0,0,0.45)]">
+                  <article className="group flex h-full w-full flex-col rounded-3xl border border-white/10 bg-linear-to-br from-[#0b1f2a]/80 to-[#020915]/80 p-6 shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-md transition-colors duration-300 hover:border-[#00A9BD]/50">
                     <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-[#1ed7d8]/40 bg-[#1ed7d8]/10 text-[#35e4d8]">
                       <Icon className="h-6 w-6" />
                     </div>
@@ -137,9 +137,9 @@ export default function RetainerServicesSection() {
             return (
               <article
                 key={card.id}
-                className="group rounded-3xl border border-[#13a8b8]/60 bg-[linear-gradient(160deg,#071c2e,#0a2433)] p-6 shadow-[0_10px_30px_rgba(0,0,0,0.45)] transition-[transform,border-color] duration-300 hover:-translate-y-1 hover:border-[#23d8dc]"
+                className="group rounded-3xl border border-white/10 bg-linear-to-br from-[#0b1f2a]/80 to-[#020915]/80 p-6 shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-md transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-[#00A9BD]/50 hover:shadow-[0_0_30px_rgba(0,169,189,0.25)]"
               >
-                <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-[#1ed7d8]/40 bg-[#1ed7d8]/10 text-[#35e4d8] transition-colors duration-300 group-hover:border-[#1ed7d8] group-hover:bg-[#1ed7d8] group-hover:text-black">
+                <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-[#1ed7d8]/40 bg-[#1ed7d8]/10 text-[#35e4d8]">
                   <Icon className="h-6 w-6" />
                 </div>
                 <h3 className="text-xl font-bold text-white">{card.title}</h3>

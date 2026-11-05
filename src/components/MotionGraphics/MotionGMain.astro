@@ -12,6 +12,7 @@ import CostVideo from "@/components/Shared/CostVideo.astro";
 import QandASection from "@/components/Shared/QandASection.astro";
 import FinalCta from "@/islands/Shared/FinalCta";
 import HomeBackground from "@/components/Home/HomeBackground.astro";
+import LogoCaro from "@/components/Shared/LogoCaro.astro";
 import VideoWorkShowcaseSection from "@/islands/Shared/VideoWorkShowcaseSection.tsx";
 import {VideoHeader} from "@/islands/Shared/VideoHeader.tsx";
 import SpecificVideoWorkSection from "@/islands/Shared/SpecificVideoWorkSection";
@@ -60,9 +61,9 @@ into clear, engaging visual stories built for modern digital platforms."
             imageWrapperClassName="rounded-3xl overflow-hidden w-80 md:w-140 !scale-[1.5] right-10 lg:right-0"
             client:idle
     />
-  <SpecificVideoWorkSection client:visible category="Motion Graphics" />
-
+  <LogoCaro />
   <WhatMGAre />
+  <SpecificVideoWorkSection client:visible category="Motion Graphics" />
   <FeaturesSection
     title="Excellence in stress-free"
     highlight="Motion Graphics Production"

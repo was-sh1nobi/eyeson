@@ -73,7 +73,7 @@ export default function RetainerWhatsIncluded() {
         </div>
 
         <div className="grid gap-5 lg:grid-cols-2">
-          <article className="rounded-2xl bg-[#0B1F2A] p-10">
+          <article className="rounded-3xl border border-white/10 bg-linear-to-br from-[#0b1f2a]/80 to-[#020915]/80 p-10 shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-md transition-colors duration-300 hover:border-[#00A9BD]/50">
             <h3 className="text-3xl font-bold bg-linear-to-r from-[#46B6A0] to-[#00A9BD] bg-clip-text text-transparent">
               Full Creative Production
             </h3>
@@ -128,9 +128,9 @@ export default function RetainerWhatsIncluded() {
               return (
                 <article
                   key={item.id}
-                  className="w-full min-w-full snap-center rounded-2xl bg-linear-to-br from-[#0B1F2A] to-[#093C49] p-5 lg:min-w-0"
+                  className="flex h-full w-full min-w-full snap-center flex-col items-center justify-center rounded-3xl border border-white/10 bg-linear-to-br from-[#0b1f2a]/80 to-[#020915]/80 p-5 text-center shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-md transition-colors duration-300 hover:border-[#00A9BD]/50 lg:min-w-0"
                 >
-                  <div className="mb-4 inline-flex h-11 w-11 items-center bg-linear-to-br from-[#000E17] shadow-[0_0_10px_#00A9BD80] to-[#143C3E] justify-center rounded-xl border border-[#1ed7d8]/60 text-[#1ed7d8]">
+                  <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl border border-[#1ed7d8]/60 bg-linear-to-br from-[#000E17] to-[#143C3E] text-[#1ed7d8] shadow-[0_0_10px_#00A9BD80]">
                     <Icon className="h-6 w-6" />
                   </div>
                   <h3 className="text-2xl font-bold text-white">

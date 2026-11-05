@@ -78,12 +78,12 @@ const packs: Pack[] = [
   },
 ];
 
-// Design copied from /pricing MoneyCards (PlanCard) — same visual
-// language, fed with the Retainer packages' own content.
-const nameSpans: Record<number, { pre?: string; accent: string; post?: string }> = {
-  1: { accent: "Essential" },
-  2: { accent: "Growth" },
-  3: { pre: "Creative ", accent: "Partner" },
+// Design copied 1:1 from /pricing MoneyCards (PlanCard), fed with the
+// Retainer packages' own content.
+const badges: Record<number, string> = {
+  1: "ESSENTIAL",
+  2: "GROWTH",
+  3: "CREATIVE PARTNER",
 };
 
 export default function RetainerPackagesSection() {
@@ -175,21 +175,24 @@ export default function RetainerPackagesSection() {
 }
 
 function PlanCard({ pack, mobile = false }: { pack: Pack; mobile?: boolean }) {
-  const span = nameSpans[pack.id] ?? {};
+  const badge = badges[pack.id] ?? pack.name.toUpperCase();
 
   return (
     <article
-      className={`relative flex h-full flex-col rounded-[28px] sm:rounded-[32px] p-6 sm:p-7 backdrop-blur-md transition-all duration-300 w-full ${
+      className={`relative flex flex-col justify-between rounded-[28px] sm:rounded-[32px] p-6 sm:p-7 backdrop-blur-md transition-all duration-300 w-full ${
         pack.featured
-          ? `border-2 border-[#00E5FF] bg-gradient-to-b from-[#09222a] via-[#05171e] to-[#030d10] shadow-[0_0_50px_rgba(0,229,255,0.25)] ${mobile ? "" : "lg:-translate-y-2 z-10"}`
+          ? "border-2 border-[#00E5FF] bg-gradient-to-b from-[#09222a] via-[#05171e] to-[#030d10] shadow-[0_0_50px_rgba(0,229,255,0.25)] md:-translate-y-2 z-10"
           : "border border-[#00E5FF]/25 bg-gradient-to-b from-[#071d24]/90 via-[#041217]/90 to-[#020b0e]/95 shadow-[0_15px_35px_rgba(0,0,0,0.5)] hover:border-[#00E5FF]/50 hover:shadow-[0_0_35px_rgba(0,229,255,0.18)]"
-      } ${mobile ? "max-w-[420px] mx-auto" : ""}`}
+      } ${mobile ? "w-[94%] max-w-[390px] mx-auto" : ""}`}
     >
       <div>
         {/* Top Header */}
         <div className="flex items-start justify-between gap-4 mb-6">
           <div className="min-w-0">
-            <div className="flex items-center gap-2 flex-wrap min-h-[26px]">
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="inline-flex items-center rounded-full border border-[#00E5FF]/35 bg-[#00E5FF]/10 px-3.5 py-1 text-[11px] font-bold tracking-widest uppercase text-[#00E5FF]">
+                {badge}
+              </span>
               {pack.featured && pack.highlight ? (
                 <span className="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-[#00E5FF] to-[#00B4D8] px-3 py-1 text-[10px] font-black tracking-wider uppercase text-[#03151c] shadow-[0_0_15px_rgba(0,229,255,0.4)]">
                   <span>★</span>
@@ -197,29 +200,28 @@ function PlanCard({ pack, mobile = false }: { pack: Pack; mobile?: boolean }) {
                 </span>
               ) : null}
             </div>
-            <h3 className="text-2xl sm:text-[28px] font-extrabold text-white tracking-tight mt-3 leading-tight">
-              {span.pre}
-              {span.accent && <span className="text-[#00E5FF]">{span.accent}</span>}
-              {span.post}
+            <h3 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-3">
+              {pack.name}
             </h3>
-            <p className="text-xs sm:text-sm text-[#8fa0a8] mt-1.5 leading-relaxed">
+            <p className="text-xs sm:text-sm text-[#8fa0a8] mt-1.5 leading-relaxed max-w-[220px]">
               {pack.subtitle}
             </p>
           </div>
 
           {/* Price Box */}
-          <div className="rounded-2xl border border-[#00E5FF]/20 bg-[#05181f]/90 px-4 py-3 sm:px-5 sm:py-3.5 text-center min-w-[115px] shrink-0 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
-            <div className="text-[10px] sm:text-[11px] font-semibold text-[#7c959f] tracking-wide mb-1">
+          <div className="rounded-2xl border border-[#00E5FF]/20 bg-[#05181f]/90 px-4 py-3 sm:px-5 sm:py-3.5 text-center min-w-[115px] sm:min-w-[135px] shrink-0 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
+            <div className="text-lg sm:text-xl font-black text-[#00E5FF] tracking-tight leading-none">
               {pack.price}
             </div>
-            <div className="text-lg sm:text-2xl font-black text-[#00E5FF] tracking-tight leading-none">
+            <div className="text-xs text-[#7c959f] font-medium mt-1">
               / month
             </div>
           </div>
         </div>
 
-        {/* Best For row (MoneyCards "platforms" row style) */}
-        <div className="space-y-3.5 mb-6">
+        {/* Feature Rows */}
+        <div className="space-y-3.5 my-6">
+          {/* Row 1: Best For */}
           <div className="flex items-center gap-3">
             <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl border border-[#00E5FF]/30 bg-[#07242c]/80 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(0,229,255,0.1)] text-[#00E5FF]">
               <svg
@@ -240,22 +242,22 @@ function PlanCard({ pack, mobile = false }: { pack: Pack; mobile?: boolean }) {
               <div className="text-sm sm:text-base font-bold text-white leading-tight">
                 Best For
               </div>
-              <div className="text-xs text-[#7c959f] mt-0.5 leading-relaxed">
+              <div className="text-xs text-[#7c959f] mt-0.5 truncate">
                 {pack.bestFor}
               </div>
             </div>
           </div>
 
-          {/* Capacity (volumePricing) */}
-          <div className="rounded-2xl border border-[#00E5FF]/20 bg-[#061e27]/60 p-4">
-            <div className="flex items-center gap-2.5 mb-2">
-              <div className="w-6 h-6 rounded-md bg-[#00E5FF]/15 border border-[#00E5FF]/30 flex items-center justify-center text-[#00E5FF]">
+          {/* Row 2: Capacity */}
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl border border-[#00E5FF]/30 bg-[#07242c]/80 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(0,229,255,0.1)] text-[#00E5FF]">
                 <svg
-                  className="w-3.5 h-3.5"
+                  className="w-5 h-5"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth="2"
+                  strokeWidth="1.8"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 >
@@ -263,71 +265,69 @@ function PlanCard({ pack, mobile = false }: { pack: Pack; mobile?: boolean }) {
                   <polyline points="15 7 21 7 21 13" />
                 </svg>
               </div>
-              <span className="text-xs sm:text-sm font-bold text-white tracking-wide">
-                Capacity
-              </span>
-            </div>
-            {Array.isArray(pack.volumePricing) ? (
-              <div className="space-y-1.5">
-                {pack.volumePricing.map((vp) => (
-                  <div
-                    key={vp.threshold}
-                    className="flex items-center justify-between gap-3 text-xs"
-                  >
-                    <span className="text-[#8fa0a8]">{vp.threshold}</span>
-                    <span className="text-base font-black text-[#00E5FF] leading-none">
-                      {vp.discount}
-                    </span>
-                  </div>
-                ))}
+              <div className="min-w-0">
+                <div className="text-sm sm:text-base font-bold text-white leading-tight">
+                  Capacity
+                </div>
+                <div className="text-xs text-[#7c959f] mt-0.5 truncate">
+                  Monthly production
+                </div>
               </div>
-            ) : (
-              <p className="text-xs text-[#8fa0a8]">{pack.volumePricing}</p>
-            )}
+            </div>
+            <div className="text-right shrink-0 max-w-[130px]">
+              <div className="text-xs text-[#7c959f] leading-relaxed">
+                {Array.isArray(pack.volumePricing)
+                  ? pack.volumePricing
+                      .map((vp) => `${vp.threshold}: ${vp.discount}`)
+                      .join(" · ")
+                  : pack.volumePricing}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Included Box */}
+        <div className="rounded-2xl border border-[#00E5FF]/20 bg-[#061e27]/60 p-4 mb-6">
+          <div className="flex items-center gap-2.5 mb-3">
+            <div className="w-6 h-6 rounded-md bg-[#00E5FF]/15 border border-[#00E5FF]/30 flex items-center justify-center text-[#00E5FF]">
+              <svg
+                className="w-3.5 h-3.5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <line x1="16" y1="13" x2="8" y2="13" />
+                <line x1="16" y1="17" x2="8" y2="17" />
+              </svg>
+            </div>
+            <span className="text-xs sm:text-sm font-bold text-white tracking-wide">
+              Included
+            </span>
           </div>
 
-          {/* Included Box */}
-          <div className="rounded-2xl border border-[#00E5FF]/20 bg-[#061e27]/60 p-4">
-            <div className="flex items-center gap-2.5 mb-3">
-              <div className="w-6 h-6 rounded-md bg-[#00E5FF]/15 border border-[#00E5FF]/30 flex items-center justify-center text-[#00E5FF]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-2">
+            {pack.includes.map((item, idx) => (
+              <div key={idx} className="flex items-center gap-2">
                 <svg
-                  className="w-3.5 h-3.5"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+                  className="w-3.5 h-3.5 text-[#00E5FF] shrink-0"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
                 >
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                  <polyline points="14 2 14 8 20 8" />
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clipRule="evenodd"
+                  />
                 </svg>
+                <span className="text-xs text-[#c0d4dc] font-medium leading-tight">
+                  {item}
+                </span>
               </div>
-              <span className="text-xs sm:text-sm font-bold text-white tracking-wide">
-                Included
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 gap-x-3 gap-y-2">
-              {pack.includes.map((item, idx) => (
-                <div key={idx} className="flex items-center gap-2">
-                  <svg
-                    className="w-3.5 h-3.5 text-[#00E5FF] shrink-0"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  <span className="text-xs text-[#c0d4dc] font-medium leading-tight">
-                    {item}
-                  </span>
-                </div>
-              ))}
-            </div>
+            ))}
           </div>
         </div>
       </div>
@@ -335,7 +335,11 @@ function PlanCard({ pack, mobile = false }: { pack: Pack; mobile?: boolean }) {
       {/* Button */}
       <a
         href="/contact"
-        className="w-full py-3.5 sm:py-4 px-6 rounded-full font-bold text-sm sm:text-base flex items-center justify-center gap-2 transition-all duration-300 mt-auto bg-gradient-to-r from-[#00E5FF] via-[#00DFD8] to-[#00B4D8] text-[#03151c] shadow-[0_0_25px_rgba(0,229,255,0.35)] hover:shadow-[0_0_45px_rgba(0,229,255,0.7)] hover:scale-[1.02] active:scale-[0.99] cursor-pointer"
+        className={`w-full py-3.5 sm:py-4 px-6 rounded-full font-bold text-sm sm:text-base flex items-center justify-center gap-2 transition-all duration-300 mt-auto ${
+          pack.featured
+            ? "bg-gradient-to-r from-[#00E5FF] via-[#00DFD8] to-[#00B4D8] text-[#03151c] shadow-[0_0_30px_rgba(0,229,255,0.45)] hover:shadow-[0_0_45px_rgba(0,229,255,0.7)] hover:scale-[1.02] active:scale-[0.99]"
+            : "bg-gradient-to-r from-[#00E5FF] via-[#00DFD8] to-[#00B4D8] text-[#03151c] shadow-[0_0_25px_rgba(0,229,255,0.35)] hover:shadow-[0_0_40px_rgba(0,229,255,0.6)] hover:scale-[1.02] active:scale-[0.99]"
+        }`}
       >
         <span>{pack.cta}</span>
         <svg
